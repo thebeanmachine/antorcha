@@ -5,7 +5,8 @@ describe "/messages/show.html.erb" do
   before(:each) do
     assigns[:message] = @message = stub_model(Message,
       :title => "value for title",
-      :body => "value for body"
+      :body => "value for body",
+      :include => true
     )
   end
 

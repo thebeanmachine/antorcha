@@ -4,7 +4,8 @@ describe Message do
   before(:each) do
     @valid_attributes = {
       :title => "value for title",
-      :body => "value for body"
+      :body => "value for body",
+      :incoming => false      
     }
   end
 
