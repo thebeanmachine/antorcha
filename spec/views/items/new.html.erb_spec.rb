@@ -9,13 +9,13 @@ describe "/items/new.html.erb" do
       :description => "value for description",
       :inbox_id => "1"
     )
+    assigns[:inbox] = @inbox = stub_model(Inbox, :title => "blaba")
   end
 
   it "renders new item form" do
     render
 
-    response.should have_tag("form[action=?][method=post]", items_path) do
-      with_tag("input#item_title[name=?]", "item[title]")
+    response.should have_tag("form[action=?][method=post]", inbox_items_path(@inbox)) do
       with_tag("textarea#item_description[name=?]", "item[description]")
     end
   end

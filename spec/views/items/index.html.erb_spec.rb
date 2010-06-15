@@ -12,11 +12,12 @@ describe "/items/index.html.erb" do
       stub_model(Item,
         :description => "value for description",
         :inbox_id => "1"
-      )
+      )       
     ]
+    assigns[:inbox] = stub_model(Inbox, :title => "blaba")
   end
 
-  it "renders a list of items" do
+  it "renders a list of items" do    
     render
     response.should have_tag("tr>td", "value for description".to_s, 2)
   end

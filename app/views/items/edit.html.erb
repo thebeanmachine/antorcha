@@ -1,12 +1,7 @@
 <h1>Editing item</h1>
 
-<% form_for(@item) do |f| %>
+<% form_for [@inbox, @item] do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
   <p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
@@ -16,5 +11,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @item %> |
-<%= link_to 'Back', items_path %>
+<%= link_to 'Show', inbox_item_path(@inbox,@item) %> |
+<%= link_to 'Back', inbox_items_path(@inbox) %>

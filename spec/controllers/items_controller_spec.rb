@@ -5,16 +5,28 @@ describe ItemsController do
   def mock_item(stubs={})
     @mock_item ||= mock_model(Item, stubs)
   end
+  
+  def mock_inbox(stubs={})
+    @mock_index ||= mock_model(Inbox, stubs)
+  end
 
   describe "GET index" do
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     it "assigns all items as @items" do
-      Item.stub(:find).with(:all).and_return([mock_item])
-      get :index
+      mock_inbox.stub(:items).and_return([mock_item])
+      get :index, :inbox_id => "1"
       assigns[:items].should == [mock_item]
     end
   end
 
   describe "GET show" do
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     it "assigns the requested item as @item" do
       Item.stub(:find).with("37").and_return(mock_item)
       get :show, :id => "37"
@@ -23,6 +35,10 @@ describe ItemsController do
   end
 
   describe "GET new" do
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     it "assigns a new item as @item" do
       Item.stub(:new).and_return(mock_item)
       get :new
@@ -31,6 +47,10 @@ describe ItemsController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     it "assigns the requested item as @item" do
       Item.stub(:find).with("37").and_return(mock_item)
       get :edit, :id => "37"
@@ -39,30 +59,33 @@ describe ItemsController do
   end
 
   describe "POST create" do
-
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     describe "with valid params" do
       it "assigns a newly created item as @item" do
-        Item.stub(:new).with({'these' => 'params'}).and_return(mock_item(:save => true))
+        mock_inbox.stub_chain(:items, :build).with({'these' => 'params'}).and_return(mock_item(:save => true))
         post :create, :item => {:these => 'params'}
         assigns[:item].should equal(mock_item)
       end
 
       it "redirects to the created item" do
-        Item.stub(:new).and_return(mock_item(:save => true))
+        mock_inbox.stub_chain(:items, :build).and_return(mock_item(:save => true))
         post :create, :item => {}
-        response.should redirect_to(item_url(mock_item))
+        response.should redirect_to(inbox_item_url(mock_inbox, mock_item))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved item as @item" do
-        Item.stub(:new).with({'these' => 'params'}).and_return(mock_item(:save => false))
+        mock_inbox.stub_chain(:items, :build).with({'these' => 'params'}).and_return(mock_item(:save => false))
         post :create, :item => {:these => 'params'}
         assigns[:item].should equal(mock_item)
       end
 
       it "re-renders the 'new' template" do
-        Item.stub(:new).and_return(mock_item(:save => false))
+        mock_inbox.stub_chain(:items, :build).and_return(mock_item(:save => false))
         post :create, :item => {}
         response.should render_template('new')
       end
@@ -71,7 +94,10 @@ describe ItemsController do
   end
 
   describe "PUT update" do
-
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     describe "with valid params" do
       it "updates the requested item" do
         Item.should_receive(:find).with("37").and_return(mock_item)
@@ -88,7 +114,7 @@ describe ItemsController do
       it "redirects to the item" do
         Item.stub(:find).and_return(mock_item(:update_attributes => true))
         put :update, :id => "1"
-        response.should redirect_to(item_url(mock_item))
+        response.should redirect_to(inbox_item_url(mock_inbox, mock_item))
       end
     end
 
@@ -115,6 +141,10 @@ describe ItemsController do
   end
 
   describe "DELETE destroy" do
+    before(:each) do
+      Inbox.stub(:find).and_return(mock_inbox)
+    end
+    
     it "destroys the requested item" do
       Item.should_receive(:find).with("37").and_return(mock_item)
       mock_item.should_receive(:destroy)
@@ -124,7 +154,7 @@ describe ItemsController do
     it "redirects to the items list" do
       Item.stub(:find).and_return(mock_item(:destroy => true))
       delete :destroy, :id => "1"
-      response.should redirect_to(items_url)
+      response.should redirect_to(inbox_items_url(mock_inbox))
     end
   end
 

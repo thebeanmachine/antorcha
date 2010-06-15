@@ -40,5 +40,6 @@ class InboxesController < ApplicationController
   def destroy
     @inbox = Inbox.find(params[:id])
     @inbox.destroy
+    redirect_to inboxes_path
   end
 end

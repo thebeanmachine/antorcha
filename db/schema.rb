@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(:version => 20100615115226) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "inbox_id"
+
+  create_table "messages", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "incoming",   :default => false
+    t.integer  "step_id",                       :null => false
   end
 
   create_table "steps", :force => true do |t|

@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
+    redirect_to inbox_items_path(@inbox)
   end
   
 private

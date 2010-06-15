@@ -7,6 +7,7 @@ describe "/inboxes/show.html.erb" do
       :title => "value for title",
       :description => "value for description"
     )
+    assigns[:items] = @items = [stub_model(Item, :description => "desc")]
   end
 
   it "renders attributes in <p>" do

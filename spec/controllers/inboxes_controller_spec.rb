@@ -5,6 +5,10 @@ describe InboxesController do
   def mock_inbox(stubs={})
     @mock_inbox ||= mock_model(Inbox, stubs)
   end
+  
+  def mock_item(stubs={})
+    @item ||= mock_model(Item, stubs)
+  end
 
   describe "GET index" do
     it "assigns all inboxes as @inboxes" do
@@ -17,6 +21,7 @@ describe InboxesController do
   describe "GET show" do
     it "assigns the requested inbox as @inbox" do
       Inbox.stub(:find).with("37").and_return(mock_inbox)
+      mock_inbox.stub(:items).and_return([mock_item])
       get :show, :id => "37"
       assigns[:inbox].should equal(mock_inbox)
     end
