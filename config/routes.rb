@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  
+
+  map.resources :inboxes do |inbox|
+    inbox.resources :items    
+  end
+
   map.resources :steps
 
   # The priority is based upon order of creation: first created -> highest priority.
