@@ -1,0 +1,11 @@
+class AddInboxIdToItem < ActiveRecord::Migration
+  def self.up
+    add_column :items, :inbox_id, :string
+    add_column :aanmeldingen, :nieuws_update, :boolean
+  end
+
+  def self.down
+    remove_column :aanmeldingen, :nieuws_update
+    remove_column :aanmeldingen, :werkzaam_als_vrijwilliger
+  end
+end
