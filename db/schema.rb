@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100615091824) do
+ActiveRecord::Schema.define(:version => 20100615124044) do
 
   create_table "messages", :force => true do |t|
     t.string   "title"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20100615091824) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "incoming",   :default => false
+    t.integer  "step_id",                       :null => false
   end
 
   create_table "steps", :force => true do |t|
