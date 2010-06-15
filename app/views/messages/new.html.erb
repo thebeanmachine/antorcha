@@ -12,6 +12,10 @@
     <%= f.text_area :body %>
   </p>
   <p>
+    <%= f.label :incoming? %><br />
+		<%= f.check_box :incoming? %>
+  </p>
+  <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
