@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Item do
   before(:each) do
     @valid_attributes = {
-      :title => ,
-      :description => "value for description"
+      :description => "value for description",
+      :inbox_id => "1"
     }
   end
 

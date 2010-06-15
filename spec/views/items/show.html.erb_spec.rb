@@ -4,8 +4,8 @@ describe "/items/show.html.erb" do
   include ItemsHelper
   before(:each) do
     assigns[:item] = @item = stub_model(Item,
-      :title => ,
-      :description => "value for description"
+      :description => "value for description",
+      :inbox_id => "1"
     )
   end
 

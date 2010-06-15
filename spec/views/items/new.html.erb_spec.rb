@@ -6,8 +6,8 @@ describe "/items/new.html.erb" do
   before(:each) do
     assigns[:item] = stub_model(Item,
       :new_record? => true,
-      :title => ,
-      :description => "value for description"
+      :description => "value for description",
+      :inbox_id => "1"
     )
   end
 

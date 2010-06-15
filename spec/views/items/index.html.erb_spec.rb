@@ -6,19 +6,18 @@ describe "/items/index.html.erb" do
   before(:each) do
     assigns[:items] = [
       stub_model(Item,
-        :title => ,
-        :description => "value for description"
+        :description => "value for description",
+        :inbox_id => "1"
       ),
       stub_model(Item,
-        :title => ,
-        :description => "value for description"
+        :description => "value for description",
+        :inbox_id => "1"
       )
     ]
   end
 
   it "renders a list of items" do
     render
-    response.should have_tag("tr>td", .to_s, 2)
     response.should have_tag("tr>td", "value for description".to_s, 2)
   end
 end
