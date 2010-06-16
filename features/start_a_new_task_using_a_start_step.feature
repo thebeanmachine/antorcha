@@ -13,8 +13,13 @@ Feature: Start a new Task using a start step
     Given I have a starting step "Hello world"
     When I am on the messages page
     And I follow "Start Hello world"
-    Then I should see "Maak een nieuw bericht"
+    Then I should see "Start een nieuwe 'Hello world'"
 
-  
+  Scenario: I can create a message of a starting step
+    Given I have a starting step "Hello world"
+    And I am on the new step message page of "Hello world"
 
-  
+    When I fill in "Title" with "Hallo wereld"
+    And I press "Create message"
+    Then I should see "Bericht was succesvol aangemaakt"
+    And I should see "Hello world"

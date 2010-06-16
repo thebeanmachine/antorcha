@@ -5,7 +5,11 @@ module AntorchaHelper
   %w[step message].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model}
-        @mock_step ||= mock_model(#{model.classify})
+        @mock_#{model} ||= mock_model(#{model.classify})
+      end
+      
+      def mock_#{model.pluralize}
+        @mock_#{model.pluralize} ||= [mock_#{model}, mock_#{model}]
       end
     RUBY
   end
@@ -20,12 +24,26 @@ module AntorchaHelper
     s.and_return(mocked_model)
   end
 
+  def stub_new_on(finder, mocked_model, params = nil)
+    s = finder.stub(:new)
+    s = s.with(params) if params
+    s.and_return(mocked_model)
+  end
+
   def stub_all(mocked_model)
     mocked_model.class.stub(:all => [mocked_model])
   end
 
   def stub_find(mocked_model)
     mocked_model.class.stub(:find).with(mocked_model.to_param).and_return(mocked_model)
+  end
+
+  def stub_successful_save_for(mocked_model)
+    mocked_model.stub(:save => true)
+  end
+
+  def stub_unsuccessful_save_for(mocked_model)
+    mocked_model.stub(:save => false)
   end
 
   def debug(x)
