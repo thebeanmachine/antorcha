@@ -12,6 +12,7 @@
   <%=h @message.incoming? %>
 </p>
 
+<%= link_to 'Verstuur', message_delivery_path(@message), :method => :post %>
 
 <%= link_to 'Edit', edit_message_path(@message) %> |
 <%= link_to 'Back', messages_path %>

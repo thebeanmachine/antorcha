@@ -21,4 +21,9 @@ describe "/messages/show.html.erb" do
     response.should have_tag('p', /hallo wereld/)
     response.should have_text(/value\ for\ body/)
   end
+  
+  it "renders link to delivery" do
+    render
+    response.should have_tag('a[href=?]', message_delivery_path(mock_message), 'Verstuur')
+  end
 end

@@ -46,6 +46,14 @@ module AntorchaHelper
     mocked_model.stub(:save => false)
   end
 
+  def stub_new_delivery_job
+    MessageDeliveryJob.stub(:new => mock_delivery_job)
+  end
+  
+  def mock_delivery_job
+    @mock_delivery_job ||= mock(MessageDeliveryJob)
+  end
+
   def debug(x)
     puts "<div class=\"debug\" style=\"background: #ddd; padding: 1em;\"><pre>"
     puts ERB::Util.html_escape(x)

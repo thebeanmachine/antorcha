@@ -14,15 +14,18 @@ class MessagesController < ApplicationController
 
   def edit
     @message = Message.find(params[:id])
-    render :text => "being delivered"
   end
 
   def create
     @message = Message.new(params[:message])
-    if @message.save
-      redirect_to(@message, :notice => 'Message was successfully created.')
-    else
-      render :action => "new"
+    respond_to do |format|
+      if @message.save
+        format.html { redirect_to(@message, :notice => 'Message was successfully created.') }
+        format.json { render :json => @message, :status => :created, :location => message_url(@message) }
+      else
+        format.html { render :action => "new" }
+        format.json { render :nothing, :status => 442 }
+      end
     end
   end
 
@@ -40,12 +43,5 @@ class MessagesController < ApplicationController
     @message.destroy
     redirect_to(messages_url)
   end
-  
-  def deliver
-    
-  end
-  
-  def receive
-    
-  end
+
 end
