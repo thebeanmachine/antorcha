@@ -14,6 +14,7 @@ describe "/messages/index.html.erb" do
         :body => "value for body"
       )
     ]
+    assigns[:steps_to_start_with] = []
   end
 
   it "renders a list of messages" do

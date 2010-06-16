@@ -1,0 +1,11 @@
+
+.page {
+  margin: auto;
+  width: 76%;
+  background-color: #fff; color: #222; 
+  border: 1px solid #ddd;
+  padding: 2em;
+  -webkit-box-shadow: #999 3px 3px 4px;
+}
+
+body { background: #ddd; }

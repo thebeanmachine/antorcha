@@ -1,4 +1,12 @@
-<h1>Listing messages</h1>
+<h1>Inbox</h1>
+
+<h2>Start een nieuwe transactie</h2>
+
+<% @steps_to_start_with.each do |step| %>
+  <%= link_to "Start #{step.title}", new_step_message_url(step)%>
+<% end %>
+  
+<h2>Messages</h2>
 
 <table>
   <tr>

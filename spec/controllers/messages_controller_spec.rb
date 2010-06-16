@@ -5,12 +5,27 @@ describe MessagesController do
   def mock_message(stubs={})
     @mock_message ||= mock_model(Message, stubs)
   end
+  
+  def mock_step
+    @mock_step ||= mock_model(Step)
+  end
 
   describe "GET index" do
+    def stub_index
+      stub_all(mock_message)
+      Step.stub(:to_start_with => [mock_step])
+    end
+    
     it "assigns all messages as @messages" do
-      Message.stub(:find).with(:all).and_return([mock_message])
+      stub_index
       get :index
       assigns[:messages].should == [mock_message]
+    end
+    
+    it "assigns steps to start with" do
+      stub_index
+      get :index
+      assigns[:steps_to_start_with].should == [mock_step]
     end
   end
 
