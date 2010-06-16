@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     inbox.resources :items    
   end
 
-  map.resources :messages
+  map.resources :messages, :member => {:receive => :get }
 
   map.resources :steps
 
