@@ -8,23 +8,18 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
   end
 
-  def new
-    @message = Message.new
-  end
-
   def edit
     @message = Message.find(params[:id])
   end
 
   def create
-    @message = Message.new(params[:message])
+    @message = Message.new
+    @message = @message.from_hash(params[:message])
     respond_to do |format|
       if @message.save
-        format.html { redirect_to(@message, :notice => 'Message was successfully created.') }
-        format.json { render :json => @message, :status => :created, :location => message_url(@message) }
+        format.xml { render :xml => @message, :status => :created, :location => message_url(@message) }
       else
-        format.html { render :action => "new" }
-        format.json { render :nothing, :status => 442 }
+        format.xml { render :nothing, :status => 422 }
       end
     end
   end

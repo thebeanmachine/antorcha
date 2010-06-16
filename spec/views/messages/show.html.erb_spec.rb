@@ -10,7 +10,8 @@ describe "/messages/show.html.erb" do
       :body => "value for body",
       :include => true,
       :incoming? => true,
-      :step => mock_step
+      :step => mock_step,
+      :delivered? => false
     )
     mock_step.stub( :title => 'hallo wereld' )
   end
@@ -24,6 +25,6 @@ describe "/messages/show.html.erb" do
   
   it "renders link to delivery" do
     render
-    response.should have_tag('a[href=?]', message_delivery_path(mock_message), 'Verstuur')
+    response.should have_tag('form[action=?] input[type=submit][value=?]', message_delivery_path(mock_message), 'Verstuur') 
   end
 end

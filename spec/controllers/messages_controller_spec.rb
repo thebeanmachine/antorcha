@@ -37,14 +37,6 @@ describe MessagesController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new message as @message" do
-      Message.stub(:new).and_return(mock_message)
-      get :new
-      assigns[:message].should equal(mock_message)
-    end
-  end
-
   describe "GET edit" do
     it "assigns the requested message as @message" do
       Message.stub(:find).with("37").and_return(mock_message)
@@ -54,39 +46,63 @@ describe MessagesController do
   end
 
   describe "POST create" do
+    
+    def stub_create_and_from_hash
+      stub_new(mock_message)
+      mock_message.stub(:from_hash).and_return(mock_message)
+    end
+    
+    def post_create
+      post :create, :message => {'these' => 'params'}
+    end
 
     describe "with valid params" do
+      def stub_with_valid_params
+        stub_create_and_from_hash
+        stub_successful_save_for(mock_message)
+      end
+            
+      it "uses from_hash to create the message" do
+        stub_with_valid_params
+        mock_message.should_receive(:from_hash).with({'these' => 'params'})
+        post_create
+      end
+            
       it "assigns a newly created message as @message" do
-        Message.stub(:new).with({'these' => 'params'}).and_return(mock_message(:save => true))
-        post :create, :message => {:these => 'params'}
+        stub_with_valid_params
+        post_create
         assigns[:message].should equal(mock_message)
       end
 
-      it "redirects to the created message" do
-        Message.stub(:new).and_return(mock_message(:save => true))
-        post :create, :message => {}
-        response.should redirect_to(message_url(mock_message))
+      it "response status should be http 'Created'" do
+        stub_with_valid_params
+        post_create
+        response.status.should == '201 Created'
       end
     end
 
     describe "with invalid params" do
+      def stub_with_invalid_params
+        stub_create_and_from_hash
+        stub_unsuccessful_save_for(mock_message)
+      end
+      
       it "assigns a newly created but unsaved message as @message" do
-        Message.stub(:new).with({'these' => 'params'}).and_return(mock_message(:save => false))
-        post :create, :message => {:these => 'params'}
+        stub_with_invalid_params
+        post_create
         assigns[:message].should equal(mock_message)
       end
 
       it "re-renders the 'new' template" do
-        Message.stub(:new).and_return(mock_message(:save => false))
-        post :create, :message => {}
-        response.should render_template('new')
+        stub_with_invalid_params
+        post_create
+        response.status.should == '422 Unprocessable Entity'
       end
     end
-
   end
 
-  describe "PUT update" do
 
+  describe "PUT update" do
     describe "with valid params" do
       it "updates the requested message" do
         Message.should_receive(:find).with("37").and_return(mock_message)

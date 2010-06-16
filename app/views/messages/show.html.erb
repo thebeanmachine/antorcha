@@ -1,6 +1,7 @@
 <h1><%=h @message.title %></h1>
 
 <p>Transactiestap <%= @message.step.title %></p>
+<p>Verstuurd op <%= @message.delivered? ? l(@message.delivered_at) : 'Niet verstuurd' %>
 
 <p>
   <b>Body:</b>
@@ -12,7 +13,8 @@
   <%=h @message.incoming? %>
 </p>
 
-<%= link_to 'Verstuur', message_delivery_path(@message), :method => :post %>
-
+<% unless @message.delivered? %>
+  <%= button_to 'Verstuur', message_delivery_path(@message), :method => :post %> |
+<% end %>
 <%= link_to 'Edit', edit_message_path(@message) %> |
 <%= link_to 'Back', messages_path %>
