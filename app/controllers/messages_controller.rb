@@ -12,19 +12,17 @@ class MessagesController < ApplicationController
   end
 
   def edit
-    #@message = Message.find(params[:id])
-    Delayed::Job.enqueue MessageJob.new(params[:id])
+    @message = Message.find(params[:id])
     render :text => "being delivered"
   end
 
   def create
-    puts "############" + params[:message]
-    # @message = Message.new(params[:message])
-    # if @message.save
-      # redirect_to(@message, :notice => 'Message was successfully created.')
-    # else
-      # render :action => "new"
-    # end
+    @message = Message.new(params[:message])
+    if @message.save
+      redirect_to(@message, :notice => 'Message was successfully created.')
+    else
+      render :action => "new"
+    end
   end
 
   def update
