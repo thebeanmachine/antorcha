@@ -1,6 +1,6 @@
-<h1>Editing step</h1>
+<h1><strong><%=h @step.title %></strong> bewerken</h1>
+<p class="intro">binnen transactie <%= link_to h(@task.title), @task %> </p>
 
 <%= render :partial => 'form' %>
 
-<%= link_to 'Show', @step %> |
-<%= link_to 'Back', steps_path %>
+<p><%= link_to 'Show', @step %></p>

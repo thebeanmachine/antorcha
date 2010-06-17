@@ -6,6 +6,8 @@ class Task < ActiveRecord::Base
   
   before_validation :parameterize_title_for_name
 
+  has_many :steps
+
   def parameterize_title_for_name
     self.name = title.parameterize if title
   end

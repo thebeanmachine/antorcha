@@ -4,16 +4,21 @@ describe "/steps/edit.html.erb" do
   include StepsHelper
 
   before(:each) do
-    assigns[:step] = @step = stub_model(Step,
-      :new_record? => false,
-      :title => "value for title"
+    assigns[:step] = mock_step
+    assigns[:task] = mock_task
+    
+    mock_step.stub(
+      :title => "value for title",
+      :start => false,
+      :errors => stub("errors").as_null_object
     )
+    mock_task.stub( :title => 'value for task')
   end
 
   it "renders the edit step form" do
     render
 
-    response.should have_tag("form[action=#{step_path(@step)}][method=post]") do
+    response.should have_tag("form[action=?][method=post]", step_path(mock_step)) do
       with_tag('input#step_title[name=?]', "step[title]")
     end
   end

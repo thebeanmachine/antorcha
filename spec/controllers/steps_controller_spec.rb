@@ -14,25 +14,26 @@ describe StepsController do
     end
   end
 
+  def stub_show_or_edit
+    stub_find(mock_step)
+    mock_step.stub(:task => mock_task)
+  end
+
   describe "GET show" do
     it "assigns the requested step as @step" do
-      Step.stub(:find).with("37").and_return(mock_step)
-      get :show, :id => "37"
+      stub_show_or_edit
+      get :show, :id => mock_step.to_param
       assigns[:step].should equal(mock_step)
     end
   end
-
-
 
   describe "GET edit" do
     it "assigns the requested step as @step" do
-      Step.stub(:find).with("37").and_return(mock_step)
-      get :edit, :id => "37"
+      stub_show_or_edit
+      get :edit, :id => mock_step.to_param
       assigns[:step].should equal(mock_step)
     end
   end
-
-
 
   describe "PUT update" do
 

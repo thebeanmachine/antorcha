@@ -1,8 +1,6 @@
+<h1><%=h @step.title %></h1>
+<p class="intro">binnen transactie <%= link_to h(@task.title), @task %> </p>
+
 <p>
-  <b>Title:</b>
-  <%=h @step.title %>
+<%= link_to 'Edit', edit_step_path(@step) %>
 </p>
-
-
-<%= link_to 'Edit', edit_step_path(@step) %> |
-<%= link_to 'Back', steps_path %>

@@ -10,10 +10,9 @@ class TasksController < ApplicationController
     end
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.xml
   def show
     @task = Task.find(params[:id])
+    @steps = @task.steps
 
     respond_to do |format|
       format.html # show.html.erb

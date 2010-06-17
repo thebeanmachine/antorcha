@@ -4,8 +4,48 @@
   width: 76%;
   background-color: #fff; color: #222; 
   border: 1px solid #ddd;
-  padding: 2em;
   -webkit-box-shadow: #999 3px 3px 4px;
 }
 
+.page p, .page form {
+  padding: 0em 2em;
+}
+.page ol, .page ul {
+  padding: 0em 4em;
+}
+.page form {
+  margin-top: 1em;
+}
+
 body { background: #ddd; }
+
+h1 { font-weight: 100; color: #333; margin: 0px; padding: .5em 1em; background: #ccf; }
+h2 {
+  font-weight: 100;
+  color: #333;
+  margin: 0px;
+  padding: .5em 1.33em;
+}
+h1 strong { font-weight: bold; color: #000;}
+
+.task_steps h1, .steps h1 {
+  background: #cfc;
+}
+
+.flash {
+  margin: auto;
+  width: 76%;
+  background: #484;
+  color: white;
+  margin-bottom: 1em;
+}
+.flash p {
+  margin: 0em 2em;
+  padding: 1em 0em;
+}
+
+p.intro {
+  margin-top: 0em;
+  padding: .5em 2em;
+  background: #f8f8f8;
+}

@@ -3,11 +3,23 @@ require 'spec_helper'
 describe TaskStepsController do
   
   describe "GET new" do
+    def stub_new_action
+      stub_new(mock_step)
+      stub_find(mock_task)
+    end
+    
     it "assigns a new step as @step" do
-      Step.stub(:new).and_return(mock_step)
+      stub_new_action
       get :new, :task_id => mock_task.to_param
       assigns[:step].should equal(mock_step)
     end
+
+    it "assigns a new step as @step" do
+      stub_new_action
+      get :new, :task_id => mock_task.to_param
+      assigns[:task].should equal(mock_task)
+    end
+
   end
   
   describe "POST create" do

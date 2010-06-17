@@ -6,6 +6,8 @@ describe "/steps/show.html.erb" do
     assigns[:step] = @step = stub_model(Step,
       :title => "value for title"
     )
+    assigns[:task] = mock_task
+    mock_task.stub(:title => 'value for task')
   end
 
   it "renders attributes in <p>" do

@@ -5,11 +5,15 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Steps: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes' %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application' %>
 </head>
 <body>
-<div class="page">
-<p style="color: green"><%= notice %></p>
+<% if flash[:notice] %>
+  <div class="flash">
+    <p><%= notice %></p>
+  </div>
+<% end %>
+<div class="page <%= controller.controller_name %>">
 
 <%= yield %>
 </div>

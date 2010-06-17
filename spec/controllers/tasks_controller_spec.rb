@@ -15,11 +15,23 @@ describe TasksController do
   end
 
   describe "GET show" do
-    it "assigns the requested task as @task" do
-      Task.stub(:find).with("37").and_return(mock_task)
-      get :show, :id => "37"
-      assigns[:task].should equal(mock_task)
+    def stub_show
+      stub_find(mock_task)
+      mock_task.stub(:steps => mock_steps)
     end
+    
+    it "assigns the requested task as @task" do
+      stub_show
+      get :show, :id => mock_task.to_param
+      assigns[:task].should == mock_task
+    end
+
+    it "assigns the requested task steps as @steps" do
+      stub_show
+      get :show, :id => mock_task.to_param
+      assigns[:steps].should == mock_steps
+    end
+
   end
 
   describe "GET new" do

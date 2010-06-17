@@ -1,13 +1,17 @@
+<h1><strong><%=h @task.title %></strong> transactiedefinitie</h1>
 <p>
-  <b>Title:</b>
-  <%=h @task.title %>
+  In het netwerk bekent als '<%=h @task.name %>'.
 </p>
+<p><%= link_to 'Bewerk', edit_task_path(@task) %> | <%= link_to 'Terug naar alle definities', tasks_path %></p>
 
-<p>
-  <b>Name:</b>
-  <%=h @task.name %>
-</p>
+<div class="steps">
+  <% if @steps %>
+  <h2>Stappen</h2>
 
+  <p><%= link_to "Nieuwe stap", new_task_step_path(@task) %></p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+  <ul>
+  <%= render :partial => 'step', :collection => @steps %>
+  </ul>
+  <% end %>  
+</div>

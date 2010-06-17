@@ -1,8 +1,7 @@
 class TaskStepsController < ApplicationController
-  # GET /steps/new
-  # GET /steps/new.xml
   def new
     @step = Step.new
+    @task = Task.find(params[:task_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -10,8 +9,6 @@ class TaskStepsController < ApplicationController
     end
   end
 
-  # POST /steps
-  # POST /steps.xml
   def create
     @step = Step.new(params[:step])
 

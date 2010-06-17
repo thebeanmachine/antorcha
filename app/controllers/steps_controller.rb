@@ -10,10 +10,9 @@ class StepsController < ApplicationController
     end
   end
 
-  # GET /steps/1
-  # GET /steps/1.xml
   def show
     @step = Step.find(params[:id])
+    @task = @step.task
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,11 +20,9 @@ class StepsController < ApplicationController
     end
   end
 
-
-
-  # GET /steps/1/edit
   def edit
     @step = Step.find(params[:id])
+    @task = @step.task
   end
 
 
