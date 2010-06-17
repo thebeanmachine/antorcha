@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the messages page/
       messages_path
 
+    when /the "([^\"]+)" message page/
+      message_path(Message.find_by_title($1))
+
     # the new step message page of "Hello world"
     when /the new step message page of \"([^\"]+)\"/
       new_step_message_path(Step.find_by_title($1))
