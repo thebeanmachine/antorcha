@@ -9,7 +9,7 @@ class TaskStepsController < ApplicationController
     @step = @task.steps.new(params[:step])
 
     if @step.save
-      redirect_to @step, :notice => 'Transactiedefinitiestap succescol aangemaakt.'
+      redirect_to @step, :notice => 'Stap succesvol aangemaakt.'
     else
       render :action => "new"
     end

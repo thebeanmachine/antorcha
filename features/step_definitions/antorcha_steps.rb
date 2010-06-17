@@ -1,4 +1,8 @@
 
+Given /^I have a task "([^"]*)"$/ do |title|
+  Factory.create(:task, :title => title)
+end
+
 
 Given /^I have a (starting)? step "([^"]*)"$/ do |starting, title|
   Factory.create(:step, :title => title, :start => (starting == 'starting'))

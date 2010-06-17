@@ -1,4 +1,8 @@
 
+Factory.define(:task) do |f|
+  f.sequence(:title) {|n| "Task #{n}"}
+end
+
 Factory.define(:step) do |f|
   f.sequence(:title) {|n| "Step #{n}"}
 end
