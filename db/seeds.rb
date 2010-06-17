@@ -7,14 +7,29 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 seeds = {
+  Task => {
+    {:title => 'Voorbeeld'} => {}
+  },
   Step => {
-    {:title => 'Hello world'} => {:start => true }
+    {:title => 'Hello world'} => {
+      :start => true,
+      :task => lambda { Task.find_by_title('Voorbeeld') }
+    }
   }
 }
 
 seeds.each do |model, instances|
   instances.each do |conditions, attributes|
     instance = model.find(:first, :conditions => conditions)
+    attributes = attributes.inject({}) do |memo, (key, value) |
+      memo[key] = case value
+      when Proc:
+        value.call
+      else
+        value
+      end
+      memo
+    end
     unless instance
       puts "===> Creating #{conditions.inspect}"
       model.create(conditions.merge(attributes))

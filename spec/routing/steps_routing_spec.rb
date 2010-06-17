@@ -6,10 +6,6 @@ describe StepsController do
       { :get => "/steps" }.should route_to(:controller => "steps", :action => "index")
     end
 
-    it "recognizes and generates #new" do
-      { :get => "/steps/new" }.should route_to(:controller => "steps", :action => "new")
-    end
-
     it "recognizes and generates #show" do
       { :get => "/steps/1" }.should route_to(:controller => "steps", :action => "show", :id => "1")
     end
@@ -19,7 +15,7 @@ describe StepsController do
     end
 
     it "recognizes and generates #create" do
-      { :post => "/steps" }.should route_to(:controller => "steps", :action => "create") 
+      { :post => "/steps" }.should_not be_routable
     end
 
     it "recognizes and generates #update" do

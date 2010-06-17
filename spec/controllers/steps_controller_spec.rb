@@ -22,13 +22,7 @@ describe StepsController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new step as @step" do
-      Step.stub(:new).and_return(mock_step)
-      get :new
-      assigns[:step].should equal(mock_step)
-    end
-  end
+
 
   describe "GET edit" do
     it "assigns the requested step as @step" do
@@ -38,37 +32,7 @@ describe StepsController do
     end
   end
 
-  describe "POST create" do
 
-    describe "with valid params" do
-      it "assigns a newly created step as @step" do
-        Step.stub(:new).with({'these' => 'params'}).and_return(mock_step(:save => true))
-        post :create, :step => {:these => 'params'}
-        assigns[:step].should equal(mock_step)
-      end
-
-      it "redirects to the created step" do
-        Step.stub(:new).and_return(mock_step(:save => true))
-        post :create, :step => {}
-        response.should redirect_to(step_url(mock_step))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved step as @step" do
-        Step.stub(:new).with({'these' => 'params'}).and_return(mock_step(:save => false))
-        post :create, :step => {:these => 'params'}
-        assigns[:step].should equal(mock_step)
-      end
-
-      it "re-renders the 'new' template" do
-        Step.stub(:new).and_return(mock_step(:save => false))
-        post :create, :step => {}
-        response.should render_template('new')
-      end
-    end
-
-  end
 
   describe "PUT update" do
 
