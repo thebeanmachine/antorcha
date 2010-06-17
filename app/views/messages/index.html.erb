@@ -2,11 +2,13 @@
 
 <h2>Start een nieuwe transactie</h2>
 
+<ul>
 <% @steps_to_start_with.each do |step| %>
-  <%= link_to "Start #{step.title}", new_step_message_url(step)%>
+  <li><%= link_to "Start #{step.title}", new_step_message_url(step)%></li>
 <% end %>
+</ul>
   
-<h2>Messages</h2>
+<h2>Berichten</h2>
 
 <table>
   <tr>
@@ -26,7 +28,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New message', new_message_path %>

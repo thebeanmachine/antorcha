@@ -7,7 +7,7 @@
   -webkit-box-shadow: #999 3px 3px 4px;
 }
 
-.page p, .page form {
+.page p, .page form, .page table {
   padding: 0em 2em;
 }
 .page ol, .page ul {

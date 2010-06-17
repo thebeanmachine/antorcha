@@ -80,16 +80,21 @@ describe StepsController do
   end
 
   describe "DELETE destroy" do
+    def stub_destroy_action
+      stub_find(mock_step)
+      mock_step.stub(:destroy => true, :task => mock_task)
+    end
+    
     it "destroys the requested step" do
-      Step.should_receive(:find).with("37").and_return(mock_step)
+      stub_destroy_action
       mock_step.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      delete :destroy, :id => mock_step.to_param
     end
 
     it "redirects to the steps list" do
-      Step.stub(:find).and_return(mock_step(:destroy => true))
-      delete :destroy, :id => "1"
-      response.should redirect_to(steps_url)
+      stub_destroy_action
+      delete :destroy, :id => mock_step.to_param
+      response.should redirect_to(task_path(mock_task))
     end
   end
 

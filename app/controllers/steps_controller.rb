@@ -25,10 +25,6 @@ class StepsController < ApplicationController
     @task = @step.task
   end
 
-
-
-  # PUT /steps/1
-  # PUT /steps/1.xml
   def update
     @step = Step.find(params[:id])
 
@@ -43,15 +39,10 @@ class StepsController < ApplicationController
     end
   end
 
-  # DELETE /steps/1
-  # DELETE /steps/1.xml
   def destroy
     @step = Step.find(params[:id])
     @step.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(steps_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(task_url(@step.task))
   end
 end
