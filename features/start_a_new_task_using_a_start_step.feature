@@ -20,6 +20,6 @@ Feature: Start a new Task using a start step
     And I am on the new step message page of "Hello world"
 
     When I fill in "Title" with "Hallo wereld"
-    And I press "Create message"
+    And I press "Create Message"
     Then I should see "Bericht was succesvol aangemaakt"
     And I should see "Hello world"
