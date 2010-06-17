@@ -24,6 +24,35 @@ describe Message do
     
     specify { should have(1).error_on(:title) }
     specify { should have(1).error_on(:step) }
+    
+    it "status should be :draft" do
+      subject.status.should == :draft
+    end
+  end
+  
+  describe "sending" do
+    subject { Factory(:message) }
+
+    it "can be send" do
+      subject.send!
+      subject.should be_sent
+    end
+    
+    it "should not be sent by default" do
+      subject.should_not be_sent
+    end
+    
+    it "status should be :sent" do
+      subject.send!
+      subject.status.should == :sent
+    end
+    
+    it "should not be sent twice" do
+      yesterday = 1.day.ago
+      subject.sent_at = yesterday 
+      subject.send!
+      subject.sent_at.to_i.should == yesterday.to_i
+    end
   end
   
   describe "delivery" do
@@ -34,8 +63,18 @@ describe Message do
       subject.should be_delivered
     end
 
+    it "has errors if message is delivered but not sent" do
+      subject.delivered!
+      subject.should have(1).error_on(:sent_at)
+    end
+
     it "should not be delivered by default" do
       subject.should_not be_delivered
+    end
+
+    it "status should be :delivered" do
+      subject.delivered!
+      subject.status.should == :delivered
     end
 
     it "should not be delivered twice" do

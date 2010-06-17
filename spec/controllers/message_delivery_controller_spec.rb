@@ -10,17 +10,21 @@ describe MessageDeliveryController do
     def stub_create
       stub_find(mock_message)
       stub_new_delivery_job
+      mock_message.stub(:send! => nil)
       Delayed::Job.stub(:enqueue => nil)
     end
-
-
-
 
 
     it "assigns the message to @message" do
       stub_create
       post_create
       assigns[:message].should == mock_message
+    end
+
+    it "flags the message as sent" do
+      stub_create
+      mock_message.should_receive(:send!)
+      post_create
     end
     
     it "enqueues a delivery job" do

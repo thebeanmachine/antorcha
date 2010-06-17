@@ -11,7 +11,9 @@ describe "/messages/show.html.erb" do
       :include => true,
       :incoming? => true,
       :step => mock_step,
-      :delivered? => false
+      :delivered? => false,
+      :sent? => true,
+      :sent_at => Time.now
     )
     mock_step.stub( :title => 'hallo wereld' )
   end

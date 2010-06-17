@@ -1,0 +1,10 @@
+
+
+
+---
+nl:
+  message:
+    status:
+      delivered: "Aangekomen"
+      sent: "Verstuurd"
+      draft: "Concept"
