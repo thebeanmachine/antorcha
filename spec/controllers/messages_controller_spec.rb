@@ -50,7 +50,7 @@ describe MessagesController do
     def stub_create_and_from_hash
       stub_new(mock_message)
       mock_message.stub(:from_hash).and_return(mock_message)
-      mock_message.stub(:incomming= => nil)
+      mock_message.stub(:incoming= => nil)
     end
     
     def post_create
@@ -81,9 +81,9 @@ describe MessagesController do
         response.status.should == '201 Created'
       end
       
-      it "flags message as incomming" do
+      it "flags message as incoming" do
         stub_with_valid_params
-        mock_message.should_receive(:incomming=).with(true)
+        mock_message.should_receive(:incoming=).with(true)
         post_create
       end
     end

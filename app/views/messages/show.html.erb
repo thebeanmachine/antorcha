@@ -24,7 +24,7 @@
   <%=h @message.incoming? %>
 </p>
 
-<% unless @message.delivered? %>
+<% unless @message.sent? %>
   <%= button_to 'Verstuur', message_delivery_path(@message), :method => :post %> |
 <% end %>
 <%= link_to 'Edit', edit_message_path(@message) %> |

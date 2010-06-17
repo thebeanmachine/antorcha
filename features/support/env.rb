@@ -16,7 +16,6 @@ Spork.prefork do
   require 'cucumber/rails/active_record'
   require 'cucumber/web/tableish'
 
-
   require 'capybara/rails'
   require 'capybara/cucumber'
   require 'capybara/session'
@@ -27,6 +26,7 @@ Spork.prefork do
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
 
+  require 'spec/rails'
 end
  
 Spork.each_run do

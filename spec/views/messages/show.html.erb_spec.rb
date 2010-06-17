@@ -25,7 +25,8 @@ describe "/messages/show.html.erb" do
     response.should have_text(/value\ for\ body/)
   end
   
-  it "renders link to delivery" do
+  it "renders link to delivery if not sent" do
+    mock_message.stub(:sent? => false)
     render
     response.should have_tag('form[action=?] input[type=submit][value=?]', message_delivery_path(mock_message), 'Verstuur') 
   end

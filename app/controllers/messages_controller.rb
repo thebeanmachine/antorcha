@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new
     @message = @message.from_hash(params[:message])
-    @message.incomming = true
+    @message.incoming = true
     respond_to do |format|
       if @message.save
         format.xml { render :xml => @message, :status => :created, :location => message_url(@message) }

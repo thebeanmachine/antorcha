@@ -11,7 +11,7 @@ Feature: Send a message
     Then I should see "Bericht wordt verzonden"
     And I should see "Bericht is verstuurd op"
     And I should see "en nog niet aangekomen"
-    
+    And I should not see submit button "Verstuur"
   
   
   
