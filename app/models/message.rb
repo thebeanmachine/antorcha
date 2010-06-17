@@ -15,6 +15,7 @@ class Message < ActiveRecord::Base
 
   
   def status
+    status ||= :incoming if incoming?
     status ||= delivered?
     status ||= sent?
     status ||= :draft

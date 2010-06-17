@@ -1,16 +1,20 @@
 <h1><%=h @message.title %></h1>
 
-<p>Transactiestap <%= @message.step.title %></p>
+<p>Transactiestap <%= link_to h(@message.step.title), @message.step %></p>
 <p>Bericht is
-  <% if @message.sent? %>
-    verstuurd op <%=h l(@message.sent_at, :format => :short) %>
-    <% if @message.delivered? %>
-      en aangekomen op <%=h l(@message.delivered_at, :format => :short) %>.
-    <% else %>
-      en nog niet aangekomen.
-    <% end %>
+  <% if @message.incoming? %>
+    ontvangen op <%=h l(@message.created_at, :format => :short) %>.
   <% else %>
-    een concept en is nog niet verstuurd.
+    <% if @message.sent? %>
+      verstuurd op <%=h l(@message.sent_at, :format => :short) %>
+      <% if @message.delivered? %>
+        en aangekomen op <%=h l(@message.delivered_at, :format => :short) %>.
+      <% else %>
+        en nog niet aangekomen.
+      <% end %>
+    <% else %>
+      een concept en is nog niet verstuurd.
+    <% end %>
   <% end %>
 </p>
 

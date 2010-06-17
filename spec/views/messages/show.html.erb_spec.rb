@@ -9,7 +9,7 @@ describe "/messages/show.html.erb" do
       :title => "value for title",
       :body => "value for body",
       :include => true,
-      :incoming? => true,
+      :incoming? => false,
       :step => mock_step,
       :delivered? => false,
       :sent? => true,
