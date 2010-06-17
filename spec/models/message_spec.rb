@@ -14,6 +14,11 @@ describe Message do
     Message.create!(@valid_attributes)
   end
   
+  describe "accessibility" do
+    it "incomming should not be accessible"
+    it "delivered_at should not be accessible"
+  end
+  
   describe "empty message" do
     subject { Message.create }
     
