@@ -8,3 +8,27 @@ nl:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
+      
+      
+  formtastic:
+    labels:
+    hints:
+    actions:
+      create: "Maak {{model}}"
+      update: "Bewaar veranderingen"
+      dummie: "Launch!"
+      
+  activerecord:
+    models:
+      task: Transactiedefinitie
+      step: Stap
+      inquiry: Transactie
+      message: Bericht
+    
+    attributes:
+      task:
+        title: Titel
+      step:
+        title: Titel
+      message:
+        title: Titel

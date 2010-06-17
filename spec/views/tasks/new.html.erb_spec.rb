@@ -16,7 +16,6 @@ describe "/tasks/new.html.erb" do
 
     response.should have_tag("form[action=?][method=post]", tasks_path) do
       with_tag("input#task_title[name=?]", "task[title]")
-      with_tag("input#task_name[name=?]", "task[name]")
     end
   end
 end

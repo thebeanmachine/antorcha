@@ -1,19 +1,9 @@
-<h1>New task</h1>
+<h1>Nieuwe Transactiedefinitie</h1>
 
-<% form_for(@task) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+<% semantic_form_for(@task) do |f| %>
+  <%= f.inputs :title %>
+  <% f.buttons do %>
+    <%= f.commit_button %> of <%= link_to 'ga terug naar taken', tasks_path %>
+  <% end %>
 <% end %>
 
-<%= link_to 'Back', tasks_path %>

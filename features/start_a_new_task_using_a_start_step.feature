@@ -19,7 +19,7 @@ Feature: Start a new Task using a start step
     Given I have a starting step "Hello world"
     And I am on the new step message page of "Hello world"
 
-    When I fill in "Title" with "Hallo wereld"
-    And I press "Create Message"
+    When I fill in "Titel" with "Hallo wereld"
+    And I press "Maak Bericht"
     Then I should see "Bericht was succesvol aangemaakt"
     And I should see "Hello world"
