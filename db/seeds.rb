@@ -6,36 +6,38 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
-seeds = {
-  Task => {
+seeds = [
+  {Task => {
     {:title => 'Voorbeeld'} => {}
-  },
-  Step => {
+  }},
+  {Step => {
     {:title => 'Hello world'} => {
       :start => true,
       :task => lambda { Task.find_by_title('Voorbeeld') }
     }
-  }
-}
+  }}
+]
 
-seeds.each do |model, instances|
-  instances.each do |conditions, attributes|
-    instance = model.find(:first, :conditions => conditions)
-    attributes = attributes.inject({}) do |memo, (key, value) |
-      memo[key] = case value
-      when Proc:
-        value.call
-      else
-        value
+seeds.each do |seed|
+  seed.each do |model, instances|
+    instances.each do |conditions, attributes|
+      instance = model.find(:first, :conditions => conditions)
+      attributes = attributes.inject({}) do |memo, (key, value) |
+        memo[key] = case value
+        when Proc:
+          value.call
+        else
+          value
+        end
+        memo
       end
-      memo
-    end
-    unless instance
-      puts "===> Creating #{conditions.inspect}"
-      model.create(conditions.merge(attributes))
-    else
-      puts "---> Updating #{conditions.inspect} with #{attributes.inspect}"
-      instance.update_attributes(attributes)
+      unless instance
+        puts "===> Creating #{conditions.inspect}"
+        model.create!(conditions.merge(attributes))
+      else
+        puts "---> Updating #{conditions.inspect} with #{attributes.inspect}"
+        instance.update_attributes(attributes)
+      end
     end
   end
 end
