@@ -26,20 +26,6 @@ ActiveRecord::Schema.define(:version => 20100617100918) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "inboxes", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "items", :force => true do |t|
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "inbox_id"
-  end
-
   create_table "messages", :force => true do |t|
     t.string   "title"
     t.text     "body"
