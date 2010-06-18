@@ -12,17 +12,18 @@
 
 <table>
   <tr>
-    <th>Title</th>
-    <th>Body</th>
+    <th>Afzender</th>
+    <th>Transactiestap</th>
+    <th>Transactie</th>
+    <th>Verzenddatum</th>
   </tr>
 
 <% @messages.each do |message| %>
   <tr>
-    <td><%=h message.title %></td>
-    <td><%=h message.body %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to h(message.title), message %></td>
+    <td><%= link_to h(message.step.title), message.step %></td>
+    <td><%= link_to h(message.step.task.title), message.step.task %></td>
+    <td><%= l(message.sent_at, :format => :short) if message.sent? %></td>
   </tr>
 <% end %>
 </table>
