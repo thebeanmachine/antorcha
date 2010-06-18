@@ -17,7 +17,31 @@
   margin-top: 1em;
 }
 
-body { background: #ddd; }
+body { background: #ddd; margin: 0px;}
+
+div.heading {
+  background: #ccc;
+  margin-bottom: 1em;
+  padding: .5em 0em;
+}
+div.heading .inner {
+  margin: auto;
+  width: 76%;
+}
+div.heading p {
+  margin: 0px;
+  padding: .5em 0em;
+}
+div.heading a {
+  color: #00f;
+}
+span.title {
+  color: #444;
+  font-weight: 100;
+  font-family: Helvetica;
+  font-size: 1.75em;
+}
+
 
 h1 { font-weight: 100; color: #333; margin: 0px; padding: .5em 1em; background: #ccf; }
 h2 {

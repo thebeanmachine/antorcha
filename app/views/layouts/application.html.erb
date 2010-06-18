@@ -8,6 +8,15 @@
   <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application' %>
 </head>
 <body>
+  
+  <div class="heading"><div class="inner">
+    <span class="title">Antorcha</span>
+    <p>
+      <%= link_to "Berichten", messages_path %> |
+      <%= link_to "Transactiedefinities", tasks_path %>
+    </p>
+  </div></div>
+  
 <% if flash[:notice] %>
   <div class="flash">
     <p><%= notice %></p>
