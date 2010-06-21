@@ -7,6 +7,11 @@ class MessagesController < ApplicationController
   def show
     @message = Message.find(params[:id])
     @message.shown!
+    
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @message }
+    end
   end
 
   def edit
