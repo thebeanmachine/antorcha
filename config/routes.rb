@@ -12,4 +12,6 @@ ActionController::Routing::Routes.draw do |map|
     messages.resource :delivery, :only => :create, :controller => 'message_delivery'
   end
 
+  map.root :controller => 'home'
+
 end
