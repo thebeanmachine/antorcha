@@ -78,6 +78,11 @@ table th {
   background: #cfc;
 }
 
+.messages h1, .step_messages h1 {
+  background: #ffb;
+}
+
+
 .flash {
   margin: auto;
   width: 76%;
