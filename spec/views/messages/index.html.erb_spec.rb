@@ -10,7 +10,8 @@ describe "/messages/index.html.erb" do
         :title => "value for title",
         :body => "value for body",
         :shown? => false,
-        :step => mock_step
+        :step => mock_step,
+        :incoming? => false
       )
     ]
 
@@ -19,7 +20,9 @@ describe "/messages/index.html.erb" do
       :body => "value for body",
       :shown? => :shown,
       :sent? => false,
-      :step => mock_step
+      :step => mock_step,
+      :incoming? => false
+      
     
     mock_step.stub :title => 'step title', :task => mock_task
     mock_task.stub :title => 'task title'

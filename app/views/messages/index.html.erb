@@ -23,7 +23,7 @@
     <td><%= link_to h(message.title), message %></td>
     <td><%= link_to h(message.step.title), message.step %></td>
     <td><%= link_to h(message.step.task.title), message.step.task %></td>
-    <td><%= l(message.sent_at, :format => :short) if message.sent? %></td>
+    <td><%= message.incoming? ? "&larr;" : "&rarr;" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
   </tr>
 <% end %>
 </table>

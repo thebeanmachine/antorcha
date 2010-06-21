@@ -10,6 +10,8 @@ class Message < ActiveRecord::Base
 
   belongs_to :step
   flagstamp :sent, :delivered, :shown
+
+  default_scope :order => 'messages.created_at DESC'
   
   named_scope :incoming, :conditions => {:incoming => true}
   named_scope :outgoing, :conditions => {:incoming => false}

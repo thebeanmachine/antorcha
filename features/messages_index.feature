@@ -3,7 +3,7 @@ Feature: Messages index
   As a user
   I want to have an overview of all messages
   
-  Scenario: I can see what I already read
+  Scenario: I can see what I have already read
     Given I have a message "Mijn bericht"
     When I am on the messages page
     And I follow "Mijn bericht"
