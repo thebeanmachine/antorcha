@@ -5,6 +5,7 @@ end
 
 Factory.define(:step) do |f|
   f.sequence(:title) {|n| "Step #{n}"}
+  f.task { Factory(:task) }
 end
 
 Factory.define :message do |f|

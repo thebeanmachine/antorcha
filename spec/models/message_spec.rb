@@ -34,7 +34,7 @@ describe Message do
     subject { Factory(:message) }
 
     it "can be send" do
-      subject.send!
+      subject.sent!
       subject.should be_sent
     end
     
@@ -43,14 +43,14 @@ describe Message do
     end
     
     it "status should be :sent" do
-      subject.send!
+      subject.sent!
       subject.status.should == :sent
     end
     
     it "should not be sent twice" do
       yesterday = 1.day.ago
       subject.sent_at = yesterday 
-      subject.send!
+      subject.sent!
       subject.sent_at.to_i.should == yesterday.to_i
     end
   end

@@ -19,7 +19,7 @@
   </tr>
 
 <% @messages.each do |message| %>
-  <tr>
+  <tr class="message <%= message.shown? %>">
     <td><%= link_to h(message.title), message %></td>
     <td><%= link_to h(message.step.title), message.step %></td>
     <td><%= link_to h(message.step.task.title), message.step.task %></td>

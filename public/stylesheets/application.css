@@ -52,6 +52,28 @@ h2 {
 }
 h1 strong { font-weight: bold; color: #000;}
 
+table {
+  width: 90%;
+  border-collapse: collapse;
+  border: 1px solid black;
+  margin:  0em 2em;
+}
+table td {
+  border: 1px solid black;
+  padding: .25em;
+}
+table th {
+  padding: .25em;
+  border: 1px solid black;
+}
+
+.message.shown {
+  color: grey;
+}
+.message.shown a {
+  color: #d8f;
+}
+
 .task_steps h1, .steps h1 {
   background: #cfc;
 }

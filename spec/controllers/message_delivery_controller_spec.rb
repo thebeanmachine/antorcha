@@ -10,7 +10,7 @@ describe MessageDeliveryController do
     def stub_create
       stub_find(mock_message)
       stub_new_delivery_job
-      mock_message.stub(:send! => nil)
+      mock_message.stub(:sent! => nil)
       Delayed::Job.stub(:enqueue => nil)
     end
 
@@ -23,7 +23,7 @@ describe MessageDeliveryController do
 
     it "flags the message as sent" do
       stub_create
-      mock_message.should_receive(:send!)
+      mock_message.should_receive(:sent!)
       post_create
     end
     

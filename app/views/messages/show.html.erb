@@ -28,8 +28,10 @@
   <%=h @message.incoming? %>
 </p>
 
+<p>
 <% unless @message.sent? %>
   <%= button_to 'Verstuur', message_delivery_path(@message), :method => :post %> |
 <% end %>
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<%= link_to 'Bewerk', edit_message_path(@message) %> |
+<%= link_to 'Terug naar alle berichten', messages_path %>
+</p>
