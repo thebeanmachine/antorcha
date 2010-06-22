@@ -19,8 +19,9 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem 'formtastic'
-  config.gem 'delayed_job'
+  config.gem 'formtastic', :version => '0.9.10'
+  config.gem 'delayed_job', :version => '2.0.3'
+  config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
