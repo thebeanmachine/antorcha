@@ -9,7 +9,7 @@ class InstructionMessagesController < ApplicationController
     @instruction = Instruction.find(params[:instruction_id])
     @message = @instruction.messages.new(params[:message])
     if @message.save
-      redirect_to(@message, :notice => 'Bericht was succesvol aangemaakt.')
+      redirect_to(@message, :notice => t('notice.created', :model => 'Message'))
     else
       render :action => "new"
     end

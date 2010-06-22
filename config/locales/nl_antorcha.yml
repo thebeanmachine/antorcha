@@ -8,7 +8,8 @@ nl:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
-      
+    
+
       
   formtastic:
     labels:
