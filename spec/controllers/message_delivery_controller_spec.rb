@@ -42,7 +42,7 @@ describe MessageDeliveryController do
     it "flashes 'Bericht wordt verzonden'" do
       stub_create
       post_create
-      flash[:notice].should =~ /Bericht wordt verzonden/
+      flash[:notice].should =~ /Message is being sent/
     end
   end
   

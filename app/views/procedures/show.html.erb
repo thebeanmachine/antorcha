@@ -1,14 +1,14 @@
-<h1><strong><%=h @procedure.title %></strong> transactiedefinitie</h1>
+<h1><strong><%=h @procedure.title %></strong> :Procedure</h1>
 <p>
-  In het netwerk bekent als '<%=h @procedure.name %>'.
+  <b>name:</b> '<%=h @procedure.name %>'.
 </p>
-<p><%= link_to 'Bewerk', edit_procedure_path(@procedure) %> | <%= link_to 'Terug naar alle definities', procedures_path %></p>
+<p><%= link_to 'Edit', edit_procedure_path(@procedure) %> | <%= link_to 'Back', procedures_path %></p>
 
 <div class="instructions">
   <% if @instructions %>
-  <h2>Stappen</h2>
+  <h2>Instructions</h2>
 
-  <p><%= link_to "Nieuwe stap", new_procedure_instruction_path(@procedure) %></p>
+  <p><%= link_to "New Instruction", new_procedure_instruction_path(@procedure) %></p>
 
   <ul>
   <%= render :partial => 'instruction', :collection => @instructions %>

@@ -43,7 +43,7 @@ class ProceduresController < ApplicationController
 
     respond_to do |format|
       if @procedure.save
-        format.html { redirect_to(@procedure, :notice => 'Transactiedefinitie succesvol aangemaakt.') }
+        format.html { redirect_to(@procedure, :notice => 'Procedure created successfully') }
         format.xml  { render :xml => @procedure, :status => :created, :location => @procedure }
       else
         format.html { render :action => "new" }

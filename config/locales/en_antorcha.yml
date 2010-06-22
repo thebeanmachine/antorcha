@@ -1,0 +1,15 @@
+
+
+
+---
+en:
+  message:
+    status:
+      delivered: "Delivered"
+      sent: "Sent"
+      draft: "Draft"
+    
+  notice:
+    created: "{{model}} was successfully created"
+    updated: "{{model}} was successfully updated"
+

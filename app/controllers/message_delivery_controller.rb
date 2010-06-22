@@ -5,6 +5,6 @@ class MessageDeliveryController < ApplicationController
     @message.sent!
     Delayed::Job.enqueue MessageDeliveryJob.new(@message.id)
     
-    redirect_to @message, :notice => 'Bericht wordt verzonden'
+    redirect_to @message, :notice => 'Message is being sent'
   end
 end

@@ -4,11 +4,11 @@ Feature: Messages index
   I want to have an overview of all messages
   
   Scenario: I can see what I have already read
-    Given I have a message "Mijn bericht"
+    Given I have a message "My message"
     When I am on the messages page
-    And I follow "Mijn bericht"
-    And I follow "Terug naar alle berichten"
-    Then I should see "Mijn bericht" within ".shown"
+    And I follow "My message"
+    And I follow "Back"
+    Then I should see "My message" within ".shown"
     
   Scenario: I can see the incoming messages
     Given I have a incoming message "Incoming message"
