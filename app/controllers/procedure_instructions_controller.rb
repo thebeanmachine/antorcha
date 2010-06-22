@@ -9,7 +9,7 @@ class ProcedureInstructionsController < ApplicationController
     @instruction = @procedure.instructions.new(params[:instruction])
 
     if @instruction.save
-      redirect_to @instruction, :notice => 'Stap succesvol aangemaakt.'
+      redirect_to @instruction, :notice => 'Instruction created successfully.'
     else
       render :action => "new"
     end

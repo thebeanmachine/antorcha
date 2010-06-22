@@ -1,29 +1,28 @@
-Feature: Create new procedure
+Feature: Create new Procedure
   In order to define communication between antorchas
   As a advisor
-  I want to create new procedures and instructions under it.
+  I want to create new Procedures and Instructions under it.
 
-  Scenario: Create a new procedure
+  Scenario: Create a Procedure
     Given I am on the new procedure page
-    When I fill in "Titel" with "Mijn taak"
-    And I press "Maak Transactiedefinitie"
-    Then I should see "Transactiedefinitie succesvol aangemaakt"
+    When I fill in "Title" with "My defined Procedure"
+    And I press "Create"
+    Then I should see "Procedure created successfully"
   
 
-  Scenario: Create a new instruction under a procedure
-    Given I have a procedure "Mijn taak"
-    When I am on the "Mijn taak" procedure page
-    And I follow "Nieuwe stap"
-    Then I should see "Nieuwe stap"
+  # Scenario: Create an Instruction within a Procedure
+  #   Given I have a procedure "My defined Procedure"
+  #   When I am on the "My defined Procedure" procedure page
+  #   And I follow "New Instruction"
+  #   Then I should see "New Instruction"
   
 
-  Scenario: Create a new instruction under a procedure
-    Given I have a procedure "Mijn taak"
-    When I am on the "Mijn taak" procedure page
-    And I follow "Nieuwe stap"
-    And I fill in "Titel" with "Mijn stap"
-    And I press "Maak Stap"
-    Then I should see "Stap succesvol aangemaakt"
-    And I should see "binnen transactie Mijn taak"
+  Scenario: Create an Instruction under a Procedure
+    Given I have a procedure "My defined Procedure"
+    When I am on the "My defined Procedure" procedure page
+    And I follow "New Instruction"
+    And I fill in "Title" with "My defined Instruction"
+    And I press "Create Instruction"
+    Then I should see "Instruction created successfully"
   
 
