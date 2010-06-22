@@ -1,10 +1,10 @@
 <h1>Inbox</h1>
 
-<h2>Start een nieuwe transactie</h2>
+<h2>Start een nieuwe Instructie</h2>
 
 <ul>
 <% @instructions_to_start_with.each do |instruction| %>
-  <li><%= link_to "Start #{instruction.title}", new_instruction_message_url(instruction)%></li>
+  <li><%= link_to "Start: #{instruction.title} (van Procedure: #{instruction.procedure.title})", new_instruction_message_url(instruction)%></li>
 <% end %>
 </ul>
   
