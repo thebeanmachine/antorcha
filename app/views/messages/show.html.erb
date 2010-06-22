@@ -1,7 +1,7 @@
-<h1><%=h @message.title %></h1>
-
-<p>Transactiestap <%= link_to h(@message.instruction.title), @message.instruction %></p>
-<p>Bericht is
+<h1>Message</h1>
+<h2><%=h @message.title  %></h2>
+<p><b>Instruction</b> <%= link_to h(@message.instruction.title), @message.instruction %></p>
+<p>Message is
   <% if @message.incoming? %>
     ontvangen op <%=h l(@message.created_at, :format => :short) %>.
   <% else %>
@@ -30,8 +30,8 @@
 
 <p>
 <% unless @message.sent? %>
-  <%= button_to 'Verstuur', message_delivery_path(@message), :method => :post %> |
+  <%= button_to 'Send', message_delivery_path(@message), :method => :post %> |
 <% end %>
-<%= link_to 'Bewerk', edit_message_path(@message) %> |
-<%= link_to 'Terug naar alle berichten', messages_path %>
+<%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %>
 </p>

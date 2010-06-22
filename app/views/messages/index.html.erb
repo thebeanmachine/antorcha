@@ -1,5 +1,6 @@
-<h1>Inbox</h1>
+<h1>Messages</h1>
 
+<% if false %>
 <h2>Start een nieuwe Instructie</h2>
 
 <ul>
@@ -7,15 +8,16 @@
   <li><%= link_to "Start: #{instruction.title} (van Procedure: #{instruction.procedure.title})", new_instruction_message_url(instruction)%></li>
 <% end %>
 </ul>
+<% end %>
   
-<h2>Berichten</h2>
+<h2>Messages</h2>
 
 <table>
   <tr>
-    <th>Afzender</th>
-    <th>Transactiestap</th>
-    <th>Transactie</th>
-    <th>Verzenddatum</th>
+    <th>Message title</th>
+    <th>Instruction title</th>
+    <th>Procedure title</th>
+    <th>Direction</th>
   </tr>
 
 <% @messages.each do |message| %>
@@ -23,7 +25,7 @@
     <td><%= link_to h(message.title), message %></td>
     <td><%= link_to h(message.instruction.title), message.instruction %></td>
     <td><%= link_to h(message.instruction.procedure.title), message.instruction.procedure %></td>
-    <td><%= message.incoming? ? "&larr;" : "&rarr;" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
+    <td><%= message.incoming? ? "In" : "Out" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
   </tr>
 <% end %>
 </table>
