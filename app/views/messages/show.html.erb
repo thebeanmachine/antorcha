@@ -3,17 +3,17 @@
 <p><b>Instruction</b> <%= link_to h(@message.instruction.title), @message.instruction %></p>
 <p>Message is
   <% if @message.incoming? %>
-    ontvangen op <%=h l(@message.created_at, :format => :short) %>.
+    received at <%=h l(@message.created_at, :format => :short) %>.
   <% else %>
     <% if @message.sent? %>
-      verstuurd op <%=h l(@message.sent_at, :format => :short) %>
+      sent at <%=h l(@message.sent_at, :format => :short) %>
       <% if @message.delivered? %>
-        en aangekomen op <%=h l(@message.delivered_at, :format => :short) %>.
+        and received at <%=h l(@message.delivered_at, :format => :short) %>.
       <% else %>
-        en nog niet aangekomen.
+        and not received.
       <% end %>
     <% else %>
-      een concept en is nog niet verstuurd.
+      is a concept and not yet sent.
     <% end %>
   <% end %>
 </p>

@@ -1,4 +1,4 @@
-Feature: Send a message
+Feature: Create a message
   In order to start a task 
   As a user
   I want to sent a message
@@ -7,11 +7,12 @@ Feature: Send a message
     Given I have a starting instruction "Hello world"
     And I have a message "Hello world" for instruction "Hello world"
     When I am on the "Hello world" message page
-    And I press "Create Message"
-    Then I should see "Message is send"
-    And I should see "Bericht is verstuurd op"
-    And I should see "en nog niet aangekomen"
-    And I should not see submit button "Verstuur"
+		And show me the page
+    And I press "Send"
+    Then I should see "Message is being sent"
+    And I should see "Message is sent at"
+    And I should see "and not received"
+    And I should not see submit button "Send"
   
   
   
