@@ -10,8 +10,22 @@ Feature: Messages index
     And I follow "Terug naar alle berichten"
     Then I should see "Mijn bericht" within ".shown"
     
+  Scenario: I can see the incoming messages
+    Given I have a incoming message "Incoming message"
+    And I have a outgoing message "Outgoing message"
+    When I am on the messages page
+    And I follow "ontvangen"
+    Then I should see "Incoming message"
+    And I should not see "Outgoing message"
   
   
+  Scenario: I can see the outgoing messages
+    Given I have a incoming message "Incoming message"
+    And I have a outgoing message "Outgoing message"
+    When I am on the messages page
+    And I follow "verstuurd"
+    Then I should not see "Incoming message"
+    And I should see "Outgoing message"
   
 
   
