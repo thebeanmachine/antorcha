@@ -1,0 +1,9 @@
+<h1>Nieuwe Transactiedefinitie</h1>
+
+<% semantic_form_for(@procedure) do |f| %>
+  <%= f.inputs :title %>
+  <% f.buttons do %>
+    <%= f.commit_button %> of <%= link_to 'ga terug naar taken', procedures_path %>
+  <% end %>
+<% end %>
+

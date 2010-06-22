@@ -4,8 +4,8 @@ Feature: Send a message
   I want to sent a message
   
   Scenario: Sending a message
-    Given I have a starting step "Hello world"
-    And I have a message "Hallo wereld" for step "Hello world"
+    Given I have a starting instruction "Hello world"
+    And I have a message "Hallo wereld" for instruction "Hello world"
     When I am on the "Hallo wereld" message page
     And I press "Verstuur"
     Then I should see "Bericht wordt verzonden"

@@ -1,0 +1,13 @@
+<h1>Transactiedefinitie overzicht</h1>
+
+<ul>
+<% @procedures.each do |procedure| %>
+  <li class="procedure">
+    <%=link_to h(procedure.title), procedure %>
+  </li>
+<% end %>
+</ul>
+
+<p>
+<%= link_to 'Nieuwe taak', new_procedure_path %>
+</p>

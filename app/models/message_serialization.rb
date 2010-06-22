@@ -7,15 +7,15 @@ module MessageSerialization
     xml.message do
       xml.tag!(:title, title)
       xml.tag!(:body, body)
-      xml.tag!(:step, step.name)
+      xml.tag!(:instruction, instruction.name)
     end
   end
 
   def from_hash(hash)
     attributes = hash.dup
 
-    step_name = attributes.delete(:step)
-    attributes[:step] = Step.find_by_name(step_name)
+    instruction_name = attributes.delete(:instruction)
+    attributes[:instruction] = Instruction.find_by_name(instruction_name)
   
     self.attributes = attributes
 

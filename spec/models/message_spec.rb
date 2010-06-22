@@ -6,7 +6,7 @@ describe Message do
       :title => "value for title",
       :body => "value for body",
       :incoming => false,
-      :step => mock_model(Step)
+      :instruction => mock_model(Instruction)
     }
   end
 
@@ -23,7 +23,7 @@ describe Message do
     subject { Message.create }
     
     specify { should have(1).error_on(:title) }
-    specify { should have(1).error_on(:step) }
+    specify { should have(1).error_on(:instruction) }
     
     it "status should be :draft" do
       subject.status.should == :draft
@@ -96,23 +96,23 @@ describe Message do
       subject.to_xml.should =~ /<title>Aap noot mies<\/title>/
     end
 
-    it "should serialize step" do
-      subject.step = mock_step
-      mock_step.stub(:name => 'aap-noot-mies')
-      subject.to_xml.should =~ /<step>aap-noot-mies<\/step>/
+    it "should serialize instruction" do
+      subject.instruction = mock_instruction
+      mock_instruction.stub(:name => 'aap-noot-mies')
+      subject.to_xml.should =~ /<instruction>aap-noot-mies<\/instruction>/
     end
   end
   
   describe "from hash" do
-    def stub_find_step_by_name
-      Step.stub(:find_by_name).and_return(mock_step)
+    def stub_find_instruction_by_name
+      Instruction.stub(:find_by_name).and_return(mock_instruction)
     end
     
-    it "should find the step by name" do
-      stub_find_step_by_name
+    it "should find the instruction by name" do
+      stub_find_instruction_by_name
       message = Message.new
-      message.from_hash( :step => 'aap-noot-mies')
-      message.step.should == mock_step
+      message.from_hash( :instruction => 'aap-noot-mies')
+      message.instruction.should == mock_instruction
     end
     
     it "should return itself" do

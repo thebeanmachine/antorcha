@@ -10,12 +10,12 @@ describe "/messages/show.html.erb" do
       :body => "value for body",
       :include => true,
       :incoming? => false,
-      :step => mock_step,
+      :instruction => mock_instruction,
       :delivered? => false,
       :sent? => true,
       :sent_at => Time.now
     )
-    mock_step.stub( :title => 'hallo wereld' )
+    mock_instruction.stub( :title => 'hallo wereld' )
   end
 
   it "renders attributes in <p>" do

@@ -1,6 +1,6 @@
 <h1><%=h @message.title %></h1>
 
-<p>Transactiestap <%= link_to h(@message.step.title), @message.step %></p>
+<p>Transactiestap <%= link_to h(@message.instruction.title), @message.instruction %></p>
 <p>Bericht is
   <% if @message.incoming? %>
     ontvangen op <%=h l(@message.created_at, :format => :short) %>.

@@ -74,11 +74,11 @@ table th {
   color: #d8f;
 }
 
-.task_steps h1, .steps h1 {
+.procedure_instructions h1, .instructions h1 {
   background: #cfc;
 }
 
-.messages h1, .step_messages h1 {
+.messages h1, .instruction_messages h1 {
   background: #ffb;
 }
 

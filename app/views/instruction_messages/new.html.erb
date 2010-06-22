@@ -1,0 +1,6 @@
+<h1>Start een nieuwe '<%=h @instruction.title%>'</h1>
+
+<% semantic_form_for [@instruction, @message] do |f| %>
+  <%= f.inputs :title, :body %>
+  <%= f.buttons %>
+<% end %>

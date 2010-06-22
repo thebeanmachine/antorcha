@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def index
     @messages = Message.all
-    @steps_to_start_with = Step.to_start_with
+    @instructions_to_start_with = Instruction.to_start_with
   end
 
   def show

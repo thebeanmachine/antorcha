@@ -1,7 +1,0 @@
-<h1><%=h @step.title %></h1>
-<p class="intro">binnen transactie <%= link_to h(@task.title), @task %> </p>
-
-<p>
-  <%= link_to 'Bewerk', edit_step_path(@step) %> |
-  <%= link_to 'Vernietig', step_path(@step), :method => :delete, :confirm => 'Weet je het zeker?' %>
-</p>

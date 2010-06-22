@@ -7,13 +7,13 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 seeds = [
-  {Task => {
+  {Procedure => {
     {:title => 'Voorbeeld'} => {}
   }},
-  {Step => {
+  {Instruction => {
     {:title => 'Hello world'} => {
       :start => true,
-      :task => lambda { Task.find_by_title('Voorbeeld') }
+      :procedure => lambda { Procedure.find_by_title('Voorbeeld') }
     }
   }}
 ]

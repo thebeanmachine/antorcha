@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe MessagesController do
 
-  def mock_step
-    @mock_step ||= mock_model(Step)
+  def mock_instruction
+    @mock_instruction ||= mock_model(Instruction)
   end
 
   describe "GET index" do
     def stub_index
       stub_all(mock_message)
-      Step.stub(:to_start_with => [mock_step])
+      Instruction.stub(:to_start_with => [mock_instruction])
     end
     
     it "assigns all messages as @messages" do
@@ -18,10 +18,10 @@ describe MessagesController do
       assigns[:messages].should == [mock_message]
     end
     
-    it "assigns steps to start with" do
+    it "assigns instructions to start with" do
       stub_index
       get :index
-      assigns[:steps_to_start_with].should == [mock_step]
+      assigns[:instructions_to_start_with].should == [mock_instruction]
     end
   end
 

@@ -1,16 +1,16 @@
 
-Factory.define(:task) do |f|
-  f.sequence(:title) {|n| "Task #{n}"}
+Factory.define(:procedure) do |f|
+  f.sequence(:title) {|n| "Procedure #{n}"}
 end
 
-Factory.define(:step) do |f|
-  f.sequence(:title) {|n| "Step #{n}"}
-  f.task { Factory(:task) }
+Factory.define(:instruction) do |f|
+  f.sequence(:title) {|n| "Instruction #{n}"}
+  f.procedure { Factory(:procedure) }
 end
 
 Factory.define :message do |f|
   f.sequence(:title) {|n| "Message #{n}"}
-  f.step { Factory(:step) }
+  f.instruction { Factory(:instruction) }
   f.body "Dit is de message body"
 end
 
