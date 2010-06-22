@@ -13,8 +13,8 @@ class Message < ActiveRecord::Base
 
   default_scope :order => 'messages.created_at DESC'
   
-  named_scope :incoming, :conditions => {:incoming => true}
-  named_scope :outgoing, :conditions => {:incoming => false}
+  named_scope :inbox, :conditions => {:incoming => true}
+  named_scope :outbox, :conditions => {:incoming => false}
 
   def status
     status ||= :incoming if incoming?

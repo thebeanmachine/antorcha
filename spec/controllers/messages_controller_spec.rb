@@ -2,26 +2,29 @@ require 'spec_helper'
 
 describe MessagesController do
 
-  def mock_instruction
-    @mock_instruction ||= mock_model(Instruction)
-  end
-
   describe "GET index" do
     def stub_index
-      stub_all(mock_message)
-      Instruction.stub(:to_start_with => [mock_instruction])
+      Message.stub(:search => mock_search)
+      mock_search.stub(:all => mock_messages)
+      Instruction.stub(:to_start_with => mock_instructions)
+    end
+    
+    it "uses searchlogic" do
+      stub_index
+      Message.should_receive(:search).with("a query")
+      get :index, :search => 'a query'
     end
     
     it "assigns all messages as @messages" do
       stub_index
       get :index
-      assigns[:messages].should == [mock_message]
+      assigns[:messages].should == mock_messages
     end
     
     it "assigns instructions to start with" do
       stub_index
       get :index
-      assigns[:instructions_to_start_with].should == [mock_instruction]
+      assigns[:instructions_to_start_with].should == mock_instructions
     end
   end
 
