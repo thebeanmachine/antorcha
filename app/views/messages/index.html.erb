@@ -11,6 +11,10 @@
 <% end %>
   
 <h2>Messages</h2>
+<p>
+  <%= link_to "ontvangen", :search => {:inbox => true} %> |
+  <%= link_to "verstuurd", :search => {:outbox => true} %>
+</p>
 
 <table>
   <tr>

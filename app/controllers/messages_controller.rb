@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   def index
-    @messages = Message.all
+    @search = Message.search(params[:search])
+    @messages = @search.all
     @instructions_to_start_with = Instruction.to_start_with
   end
 
