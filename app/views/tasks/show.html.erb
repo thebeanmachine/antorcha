@@ -1,0 +1,10 @@
+<h1>Task <strong><%=h @task.title %></strong></h1>
+
+
+<p class="intro">
+  follows Procedure <%=link_to_procedure @task.procedure %>
+</p>
+
+<div class="actions">
+  <%= link_to_edit_task @task %> or <%= link_to_destroy_task @task %>
+</div>

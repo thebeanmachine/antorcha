@@ -3,7 +3,6 @@
   margin: auto;
   width: 76%;
   background-color: #fff; color: #222; 
-  border: 1px solid #ddd;
   -webkit-box-shadow: #999 3px 3px 4px;
 }
 
@@ -82,6 +81,9 @@ table th {
   background: #ffb;
 }
 
+.tasks h1 {
+  background: #fbb;
+}
 
 .flash {
   margin: auto;
@@ -98,7 +100,7 @@ table th {
 p.intro {
   margin-top: 0em;
   padding: .5em 2em;
-  background: #f8f8f8;
+  background: #eef;
 }
 
 div.actions {
