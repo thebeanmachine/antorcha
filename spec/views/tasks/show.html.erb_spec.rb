@@ -8,7 +8,8 @@ describe "/tasks/show.html.erb" do
     mock_task.stub \
       :title => "value for title",
       :name => "value for name",
-      :procedure => mock_procedure
+      :procedure => mock_procedure,
+      :cancelled? => false
     
     mock_procedure.stub \
       :title => 'My Procedure'

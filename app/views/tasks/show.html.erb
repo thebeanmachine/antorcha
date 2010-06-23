@@ -5,6 +5,13 @@
   follows Procedure <%=link_to_procedure @task.procedure %>
 </p>
 
+<% if @task.cancelled? %>
+  <p>Task was cancelled on <%= l @task.cancelled_at, :format => :short %></p>
+<% end %>
+
 <div class="actions">
-  <%= link_to_edit_task @task %> or <%= link_to_destroy_task @task %>
+  <%= link_to_edit_task @task %>
+  <% unless @task.cancelled? %>
+    or <%= button_to_task_cancellation @task %>
+  <% end %>
 </div>

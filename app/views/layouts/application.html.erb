@@ -12,21 +12,20 @@
   <div class="heading"><div class="inner">
     <span class="title">Antorcha</span>
     <p>
-      <%= link_to "Messages", messages_path %> |
+      <%= link_to_tasks %> |
+      <%= link_to_messages %> |
       <%= link_to_procedures %> |
-      <%= link_to_instructions %> |
-      <%= link_to_tasks %>
+      <%= link_to_instructions %>
     </p>
   </div></div>
   
-<% if flash[:notice] %>
-  <div class="flash">
-    <p><%= notice %></p>
+  <% if flash[:notice] %>
+    <div class="flash">
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+  <div class="page">
+    <%= yield %>
   </div>
-<% end %>
-<div class="page">
-
-<%= yield %>
-</div>
 </body>
 </html>
