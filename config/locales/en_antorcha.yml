@@ -8,6 +8,11 @@ en:
       delivered: "Delivered"
       sent: "Sent"
       draft: "Draft"
+
+  action:
+    new: "New {{model}}"
+    edit: "Edit {{model}}"
+    destroy: "Destroy {{model}}"
     
   notice:
     created: "{{model}} was successfully created"

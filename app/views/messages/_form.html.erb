@@ -1,6 +1,8 @@
 <% semantic_form_for(@message) do |f| %>
 
-  <%= f.inputs %>
-  <%= f.buttons %>
+  <%= f.inputs :title, :body %>
+  <% f.buttons do %>
+    <%= f.commit_button %> or <%= link_to "go back to messages", messages_path %>
+  <% end %>
 
 <% end %>

@@ -100,3 +100,15 @@ p.intro {
   padding: .5em 2em;
   background: #f8f8f8;
 }
+
+div.actions {
+  padding: 1em 2em;
+  background: #e8e8e8;
+}
+form.button-to {
+  display: inline;
+  padding: 0px;
+}
+form.button-to div {
+  display: inline;
+}

@@ -16,6 +16,15 @@ module SwiftHelper
           def link_to_#{models}
             link_to h("#{models.humanize}"), #{models}_path, :class => '#{models}'
           end
+
+          def link_to_edit_#{model}(model)
+            link_to h(t('action.edit', :model => '#{model.to_s.humanize}')), edit_#{model}_path(model), :class => '#{model}'
+          end
+
+          def link_to_new_#{model}(model)
+            link_to h(t('action.new', :model => '#{model.to_s.humanize}')), edit_#{model}_path(model), :class => '#{model}'
+          end
+
         RUBY
       end
     end

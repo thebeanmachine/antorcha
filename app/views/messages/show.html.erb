@@ -1,6 +1,7 @@
-<h1>Message</h1>
-<h2><%=h @message.title  %></h2>
-<p><b>Instruction</b> <%= link_to h(@message.instruction.title), @message.instruction %></p>
+<h1>Message <strong><%=h @message.title  %></strong></h1>
+<p class="intro">
+  instructs <%= link_to_instruction @message.instruction %>
+  for procedure <%= link_to_procedure @message.instruction.procedure %></p>
 <p>Message is
   <% if @message.incoming? %>
     received at <%=h l(@message.created_at, :format => :short) %>.
@@ -23,15 +24,9 @@
   <%=h @message.body %>
 </p>
 
-<p>
-  <b>Incoming?:</b>
-  <%=h @message.incoming? %>
-</p>
-
-<p>
+<div class="actions">
 <% unless @message.sent? %>
-  <%= button_to 'Send', message_delivery_path(@message), :method => :post %> |
+  <%= button_to 'Send Message', message_delivery_path(@message), :method => :post %> |
 <% end %>
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
-</p>
+<%= link_to_edit_message @message %>
+</div>

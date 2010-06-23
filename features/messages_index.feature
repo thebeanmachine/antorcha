@@ -7,7 +7,7 @@ Feature: Messages index
     Given I have a message "My message"
     When I am on the messages page
     And I follow "My message"
-    And I follow "Back"
+    And I follow "Messages"
     Then I should see "My message" within ".shown"
     
   Scenario: I can see the incoming messages

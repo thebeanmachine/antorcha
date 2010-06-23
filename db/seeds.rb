@@ -8,12 +8,12 @@
 
 seeds = [
   {Procedure => {
-    {:title => 'Voorbeeld'} => {}
+    {:title => 'Bake bread'} => {}
   }},
   {Instruction => {
-    {:title => 'Hello world'} => {
+    {:title => 'Defrost doh'} => {
       :start => true,
-      :procedure => lambda { Procedure.find_by_title('Voorbeeld') }
+      :procedure => lambda { Procedure.find_by_title('Bake bread') }
     }
   }}
 ]
