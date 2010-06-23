@@ -27,7 +27,7 @@
 <% @messages.each do |message| %>
   <tr class="message <%= message.shown? %>">
     <td><%= link_to h(message.title), message %></td>
-    <td><%= link_to h(message.instruction.title), message.instruction %></td>
+    <td><%= link_to_instruction message.instruction %></td>
     <td><%= link_to h(message.instruction.procedure.title), message.instruction.procedure %></td>
     <td><%= message.incoming? ? "In" : "Out" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
   </tr>
