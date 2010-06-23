@@ -9,6 +9,12 @@ en:
       sent: "Sent"
       draft: "Draft"
 
+  titles:
+    instructions:
+      index: "All Instructions"
+    start_instructions:
+      index: "All Start Instructions"
+
   action:
     new: "New {{model}}"
     edit: "Edit {{model}}"

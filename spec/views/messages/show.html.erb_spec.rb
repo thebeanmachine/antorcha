@@ -15,12 +15,13 @@ describe "/messages/show.html.erb" do
       :sent? => true,
       :sent_at => Time.now
     )
-    mock_instruction.stub( :title => 'hallo wereld' )
+    mock_instruction.stub( :title => 'hallo wereld', :procedure => mock_procedure )
+    mock_procedure.stub( :title => 'hallo wereld' )
   end
 
   it "renders attributes in <p>" do
     render
-    response.should have_tag('h2', /value\ for\ title/)
+    response.should have_tag('h1', /value\ for\ title/)
     response.should have_tag('p', /hallo wereld/)
     response.should have_text(/value\ for\ body/)
   end
@@ -28,6 +29,6 @@ describe "/messages/show.html.erb" do
   it "renders link to delivery if not sent" do
     mock_message.stub(:sent? => false)
     render
-    response.should have_tag('form[action=?] input[type=submit][value=?]', message_delivery_path(mock_message), 'Send') 
+    response.should have_tag('form[action=?] input[type=submit][value=?]', message_delivery_path(mock_message), 'Send Message') 
   end
 end

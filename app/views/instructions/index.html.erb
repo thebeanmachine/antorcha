@@ -1,17 +1,15 @@
-<h1>Alle stappen in alle transactiedefinities</h1>
+<%= index_title %>
 
-<table>
-  <tr>
-    <th>Title</th>
-  </tr>
+<p class="intro">
+  All <%= link_to_instructions %> or only the
+  <%= link_to "Start instructions", start_instructions_path %>
+</p>
 
+<ul>
 <% @instructions.each do |instruction| %>
-  <tr>
-    <td><%=h instruction.title %></td>
-    <td><%= link_to 'Show', instruction %></td>
-    <td><%= link_to 'Edit', edit_instruction_path(instruction) %></td>
-    <td><%= link_to 'Destroy', instruction, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li>
+    <%= link_to_instruction instruction %> in <%= link_to_procedure instruction.procedure %>
+  </li>
 <% end %>
-</table>
+</ul>
 

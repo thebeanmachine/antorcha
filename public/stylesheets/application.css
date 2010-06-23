@@ -74,7 +74,7 @@ table th {
   color: #d8f;
 }
 
-.procedure_instructions h1, .instructions h1 {
+.procedure_instructions h1, .instructions h1, .start_instructions h1 {
   background: #cfc;
 }
 
