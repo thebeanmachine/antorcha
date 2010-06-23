@@ -1,7 +1,7 @@
 <h1><%=h @instruction.title %></h1>
 <p class="intro">binnen transactie <%= link_to h(@procedure.title), @procedure %> </p>
 
-<p>
-  <%= link_to 'Bewerk', edit_instruction_path(@instruction) %> |
-  <%= link_to 'Vernietig', instruction_path(@instruction), :method => :delete, :confirm => 'Weet je het zeker?' %>
-</p>
+<div class="actions">
+  <%= link_to_edit_instruction @instruction %> |
+  <%= link_to_destroy_instruction @instruction %>
+</div>

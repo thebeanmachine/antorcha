@@ -1,17 +1,12 @@
-<h1><strong><%=h @procedure.title %></strong> :Procedure</h1>
+<h1>Procedure <strong><%=h @procedure.title %></strong></h1>
+<p class="intro">
+  <%= link_to "Instructions", procedure_instructions_path(@procedure) %> of this procedure
+</p>
+
 <p>
   <b>name:</b> '<%=h @procedure.name %>'.
 </p>
-<p><%= link_to 'Edit', edit_procedure_path(@procedure) %> | <%= link_to 'Back', procedures_path %></p>
-
-<div class="instructions">
-  <% if @instructions %>
-  <h2>Instructions</h2>
-
-  <p><%= link_to "New Instruction", new_procedure_instruction_path(@procedure) %></p>
-
-  <ul>
-  <%= render :partial => 'instruction', :collection => @instructions %>
-  </ul>
-  <% end %>  
+<div class="actions">
+  <%= link_to_edit_procedure @procedure %>
 </div>
+

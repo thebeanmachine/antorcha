@@ -16,7 +16,6 @@ describe "/procedures/edit.html.erb" do
 
     response.should have_tag("form[action=#{procedure_path(@procedure)}][method=post]") do
       with_tag('input#procedure_title[name=?]', "procedure[title]")
-      with_tag('input#procedure_name[name=?]', "procedure[name]")
     end
   end
 end

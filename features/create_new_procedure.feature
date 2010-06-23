@@ -10,16 +10,18 @@ Feature: Create new Procedure
     Then I should see "Procedure created successfully"
   
 
-  # Scenario: Create an Instruction within a Procedure
-  #   Given I have a procedure "My defined Procedure"
-  #   When I am on the "My defined Procedure" procedure page
-  #   And I follow "New Instruction"
-  #   Then I should see "New Instruction"
+  Scenario: Create an Instruction within a Procedure
+    Given I have a procedure "My defined Procedure"
+    When I am on the "My defined Procedure" procedure page
+    And I follow "Instructions" within ".page"
+    And I follow "New Instruction"
+    Then I should see "New Instruction"
   
 
   Scenario: Create an Instruction under a Procedure
     Given I have a procedure "My defined Procedure"
     When I am on the "My defined Procedure" procedure page
+    And I follow "Instructions" within ".page"
     And I follow "New Instruction"
     And I fill in "Title" with "My defined Instruction"
     And I press "Create Instruction"

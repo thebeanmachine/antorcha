@@ -21,9 +21,14 @@ module SwiftHelper
             link_to h(t('action.edit', :model => '#{model.to_s.humanize}')), edit_#{model}_path(model), :class => '#{model}'
           end
 
-          def link_to_new_#{model}(model)
-            link_to h(t('action.new', :model => '#{model.to_s.humanize}')), edit_#{model}_path(model), :class => '#{model}'
+          def link_to_new_#{model}
+            link_to h(t('action.new', :model => '#{model.to_s.humanize}')), new_#{model}_path, :class => '#{model}'
           end
+          
+          def link_to_destroy_#{model}(model)
+            link_to h(t('action.destroy', :model => '#{model.to_s.humanize}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
+          end
+         
 
         RUBY
       end

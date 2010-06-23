@@ -4,7 +4,7 @@
 <% semantic_form_for @instruction.new_record? ? [@procedure, @instruction] : @instruction do |f| %>
   <%= f.inputs :title, :start %>
   <% f.buttons do %>
-    <%= f.commit_button %> of <%= link_to 'Back', @procedure %>
+    <%= f.commit_button %> or <%= link_to 'go back to instructions', procedure_instructions_path(@procedure) %>
   <% end %> 
 <% end %>
 

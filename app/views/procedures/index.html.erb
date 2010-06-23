@@ -1,4 +1,7 @@
 <h1>Procedures</h1>
+<p class="intro">
+<%= link_to_new_procedure %>
+</p>
 
 <ul>
 <% @procedures.each do |procedure| %>
@@ -8,6 +11,3 @@
 <% end %>
 </ul>
 
-<p>
-<%= link_to 'New Procedure', new_procedure_path %>
-</p>
