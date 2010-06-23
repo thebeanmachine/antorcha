@@ -7,7 +7,6 @@ Feature: Create a message
     Given I have a starting instruction "Hello world"
     And I have a message "Hello world" for instruction "Hello world"
     When I am on the "Hello world" message page
-		And show me the page
     And I press "Send"
     Then I should see "Message is being sent"
     And I should see "Message is sent at"
