@@ -1,20 +1,11 @@
 <h1>Editing procedure</h1>
 
-<% form_for(@procedure) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+<% semantic_form_for(@procedure) do |f| %>
+  <%= f.inputs :title %>
+  <% f.buttons do %>
+    <%= f.commit_button %> or <%= link_to 'go back to procedures', procedures_path %>
+  <% end %>
 <% end %>
 
-<%= link_to 'Show', @procedure %> |
-<%= link_to 'Back', procedures_path %>
+
+

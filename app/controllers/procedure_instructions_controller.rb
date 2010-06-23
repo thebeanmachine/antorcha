@@ -1,4 +1,9 @@
 class ProcedureInstructionsController < ApplicationController
+  def index
+    @procedure = Procedure.find(params[:procedure_id])
+    @instructions = @procedure.instructions
+  end
+  
   def new
     @instruction = Instruction.new
     @procedure = Procedure.find(params[:procedure_id])
