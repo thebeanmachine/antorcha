@@ -1,6 +1,13 @@
 <h1>Messages</h1>
 
-<% if true %>
+<% if @task %>
+  <p class="intro">
+    of <%= link_to_task @task %>.
+    Create a <%= link_to "New Message", new_task_message_path(@task)%>.
+  </p>
+<% end %>
+
+<% if @instructions_to_start_with %>
 <h2>Start a new instruction</h2>
 
 <ul>
@@ -8,9 +15,11 @@
   <li><%= link_to "Start: #{instruction.title} (van Procedure: #{instruction.procedure.title})", new_instruction_message_url(instruction)%></li>
 <% end %>
 </ul>
-<% end %>
-  
 <h2>Messages</h2>
+<% end %>
+
+
+
 <p>
   <%= link_to "inbox", :search => {:inbox => true} %> |
   <%= link_to "outbox", :search => {:outbox => true} %>

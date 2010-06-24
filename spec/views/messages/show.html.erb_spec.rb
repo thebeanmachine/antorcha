@@ -11,12 +11,14 @@ describe "/messages/show.html.erb" do
       :include => true,
       :incoming? => false,
       :instruction => mock_instruction,
+      :task => mock_task,
       :delivered? => false,
       :sent? => true,
       :sent_at => Time.now
     )
     mock_instruction.stub( :title => 'hallo wereld', :procedure => mock_procedure )
     mock_procedure.stub( :title => 'hallo wereld' )
+    mock_task.stub( :title => 'hallo wereld' )
   end
 
   it "renders attributes in <p>" do

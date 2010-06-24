@@ -7,6 +7,7 @@ module MessageSerialization
     xml.message do
       xml.tag!(:title, title)
       xml.tag!(:body, body)
+      xml.tag!(:task, task.name)
       xml.tag!(:instruction, instruction.name)
     end
   end
@@ -16,6 +17,9 @@ module MessageSerialization
 
     instruction_name = attributes.delete(:instruction)
     attributes[:instruction] = Instruction.find_by_name(instruction_name)
+
+    task_name = attributes.delete(:task)
+    attributes[:task] = Task.find_by_name(task_name)
   
     self.attributes = attributes
 

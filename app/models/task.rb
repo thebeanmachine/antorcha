@@ -4,6 +4,7 @@ class Task < ActiveRecord::Base
   validates_uniqueness_of :name
 
   belongs_to :procedure
+  has_many :messages
 
   before_validation :parameterize_title_for_name
 

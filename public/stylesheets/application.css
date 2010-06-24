@@ -77,7 +77,7 @@ table th {
   background: #cfc;
 }
 
-.messages h1, .instruction_messages h1 {
+.messages h1, .instruction_messages h1, .task_messages h1 {
   background: #ffb;
 }
 

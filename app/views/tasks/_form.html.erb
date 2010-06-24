@@ -3,7 +3,7 @@
 
   <% f.inputs do %>
     <%= f.input :title %>
-    <%= f.input :procedure, :type => :radio, :label_method => :title %>
+    <%= f.input :procedure, :as => :radio, :label_method => :title, :collection => @procedures %>
   <% end %>
 
   <% f.buttons do %>

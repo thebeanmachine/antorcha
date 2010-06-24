@@ -5,6 +5,9 @@
   follows Procedure <%=link_to_procedure @task.procedure %>
 </p>
 
+<p><%= link_to "Messages", task_messages_path(@task) %> of this task</p>
+<p><%= link_to "Instructions", procedure_instructions_path(@task.procedure) %> available to this task</p>
+
 <% if @task.cancelled? %>
   <p>Task was cancelled on <%= l @task.cancelled_at, :format => :short %></p>
 <% end %>

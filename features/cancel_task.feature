@@ -7,7 +7,7 @@ Feature: Cancel task
     Given I have a procedure "Bake bread"
     And I am on the new task page
     When I fill in "Title" with "Bake bread for George"
-    And I select "Bake bread" from "Procedure"
+    And I choose "Bake bread"
     And I press "Create Task"
     Then I should see "Task was successfully created"
 
@@ -15,7 +15,7 @@ Feature: Cancel task
     Given I have a procedure "Bake bread"
     And I am on the new task page
     When I fill in "Title" with "Bake bread for George"
-    And I select "Bake bread" from "Procedure"
+    And I choose "Bake bread"
     And I press "Create Task"
     And I press "Cancel Task"
     Then I should see "Task was successfully cancelled"

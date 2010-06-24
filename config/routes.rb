@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.resources :tasks do |task|
+    task.resources :messages, :only => [:index, :new, :create], :controller => 'task_messages'
     task.resource :cancellation, :only => :create, :controller => 'task_cancellations'
   end
 

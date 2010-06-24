@@ -1,7 +1,9 @@
 <h1>Message <strong><%=h @message.title  %></strong></h1>
 <p class="intro">
-  instructs <%= link_to_instruction @message.instruction %>
-  for procedure <%= link_to_procedure @message.instruction.procedure %></p>
+  in task <%= link_to_task @message.task %>
+  which follows procedure <%= link_to_procedure @message.instruction.procedure %>
+  based on instruction <%= link_to_instruction @message.instruction %>
+</p>
 <p>Message is
   <% if @message.incoming? %>
     received at <%=h l(@message.created_at, :format => :short) %>.

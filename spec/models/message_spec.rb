@@ -6,7 +6,8 @@ describe Message do
       :title => "value for title",
       :body => "value for body",
       :incoming => false,
-      :instruction => mock_model(Instruction)
+      :instruction => mock_model(Instruction),
+      :task => mock_task
     }
   end
 

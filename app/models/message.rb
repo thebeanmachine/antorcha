@@ -5,9 +5,11 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :instruction
+  validates_presence_of :task
 
   validates_presence_of :sent_at, :if => :delivered?
 
+  belongs_to :task
   belongs_to :instruction
   flagstamp :sent, :delivered, :shown
 

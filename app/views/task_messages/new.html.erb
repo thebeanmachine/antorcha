@@ -1,4 +1,9 @@
-<% semantic_form_for(@message) do |f| %>
+<h1>New message</h1>
+<p class="intro">
+  For Task <%= link_to_task @task %>
+</p>
+
+<% semantic_form_for [@task, @message] do |f| %>
 
   <% f.inputs do %>
     <%= f.input :instruction, :as => :radio, :collection => @instructions_to_start_with, :label_method => :title %>
@@ -10,3 +15,4 @@
   <% end %>
 
 <% end %>
+

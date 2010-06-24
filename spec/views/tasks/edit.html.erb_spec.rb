@@ -8,8 +8,11 @@ describe "/tasks/edit.html.erb" do
       :new_record? => false,
       :title => "value for title",
       :name => "value for name",
-      :procedure => 1
+      :procedure => mock_procedure
     )
+    
+    assigns[:procedures] = mock_procedures
+    mock_procedure.stub :title => 'My Procedure'
   end
 
   it "renders the edit task form" do
@@ -17,7 +20,7 @@ describe "/tasks/edit.html.erb" do
 
     response.should have_tag("form[action=#{task_path(@task)}][method=post]") do
       with_tag('input#task_title[name=?]', "task[title]")
-      with_tag("select#task_procedure_id[name=?]", "task[procedure_id]")
+      with_tag("input[name=?]", "task[procedure_id]")
     end
   end
 end
