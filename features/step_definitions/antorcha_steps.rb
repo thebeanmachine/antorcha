@@ -5,18 +5,18 @@ def debug(x)
   puts "</pre></div>"
 end
 
-Given /^I have a procedure "([^\"]*)"$/ do |title|
-  Factory.create(:procedure, :title => title)
+Given /^I have a definition "([^\"]*)"$/ do |title|
+  Factory.create(:definition, :title => title)
 end
 
-Given /^I have a (starting)? instruction "([^\"]*)"$/ do |starting, title|
-  Factory.create :instruction,
+Given /^I have a (starting)? step "([^\"]*)"$/ do |starting, title|
+  Factory.create :step,
     :title => title,
     :start => (starting == 'starting')
 end
 
-Given /^I have a message "([^\"]*)" for instruction "([^\"]*)"$/ do |title,instruction|
-  Factory.create(:message, :title => title, :instruction => Instruction.find_by_title(instruction))
+Given /^I have a message "([^\"]*)" for step "([^\"]*)"$/ do |title,step|
+  Factory.create(:message, :title => title, :step => Step.find_by_title(step))
 end
 
 Given /^I have a (incoming|outgoing)? ?message "([^\"]*)"$/ do |direction,title|

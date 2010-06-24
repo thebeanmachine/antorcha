@@ -3,7 +3,7 @@ module NavigationHelpers
   #
   #   When /^I go to (.+)$/ do |page_name|
   #
-  # instruction definition in web_instructions.rb
+  # step definition in web_steps.rb
   #
   def path_to(page_name)
     case page_name
@@ -17,12 +17,12 @@ module NavigationHelpers
     when /the "([^\"]+)" message page/
       message_path(Message.find_by_title($1))
 
-    when /the "([^\"]+)" procedure page/
-      procedure_path(Procedure.find_by_title($1))
+    when /the "([^\"]+)" definition page/
+      definition_path(Definition.find_by_title($1))
 
-    # the new instruction message page of "Hello world"
-    when /the new instruction message page of \"([^\"]+)\"/
-      new_instruction_message_path(Instruction.find_by_title($1))
+    # the new step message page of "Hello world"
+    when /the new step message page of \"([^\"]+)\"/
+      new_step_message_path(Step.find_by_title($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

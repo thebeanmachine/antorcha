@@ -1,11 +1,11 @@
 Feature: Create a message
-  In order to start a task 
+  In order to start a transaction 
   As a user
   I want to sent a message
   
   Scenario: Sending a message
-    Given I have a starting instruction "Hello world"
-    And I have a message "Hello world" for instruction "Hello world"
+    Given I have a starting step "Hello world"
+    And I have a message "Hello world" for step "Hello world"
     When I am on the "Hello world" message page
     And I press "Send"
     Then I should see "Message is being sent"

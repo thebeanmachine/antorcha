@@ -4,13 +4,13 @@ class Message < ActiveRecord::Base
   include MessageSerialization
 
   validates_presence_of :title
-  validates_presence_of :instruction
-  validates_presence_of :task
+  validates_presence_of :step
+  validates_presence_of :transaction
 
   validates_presence_of :sent_at, :if => :delivered?
 
-  belongs_to :task
-  belongs_to :instruction
+  belongs_to :transaction
+  belongs_to :step
   flagstamp :sent, :delivered, :shown
 
   default_scope :order => 'messages.created_at DESC'

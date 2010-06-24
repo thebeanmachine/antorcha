@@ -7,19 +7,19 @@ module MessageSerialization
     xml.message do
       xml.tag!(:title, title)
       xml.tag!(:body, body)
-      xml.tag!(:task, task.name)
-      xml.tag!(:instruction, instruction.name)
+      xml.tag!(:transaction, transaction.name)
+      xml.tag!(:step, step.name)
     end
   end
 
   def from_hash(hash)
     attributes = hash.dup
 
-    instruction_name = attributes.delete(:instruction)
-    attributes[:instruction] = Instruction.find_by_name(instruction_name)
+    step_name = attributes.delete(:step)
+    attributes[:step] = Step.find_by_name(step_name)
 
-    task_name = attributes.delete(:task)
-    attributes[:task] = Task.find_by_name(task_name)
+    transaction_name = attributes.delete(:transaction)
+    attributes[:transaction] = Transaction.find_by_name(transaction_name)
   
     self.attributes = attributes
 

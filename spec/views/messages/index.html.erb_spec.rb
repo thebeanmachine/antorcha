@@ -10,7 +10,7 @@ describe "/messages/index.html.erb" do
         :title => "value for title",
         :body => "value for body",
         :shown? => false,
-        :instruction => mock_instruction,
+        :step => mock_step,
         :incoming? => false
       )
     ]
@@ -20,15 +20,15 @@ describe "/messages/index.html.erb" do
       :body => "value for body",
       :shown? => :shown,
       :sent? => false,
-      :instruction => mock_instruction,
+      :step => mock_step,
       :incoming? => false
       
     
-    mock_instruction.stub :title => 'instruction title', :procedure => mock_procedure
-    mock_procedure.stub :title => 'procedure title'
+    mock_step.stub :title => 'step title', :definition => mock_definition
+    mock_definition.stub :title => 'definition title'
     
     
-    assigns[:instructions_to_start_with] = []
+    assigns[:steps_to_start_with] = []
   end
 
   it "renders titles" do
@@ -36,14 +36,14 @@ describe "/messages/index.html.erb" do
     response.should have_tag("tr.message>td", "value for title".to_s, 2)
   end
 
-  it "renders titles of instructions" do
+  it "renders titles of steps" do
     render
-    response.should have_tag("tr.message>td", "instruction title".to_s, 2)
+    response.should have_tag("tr.message>td", "step title".to_s, 2)
   end
 
-  it "renders titles of procedures" do
+  it "renders titles of definitions" do
     render
-    response.should have_tag("tr.message>td", "procedure title".to_s, 2)
+    response.should have_tag("tr.message>td", "definition title".to_s, 2)
   end
 
   it "links to message show" do
