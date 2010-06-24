@@ -10,15 +10,15 @@ describe "/messages/show.html.erb" do
       :body => "value for body",
       :include => true,
       :incoming? => false,
-      :instruction => mock_instruction,
-      :task => mock_task,
+      :step => mock_step,
+      :transaction => mock_transaction,
       :delivered? => false,
       :sent? => true,
       :sent_at => Time.now
     )
-    mock_instruction.stub( :title => 'hallo wereld', :procedure => mock_procedure )
-    mock_procedure.stub( :title => 'hallo wereld' )
-    mock_task.stub( :title => 'hallo wereld' )
+    mock_step.stub( :title => 'hallo wereld', :definition => mock_definition )
+    mock_definition.stub( :title => 'hallo wereld' )
+    mock_transaction.stub( :title => 'hallo wereld' )
   end
 
   it "renders attributes in <p>" do

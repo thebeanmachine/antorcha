@@ -1,7 +1,7 @@
 <% semantic_form_for(@message) do |f| %>
 
   <% f.inputs do %>
-    <%= f.input :instruction, :as => :radio, :collection => @instructions_to_start_with, :label_method => :title %>
+    <%= f.input :step, :as => :radio, :collection => @steps_to_start_with, :label_method => :title %>
     <%= f.input :title %>
     <%= f.input :body %>
   <% end %>

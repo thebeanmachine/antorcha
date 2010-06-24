@@ -1,18 +1,18 @@
 <h1>Messages</h1>
 
-<% if @task %>
+<% if @transaction %>
   <p class="intro">
-    of <%= link_to_task @task %>.
-    Create a <%= link_to "New Message", new_task_message_path(@task)%>.
+    of <%= link_to_transaction @transaction %>.
+    Create a <%= link_to "New Message", new_transaction_message_path(@transaction)%>.
   </p>
 <% end %>
 
-<% if @instructions_to_start_with %>
-<h2>Start a new instruction</h2>
+<% if @steps_to_start_with %>
+<h2>Start a new step</h2>
 
 <ul>
-<% @instructions_to_start_with.each do |instruction| %>
-  <li><%= link_to "Start: #{instruction.title} (van Procedure: #{instruction.procedure.title})", new_instruction_message_url(instruction)%></li>
+<% @steps_to_start_with.each do |step| %>
+  <li><%= link_to "Start: #{step.title} (van Definition: #{step.definition.title})", new_step_message_url(step)%></li>
 <% end %>
 </ul>
 <h2>Messages</h2>
@@ -28,16 +28,16 @@
 <table>
   <tr>
     <th>Message title</th>
-    <th>Instruction title</th>
-    <th>Procedure title</th>
+    <th>Step title</th>
+    <th>Definition title</th>
     <th>Direction</th>
   </tr>
 
 <% @messages.each do |message| %>
   <tr class="message <%= message.shown? %>">
     <td><%= link_to h(message.title), message %></td>
-    <td><%= link_to_instruction message.instruction %></td>
-    <td><%= link_to h(message.instruction.procedure.title), message.instruction.procedure %></td>
+    <td><%= link_to_step message.step %></td>
+    <td><%= link_to h(message.step.definition.title), message.step.definition %></td>
     <td><%= message.incoming? ? "In" : "Out" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
   </tr>
 <% end %>

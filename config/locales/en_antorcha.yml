@@ -10,10 +10,10 @@ en:
       draft: "Draft"
 
   titles:
-    instructions:
-      index: "All Instructions"
-    start_instructions:
-      index: "All Start Instructions"
+    steps:
+      index: "All Steps"
+    start_steps:
+      index: "All Start Steps"
 
   action:
     new: "New {{model}}"

@@ -2,7 +2,7 @@
 
 module AntorchaHelper
 
-  %w[instruction message procedure task].each do |model|
+  %w[step message definition transaction].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model}
         @mock_#{model} ||= mock_model(#{model.classify})

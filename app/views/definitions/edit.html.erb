@@ -1,0 +1,11 @@
+<h1>Editing definition</h1>
+
+<% semantic_form_for(@definition) do |f| %>
+  <%= f.inputs :title %>
+  <% f.buttons do %>
+    <%= f.commit_button %> or <%= link_to 'go back to definitions', definitions_path %>
+  <% end %>
+<% end %>
+
+
+

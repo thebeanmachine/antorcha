@@ -1,0 +1,15 @@
+<%= index_title %>
+
+<p class="intro">
+  All <%= link_to_steps %> or only the
+  <%= link_to "Start steps", start_steps_path %>
+</p>
+
+<ul>
+<% @steps.each do |step| %>
+  <li>
+    <%= link_to_step step %> in <%= link_to_definition step.definition %>
+  </li>
+<% end %>
+</ul>
+

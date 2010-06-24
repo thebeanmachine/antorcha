@@ -1,0 +1,20 @@
+<h1>Transaction <strong><%=h @transaction.title %></strong></h1>
+
+
+<p class="intro">
+  follows Definition <%=link_to_definition @transaction.definition %>
+</p>
+
+<p><%= link_to "Messages", transaction_messages_path(@transaction) %> of this transaction</p>
+<p><%= link_to "Steps", definition_steps_path(@transaction.definition) %> available to this transaction</p>
+
+<% if @transaction.cancelled? %>
+  <p>Transaction was cancelled on <%= l @transaction.cancelled_at, :format => :short %></p>
+<% end %>
+
+<div class="actions">
+  <%= link_to_edit_transaction @transaction %>
+  <% unless @transaction.cancelled? %>
+    or <%= button_to_transaction_cancellation @transaction %>
+  <% end %>
+</div>

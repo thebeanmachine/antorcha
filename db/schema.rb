@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100623122531) do
+ActiveRecord::Schema.define(:version => 20100624151540) do
+
+  create_table "definitions", :force => true do |t|
+    t.string   "title",      :null => false
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -26,39 +33,32 @@ ActiveRecord::Schema.define(:version => 20100623122531) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "instructions", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "start"
-    t.string   "name",                        :null => false
-    t.integer  "procedure_id", :default => 1, :null => false
-  end
-
   create_table "messages", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "incoming",       :default => false
-    t.integer  "instruction_id",                    :null => false
+    t.integer  "step_id",                           :null => false
     t.datetime "delivered_at"
     t.datetime "sent_at"
     t.datetime "shown_at"
-    t.integer  "task_id"
+    t.integer  "transaction_id"
   end
 
-  create_table "procedures", :force => true do |t|
-    t.string   "title",      :null => false
-    t.string   "name",       :null => false
+  create_table "steps", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "start"
+    t.string   "name",                         :null => false
+    t.integer  "definition_id", :default => 1, :null => false
   end
 
-  create_table "tasks", :force => true do |t|
-    t.string   "title",        :null => false
-    t.string   "name",         :null => false
-    t.integer  "procedure_id", :null => false
+  create_table "transactions", :force => true do |t|
+    t.string   "title",         :null => false
+    t.string   "name",          :null => false
+    t.integer  "definition_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "cancelled_at"

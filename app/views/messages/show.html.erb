@@ -1,8 +1,8 @@
 <h1>Message <strong><%=h @message.title  %></strong></h1>
 <p class="intro">
-  in task <%= link_to_task @message.task %>
-  which follows procedure <%= link_to_procedure @message.instruction.procedure %>
-  based on instruction <%= link_to_instruction @message.instruction %>
+  in transaction <%= link_to_transaction @message.transaction %>
+  which follows definition <%= link_to_definition @message.step.definition %>
+  based on step <%= link_to_step @message.step %>
 </p>
 <p>Message is
   <% if @message.incoming? %>

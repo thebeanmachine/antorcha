@@ -21,15 +21,15 @@ nl:
       
   activerecord:
     models:
-      procedure: Transactiedefinitie
-      instruction: Stap
+      definition: Transactiedefinitie
+      step: Stap
       inquiry: Transactie
       message: Bericht
     
     attributes:
-      procedure:
+      definition:
         title: Titel
-      instruction:
+      step:
         title: Titel
       message:
         title: Titel

@@ -1,0 +1,13 @@
+<h1>Definitions</h1>
+<p class="intro">
+<%= link_to_new_definition %>
+</p>
+
+<ul>
+<% @definitions.each do |definition| %>
+  <li class="definition">
+    <%=link_to h(definition.title), definition %>
+  </li>
+<% end %>
+</ul>
+

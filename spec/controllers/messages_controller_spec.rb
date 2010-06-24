@@ -6,7 +6,7 @@ describe MessagesController do
     def stub_index
       Message.stub(:search => mock_search)
       mock_search.stub(:all => mock_messages)
-      Instruction.stub(:to_start_with => mock_instructions)
+      Step.stub(:to_start_with => mock_steps)
     end
     
     it "uses searchlogic" do
@@ -21,10 +21,10 @@ describe MessagesController do
       assigns[:messages].should == mock_messages
     end
     
-    it "assigns instructions to start with" do
+    it "assigns steps to start with" do
       stub_index
       get :index
-      assigns[:instructions_to_start_with].should == mock_instructions
+      assigns[:steps_to_start_with].should == mock_steps
     end
   end
 
