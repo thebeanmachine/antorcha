@@ -16,7 +16,7 @@ Feature: Start a new Procedure using a start instruction
     And I follow "Start: Defrost doh"
     Then I should see "Start een nieuwe 'Defrost doh'"
 
-
+  @wip
   Scenario: I can create a message of a starting instruction
     Given I have a starting instruction "Defrost doh"
     And I am on the new instruction message page of "Defrost doh"
