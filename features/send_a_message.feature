@@ -7,11 +7,11 @@ Feature: Create a message
     Given I have a starting step "Hello world"
     And I have a message "Hello world" for step "Hello world"
     When I am on the "Hello world" message page
-    And I press "Send"
+    And I press "Send Message"
     Then I should see "Message is being sent"
     And I should see "Message is sent at"
     And I should see "and not received"
-    And I should not see submit button "Send"
+    And I should not see submit button "Send Message"
   
   
   

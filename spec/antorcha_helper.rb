@@ -79,5 +79,23 @@ module AntorchaHelper
     puts ERB::Util.html_escape(x)
     puts "</pre></div>"
   end
+  
+  Spec::Matchers.define :have_before_filter do |expected|
+    match do |actual|
+      actual.class.before_filters.include?(expected)
+    end
+
+    failure_message_for_should do |actual|
+      "expected that #{actual} would have a before filter #{expected}"
+    end
+
+    failure_message_for_should_not do |actual|
+      "expected that #{actual} would not have before filter #{expected}"
+    end
+
+    description do
+      "have before filter #{expected}"
+    end
+  end
 end
 

@@ -22,6 +22,10 @@ describe TransactionCancellationsController do
       post :create, :transaction_uri => mock_transaction.uri
     end
 
+    it "does not verify authenticity token" do
+      should_not have_before_filter(:verify_authenticity_token)
+    end
+
     describe "cancellation on cancelled transaction" do
       before(:each) do
         mock_transaction.stub :cancelled? => true

@@ -11,6 +11,9 @@
 <% if @transaction.cancelled? %>
   <p>Transaction was cancelled on <%= l @transaction.cancelled_at, :format => :short %></p>
 <% end %>
+<% if @transaction.stopped? %>
+  <p>Transaction was stopped on <%= l @transaction.stopped_at, :format => :short %></p>
+<% end %>
 
 <div class="actions">
   <%= link_to_edit_transaction @transaction %>

@@ -14,15 +14,19 @@ module NavigationHelpers
     when /the messages page/
       messages_path
 
-    when /the "([^\"]+)" message page/
-      message_path(Message.find_by_title($1))
+    when /the "([^\"]+)" (\w+) page/
+      self.send("#{$2}_path", $2.classify.constantize.find_by_title!($1))
 
-    when /the "([^\"]+)" definition page/
-      definition_path(Definition.find_by_title($1))
+    # when /the "([^\"]+)" message page/
+    #   message_path(Message.find_by_title!($1))
+    # 
+    # when /the "([^\"]+)" definition page/
+    #   definition_path(Definition.find_by_title!($1))
+
 
     # the new step message page of "Hello world"
     when /the new step message page of \"([^\"]+)\"/
-      new_step_message_path(Step.find_by_title($1))
+      new_step_message_path(Step.find_by_title!($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -9,7 +9,8 @@ describe "/transactions/show.html.erb" do
       :title => "value for title",
       :name => "value for name",
       :definition => mock_definition,
-      :cancelled? => false
+      :cancelled? => false,
+      :stopped? => false
     
     mock_definition.stub \
       :title => 'My Definition'
