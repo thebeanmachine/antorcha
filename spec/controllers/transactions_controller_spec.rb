@@ -41,15 +41,31 @@ describe TransactionsController do
   describe "POST create" do
 
     describe "with valid params" do
-      it "assigns a newly created transaction as @transaction" do
-        Transaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => true))
+      def stub_successful_create
+        stub_new(mock_transaction, {'these' => 'params'})
+        stub_successful_save_for(mock_transaction)
+        mock_transaction.stub(:update_attributes => true)
+      end
+      
+      def post_create
         post :create, :transaction => {:these => 'params'}
+      end
+
+      it "assigns a newly created transaction as @transaction" do
+        stub_successful_create
+        post_create
         assigns[:transaction].should equal(mock_transaction)
       end
 
+      it "assigns unique uri for transaction" do
+        stub_successful_create
+        mock_transaction.should_receive(:update_attributes).with(hash_including(:uri => controller.url_for(mock_transaction)))
+        post_create
+      end
+
       it "redirects to the created transaction" do
-        Transaction.stub(:new).and_return(mock_transaction(:save => true))
-        post :create, :transaction => {}
+        stub_successful_create
+        post_create
         response.should redirect_to(transaction_url(mock_transaction))
       end
     end

@@ -3,6 +3,8 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :name, :if => :title
   validates_uniqueness_of :name
 
+  validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
+
   belongs_to :definition
   has_many :messages
 
@@ -14,4 +16,5 @@ private
   def parameterize_title_for_name
     self.name = title.parameterize if title
   end
+  
 end
