@@ -10,7 +10,7 @@ class Transaction < ActiveRecord::Base
 
   before_validation :parameterize_title_for_name
 
-  flagstamp :cancelled
+  flagstamp :cancelled, :stopped
 
 private
   def parameterize_title_for_name

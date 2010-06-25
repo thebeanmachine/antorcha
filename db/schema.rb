@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100625085832) do
+ActiveRecord::Schema.define(:version => 20100625110836) do
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20100625085832) do
     t.datetime "updated_at"
     t.datetime "cancelled_at"
     t.string   "uri"
+    t.datetime "stopped_at"
   end
 
 end

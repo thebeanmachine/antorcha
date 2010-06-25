@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :transaction_cancellations, :as => :cancellations, :path_prefix => 'transactions', :only => :create
   map.resources :transactions do |transaction|
     transaction.resources :messages, :only => [:index, :new, :create], :controller => 'transaction_messages'
     transaction.resource :cancellation, :only => :create, :controller => 'transaction_cancellations'

@@ -9,7 +9,7 @@ describe MessageDeliveryController do
     
     def stub_create
       stub_find(mock_message)
-      stub_new_delivery_job
+      stub_new_message_delivery_job
       mock_message.stub(:sent! => nil)
       Delayed::Job.stub(:enqueue => nil)
     end
@@ -29,7 +29,7 @@ describe MessageDeliveryController do
     
     it "enqueues a delivery job" do
       stub_create
-      Delayed::Job.should_receive(:enqueue).with(mock_delivery_job)
+      Delayed::Job.should_receive(:enqueue).with(mock_message_delivery_job)
       post_create
     end
     

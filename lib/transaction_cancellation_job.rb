@@ -4,8 +4,11 @@ class TransactionCancellationJob < Struct.new(:transaction_id)
   def perform
     transaction = Transaction.find(transaction_id)
 
-    transaction.messages.outbox.each do |message|
-      RestClient.post('http://localhost:3000/transactions/cancellation', :transaction => transaction.uri)
+    if transaction.cancelled? and not transaction.stopped?
+      transaction.messages.outbox.each do |message|
+        RestClient.post('http://localhost:3000/transactions/cancellations', :transaction_uri => transaction.uri)
+      end
+      transaction.stopped!
     end
   end
 end
