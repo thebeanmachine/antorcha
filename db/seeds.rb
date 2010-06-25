@@ -7,13 +7,13 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 seeds = [
-  {Procedure => {
+  {Definition => {
     {:title => 'Bake bread'} => {}
   }},
-  {Instruction => {
+  {Step => {
     {:title => 'Defrost doh'} => {
       :start => true,
-      :procedure => lambda { Procedure.find_by_title('Bake bread') }
+      :definition => lambda { Definition.find_by_title('Bake bread') }
     }
   }}
 ]
