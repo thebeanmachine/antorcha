@@ -12,11 +12,19 @@
   <div class="heading"><div class="inner">
     <span class="title">Antorcha</span>
     <p>
-      <%= link_to_transactions %> |
-      <%= link_to_messages %> |
-      <%= link_to_definitions %> |
-      <%= link_to_steps %>
+      <%= [ link_to_transactions, link_to_messages, link_to_definitions, link_to_steps ].compact.join(" | ") %>
     </p>
+    
+    <p>
+      <% %w[maintainer sender].each do |role| %>
+        <% if controller.current_user.include? role.to_sym %>
+          <%= button_to "Give up #{role} role", role_path(:id => role), :method => :delete %>
+        <% else %>
+          <%= button_to "Act as #{role} role", role_path(:id => role), :method => :put %>
+        <% end %>
+      <% end %>
+    </p>
+    
   </div></div>
   
   <% if flash[:notice] %>

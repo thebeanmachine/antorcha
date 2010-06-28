@@ -37,6 +37,7 @@ describe "/messages/index.html.erb" do
   end
 
   it "renders titles of steps" do
+    act_as :maintainer
     render
     response.should have_tag("tr.message>td", "step title".to_s, 2)
   end

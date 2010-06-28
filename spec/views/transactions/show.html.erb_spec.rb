@@ -14,7 +14,10 @@ describe "/transactions/show.html.erb" do
     
     mock_definition.stub \
       :title => 'My Definition'
+
+    act_as :maintainer
   end
+  
 
   it "renders attributes in <p>" do
     render

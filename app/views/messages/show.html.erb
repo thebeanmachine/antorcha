@@ -27,8 +27,5 @@
 </p>
 
 <div class="actions">
-<% unless @message.sent? %>
-  <%= button_to 'Send Message', message_delivery_path(@message), :method => :post %> |
-<% end %>
-<%= link_to_edit_message @message %>
+  <%= [ link_to_send_message(@message), link_to_edit_message(@message) ].compact.join(" | ") %>
 </div>

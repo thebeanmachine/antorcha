@@ -25,6 +25,10 @@ module AntorchaHelper
       end
     RUBY
   end
+  
+  def act_as who
+    session[:user] = [who]
+  end
 
   def mock_search
     @mock_search ||= mock(Searchlogic::Search)

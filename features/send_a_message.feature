@@ -7,6 +7,7 @@ Feature: Create a message
     Given I have a starting step "Hello world"
     And I have a message "Hello world" for step "Hello world"
     When I am on the "Hello world" message page
+    And I press "Act as sender"
     And I press "Send Message"
     Then I should see "Message is being sent"
     And I should see "Message is sent at"

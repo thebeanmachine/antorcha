@@ -18,13 +18,22 @@ nl:
       create: "Maak {{model}}"
       update: "Bewaar veranderingen"
       dummie: "Launch!"
+
       
   activerecord:
     models:
-      definition: Transactiedefinitie
-      step: Stap
-      inquiry: Transactie
-      message: Bericht
+      definition:
+        one: Transactiedefinitie
+        other: Transactiedefinities
+      step:
+        one: Stap
+        other: Stappen
+      transaction:
+        one: Transactie
+        other: Transacties
+      message:
+        one: Bericht
+        other: Berichten
     
     attributes:
       definition:

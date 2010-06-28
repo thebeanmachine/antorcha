@@ -29,6 +29,7 @@ describe "/messages/show.html.erb" do
   end
   
   it "renders link to delivery if not sent" do
+    act_as :sender
     mock_message.stub(:sent? => false)
     render
     response.should have_tag('form[action=?] input[type=submit][value=?]', message_delivery_path(mock_message), 'Send Message') 

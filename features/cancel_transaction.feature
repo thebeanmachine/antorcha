@@ -14,6 +14,7 @@ Feature: Cancel transaction
   Scenario: Cancel a transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
+    And I press "Act as maintainer"
     When I fill in "Title" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Create Transaction"
@@ -26,6 +27,7 @@ Feature: Cancel transaction
   Scenario: Cancel a transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
+    And I press "Act as maintainer"
     And I fill in "Title" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Create Transaction"

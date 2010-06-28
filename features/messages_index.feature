@@ -2,6 +2,7 @@ Feature: Messages index
   In order to see what I sent and received
   As a user
   I want to have an overview of all messages
+
   
   Scenario: I can see what I have already read
     Given I have a message "My message"
@@ -9,6 +10,7 @@ Feature: Messages index
     And I follow "My message"
     And I follow "Messages"
     Then I should see "My message" within ".shown"
+
     
   Scenario: I can see the incoming messages
     Given I have a incoming message "Incoming message"

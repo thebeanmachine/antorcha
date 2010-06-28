@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem 'delayed_job', :version => '2.0.3'
   config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
+  config.gem 'cancan', :version => '1.1.1'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

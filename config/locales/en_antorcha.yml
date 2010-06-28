@@ -19,8 +19,15 @@ en:
     new: "New {{model}}"
     edit: "Edit {{model}}"
     destroy: "Destroy {{model}}"
+    cancel: "Cancel {{model}}"
+    send: "Send {{model}}"
     
   notice:
     created: "{{model}} was successfully created"
     updated: "{{model}} was successfully updated"
 
+  activerecord:
+    models:
+      message:
+        one: Message
+        other: Messages

@@ -1,5 +1,5 @@
 module DefinitionsHelper
   include SwiftHelper
 
-  help_link_to :definition
+  help_can_link_to :definition
 end

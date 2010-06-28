@@ -7,4 +7,12 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  #
+  # Current user is a user without roles.
+  #
+  def current_user
+    session[:user] ||= []
+  end
+  
 end

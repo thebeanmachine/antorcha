@@ -3,7 +3,9 @@
 <% if @transaction %>
   <p class="intro">
     of <%= link_to_transaction @transaction %>.
-    Create a <%= link_to "New Message", new_transaction_message_path(@transaction)%>.
+    <% if can? :create, Message %>
+      Create a <%= link_to_new_transaction_message @transaction%>.
+    <% end %>
   </p>
 <% end %>
 

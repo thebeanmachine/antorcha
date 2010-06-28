@@ -13,6 +13,7 @@ describe "/steps/index.html.erb" do
       )
     ]
     mock_definition.stub(:title => 'My Definition')
+    act_as :maintainer
   end
 
   it "renders a list of steps" do
