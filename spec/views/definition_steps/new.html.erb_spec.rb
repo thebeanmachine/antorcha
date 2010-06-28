@@ -7,12 +7,13 @@ describe "/definition_steps/new.html.erb" do
     assigns[:definition] = mock_definition
     assigns[:step] = mock_step
     
-    mock_step.stub(
+    mock_step.stub \
       :new_record? => true,
       :title => "value for title",
       :start => false,
+      :destination_url => 'http://example.com/messages',
       :errors => stub("errors").as_null_object
-    )
+
     mock_step.as_new_record
     mock_definition.stub( :title => "Definition title" )
     

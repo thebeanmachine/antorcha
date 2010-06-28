@@ -8,8 +8,11 @@ describe MessageDeliveryJob do
   def stub_perform
     stub_find(mock_message)
     stub_rest_client_post
-    mock_message.stub(:to_xml => "XML!")
-    mock_message.stub(:delivered! => nil)
+
+    mock_message.stub \
+      :to_xml => "XML!",
+      :delivered! => nil,
+      :destination_url => 'http://example.com/messages'
   end
 
   def stub_rest_client_post
@@ -49,9 +52,15 @@ describe MessageDeliveryJob do
       subject.perform
     end
     
-    it "should post the message locally" do
+    it "should post the message to the destination url" do
       stub_undelivered
-      RestClient.should_receive(:post).with('http://localhost:3000/messages', anything(), anything())
+      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything())
+      subject.perform
+    end
+
+    it "should fetch destination url from the message" do
+      stub_undelivered
+      mock_message.should_receive(:destination_url)
       subject.perform
     end
   end

@@ -7,11 +7,12 @@ describe "/steps/edit.html.erb" do
     assigns[:step] = mock_step
     assigns[:definition] = mock_definition
     
-    mock_step.stub(
+    mock_step.stub \
       :title => "value for title",
       :start => false,
-      :errors => stub("errors").as_null_object
-    )
+      :errors => stub("errors").as_null_object,
+      :destination_url => 'http://example.com/messages'
+
     mock_definition.stub( :title => 'value for definition')
   end
 

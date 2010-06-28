@@ -20,12 +20,13 @@ describe Message do
     it "delivered_at should not be accessible"
   end
   
+  
   describe "empty message" do
     subject { Message.create }
     
     specify { should have(1).error_on(:title) }
     specify { should have(1).error_on(:step) }
-    
+
     it "status should be :draft" do
       subject.status.should == :draft
     end

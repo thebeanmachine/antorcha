@@ -17,6 +17,8 @@ class Message < ActiveRecord::Base
   
   named_scope :inbox, :conditions => {:incoming => true}
   named_scope :outbox, :conditions => {:incoming => false}
+  
+  delegate :destination_url, :to => :step
 
   def status
     status ||= :incoming if incoming?
