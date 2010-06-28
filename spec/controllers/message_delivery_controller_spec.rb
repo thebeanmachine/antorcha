@@ -14,35 +14,48 @@ describe MessageDeliveryController do
       Delayed::Job.stub(:enqueue => nil)
     end
 
-
-    it "assigns the message to @message" do
-      stub_create
-      post_create
-      assigns[:message].should == mock_message
+    describe "as anonymous" do
+      it "should flash 'access denied'" do
+        stub_create
+        post_create
+        flash[:error].should =~ /You are not authorized to access this page/
+      end
     end
 
-    it "flags the message as sent" do
-      stub_create
-      mock_message.should_receive(:sent!)
-      post_create
-    end
+    describe "as sender" do
+      before(:each) do
+        act_as :sender
+      end
+      
+      it "assigns the message to @message" do
+        stub_create
+        post_create
+        assigns[:message].should == mock_message
+      end
+
+      it "flags the message as sent" do
+        stub_create
+        mock_message.should_receive(:sent!)
+        post_create
+      end
     
-    it "enqueues a delivery job" do
-      stub_create
-      Delayed::Job.should_receive(:enqueue).with(mock_message_delivery_job)
-      post_create
-    end
+      it "enqueues a delivery job" do
+        stub_create
+        Delayed::Job.should_receive(:enqueue).with(mock_message_delivery_job)
+        post_create
+      end
     
-    it "redirects to the message details" do
-      stub_create
-      post_create
-      response.should redirect_to(message_url(mock_message))
-    end
+      it "redirects to the message details" do
+        stub_create
+        post_create
+        response.should redirect_to(message_url(mock_message))
+      end
 
-    it "flashes 'Bericht wordt verzonden'" do
-      stub_create
-      post_create
-      flash[:notice].should =~ /Message is being sent/
+      it "flashes 'Bericht wordt verzonden'" do
+        stub_create
+        post_create
+        flash[:notice].should =~ /Message is being sent/
+      end
     end
   end
   

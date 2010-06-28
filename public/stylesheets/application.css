@@ -88,10 +88,17 @@ table th {
 .flash {
   margin: auto;
   width: 76%;
-  background: #484;
-  color: white;
   margin-bottom: 1em;
 }
+.flash.notice {
+  background: #484;
+  color: white;
+}
+.flash.error {
+  background: #822;
+  color: white;
+}
+
 .flash p {
   margin: 0em 2em;
   padding: 1em 0em;
