@@ -19,6 +19,9 @@ nl:
       update: "Bewaar veranderingen"
       dummie: "Launch!"
 
+  action:
+    cancel: "Annuleer {{model}}"
+    
       
   activerecord:
     models:

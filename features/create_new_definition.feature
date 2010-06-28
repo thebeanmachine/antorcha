@@ -5,8 +5,8 @@ Feature: Create new Definition
 
   Scenario: Create a Definition
     Given I am on the new definition page
-    When I fill in "Title" with "My defined Definition"
-    And I press "Create"
+    When I fill in "Titel" with "My defined Definition"
+    And I press "Maak Transactiedefinitie"
     Then I should see "Definition created successfully"
   
 
@@ -23,8 +23,8 @@ Feature: Create new Definition
     When I am on the "My defined Definition" definition page
     And I follow "Steps" within ".page"
     And I follow "New Step"
-    And I fill in "Title" with "My defined Step"
-    And I press "Create Step"
+    And I fill in "Titel" with "My defined Step"
+    And I press "Maak Stap"
     Then I should see "Step created successfully"
   
 

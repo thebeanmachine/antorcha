@@ -8,7 +8,7 @@ Feature: Messages index
     Given I have a message "My message"
     When I am on the messages page
     And I follow "My message"
-    And I follow "Messages"
+    And I follow "Berichten"
     Then I should see "My message" within ".shown"
 
     
