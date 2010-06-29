@@ -15,6 +15,14 @@ Given /^I have a (starting)? step "([^\"]*)"$/ do |starting, title|
     :start => (starting == 'starting')
 end
 
+Given /^I have a (starting)? step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
+  Factory.create :step,
+    :title => title,
+    :start => (starting == 'starting'),
+    :definition => Definition.find_by_title!(definition)
+end
+
+
 Given /^I have a message "([^\"]*)" for step "([^\"]*)"$/ do |title,step|
   Factory.create(:message, :title => title, :step => Step.find_by_title(step))
 end

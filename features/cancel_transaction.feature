@@ -6,7 +6,7 @@ Feature: Cancel transaction
   Scenario: Create a transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
-    When I fill in "Title" with "Bake bread for George"
+    When I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"
     Then I should see "Transaction was successfully created"
@@ -15,7 +15,7 @@ Feature: Cancel transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
     And I press "Act as maintainer"
-    When I fill in "Title" with "Bake bread for George"
+    When I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"
     And I press "Annuleer Transactie"
@@ -28,7 +28,7 @@ Feature: Cancel transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
     And I press "Act as maintainer"
-    And I fill in "Title" with "Bake bread for George"
+    And I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"
     And I confirm a js popup on the next step

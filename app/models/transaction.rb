@@ -4,6 +4,7 @@ class Transaction < ActiveRecord::Base
   validates_uniqueness_of :name
 
   validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
+  validates_presence_of :definition
 
   belongs_to :definition
   has_many :messages

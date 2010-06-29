@@ -104,7 +104,7 @@ table th {
   padding: 1em 0em;
 }
 
-p.intro {
+p.intro, div.intro {
   margin-top: 0em;
   padding: .5em 2em;
   background: #eef;
@@ -118,7 +118,6 @@ div.actions {
   clear: left;
   display: block;
   margin: 0em;
-  
 }
 form.button-to {
   display: inline;

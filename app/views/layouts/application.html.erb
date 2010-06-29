@@ -12,7 +12,11 @@
   <div class="heading"><div class="inner">
     <span class="title">Antorcha</span>
     <p>
-      <%= [ link_to_transactions, link_to_messages, link_to_definitions, link_to_steps ].compact.join(" | ") %>
+      <%= [
+        link_to_transactions, link_to_messages,
+        link_to_definitions, link_to_steps,
+        link_to_workers
+      ].compact.join(" | ") %>
     </p>
     
     <p>

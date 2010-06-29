@@ -17,7 +17,7 @@ class TransactionMessagesController < ApplicationController
     @transaction = Transaction.find(params[:transaction_id])
     @message = @transaction.messages.new(params[:message])
     if @message.save
-      redirect_to(@message, :notice => t('notice.created', :model => 'Message'))
+      redirect_to(@message, :notice => t('notice.created', :model => Message.human_name))
     else
       render :action => "new"
     end

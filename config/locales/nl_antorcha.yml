@@ -20,10 +20,15 @@ nl:
       dummie: "Launch!"
 
   action:
+    new: "Nieuw {{model}}"
     cancel: "Annuleer {{model}}"
     edit: "Bewerk {{model}}"
     destroy: "Vernietig {{model}}"
-    
+  
+  notice:
+    created: "{{model}} was succesvol aangemaakt."
+    updated: "{{model}} was succesvol gewijzigd."
+  
       
   activerecord:
     models:
@@ -39,8 +44,14 @@ nl:
       message:
         one: Bericht
         other: Berichten
+      worker:
+        one: Werker
+        other: Werkers
     
     attributes:
+      transaction:
+        title: Titel
+        definition: Definitie
       definition:
         title: Titel
       step:

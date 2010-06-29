@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :workers, :only => [:index, :create, :show, :destroy]
   map.resources :roles, :only => [:update, :destroy]
 
   map.resources :transaction_cancellations, :as => :cancellations, :path_prefix => 'transactions', :only => :create

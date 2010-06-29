@@ -1,0 +1,27 @@
+
+<h1>Werkers</h1>
+<% if @workers.blank? %>
+  <div class="intro">Start een <%= button_to "Nieuwe werker", workers_path, :method => :post %></div>
+<% end %>
+
+<p>De werker is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
+  Als de werker wordt gestopt dan is antorcha inactief.</p>
+
+<% @workers.each do |worker| %>
+  <div class="worker">
+    <p>Werker heeft een pid <%= worker.pid %>.
+      <% if worker.running? %>
+        Werker loopt.
+      <% else %>
+        Werker loopt niet meer. En moet opgeruimd worden, waarschijnlijk is de antorcha werker niet correct gestopt.
+      <% end %>
+    </p>
+    <div class="actions">
+      <% if worker.running? %>
+        <%= button_to "Stop Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?'%> en deactiveer daardoor deze antorcha.
+      <% else %>
+        <%= button_to "Zap Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
