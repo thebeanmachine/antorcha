@@ -20,7 +20,7 @@
       <% if worker.running? %>
         <%= button_to "Stop Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?'%> en deactiveer daardoor deze antorcha.
       <% else %>
-        <%= button_to "Zap Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?' %>
+        <%= button_to "Stop Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?' %>
       <% end %>
     </div>
   </div>

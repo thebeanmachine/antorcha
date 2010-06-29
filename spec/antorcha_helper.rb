@@ -25,6 +25,22 @@ module AntorchaHelper
       end
     RUBY
   end
+
+  %w[worker].each do |model|
+    self.class_eval <<-RUBY
+      def stub_new_#{model}
+        #{model.classify}.stub(:new => mock_#{model})
+      end
+  
+      def mock_#{model}
+        @mock_#{model} ||= mock(#{model.classify})
+      end
+      
+      def mock_#{model.pluralize}
+        @mock_#{model.pluralize} ||= [mock_#{model}, mock_#{model}]
+      end
+    RUBY
+  end
   
   def act_as who
     session[:user] = [who]
