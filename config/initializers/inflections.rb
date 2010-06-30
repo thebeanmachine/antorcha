@@ -10,4 +10,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'inbox', 'inboxes'
   inflect.irregular 'item', 'items'
   inflect.irregular 'transaction_role', 'transaction_roles'
+  inflect.irregular 'organization', 'organizations'
 end
