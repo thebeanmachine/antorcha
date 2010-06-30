@@ -11,9 +11,26 @@
     <%= f.label :url %><br />
     <%= f.text_field :url %>
   </p>
+  
+  
   <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
 
 <%= link_to 'Back', organizations_path %>
+
+
+
+  <ul class="new_transaction_role">
+    <%= render :partial => 'role', :collection => @organization.transaction_roles %>
+    <%= render :partial => 'role', :object => @organization.transaction_roles.new %>
+  </ul>
+
+	<p><%= link_to "Voeg een rol toe", "#", :class => "add_role", :style=>'clear:both' %></p>
+  <div class="clear" style="margin-bottom: 2em;"></div>
+  
+  
+  
+  
+  
