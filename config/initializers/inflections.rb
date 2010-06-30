@@ -9,4 +9,5 @@ ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.uncountable %w( fish sheep )
   inflect.irregular 'inbox', 'inboxes'
   inflect.irregular 'item', 'items'
+  inflect.irregular 'transaction_role', 'transaction_roles'
 end

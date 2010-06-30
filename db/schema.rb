@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100628123508) do
+ActiveRecord::Schema.define(:version => 20100630084337) do
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
@@ -54,6 +54,12 @@ ActiveRecord::Schema.define(:version => 20100628123508) do
     t.string   "name",                                                          :null => false
     t.integer  "definition_id",   :default => 1,                                :null => false
     t.string   "destination_url", :default => "http://localhost:3000/messages"
+  end
+
+  create_table "transaction_roles", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transactions", :force => true do |t|

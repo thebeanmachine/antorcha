@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :transaction_roles
+
 
   map.resources :workers, :only => [:index, :create, :show, :destroy]
   map.resources :roles, :only => [:update, :destroy]
