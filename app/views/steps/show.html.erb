@@ -1,6 +1,14 @@
 <h1><%=h @step.title %></h1>
 <p class="intro">binnen transactie <%= link_to h(@definition.title), @definition %> </p>
 
+<% if @step.causes %>
+  <p>
+    <% @step.causes.each do |cause| %>
+      Stap heeft als oorzaak <%= link_to_step cause %>.
+    <% end %>
+  </p>
+<% end %>
+
 <div class="actions">
   <%= link_to_edit_step @step %> |
   <%= button_to_destroy_step @step %>

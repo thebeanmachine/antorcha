@@ -13,7 +13,7 @@ Feature: Create new Definition
   Scenario: Create an Step within a Definition
     Given I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
-    And I follow "Steps" within ".page"
+    And I follow "Stappen" within ".page"
     And I follow "New Step"
     Then I should see "New Step"
   
@@ -21,7 +21,7 @@ Feature: Create new Definition
   Scenario: Create an Step under a Definition
     Given I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
-    And I follow "Steps" within ".page"
+    And I follow "Stappen" within ".page"
     And I follow "New Step"
     And I fill in "Titel" with "My defined Step"
     And I press "Maak Stap"
