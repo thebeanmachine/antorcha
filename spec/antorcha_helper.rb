@@ -2,7 +2,7 @@
 
 module AntorchaHelper
 
-  %w[step message definition transaction].each do |model|
+  %w[step message definition transaction reaction].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model}
         @mock_#{model} ||= mock_model(#{model.classify})
@@ -99,6 +99,13 @@ module AntorchaHelper
     puts ERB::Util.html_escape(x)
     puts "</pre></div>"
   end
+
+  def debunk(x)
+    puts "<div class=\"debug\" style=\"background: #ddd; padding: 1em;\"><pre>"
+    puts ERB::Util.html_escape(x)
+    puts "</pre></div>"
+  end
+  
   
   Spec::Matchers.define :have_before_filter do |expected|
     match do |actual|
@@ -116,6 +123,10 @@ module AntorchaHelper
     description do
       "have before filter #{expected}"
     end
+  end
+  
+  def should_render_partial name
+    template.should_receive(:render).with(hash_including(:partial => name))
   end
 end
 

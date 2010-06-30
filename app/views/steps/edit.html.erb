@@ -1,10 +1,5 @@
 <h1><strong><%=h @step.title %></strong> bewerken</h1>
 <p class="intro">binnen transactie <%= link_to h(@definition.title), @definition %> </p>
 
-<% semantic_form_for @step do |f| %>
-  <%= f.inputs :title, :start, :destination_url %>
-  <% f.buttons do %>
-    <%= f.commit_button %> of <%= link_to 'ga terug naar de transactiedefinitie', @definition %>
-  <% end %> 
-<% end %>
+<%= render :partial => 'form' %>
 

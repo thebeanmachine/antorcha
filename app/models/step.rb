@@ -5,6 +5,8 @@ class Step < ActiveRecord::Base
 
   belongs_to :definition
   has_many :messages
+  
+  has_many_siblings :reaction, :cause => :effect
 
   named_scope :to_start_with, :conditions => {:start => true}
 

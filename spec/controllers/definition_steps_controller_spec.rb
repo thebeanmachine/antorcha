@@ -6,6 +6,7 @@ describe DefinitionStepsController do
     def stub_new_action
       stub_new(mock_step)
       stub_find(mock_definition)
+      mock_definition.stub :steps => mock_steps
     end
     
     it "assigns a new step as @step" do
@@ -20,6 +21,11 @@ describe DefinitionStepsController do
       assigns[:definition].should equal(mock_definition)
     end
 
+    it "assigns a sibling steps as @steps" do
+      stub_new_action
+      get :new, :definition_id => mock_definition.to_param
+      assigns[:steps].should equal(mock_steps)
+    end
   end
   
   describe "POST create" do
@@ -32,6 +38,13 @@ describe DefinitionStepsController do
     
     def post_create
       post :create, :step => {:these => 'params'}, :definition_id => mock_definition.to_param
+    end
+
+    it "assigns sibling steps as @effects" do
+      stub_successful_save_for(mock_step)
+      stub_create_action
+      post_create
+      assigns[:steps].should equal(mock_steps)
     end
 
     describe "with valid params" do

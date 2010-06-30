@@ -1,0 +1,22 @@
+<% if @definition %>
+  <h1><strong><%=h @definition.title %></strong> reacties</h1>
+<% else %>
+  <h1>Alle reacties</h1>
+<% end %>
+
+<p class="intro">
+  <%= "Definitie #{link_to_definition(@definition)}." if @definition %>
+  <%= link_to 'New reaction', new_reaction_path %>
+</p>
+
+<ul>
+  <% @reactions.each do |reaction| %>
+    <li>
+      <% link_to reaction_path(reaction) do %>
+        <%=h reaction.cause.title %> &rarr; <%=h reaction.effect.title %>
+      <% end %>
+    </li>
+  <% end%>
+</ul>
+
+

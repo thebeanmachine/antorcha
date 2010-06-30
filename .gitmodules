@@ -1,3 +1,9 @@
 [submodule "vendor/plugins/script-refactor"]
 	path = vendor/plugins/script-refactor
 	url = git@github.com:dusdanig/script-refactor.git
+[submodule "vendor/plugins/cancan"]
+	path = vendor/plugins/cancan
+	url = git://github.com/ryanb/cancan.git
+[submodule "vendor/plugins/formtastic"]
+	path = vendor/plugins/formtastic
+	url = git@github.com:dusdanig/formtastic.git
