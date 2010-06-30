@@ -6,7 +6,8 @@
 </p>
 <p>Message is
   <% if @message.incoming? %>
-    received at <%=h l(@message.created_at, :format => :short) %>.
+    return next step message <%= link_to  %>
+    received at <%=h l(@message.created_at, :format => :short) %>.    
   <% else %>
     <% if @message.sent? %>
       sent at <%=h l(@message.sent_at, :format => :short) %>

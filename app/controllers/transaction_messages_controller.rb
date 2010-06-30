@@ -9,7 +9,8 @@ class TransactionMessagesController < ApplicationController
 
   def new
     @transaction = Transaction.find(params[:transaction_id])
-    @steps_to_start_with = @transaction.definition.steps.to_start_with.all
+    #@steps_to_start_with = @transaction.definition.steps.to_start_with.all
+    @steps = @transaction.definition.steps.all
     @message = Message.new
   end
   
