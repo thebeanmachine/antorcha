@@ -26,8 +26,8 @@ module SwiftHelper
             link_to h(t('action.new', :model => '#{model_class.human_name}')), new_#{model}_path, :class => '#{model}'
           end
           
-          def link_to_destroy_#{model}(model)
-            link_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
+          def button_to_destroy_#{model}(model)
+            button_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
           end
          
 
@@ -63,9 +63,9 @@ module SwiftHelper
             end
           end
           
-          def link_to_destroy_#{model}(model)
+          def button_to_destroy_#{model}(model)
             if can? :destroy, model
-              link_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
+              button_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
             end
           end
         RUBY

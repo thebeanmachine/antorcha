@@ -14,6 +14,9 @@ nl:
   formtastic:
     labels:
     hints:
+      step:
+        destination_url: Bijvoorbeeld http://example.com/messages
+        causes: 'Stappen die kunnen leiden tot deze stap.'
     actions:
       create: "Maak {{model}}"
       update: "Bewaar veranderingen"
@@ -47,6 +50,9 @@ nl:
       worker:
         one: Werker
         other: Werkers
+      reaction:
+        one: Reactie
+        other: Reacties
     
     attributes:
       transaction:
@@ -56,5 +62,14 @@ nl:
         title: Titel
       step:
         title: Titel
+        causes: Oorzaken
+        destination_url: Bestemming
+        start: Start van de definitie
       message:
         title: Titel
+      reaction:
+        cause: Oorzaak
+        effect: Gevolg
+
+        
+        

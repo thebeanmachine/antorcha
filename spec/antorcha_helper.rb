@@ -2,14 +2,16 @@
 
 module AntorchaHelper
 
-  %w[step message definition transaction].each do |model|
+  %w[step message definition transaction reaction].each do |model|
     self.class_eval <<-RUBY
-      def mock_#{model}
-        @mock_#{model} ||= mock_model(#{model.classify})
+      def mock_#{model} name = :default
+        @mock_#{model} ||= {}
+        @mock_#{model}[name] ||= mock_model(#{model.classify})
       end
       
-      def mock_#{model.pluralize}
-        @mock_#{model.pluralize} ||= [mock_#{model}, mock_#{model}]
+      def mock_#{model.pluralize} name = :default
+        @mock_#{model.pluralize} ||= {}
+        @mock_#{model.pluralize}[name] ||= [mock_#{model}(name), mock_#{model}(name)]
       end
     RUBY
   end
@@ -61,6 +63,12 @@ module AntorchaHelper
     s = s.with(params) if params
     s.and_return(mocked_model)
   end
+  
+  def stub_build_on(finder, mocked_model, params = nil)
+    s = finder.stub(:build)
+    s = s.with(params) if params
+    s.and_return(mocked_model)
+  end
 
   def stub_build_on(finder, mocked_model, params = nil)
     s = finder.stub(:build)
@@ -105,6 +113,13 @@ module AntorchaHelper
     puts ERB::Util.html_escape(x)
     puts "</pre></div>"
   end
+
+  def debunk(x)
+    puts "<div class=\"debug\" style=\"background: #ddd; padding: 1em;\"><pre>"
+    puts ERB::Util.html_escape(x)
+    puts "</pre></div>"
+  end
+  
   
   Spec::Matchers.define :have_before_filter do |expected|
     match do |actual|
@@ -122,6 +137,10 @@ module AntorchaHelper
     description do
       "have before filter #{expected}"
     end
+  end
+  
+  def should_render_partial name
+    template.should_receive(:render).with(hash_including(:partial => name))
   end
 end
 

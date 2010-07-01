@@ -15,12 +15,32 @@ seeds = [
       :start => true,
       :definition => lambda { Definition.find_by_title('Bake bread') }
     }
+  }},
+  {Step => {
+    {:title => 'Bake the bread'} => {
+      :start => false,
+      :definition => lambda { Definition.find_by_title('Bake bread') }
+    }
+  }},
+  {Reaction => {
+    {
+      :cause_id => lambda { Step.find_by_title!('Defrost doh').id },
+      :effect_id => lambda { Step.find_by_title!('Bake the bread').id} } => {}
   }}
 ]
 
 seeds.each do |seed|
   seed.each do |model, instances|
     instances.each do |conditions, attributes|
+      conditions = conditions.inject({}) do |memo, (key, value) |
+        memo[key] = case value
+        when Proc:
+          value.call
+        else
+          value
+        end
+        memo
+      end
       instance = model.find(:first, :conditions => conditions)
       attributes = attributes.inject({}) do |memo, (key, value) |
         memo[key] = case value

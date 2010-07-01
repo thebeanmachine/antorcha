@@ -10,7 +10,7 @@ Feature: Create a message
     And I press "Act as sender"
     And I press "Send Message"
     Then I should see "Message is being sent"
-    And I should see "Message is sent at"
+    And I should see "Message was sent at"
     And I should see "and not received"
     And I should not see submit button "Send Message"
   

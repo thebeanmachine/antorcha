@@ -16,12 +16,12 @@
       <%= [
         link_to_transactions, link_to_messages,
         link_to_definitions, link_to_steps,
-        link_to_workers
+        link_to_workers, link_to_reactions
       ].compact.join(" | ") %>
     </p>
     
     <p>
-      <% %w[maintainer sender].each do |user_session| %>
+      <% %w[maintainer sender advisor].each do |user_session| %>
         <% if controller.current_user.include? user_session.to_sym %>
           <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
         <% else %>          

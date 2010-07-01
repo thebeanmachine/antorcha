@@ -5,20 +5,25 @@ def debug(x)
   puts "</pre></div>"
 end
 
+Given /^I am an advisor$/ do
+  Given "I am on the messages page"
+  Given "I press \"Act as advisor\""
+end
+
 Given /^I have a definition "([^\"]*)"$/ do |title|
   Factory.create(:definition, :title => title)
 end
 
-Given /^I have a (starting)? step "([^\"]*)"$/ do |starting, title|
+Given /^I have a (starting )?step "([^\"]*)"$/ do |starting, title|
   Factory.create :step,
     :title => title,
-    :start => (starting == 'starting')
+    :start => (starting == 'starting ')
 end
 
-Given /^I have a (starting)? step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
+Given /^I have a (starting )?step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
   Factory.create :step,
     :title => title,
-    :start => (starting == 'starting'),
+    :start => (starting == 'starting '),
     :definition => Definition.find_by_title!(definition)
 end
 

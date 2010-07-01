@@ -4,20 +4,19 @@
   which follows definition <%= link_to_definition @message.step.definition %>
   based on step <%= link_to_step @message.step %>
 </p>
-<p>Message is
+<p>Message 
   <% if @message.incoming? %>
-    return next step message <%= link_to  %>
-    received at <%=h l(@message.created_at, :format => :short) %>.    
+    was received at <%=h l(@message.created_at, :format => :short) %>.
   <% else %>
     <% if @message.sent? %>
-      sent at <%=h l(@message.sent_at, :format => :short) %>
+      was sent at <%=h l(@message.sent_at, :format => :short) %>
       <% if @message.delivered? %>
         and received at <%=h l(@message.delivered_at, :format => :short) %>.
       <% else %>
         and not received.
       <% end %>
     <% else %>
-      is a concept and not yet sent.
+      is a concept and has not yet been sent.
     <% end %>
   <% end %>
 </p>
