@@ -1,0 +1,11 @@
+<h1>Nieuwe transactie beginnen</h1>
+
+<% semantic_form_for @transaction, :url => transaction_initiations_path do |f| %>
+  <% f.inputs do %>
+    <%= f.input :starting_step, :as => :radio, :label_method => :title, :collection => @starting_steps %>
+  <% end %>
+
+  <% f.buttons do %>
+    <%= f.commit_button %> or <%= link_to "go back to transactions", transactions_path %>
+  <% end %>
+<% end %>

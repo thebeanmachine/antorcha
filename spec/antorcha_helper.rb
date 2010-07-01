@@ -62,6 +62,12 @@ module AntorchaHelper
     s.and_return(mocked_model)
   end
 
+  def stub_build_on(finder, mocked_model, params = nil)
+    s = finder.stub(:build)
+    s = s.with(params) if params
+    s.and_return(mocked_model)
+  end
+
   def stub_all(mocked_model)
     mocked_model.class.stub(:all => [mocked_model])
   end

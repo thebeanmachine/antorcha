@@ -7,7 +7,7 @@ module MessageSerialization
     xml.message do
       xml.tag!(:title, title)
       xml.tag!(:body, body)
-      xml.tag!(:transaction, transaction.name)
+      xml.tag!(:transaction, transaction.uri)
       xml.tag!(:step, step.name)
     end
   end
@@ -18,8 +18,8 @@ module MessageSerialization
     step_name = attributes.delete(:step)
     attributes[:step] = Step.find_by_name(step_name)
 
-    transaction_name = attributes.delete(:transaction)
-    attributes[:transaction] = Transaction.find_by_name(transaction_name)
+    transaction_uri = attributes.delete(:transaction)
+    attributes[:transaction] = Transaction.find_by_uri(transaction_uri)
   
     self.attributes = attributes
 

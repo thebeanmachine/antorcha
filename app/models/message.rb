@@ -3,7 +3,7 @@ require 'message_serialization'
 class Message < ActiveRecord::Base
   include MessageSerialization
 
-  validates_presence_of :title
+  validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
 
@@ -20,6 +20,8 @@ class Message < ActiveRecord::Base
   
   delegate :destination_url, :to => :step
 
+  after_create :format_title
+
   def status
     status ||= :incoming if incoming?
     status ||= delivered?
@@ -27,7 +29,11 @@ class Message < ActiveRecord::Base
     status ||= :draft
     status
   end
-
+  
+private
+  def format_title
+    update_attributes :title => "#{step.title} \##{id}" if title.blank?
+  end
 
 end
 

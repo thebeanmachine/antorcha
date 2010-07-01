@@ -9,5 +9,6 @@ class Ability
       can :send, Message
     end
     can :read, [Transaction, Message]
+    can :create, [Transaction]
   end
 end
