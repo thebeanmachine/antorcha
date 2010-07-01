@@ -5,6 +5,11 @@ def debug(x)
   puts "</pre></div>"
 end
 
+Given /^I am an advisor$/ do
+  Given "I am on the messages page"
+  Given "I press \"Act as advisor\""
+end
+
 Given /^I have a definition "([^\"]*)"$/ do |title|
   Factory.create(:definition, :title => title)
 end

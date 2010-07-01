@@ -8,9 +8,10 @@ Feature: Begeleid worden bij reageren
     Given I have a definition "Bakkerij"
     And I have a step "Bak brood" in "Bakkerij"
     And I have a step "Verkoop brood" in "Bakkerij"
+    And I am on the messages page
+    And I press "Act as advisor"
     And I am on the "Bakkerij" definition page
     And I follow "Stappen"
-    And I press "Act as maintainer"
     When I follow "Verkoop brood"
     And I follow "Bewerk Stap"
     And I check "Bak brood"

@@ -20,7 +20,7 @@
     </p>
     
     <p>
-      <% %w[maintainer sender].each do |role| %>
+      <% %w[maintainer sender advisor].each do |role| %>
         <% if controller.current_user.include? role.to_sym %>
           <%= button_to "Give up #{role} role", role_path(:id => role), :method => :delete %>
         <% else %>

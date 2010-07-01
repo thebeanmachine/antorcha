@@ -4,14 +4,16 @@ Feature: Create new Definition
   I want to create new Definitions and Steps under it.
 
   Scenario: Create a Definition
-    Given I am on the new definition page
+    Given I am an advisor
+    And I am on the new definition page
     When I fill in "Titel" with "My defined Definition"
     And I press "Maak Transactiedefinitie"
     Then I should see "Definition created successfully"
   
 
   Scenario: Create an Step within a Definition
-    Given I have a definition "My defined Definition"
+    Given I am an advisor
+    And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
     And I follow "Stappen" within ".page"
     And I follow "New Step"
@@ -19,7 +21,8 @@ Feature: Create new Definition
   
 
   Scenario: Create an Step under a Definition
-    Given I have a definition "My defined Definition"
+    Given I am an advisor
+    And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
     And I follow "Stappen" within ".page"
     And I follow "New Step"

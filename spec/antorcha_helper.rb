@@ -4,12 +4,14 @@ module AntorchaHelper
 
   %w[step message definition transaction reaction].each do |model|
     self.class_eval <<-RUBY
-      def mock_#{model}
-        @mock_#{model} ||= mock_model(#{model.classify})
+      def mock_#{model} name = :default
+        @mock_#{model} ||= {}
+        @mock_#{model}[name] ||= mock_model(#{model.classify})
       end
       
-      def mock_#{model.pluralize}
-        @mock_#{model.pluralize} ||= [mock_#{model}, mock_#{model}]
+      def mock_#{model.pluralize} name = :default
+        @mock_#{model.pluralize} ||= {}
+        @mock_#{model.pluralize}[name] ||= [mock_#{model}(name), mock_#{model}(name)]
       end
     RUBY
   end
@@ -58,6 +60,12 @@ module AntorchaHelper
 
   def stub_new_on(finder, mocked_model, params = nil)
     s = finder.stub(:new)
+    s = s.with(params) if params
+    s.and_return(mocked_model)
+  end
+  
+  def stub_build_on(finder, mocked_model, params = nil)
+    s = finder.stub(:build)
     s = s.with(params) if params
     s.and_return(mocked_model)
   end

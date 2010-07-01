@@ -2,11 +2,19 @@ require 'spec_helper'
 
 describe DefinitionStepsController do
   
+  before(:each) do
+    act_as :advisor
+  end
+  
+  def stub_controller
+    mock_definition.stub :steps => mock_steps(:siblings)
+  end
+  
   describe "GET new" do
     def stub_new_action
-      stub_new(mock_step)
+      stub_controller
+      stub_build_on(mock_steps(:siblings), mock_step)
       stub_find(mock_definition)
-      mock_definition.stub :steps => mock_steps
     end
     
     it "assigns a new step as @step" do
@@ -15,7 +23,7 @@ describe DefinitionStepsController do
       assigns[:step].should equal(mock_step)
     end
 
-    it "assigns a new step as @step" do
+    it "assigns a new definition as @definition" do
       stub_new_action
       get :new, :definition_id => mock_definition.to_param
       assigns[:definition].should equal(mock_definition)
@@ -24,27 +32,27 @@ describe DefinitionStepsController do
     it "assigns a sibling steps as @steps" do
       stub_new_action
       get :new, :definition_id => mock_definition.to_param
-      assigns[:steps].should equal(mock_steps)
+      assigns[:steps].should == mock_steps(:siblings)
     end
   end
   
   describe "POST create" do
     
     def stub_create_action
+      stub_controller
       stub_find(mock_definition)
-      stub_new_on(mock_steps, mock_step, 'these' => 'params')
-      mock_definition.stub(:steps => mock_steps)
+      stub_build_on(mock_steps(:siblings), mock_step, 'these' => 'params')
     end
     
     def post_create
       post :create, :step => {:these => 'params'}, :definition_id => mock_definition.to_param
     end
 
-    it "assigns sibling steps as @effects" do
+    it "assigns sibling steps as @steps" do
       stub_successful_save_for(mock_step)
       stub_create_action
       post_create
-      assigns[:steps].should equal(mock_steps)
+      assigns[:steps].should == mock_steps(:siblings)
     end
 
     describe "with valid params" do
