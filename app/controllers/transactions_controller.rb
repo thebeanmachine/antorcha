@@ -44,7 +44,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        @transaction.update_attributes(:uri => url_for(@transaction))
+        @transaction.update_uri url_for(@transaction)
         format.html { redirect_to(@transaction, :notice => 'Transaction was successfully created.') }
         format.xml  { render :xml => @transaction, :status => :created, :location => @transaction }
       else

@@ -77,8 +77,7 @@ ActiveRecord::Schema.define(:version => 20100701103059) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.string   "title",         :null => false
-    t.string   "name",          :null => false
+    t.string   "title"
     t.integer  "definition_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

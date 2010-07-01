@@ -24,8 +24,11 @@ describe Message do
   describe "empty message" do
     subject { Message.create }
     
-    specify { should have(1).error_on(:title) }
+    it "should not have a manditory title" do
+      should have(:no).error_on(:title)
+    end
     specify { should have(1).error_on(:step) }
+    specify { should have(1).error_on(:transaction) }
 
     it "status should be :draft" do
       subject.status.should == :draft
