@@ -8,6 +8,11 @@
 <% @transaction_roles.each do |transaction_role| %>
   <tr>
     <td><%=h transaction_role.title %></td>
+    <td>
+      <% transaction_role.organizations.each do |org| %>
+        <%= org.title %> |
+      <% end %>
+    </td>
     <td><%= link_to 'Show', transaction_role %></td>
     <td><%= link_to 'Edit', edit_transaction_role_path(transaction_role) %></td>
     <td><%= link_to 'Destroy', transaction_role, :confirm => 'Are you sure?', :method => :delete %></td>

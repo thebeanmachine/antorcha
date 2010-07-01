@@ -10,6 +10,11 @@
   <tr>
     <td><%=h organization.title %></td>
     <td><%=h organization.url %></td>
+    <td>
+      <% organization.transaction_roles.each do |role| %>
+        <%= role.title %> |
+      <% end %>
+    </td>
     <td><%= link_to 'Show', organization %></td>
     <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
     <td><%= link_to 'Destroy', organization, :confirm => 'Are you sure?', :method => :delete %></td>
