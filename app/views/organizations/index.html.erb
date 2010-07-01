@@ -11,7 +11,7 @@
     <td><%=h organization.title %></td>
     <td><%=h organization.url %></td>
     <td>
-      <% organization.transaction_roles.each do |role| %>
+      <% organization.roles.each do |role| %>
         <%= role.title %> |
       <% end %>
     </td>

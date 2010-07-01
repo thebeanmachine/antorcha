@@ -1,11 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :organizations
 
-  map.resources :transaction_roles
+  map.resources :roles
 
 
   map.resources :workers, :only => [:index, :create, :show, :destroy]
-  map.resources :roles, :only => [:update, :destroy]
+  map.resources :user_sessions, :only => [:update, :destroy]
 
   map.resources :transaction_cancellations, :as => :cancellations, :path_prefix => 'transactions', :only => :create
   map.resources :transactions do |transaction|

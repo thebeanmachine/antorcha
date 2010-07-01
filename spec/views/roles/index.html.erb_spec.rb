@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe "/transaction_roles/index.html.erb" do
-  include TransactionRolesHelper
+describe "/roles/index.html.erb" do
+  include RolesHelper
 
   before(:each) do
-    assigns[:transaction_roles] = [
-      stub_model(TransactionRole,
+    assigns[:roles] = [
+      stub_model(Role,
         :title => "value for title"
       ),
-      stub_model(TransactionRole,
+      stub_model(Role,
         :title => "value for title"
       )
     ]
   end
 
-  it "renders a list of transaction_roles" do
+  it "renders a list of roles" do
     render
     response.should have_tag("tr>td", "value for title".to_s, 2)
   end

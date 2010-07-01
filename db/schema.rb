@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630111854) do
+ActiveRecord::Schema.define(:version => 20100701103059) do
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20100630111854) do
 
   create_table "fulfills", :force => true do |t|
     t.integer  "organization_id"
-    t.integer  "transaction_role_id"
+    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(:version => 20100630111854) do
     t.datetime "updated_at"
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "steps", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -68,12 +74,6 @@ ActiveRecord::Schema.define(:version => 20100630111854) do
     t.string   "name",                                                          :null => false
     t.integer  "definition_id",   :default => 1,                                :null => false
     t.string   "destination_url", :default => "http://localhost:3000/messages"
-  end
-
-  create_table "transaction_roles", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "transactions", :force => true do |t|

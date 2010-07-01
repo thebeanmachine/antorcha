@@ -18,8 +18,8 @@ class OrganizationsController < ApplicationController
 
   def create
     @organization = Organization.new(params[:organization])
-    unless params[:transaction_role].blank?
-      @organization.transaction_roles.new(params[:transaction_role])
+    unless params[:role].blank?
+      @organization.roles.new(params[:role])
     end
 
     if @organization.save

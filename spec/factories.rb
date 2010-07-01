@@ -20,8 +20,8 @@ Factory.define :message do |f|
   f.body "Dit is de message body"
 end
 
-Factory.define :transaction_role do |f|
-  f.sequence(:title) {|n| "TransactionRole #{n}"}
+Factory.define :role do |f|
+  f.sequence(:title) {|n| "Role #{n}"}
 end
 
 Factory.define :organization do |f|

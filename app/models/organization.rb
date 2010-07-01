@@ -3,5 +3,5 @@ class Organization < ActiveRecord::Base
   validates_uniqueness_of :title
   
   has_many :fulfills
-  has_many :transaction_roles, :through => :fulfills 
+  has_many :roles, :through => :fulfills 
 end

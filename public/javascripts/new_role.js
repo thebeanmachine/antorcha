@@ -8,7 +8,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     functie = $('.campagne_functie.template').clone().removeClass('template').show();
-    $('.new_transaction_role').append(functie);
+    $('.new_role').append(functie);
 
     //$(functie.find('a.destroy').get(0)).click(function(event) {
       //$(this).parents('.campagne_functie').remove();

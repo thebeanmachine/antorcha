@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "/transaction_roles/show.html.erb" do
-  include TransactionRolesHelper
+describe "/roles/show.html.erb" do
+  include RolesHelper
   before(:each) do
-    assigns[:transaction_role] = @transaction_role = stub_model(TransactionRole,
+    assigns[:role] = @role = stub_model(Role,
       :title => "value for title"
     )
   end

@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Steps: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application', 'new_transaction_role' %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application', 'new_role' %>
 </head>
 <body class="<%= controller.controller_name %>">
   
@@ -20,11 +20,11 @@
     </p>
     
     <p>
-      <% %w[maintainer sender].each do |role| %>
-        <% if controller.current_user.include? role.to_sym %>
-          <%= button_to "Give up #{role} role", role_path(:id => role), :method => :delete %>
-        <% else %>
-          <%= button_to "Act as #{role} role", role_path(:id => role), :method => :put %>
+      <% %w[maintainer sender].each do |user_session| %>
+        <% if controller.current_user.include? user_session.to_sym %>
+          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
+        <% else %>          
+          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
         <% end %>
       <% end %>
     </p>

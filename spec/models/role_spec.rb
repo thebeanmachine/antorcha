@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TransactionRole do
+describe Role do
   before(:each) do
     @valid_attributes = {
       :title => "value for title"
@@ -8,12 +8,12 @@ describe TransactionRole do
   end
 
   it "should create a new instance given valid attributes" do
-    TransactionRole.create!(@valid_attributes)
+    Role.create!(@valid_attributes)
   end
   
   describe "check polymorphic assosiations with organizations" do
     before(:each) do
-      @role = Factory.create(:transaction_role)
+      @role = Factory.create(:role)
     end
     
     it "should create an organization through fulfills" do

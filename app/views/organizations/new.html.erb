@@ -22,9 +22,9 @@
 
 
 
-  <ul class="new_transaction_role">
-    <%= render :partial => 'role', :collection => @organization.transaction_roles %>
-    <%= render :partial => 'role', :object => @organization.transaction_roles.new %>
+  <ul class="new_role">
+    <%= render :partial => 'role', :collection => @organization.roles %>
+    <%= render :partial => 'role', :object => @organization.roles.new %>
   </ul>
 
 	<p><%= link_to "Voeg een rol toe", "#", :class => "add_role", :style=>'clear:both' %></p>

@@ -17,18 +17,18 @@ describe Organization do
     should have(1).error_on(:title)
   end
   
-  describe "check polymorphic assosiations with transaction_roles" do
+  describe "check polymorphic assosiations with roles" do
     before(:each) do
       @org = Factory.create(:organization)
     end
     
-    it "should creat an transaction_role through fulfills" do    
-      role = @org.transaction_roles.create(:title => "role1")
+    it "should creat an role through fulfills" do    
+      role = @org.roles.create(:title => "role1")
       role.should have(:no).error
     end
     
-    it "should fail creating an transaction_role through fulfills" do
-      role = @org.transaction_roles.create()
+    it "should fail creating an role through fulfills" do
+      role = @org.roles.create()
       role.should have(1).error_on(:title)
     end
   end
