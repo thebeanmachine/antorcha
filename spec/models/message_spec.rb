@@ -6,7 +6,7 @@ describe Message do
       :title => "value for title",
       :body => "value for body",
       :incoming => false,
-      :step => mock_model(Step),
+      :step => mock_step,
       :transaction => mock_transaction
     }
   end
@@ -20,6 +20,14 @@ describe Message do
     it "delivered_at should not be accessible"
   end
   
+  describe "delegation" do
+    subject {Message.create!(@valid_attributes)}
+
+    it "should user step to delegate definition" do
+      mock_step.should_receive(:definition)
+      subject.definition
+    end
+  end
   
   describe "empty message" do
     subject { Message.create }

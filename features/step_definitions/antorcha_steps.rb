@@ -10,6 +10,16 @@ Given /^I am an advisor$/ do
   Given "I press \"Act as advisor\""
 end
 
+Given /^the "Bakkerij" example$/ do
+  definition = Factory(:definition, :title => 'Bakkerij')
+    
+  Factory( :step, :title => 'Deeg kneden', :start => true, :definition => definition )
+  Factory( :step, :title => 'In bakvorm stoppen', :definition => definition )
+  Factory( :step, :title => 'In de oven', :definition => definition )
+  Factory( :step, :title => 'Afkoelen', :definition => definition )
+  Factory( :step, :title => 'Verkopen', :definition => definition )
+end
+
 Given /^I have a definition "([^\"]*)"$/ do |title|
   Factory.create(:definition, :title => title)
 end
@@ -28,11 +38,13 @@ Given /^I have a (starting )?step "([^\"]*)" in "([^\"]*)"$/ do |starting, title
 end
 
 
-Given /^I have a message "([^\"]*)" for step "([^\"]*)"$/ do |title,step|
-  Factory.create(:message, :title => title, :step => Step.find_by_title(step))
+Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)" for step "([^\"]*)"$/ do |direction,title,step|
+  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step))
+  m.incoming = (direction == 'incoming')
+  m.save
 end
 
-Given /^I have a (incoming|outgoing)? ?message "([^\"]*)"$/ do |direction,title|
+Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)"$/ do |direction,title|
   m = Factory.create(:message, :title => title)
   m.incoming = (direction == 'incoming')
   m.save

@@ -18,6 +18,7 @@ class Message < ActiveRecord::Base
   named_scope :inbox, :conditions => {:incoming => true}
   named_scope :outbox, :conditions => {:incoming => false}
   
+  delegate :definition, :to => :step
   delegate :destination_url, :to => :step
 
   after_create :format_title

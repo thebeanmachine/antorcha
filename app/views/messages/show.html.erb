@@ -27,5 +27,6 @@
 </p>
 
 <div class="actions">
+  <%= link_to "Reageer op Bericht", new_message_reply_path(@message) if @message.incoming? %>
   <%= [ link_to_send_message(@message), link_to_edit_message(@message) ].compact.join(" | ") %>
 </div>
