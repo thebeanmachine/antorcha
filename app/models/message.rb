@@ -13,6 +13,9 @@ class Message < ActiveRecord::Base
   belongs_to :step
   flagstamp :sent, :delivered, :shown
 
+  belongs_to :request, :class_name => 'Message'
+  has_many :replies, :class_name => 'Message', :foreign_key => 'request_id'
+
   default_scope :order => 'messages.created_at DESC'
   
   named_scope :inbox, :conditions => {:incoming => true}
@@ -22,6 +25,7 @@ class Message < ActiveRecord::Base
   delegate :destination_url, :to => :step
 
   after_create :format_title
+  before_validation :take_over_transaction_from_request
 
   def status
     status ||= :incoming if incoming?
@@ -34,6 +38,10 @@ class Message < ActiveRecord::Base
 private
   def format_title
     update_attributes :title => "#{step.title} \##{id}" if title.blank?
+  end
+
+  def take_over_transaction_from_request
+    self.transaction = request.transaction if transaction.blank? and request
   end
 
 end

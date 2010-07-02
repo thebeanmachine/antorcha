@@ -10,6 +10,12 @@ Given /^I am an advisor$/ do
   Given "I press \"Act as advisor\""
 end
 
+Given /^I am a sender$/ do
+  Given "I am on the messages page"
+  Given "I press \"Act as sender\""
+end
+
+
 Given /^the "Bakkerij" example$/ do
   definition = Factory(:definition, :title => 'Bakkerij')
     

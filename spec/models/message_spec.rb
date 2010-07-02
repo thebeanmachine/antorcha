@@ -29,6 +29,20 @@ describe Message do
     end
   end
   
+  describe "creating a reply message" do
+    it "takes over transaction from the request" do
+      @request_message =  Message.create \
+        :title => 'request message', :incoming => true,
+        :step => mock_step, :transaction => mock_transaction
+
+      @reply_message = Message.create \
+        :title => 'reply message', :incoming => false,
+        :step => mock_step, :request => @request_message
+        
+      @reply_message.transaction.should == mock_transaction
+    end
+  end
+  
   describe "empty message" do
     subject { Message.create }
     
