@@ -9,6 +9,8 @@ Feature: Reageer op een bericht
     And I have an incoming message "Aap noot mies" for step "Deeg kneden"
     When I am on the "Aap noot mies" message page
     Then I should see "Reageer op Bericht"
+    And I should not see "Verstuur Bericht"
+    And I should not see "Bewerk Bericht"
 
 
   Scenario: Reply to a message

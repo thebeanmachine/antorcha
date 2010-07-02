@@ -11,7 +11,9 @@ class Message < ActiveRecord::Base
 
   belongs_to :transaction
   belongs_to :step
+
   flagstamp :sent, :delivered, :shown
+  antonym :outgoing => :incoming
 
   belongs_to :request, :class_name => 'Message'
   has_many :replies, :class_name => 'Message', :foreign_key => 'request_id'
@@ -27,6 +29,7 @@ class Message < ActiveRecord::Base
   after_create :format_title
   before_validation :take_over_transaction_from_request
 
+
   def status
     status ||= :incoming if incoming?
     status ||= delivered?
@@ -34,7 +37,7 @@ class Message < ActiveRecord::Base
     status ||= :draft
     status
   end
-  
+
 private
   def format_title
     update_attributes :title => "#{step.title} \##{id}" if title.blank?
