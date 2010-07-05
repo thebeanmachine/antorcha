@@ -10,6 +10,7 @@ class OrganizationsController < ApplicationController
 
   def new
     @organization = Organization.new
+    @organization.roles.build
   end
 
   def edit
@@ -17,11 +18,8 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.new(params[:organization])
-    unless params[:role].blank?
-      @organization.roles.new(params[:role])
-    end
-
+    @organization = Organization.new(params[:organization])    
+    
     if @organization.save
       redirect_to(@organization, :notice => 'Organization was successfully created.')
     else
@@ -31,7 +29,7 @@ class OrganizationsController < ApplicationController
 
   def update
     @organization = Organization.find(params[:id])
-
+    
     if @organization.update_attributes(params[:organization])
       redirect_to(@organization, :notice => 'Organization was successfully updated.')
     else
@@ -44,11 +42,5 @@ class OrganizationsController < ApplicationController
     @organization.destroy
 
     redirect_to(organizations_url)    
-  end
-
-private
-  
-  def hoi
-    
   end
 end

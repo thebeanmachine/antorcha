@@ -2,6 +2,7 @@
 
 <% semantic_form_for(@definition) do |f| %>
   <%= f.inputs :title %>
+  <%= f.input :roles, :as => :check_boxes %>
   <% f.buttons do %>
     <%= f.commit_button %> or <%= link_to 'go back to definitions', definitions_path %>
   <% end %>
