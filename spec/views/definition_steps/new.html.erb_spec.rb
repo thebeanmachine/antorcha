@@ -25,6 +25,7 @@ describe "/definition_steps/new.html.erb" do
 
     response.should have_tag("form[action=?][method=post]", definition_steps_path(mock_definition)) do
       with_tag("input#step_title[name=?]", "step[title]")
+      with_tag("input#step_start[name=?]", "step[start]")
     end
   end
 end

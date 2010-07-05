@@ -4,4 +4,7 @@ class Role < ActiveRecord::Base
   
   has_many :fulfills
   has_many :organizations, :through => :fulfills 
+  
+  has_many :permissions
+  has_many :steps, :through => :permissions
 end
