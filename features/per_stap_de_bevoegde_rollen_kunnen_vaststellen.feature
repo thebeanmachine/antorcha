@@ -9,11 +9,13 @@ Feature: Adviser add roles to step
 		And I am an advisor
 		And I am on the "Bakkerij" definition page
 		When I follow "Stappen" within ".page"
-		And show me the page
+
 		And I follow "Nieuwe Stap"
 		And I fill in "Titel" with "Uber Coole Stap"
-		And I check "Consulent"
+		And I check step permission "Consulent"
 		And I press "Maak Stap"
+
+
 #		When I create a step Melding with role Consulent
 #		Then Melding should be in the Consulent role
 	

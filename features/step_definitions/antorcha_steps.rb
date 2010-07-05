@@ -83,6 +83,10 @@ Given /^definition "([^"]*)" has roles titled (.+)$/ do |definition, titles|
   end
 end
 
+When /^I check step permission "([^"]*)"$/ do |role|
+  When %[I check "#{role}" within "#step_permission_roles_input"]
+end
+
 # When /^I create a step Melding with role Consulent$/ do
 #   visit definition_steps_path(@definition)
 #   click_link "New Step"

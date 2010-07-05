@@ -12,7 +12,8 @@ describe "/steps/_form.html.erb" do
       :start => false,
       :errors => stub("errors").as_null_object,
       :destination_url => 'http://example.com/messages',
-      :role_ids => []
+      :permission_role_ids => [],
+      :recipient_role_ids => []
 
     mock_definition.stub :title => 'value for definition', :roles => mock_roles
   end
