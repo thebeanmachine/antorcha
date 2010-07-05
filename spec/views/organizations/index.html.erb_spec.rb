@@ -14,11 +14,13 @@ describe "/organizations/index.html.erb" do
         :url => "value for url"
       )
     ]
+    
+    act_as :maintainer
   end
 
   it "renders a list of organizations" do
     render
-    response.should have_tag("tr>td", "value for title".to_s, 2)
-    response.should have_tag("tr>td", "value for url".to_s, 2)
+    debunk response.body
+    response.should have_tag("ul li a", "value for title".to_s, 2)
   end
 end

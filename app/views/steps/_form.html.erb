@@ -7,7 +7,7 @@
   <% end %>
   
   <% f.inputs "Versturing" do %>
-    <%= f.input :roles, :as => :check_boxes, :collection => @step.definition_roles %>
+    <%= f.input :roles, :as => :check_boxes, :collection => @definition.roles %>
   <% end %>
   
   <% f.buttons do %>

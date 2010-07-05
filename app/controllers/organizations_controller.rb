@@ -10,7 +10,6 @@ class OrganizationsController < ApplicationController
 
   def new
     @organization = Organization.new
-    @organization.roles.build
   end
 
   def edit

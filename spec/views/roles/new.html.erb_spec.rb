@@ -1,20 +1,16 @@
 require 'spec_helper'
 
-describe "/roles/new.html.erb" do
+describe "/roles/edit.html.erb" do
   include RolesHelper
 
   before(:each) do
-    assigns[:role] = stub_model(Role,
-      :new_record? => true,
-      :title => "value for title"
-    )
+    assigns[:role] = mock_role
+    
+    stub_render_partial
   end
 
-  it "renders new role form" do
+  it "renders the edit role form" do
+    should_render_partial 'form'
     render
-
-    response.should have_tag("form[action=?][method=post]", roles_path) do
-      with_tag("input#role_title[name=?]", "role[title]")
-    end
   end
 end

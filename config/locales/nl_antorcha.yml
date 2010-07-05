@@ -17,6 +17,7 @@ nl:
       step:
         destination_url: Bijvoorbeeld http://example.com/messages
         causes: 'Stappen die kunnen leiden tot deze stap.'
+      url: "bijvoorbeeld http://example.com/messages"
     actions:
       create: "Maak {{model}}"
       update: "Bewaar veranderingen"
@@ -54,6 +55,12 @@ nl:
       reaction:
         one: Reactie
         other: Reacties
+      role:
+        one: Rol
+        other: Rollen
+      organization:
+        one: Organisatie
+        other: Organisaties
     
     attributes:
       transaction:
@@ -71,6 +78,10 @@ nl:
       reaction:
         cause: Oorzaak
         effect: Gevolg
+      organization:
+        title: Titel
+        url: Bestemming
+        roles: Rollen
 
         
         

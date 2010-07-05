@@ -6,10 +6,10 @@ class Definition < ActiveRecord::Base
   
   before_validation :parameterize_title_for_name
 
-  has_many :steps  
+  has_many :steps
   has_many :roles
 
-  has_many :reactions, :through => :steps, :source => :effects
+  has_many :reactions, :through => :steps, :source => :effect_reactions
 
   def parameterize_title_for_name
     self.name = title.parameterize if title

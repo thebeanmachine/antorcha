@@ -3,8 +3,10 @@
   <% f.inputs do %>
     <%= f.input :title %>
     <%= f.input :url %>
-    <%= f.input :roles, :as => :check_boxes %>
+    <%= f.input :roles, :as => :check_boxes, :label_method => :title_with_definition %>
   <% end %>
-  <%= f.buttons %>
+  <% f.buttons do %>
+    <%= f.commit_button %> of <%= link_to "ga terug naar alle organisaties", organizations_path %>
+  <% end %>
 <% end %>
 

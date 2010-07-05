@@ -12,10 +12,9 @@ describe "/steps/_form.html.erb" do
       :start => false,
       :errors => stub("errors").as_null_object,
       :destination_url => 'http://example.com/messages',
-      :definition_roles => mock_roles,
       :role_ids => []
 
-    mock_definition.stub( :title => 'value for definition')
+    mock_definition.stub :title => 'value for definition', :roles => mock_roles
   end
 
   it "renders the edit step form" do
