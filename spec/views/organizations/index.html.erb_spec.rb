@@ -20,7 +20,6 @@ describe "/organizations/index.html.erb" do
 
   it "renders a list of organizations" do
     render
-    debunk response.body
     response.should have_tag("ul li a", "value for title".to_s, 2)
   end
 end

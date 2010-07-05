@@ -6,9 +6,12 @@ class Role < ActiveRecord::Base
   has_many :organizations, :through => :fulfills
   belongs_to :definition
   
+  has_many :permissions
+  has_many :steps, :through => :permissions
+
   def title_with_definition
     return title unless definition
     "#{title} (van #{definition.title})"
   end
-  
+
 end

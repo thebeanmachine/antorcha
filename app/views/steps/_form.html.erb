@@ -4,6 +4,7 @@
   
   <% f.inputs "Condities" do %>
     <%= f.input :causes, :as => :check_boxes, :label_method => :title, :collection => @steps %>
+    <%= f.input :permissions, :as => :check_boxes, :collection => @definition.roles %>
   <% end %>
   
   <% f.inputs "Versturing" do %>

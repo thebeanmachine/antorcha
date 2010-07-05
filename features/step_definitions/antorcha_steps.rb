@@ -30,7 +30,7 @@ Given /^the "Bakkerij" example$/ do
 end
 
 Given /^I have a definition "([^\"]*)"$/ do |title|
-  Factory.create(:definition, :title => title)
+  @definition = Factory.create(:definition, :title => title)
 end
 
 Given /^I have a (starting )?step "([^\"]*)"$/ do |starting, title|
@@ -73,3 +73,26 @@ When /^I confirm a js popup on the next step$/ do
   page.evaluate_script("window.alert = function(msg) { return true; }")
   page.evaluate_script("window.confirm = function(msg) { return true; }")
 end
+
+
+Given /^definition "([^"]*)" has roles titled (.+)$/ do |definition, titles|
+  #pending # express the regexp above with the code you wish you had
+  definition = Definition.find_by_title!(definition)
+  titles.split(', ').each do |title|
+    definition.roles.create!(:title => title)
+  end
+end
+
+# When /^I create a step Melding with role Consulent$/ do
+#   visit definition_steps_path(@definition)
+#   click_link "New Step"
+#   fill_in "Titel", :with => "Uber Coole Stap"
+#   check "Consulent"
+#   click_button "Maak Stap"
+# end
+
+
+Then /^Melding should be in the Consulent role$/ do
+  # pending # express the regexp above with the code you wish you had
+end
+

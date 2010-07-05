@@ -9,6 +9,10 @@ class Step < ActiveRecord::Base
   
   has_many_siblings :reaction, :cause => :effect
 
+  has_many :permissions
+  has_many :roles, :through => :permissions
+
+
   named_scope :to_start_with, :conditions => {:start => true}
 
   before_validation :parameterize_title_for_name

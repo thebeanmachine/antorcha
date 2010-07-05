@@ -7,6 +7,7 @@ class DefinitionStepsController < ApplicationController
   end
   
   def new
+    @roles = Role.all
   end
 
   def create
