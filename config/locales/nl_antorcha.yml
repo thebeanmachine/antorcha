@@ -27,6 +27,7 @@ nl:
     cancel: "Annuleer {{model}}"
     edit: "Bewerk {{model}}"
     destroy: "Vernietig {{model}}"
+    send: "Verstuur {{model}}"
   
   notice:
     created: "{{model}} was succesvol aangemaakt."

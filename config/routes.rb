@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :messages do |messages|
     messages.resource :delivery, :only => :create, :controller => 'message_delivery'
+    messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
   end
 
   map.root :controller => 'home'

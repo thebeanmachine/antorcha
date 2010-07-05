@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     session[:user] ||= []
   end
   
+  def flash_notice action, model
+    flash[:notice] = t("notice.#{action}", :model => model.class.human_name)
+  end
+  
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url

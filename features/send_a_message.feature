@@ -8,13 +8,9 @@ Feature: Create a message
     And I have a message "Hello world" for step "Hello world"
     When I am on the "Hello world" message page
     And I press "Act as sender"
-    And I press "Send Message"
+    And I press "Verstuur Bericht"
     Then I should see "Message is being sent"
     And I should see "Message was sent at"
     And I should see "and not received"
-    And I should not see submit button "Send Message"
-  
-  
-  
-
+    And I should not see submit button "Verstuur Bericht"
   

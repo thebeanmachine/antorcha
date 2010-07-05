@@ -13,6 +13,7 @@ class Ability
     end
     if user.include? :sender
       can :send, Message
+      can :create, Message
     end
     can :read, [Transaction, Message]
     can :create, [Transaction]

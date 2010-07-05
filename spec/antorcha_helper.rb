@@ -106,7 +106,13 @@ module AntorchaHelper
     mocked_model.stub(:save => false)
   end
 
-
+  def stub_authorize!
+    controller.stub :authorize! => nil
+  end
+  
+  def expect_authorize how, what
+    controller.should_receive(:authorize!).with(how, what)
+  end
 
   def debug(x)
     puts "<div class=\"debug\" style=\"background: #ddd; padding: 1em;\"><pre>"

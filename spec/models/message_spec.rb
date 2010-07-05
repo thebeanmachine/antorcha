@@ -6,7 +6,7 @@ describe Message do
       :title => "value for title",
       :body => "value for body",
       :incoming => false,
-      :step => mock_model(Step),
+      :step => mock_step,
       :transaction => mock_transaction
     }
   end
@@ -20,6 +20,34 @@ describe Message do
     it "delivered_at should not be accessible"
   end
   
+  describe "delegation" do
+    subject {Message.create!(@valid_attributes)}
+
+    it "should user step to delegate definition" do
+      mock_step.should_receive(:definition)
+      subject.definition
+    end
+  end
+  
+  describe "creating a reply message" do
+    it "takes over transaction from the request" do
+      @request_message =  Message.create \
+        :title => 'request message', :incoming => true,
+        :step => mock_step, :transaction => mock_transaction
+
+      @reply_message = Message.create \
+        :title => 'reply message', :incoming => false,
+        :step => mock_step, :request => @request_message
+        
+      @reply_message.transaction.should == mock_transaction
+    end
+    
+    it "should know it's own effect steps" do
+      message = Message.create!(@valid_attributes)
+      mock_step.stub :effects => mock_steps
+      message.effect_steps.should == mock_steps
+    end
+  end
   
   describe "empty message" do
     subject { Message.create }
