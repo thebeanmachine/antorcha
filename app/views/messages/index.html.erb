@@ -15,6 +15,22 @@
   <%= link_to "outbox", :search => {:outbox => true} %>
 </p>
 
+<ul>
+	Filter op Transacties
+	* een overzicht zien van alle berichten per transactie type binnen mijn Antorcha
+	<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path %></li>
+	<% Transaction.all.each do |transaction| %>
+		<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) %></li>
+	<% end %>
+</ul>
+	
+<ul>
+	Filter op Definitie:
+	<% Definition.all.each do |definition| %>
+		<li><%= link_to definition.title, :search => {:with_definition => definition} %></li>
+	<% end %>
+</ul>
+
 <table>
   <tr>
     <th>Message title</th>

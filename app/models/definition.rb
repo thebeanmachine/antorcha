@@ -7,6 +7,10 @@ class Definition < ActiveRecord::Base
   before_validation :parameterize_title_for_name
 
   has_many :steps
+  
+  has_many :transactions
+  
+  has_many :messages, :through => :transactions
 
   has_many :reactions, :through => :steps, :source => :effects
 

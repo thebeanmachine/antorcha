@@ -22,6 +22,7 @@ class Message < ActiveRecord::Base
   
   named_scope :inbox, :conditions => {:incoming => true}
   named_scope :outbox, :conditions => {:incoming => false}
+  named_scope :with_definition, lambda{|definition| {:joins => :step, :conditions => { :steps => {:definition_id => definition}}} }
   
   delegate :definition, :to => :step
   delegate :destination_url, :to => :step

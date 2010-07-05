@@ -33,6 +33,10 @@ Given /^I have a definition "([^\"]*)"$/ do |title|
   @definition = Factory.create(:definition, :title => title)
 end
 
+Given /^I have a transaction "([^\"]*)"$/ do |title|
+  @transaction = Factory.create(:transaction, :title => title)
+end
+
 Given /^I have a (starting )?step "([^\"]*)"$/ do |starting, title|
   Factory.create :step,
     :title => title,
