@@ -1,6 +1,6 @@
 
 module SwiftRecord
-  module FlagStamp
+  module Helpers
     def self.included(base)
       base.extend(ClassMethods)
     end
@@ -21,6 +21,22 @@ module SwiftRecord
               else
                 update_attributes(:#{name}_at => nil)
               end
+            end
+          RUBY
+        end
+      end
+      
+      def antonym antonyms
+        antonyms.each do |antonym, word|
+          self.class_eval <<-RUBY
+            def #{antonym}
+              not #{word}
+            end
+            def #{antonym}?
+              not #{word}?
+            end
+            def #{antonym}= value
+              self.#{word} = !value
             end
           RUBY
         end

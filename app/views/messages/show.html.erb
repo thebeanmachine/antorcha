@@ -1,23 +1,25 @@
 <h1>Message <strong><%=h @message.title  %></strong></h1>
 <p class="intro">
-  in transaction <%= link_to_transaction @message.transaction %>
-  which follows definition <%= link_to_definition @message.step.definition %>
-  based on step <%= link_to_step @message.step %>
+  <%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
+  <%= musketeer 'Bericht volgt definitie ', link_to_definition(@message.step.definition), '.' %>
+  <%= musketeer 'Bericht is gebaseerd op stap ', link_to_step(@message.step), '.' %>
+  <% if @message.request %>
+    <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
+  <% end %>
 </p>
-<p>Message is
+<p>Message 
   <% if @message.incoming? %>
-    return next step message <%= link_to  %>
-    received at <%=h l(@message.created_at, :format => :short) %>.    
+    was received at <%=h l(@message.created_at, :format => :short) %>.
   <% else %>
     <% if @message.sent? %>
-      sent at <%=h l(@message.sent_at, :format => :short) %>
+      was sent at <%=h l(@message.sent_at, :format => :short) %>
       <% if @message.delivered? %>
         and received at <%=h l(@message.delivered_at, :format => :short) %>.
       <% else %>
         and not received.
       <% end %>
     <% else %>
-      is a concept and not yet sent.
+      is a concept and has not yet been sent.
     <% end %>
   <% end %>
 </p>
@@ -28,5 +30,7 @@
 </p>
 
 <div class="actions">
-  <%= [ link_to_send_message(@message), link_to_edit_message(@message) ].compact.join(" | ") %>
+  <%= link_to "Reageer op Bericht", new_message_reply_path(@message) if @message.incoming? %>
+  <%= link_to_send_message(@message) %>
+  <%= link_to_edit_message(@message) if @message.outgoing? %>
 </div>

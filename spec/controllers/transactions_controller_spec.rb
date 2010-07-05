@@ -44,7 +44,7 @@ describe TransactionsController do
       def stub_successful_create
         stub_new(mock_transaction, {'these' => 'params'})
         stub_successful_save_for(mock_transaction)
-        mock_transaction.stub(:update_attributes => true)
+        mock_transaction.stub(:update_uri => true)
       end
       
       def post_create
@@ -59,7 +59,7 @@ describe TransactionsController do
 
       it "assigns unique uri for transaction" do
         stub_successful_create
-        mock_transaction.should_receive(:update_attributes).with(hash_including(:uri => controller.url_for(mock_transaction)))
+        mock_transaction.should_receive(:update_uri).with(controller.url_for(mock_transaction))
         post_create
       end
 

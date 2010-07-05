@@ -28,10 +28,19 @@ describe StepsController do
   end
 
   describe "GET edit" do
-    it "assigns the requested step as @step" do
+    def stub_edit
       stub_show_or_edit
+      mock_definition.stub :steps => mock_steps
+    end
+    it "assigns the requested step as @step" do
+      stub_edit
       get :edit, :id => mock_step.to_param
       assigns[:step].should equal(mock_step)
+    end
+    it "assigns the sibling steps as @steps" do
+      stub_edit
+      get :edit, :id => mock_step.to_param
+      assigns[:steps].should equal(mock_steps)
     end
   end
 

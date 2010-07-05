@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100701140850) do
+ActiveRecord::Schema.define(:version => 20100702111450) do
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
@@ -51,11 +51,28 @@ ActiveRecord::Schema.define(:version => 20100701140850) do
     t.datetime "sent_at"
     t.datetime "shown_at"
     t.integer  "transaction_id"
+    t.integer  "request_id"
   end
 
   create_table "organizations", :force => true do |t|
     t.string   "title"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reactions", :force => true do |t|
+    t.integer  "cause_id",   :null => false
+    t.integer  "effect_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reactions", ["cause_id", "effect_id"], :name => "index_reactions_on_cause_id_and_effect_id", :unique => true
+
+  create_table "recipients", :force => true do |t|
+    t.integer  "step_id"
+    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -78,8 +95,7 @@ ActiveRecord::Schema.define(:version => 20100701140850) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.string   "title",         :null => false
-    t.string   "name",          :null => false
+    t.string   "title"
     t.integer  "definition_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

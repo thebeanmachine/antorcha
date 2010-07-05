@@ -1,21 +1,29 @@
 class Transaction < ActiveRecord::Base
-  validates_presence_of :title
-  validates_presence_of :name, :if => :title
-  validates_uniqueness_of :name
-
+  validates_presence_of :title, :on => :update
   validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
   validates_presence_of :definition
 
   belongs_to :definition
   has_many :messages
 
-  before_validation :parameterize_title_for_name
+  after_create :format_title
 
   flagstamp :cancelled, :stopped
 
-private
-  def parameterize_title_for_name
-    self.name = title.parameterize if title
+  attr_accessor :starting_step
+
+  def validate_initiation
+    errors.add_on_blank([:starting_step])
   end
+
+  def update_uri uri
+    update_attributes :uri => uri
+  end
+
+private
+  def format_title
+    update_attribute :title, "#{definition.title} \##{id}" if title.blank?
+  end
+  
   
 end

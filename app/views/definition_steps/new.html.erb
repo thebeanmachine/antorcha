@@ -1,17 +1,6 @@
 <h1>New Step</h1>
 <p class="intro">Definition: <%= link_to h(@definition.title), @definition %> </p>
 
-<% semantic_form_for [@definition, @step]do |f| %>  
-  <% f.inputs do %>
-    <%= f.input :title %>
-    <%= f.input :start %>
-    <%= f.input :destination_url %>
-    <%= f.input :roles, :as => :check_boxes, :collection => @step.step_roles %>
-  <% end %>
-  
-  <%# <%= f.input :role_steps, :as => :check_boxes , :collection => name%>
-  <% f.buttons do %>
-    <%= f.commit_button %> or <%= link_to 'go back to steps', definition_steps_path(@definition) %>
-  <% end %> 
-<% end %>
+<%= render :partial => 'steps/form' %>
+
 <p></p>

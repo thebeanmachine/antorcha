@@ -23,6 +23,7 @@ class StepsController < ApplicationController
   def edit
     @step = Step.find(params[:id])
     @definition = @step.definition
+    @steps = @definition.steps
   end
 
   def update

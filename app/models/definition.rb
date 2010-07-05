@@ -9,6 +9,8 @@ class Definition < ActiveRecord::Base
   has_many :steps  
   has_many :roles
 
+  has_many :reactions, :through => :steps, :source => :effects
+
   def parameterize_title_for_name
     self.name = title.parameterize if title
   end

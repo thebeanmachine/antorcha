@@ -126,3 +126,10 @@ form.button-to {
 form.button-to div {
   display: inline;
 }
+
+fieldset.inputs legend {
+  font-size: 150%;
+}
+fieldset.inputs fieldset legend {
+  font-size: 100%;
+}

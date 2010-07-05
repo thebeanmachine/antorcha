@@ -12,7 +12,9 @@ describe "/definition_steps/new.html.erb" do
       :title => "value for title",
       :start => false,
       :destination_url => 'http://example.com/messages',
-      :errors => stub("errors").as_null_object
+      :errors => stub("errors").as_null_object,
+      :definition_roles => mock_roles,
+      :role_ids => []
 
     mock_step.as_new_record
     mock_definition.stub( :title => "Definition title" )

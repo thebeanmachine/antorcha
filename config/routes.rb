@@ -4,9 +4,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :roles
 
 
+  map.resources :reactions
+
   map.resources :workers, :only => [:index, :create, :show, :destroy]
   map.resources :user_sessions, :only => [:update, :destroy]
 
+  map.resources :transaction_initiations, :as => :initiations, :path_prefix => 'transactions', :only => [:new, :create]
   map.resources :transaction_cancellations, :as => :cancellations, :path_prefix => 'transactions', :only => :create
   map.resources :transactions do |transaction|
     transaction.resources :messages, :only => [:index, :new, :create], :controller => 'transaction_messages'
@@ -15,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :definitions, :shallow => true do |definitions|
     definitions.resources :steps, :only => [:index, :new, :create], :controller => 'definition_steps'
+    definitions.resources :reactions, :controller => 'definition_reactions'
   end
 
   map.resources :start_steps, :as => :start, :path_prefix => 'steps', :only => :index
@@ -24,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :messages do |messages|
     messages.resource :delivery, :only => :create, :controller => 'message_delivery'
+    messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
   end
 
   map.root :controller => 'home'

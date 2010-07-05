@@ -6,12 +6,14 @@ class Step < ActiveRecord::Base
   belongs_to :definition
   has_many :messages
   has_many :roles, :through => :recipients
+  
+  has_many_siblings :reaction, :cause => :effect
 
   named_scope :to_start_with, :conditions => {:start => true}
 
   before_validation :parameterize_title_for_name
   
-  delegate :step_roles, :to => :definition
+  delegate :definition_roles, :to => :definition
 
   def parameterize_title_for_name
     self.name = title.parameterize if title

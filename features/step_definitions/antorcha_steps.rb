@@ -5,29 +5,55 @@ def debug(x)
   puts "</pre></div>"
 end
 
+Given /^I am an advisor$/ do
+  Given "I am on the messages page"
+  Given "I press \"Act as advisor\""
+end
+
+Given /^I am a sender$/ do
+  Given "I am on the messages page"
+  Given "I press \"Act as sender\""
+end
+
+
+Given /^the "Bakkerij" example$/ do
+  definition = Factory(:definition, :title => 'Bakkerij')
+    
+  kneden = Factory( :step, :title => 'Deeg kneden', :start => true, :definition => definition )
+  bakvorm = Factory( :step, :title => 'In bakvorm stoppen', :definition => definition )
+  oven = Factory( :step, :title => 'In de oven', :definition => definition )
+  afkoelen = Factory( :step, :title => 'Afkoelen', :definition => definition )
+  verkopen = Factory( :step, :title => 'Verkopen', :definition => definition )
+  
+  [kneden, bakvorm, oven, afkoelen, verkopen].inject { |l,r| r.causes << l; r.save; r }
+  
+end
+
 Given /^I have a definition "([^\"]*)"$/ do |title|
   Factory.create(:definition, :title => title)
 end
 
-Given /^I have a (starting)? step "([^\"]*)"$/ do |starting, title|
+Given /^I have a (starting )?step "([^\"]*)"$/ do |starting, title|
   Factory.create :step,
     :title => title,
-    :start => (starting == 'starting')
+    :start => (starting == 'starting ')
 end
 
-Given /^I have a (starting)? step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
+Given /^I have a (starting )?step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
   Factory.create :step,
     :title => title,
-    :start => (starting == 'starting'),
+    :start => (starting == 'starting '),
     :definition => Definition.find_by_title!(definition)
 end
 
 
-Given /^I have a message "([^\"]*)" for step "([^\"]*)"$/ do |title,step|
-  Factory.create(:message, :title => title, :step => Step.find_by_title(step))
+Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)" for step "([^\"]*)"$/ do |direction,title,step|
+  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step))
+  m.incoming = (direction == 'incoming')
+  m.save
 end
 
-Given /^I have a (incoming|outgoing)? ?message "([^\"]*)"$/ do |direction,title|
+Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)"$/ do |direction,title|
   m = Factory.create(:message, :title => title)
   m.incoming = (direction == 'incoming')
   m.save
