@@ -14,7 +14,3 @@ Feature: Create a message
     And I should see "and not received"
     And I should not see submit button "Verstuur Bericht"
   
-  
-  
-
-  

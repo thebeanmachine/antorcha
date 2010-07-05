@@ -41,6 +41,12 @@ describe Message do
         
       @reply_message.transaction.should == mock_transaction
     end
+    
+    it "should know it's own effect steps" do
+      message = Message.create!(@valid_attributes)
+      mock_step.stub :effects => mock_steps
+      message.effect_steps.should == mock_steps
+    end
   end
   
   describe "empty message" do

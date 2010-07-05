@@ -3,6 +3,7 @@ class DefinitionStepsController < ApplicationController
   after_filter :assign_steps
   
   def index
+    @steps = @definition.steps
   end
   
   def new

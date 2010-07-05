@@ -5,7 +5,9 @@ describe MessageRepliesController do
   def stub_find_origin_message
     stub_find(mock_message(:origin))
     mock_message(:origin).stub :definition => mock_definition
-    mock_definition.stub :steps => mock_steps
+
+    mock_message(:origin).stub :effect_steps => mock_steps
+
     stub_authorize!
   end
 
@@ -15,22 +17,32 @@ describe MessageRepliesController do
       stub_new(mock_message(:reply))
     end
 
+    def get_new
+      get :new, :message_id => mock_message(:origin).to_param
+    end
+
     it "should authorize! new message" do
       stub_new_action
       expect_authorize :show, mock_message(:origin)
       expect_authorize :new, Message
-      get :new, :message_id => mock_message(:origin).to_param
+      get_new
     end
 
-    it "should assign all steps from the definition of the message transaction to @steps" do
+    it "should assign effect steps of the origin step to @steps" do
       stub_new_action
-      get :new, :message_id => mock_message(:origin).to_param
+      get_new
       assigns[:steps].should == mock_steps
+    end
+
+    it "should call effect steps of the origin step to @steps" do
+      stub_new_action
+      mock_message(:origin).should_receive(:effect_steps)
+      get_new
     end
 
     it "should assign new reply message to @message" do
       stub_new_action
-      get :new, :message_id => mock_message(:origin).to_param
+      get_new
       assigns[:message].should == mock_message(:reply)
     end
   end

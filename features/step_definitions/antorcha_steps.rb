@@ -19,11 +19,14 @@ end
 Given /^the "Bakkerij" example$/ do
   definition = Factory(:definition, :title => 'Bakkerij')
     
-  Factory( :step, :title => 'Deeg kneden', :start => true, :definition => definition )
-  Factory( :step, :title => 'In bakvorm stoppen', :definition => definition )
-  Factory( :step, :title => 'In de oven', :definition => definition )
-  Factory( :step, :title => 'Afkoelen', :definition => definition )
-  Factory( :step, :title => 'Verkopen', :definition => definition )
+  kneden = Factory( :step, :title => 'Deeg kneden', :start => true, :definition => definition )
+  bakvorm = Factory( :step, :title => 'In bakvorm stoppen', :definition => definition )
+  oven = Factory( :step, :title => 'In de oven', :definition => definition )
+  afkoelen = Factory( :step, :title => 'Afkoelen', :definition => definition )
+  verkopen = Factory( :step, :title => 'Verkopen', :definition => definition )
+  
+  [kneden, bakvorm, oven, afkoelen, verkopen].inject { |l,r| r.causes << l; r.save; r }
+  
 end
 
 Given /^I have a definition "([^\"]*)"$/ do |title|

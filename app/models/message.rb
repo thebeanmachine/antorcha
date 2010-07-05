@@ -29,6 +29,12 @@ class Message < ActiveRecord::Base
   after_create :format_title
   before_validation :take_over_transaction_from_request
 
+  #
+  # should get more complex, add role filter here.
+  #
+  def effect_steps
+    step.effects
+  end
 
   def status
     status ||= :incoming if incoming?

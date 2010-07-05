@@ -10,6 +10,7 @@ class MessageRepliesController < ApplicationController
   def create
     @message = @origin.replies.build(params[:message])
     authorize! :create, @message
+
     if @message.save
       flash_notice :created, @message
       redirect_to @message
@@ -23,7 +24,7 @@ private
     @origin = Message.find(params[:message_id])
     authorize! :show, @origin
 
-    @steps = @origin.definition.steps
+    @steps = @origin.effect_steps
   end
 
 end

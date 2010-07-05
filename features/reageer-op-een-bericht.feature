@@ -30,7 +30,7 @@ Feature: Reageer op een bericht
 
     When I am on the "Met mijn handen" message page
     And I follow "Reageer op Bericht"
-    And I choose "Deeg kneden"
+    And I choose "In bakvorm stoppen"
   
     And I press "Maak Bericht"
     
