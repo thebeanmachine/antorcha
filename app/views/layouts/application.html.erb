@@ -10,6 +10,11 @@
 </head>
 <body class="<%= controller.controller_name %>">
   
+<% if Rails.env.development? %>
+	<p>Active user role: <%= debug controller.current_user %></p>
+<% end %>
+	
+
   <div class="heading"><div class="inner">
     <span class="title">Antorcha</span>
     <p>
