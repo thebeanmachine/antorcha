@@ -19,7 +19,7 @@ class Ability
       cannot :create, Role
       cannot :update, Role
     end
-    can :read, [Transaction, Message]
+    can :read, [Transaction, Message, Role]
     can :create, [Transaction]
   end
 end

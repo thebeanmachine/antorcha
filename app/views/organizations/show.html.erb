@@ -1,13 +1,21 @@
-<p>
-  <b>Title:</b>
+<h1>
   <%=h @organization.title %>
+</h1>
+<p class="intro">
+  <%= link_to 'Organisaties', organizations_path %> » <%=h @organization.title %>
 </p>
 
-<p>
-  <b>Url:</b>
-  <%=h @organization.url %>
+<p>Bestemming is <%=h @organization.url %></p>
+
+<h2>Rollen</h2>
+<ul>
+  <% @organization.roles.each do |role| %>
+    <li><%= link_to_role role %></li>
+  <% end %>
+</ul>
 </p>
 
 
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
+<div class="actions">
+<%= link_to_edit_organization @organization %>
+</div>

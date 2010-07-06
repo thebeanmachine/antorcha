@@ -36,6 +36,8 @@ class Message < ActiveRecord::Base
   def effect_steps
     step.effects
   end
+  
+  delegate :destination_organizations, :to => :step
 
   def status
     status ||= :incoming if incoming?

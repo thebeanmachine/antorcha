@@ -79,20 +79,25 @@ When /^I confirm a js popup on the next step$/ do
 end
 
 
-Given /^roles titled (.+)$/ do |titles|
+Given /^definition "([^"]*)" has roles titled (.+)$/ do |definition, titles|
   #pending # express the regexp above with the code you wish you had
+  definition = Definition.find_by_title!(definition)
   titles.split(', ').each do |title|
-    Role.create!(:title => title)
+    definition.roles.create!(:title => title)
   end
 end
 
-When /^I create a step Melding with role Consulent$/ do
-  visit definition_steps_path(@definition)
-  click_link "New Step"
-  fill_in "Titel", :with => "Uber Coole Stap"
-  check "Consulent"
-  click_button "Maak Stap"
+When /^I check step permission "([^"]*)"$/ do |role|
+  When %[I check "#{role}" within "#step_permission_roles_input"]
 end
+
+# When /^I create a step Melding with role Consulent$/ do
+#   visit definition_steps_path(@definition)
+#   click_link "New Step"
+#   fill_in "Titel", :with => "Uber Coole Stap"
+#   check "Consulent"
+#   click_button "Maak Stap"
+# end
 
 
 Then /^Melding should be in the Consulent role$/ do

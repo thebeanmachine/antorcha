@@ -1,47 +1,37 @@
 class RolesController < ApplicationController
-  # load_and_authorize_resource
-  before_filter :authorize, :except => [:index, :show]
-   
+  load_and_authorize_resource :nested => :definition
+  
   def index
-    @roles = Role.all
+    @roles = @definition.roles
   end
 
   def show
-    @role = Role.find(params[:id])
   end
 
   def new
-    # @role = Role.new # No need for that because of cancan's load_and_authorize_resource()
-    @role = Role.new
   end
 
   def edit
-    @role = Role.find(params[:id])
   end
 
   def create
-    @role = Role.new(params[:role])
-
     if @role.save
-      redirect_to(@role, :notice => 'Role was successfully created.')
+      redirect_to [@definition, @role], :notice => 'Role was successfully created.'
     else
       render :action => "new"
     end
   end
 
   def update
-    @role = Role.find(params[:id])
-
     if @role.update_attributes(params[:role])
-      redirect_to(@role, :notice => 'Role was successfully updated.')
+      redirect_to [@definition, @role], :notice => 'Role was successfully updated.'
     else
       render :action => "edit"
     end
  end
 
   def destroy
-    @role = Role.find(params[:id])
     @role.destroy
-    redirect_to(roles_url)
+    redirect_to definition_roles_url(@definition) 
   end
 end

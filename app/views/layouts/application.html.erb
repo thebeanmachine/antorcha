@@ -6,7 +6,6 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Steps: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application' %>
-
 </head>
 <body class="<%= controller.controller_name %>">
   
@@ -21,7 +20,7 @@
       <%= [
         link_to_transactions, link_to_messages,
         link_to_definitions, link_to_steps,
-        link_to_workers, link_to_reactions
+        link_to_workers, link_to_reactions, link_to_organizations
       ].compact.join(" | ") %>
     </p>
     

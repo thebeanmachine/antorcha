@@ -9,12 +9,17 @@ class Definition < ActiveRecord::Base
   has_many :steps
   
   has_many :transactions
-  
   has_many :messages, :through => :transactions
 
-  has_many :reactions, :through => :steps, :source => :effects
+  has_many :roles
+
+  has_many :reactions, :through => :steps, :source => :effect_reactions
 
   def parameterize_title_for_name
     self.name = title.parameterize if title
+  end
+  
+  def step_roles()
+    roles
   end
 end
