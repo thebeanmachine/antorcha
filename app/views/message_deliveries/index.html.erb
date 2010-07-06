@@ -1,0 +1,17 @@
+<h1>Message deliveries</h1>
+<p class="intro">
+  <%= link_to_messages %> »
+  <%= link_to_message @message %> »
+  Deliveries
+</p>
+
+<ul>
+<% @deliveries.each do |delivery| %>
+  <li>
+    <%= link_to_organization delivery.organization %> @ 
+    <%= l(delivery.delivered_at, :format => :short ) if delivery.delivered? %>
+    <%= 'Nog niet aangekomen' unless delivery.delivered? %>
+  </li>
+<% end %>
+</ul>
+

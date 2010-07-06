@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MessageDeliveryController do
+describe MessageDeliveriesController do
   
   describe "POST create" do
     def post_create
