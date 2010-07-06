@@ -1,12 +1,10 @@
-class MessageDeliveryJob < Struct.new(:message_id)
+class MessageDeliveryJob < Struct.new(:delivery_id)
   def perform
-    message = Message.find(message_id)
-    unless message.delivered?
-      message.destination_organizations.each do |organization|
-        RestClient.post(organization.url, message.to_xml, :content_type => :xml, :accept => :xml)
-      end
-      
-      message.delivered!
+    delivery = Delivery.find(delivery_id)
+    message = delivery.message
+    unless delivery.delivered?
+      RestClient.post(delivery.url, message.to_xml, :content_type => :xml, :accept => :xml)
+      delivery.delivered!
     end
   end
 end

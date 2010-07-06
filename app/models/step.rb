@@ -21,16 +21,13 @@ class Step < ActiveRecord::Base
   
   delegate :definition_roles, :to => :definition
 
-  #
   # No premature optimalizations.
-  #
   def destination_organizations
     recipient_roles.all.inject [] do |memo, role|
       memo += role.organizations
       memo.uniq
     end
   end
-
 
   def parameterize_title_for_name
     self.name = title.parameterize if title

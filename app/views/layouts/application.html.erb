@@ -9,9 +9,6 @@
 </head>
 <body class="<%= controller.controller_name %>">
   
-<% if Rails.env.development? %>
-	<p>Active user role: <%= debug controller.current_user %></p>
-<% end %>
 	
 
   <div class="heading"><div class="inner">
@@ -22,6 +19,8 @@
         link_to_definitions, link_to_steps,
         link_to_workers, link_to_reactions, link_to_organizations
       ].compact.join(" | ") %>
+
+
     </p>
     
     <p>
@@ -31,6 +30,9 @@
         <% else %>          
           <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
         <% end %>
+      <% end %>
+      <% if Rails.env.development? %>
+      	Active user role: <%=h controller.current_user.join(', ') %>
       <% end %>
     </p>
     

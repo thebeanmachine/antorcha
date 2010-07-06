@@ -12,11 +12,14 @@ class Message < ActiveRecord::Base
   belongs_to :transaction
   belongs_to :step
 
-  flagstamp :sent, :delivered, :shown
+  flagstamp :sent, :shown
   antonym :outgoing => :incoming
 
   belongs_to :request, :class_name => 'Message'
   has_many :replies, :class_name => 'Message', :foreign_key => 'request_id'
+
+  has_many :deliveries
+  has_many :delivery_organizations, :through => :deliveries, :source => :organization
 
   default_scope :order => 'messages.created_at DESC'
   
@@ -45,6 +48,21 @@ class Message < ActiveRecord::Base
     status ||= sent?
     status ||= :draft
     status
+  end
+
+  def delivered_at
+    deliveries.maximum :delivered_at
+  end
+
+  def delivered?
+    :delivered unless deliveries.count == 0 or deliveries.exists? :delivered_at => nil
+  end
+
+  # YOU CAN'T OVERRIDE send
+  def send_deliveries
+    # OW YEAH!
+    delivery_organizations << destination_organizations
+    sent!
   end
 
 private
