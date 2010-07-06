@@ -47,7 +47,8 @@ module SwiftHelper
     
           def link_to_#{models}
             if can? :index, #{model.to_s.classify.constantize}
-              link_to h("#{model_class.human_name(:count => 10)}"), #{models}_path, :class => '#{models}'
+              link_to h("#{model_class.human_name(:count => 10)}"), #{models}_path,
+                :class => "#{models} \#{'selected' if controller.controller_name == '#{models}' }"
             end
           end
 

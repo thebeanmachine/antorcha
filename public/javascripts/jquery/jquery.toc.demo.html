@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org" />
+<title>jQuery TOC test</title>
+<script src="jquery.base.js" type="text/javascript"></script>
+<script src="jquery.toc.js" type="text/javascript"></script>
+<script src="../dd_round/DD_roundies_0.0.2a.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function() {
+    $(".toc").toc({
+      "prepend":"<h2>Inhoudsopgave</h2>",
+      'elements':"h2",
+      'minElements':4
+    });
+  });
+  
+  DD_roundies.addRule('input.styled', '6px');
+</script>
+</head>
+
+<body>
+<div class="notoc">
+<h1>jQuery TOC demo</h1>
+<h2>Not a TOC title</h2>
+<input class="styled" value="                                                            " />
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros massa, molestie nec placerat vel, eleifend non turpis. In mi felis, malesuada consequat euismod ac, bibendum eget tellus. Vestibulum a sapien ut enim vestibulum hendrerit non in arcu. Nullam volutpat posuere sollicitudin. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed elementum vehicula nulla, eget adipiscing diam egestas a. Morbi quis augue metus, vitae ornare nisl. Donec fermentum pellentesque pharetra. Maecenas et nibh ut orci aliquam vehicula. Praesent commodo vehicula arcu vitae varius. Suspendisse eget nisl nisi.</p>
+
+</div>
+<div class="toc">
+<h2>Eerste kop</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros massa, molestie nec placerat vel, eleifend non turpis. In mi felis, malesuada consequat euismod ac, bibendum eget tellus. Vestibulum a sapien ut enim vestibulum hendrerit non in arcu. Nullam volutpat posuere sollicitudin. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed elementum vehicula nulla, eget adipiscing diam egestas a. Morbi quis augue metus, vitae ornare nisl. Donec fermentum pellentesque pharetra. Maecenas et nibh ut orci aliquam vehicula. Praesent commodo vehicula arcu vitae varius. Suspendisse eget nisl nisi.</p>
+<h2>Tweede kop</h2>
+<p>
+
+Mauris sed velit massa. Proin nec felis magna, egestas imperdiet purus. Etiam nec dui ligula, quis convallis purus. Sed accumsan, sem accumsan hendrerit ullamcorper, lorem lorem hendrerit eros, vel volutpat tellus erat non lectus. Duis ligula nisl, euismod eu blandit eget, vulputate vitae mauris. Curabitur iaculis, diam a vulputate condimentum, quam orci ultricies justo, eget varius lorem neque ut neque. Donec scelerisque arcu at elit tempor scelerisque. Nunc quis nunc magna. Proin nec justo non odio hendrerit tincidunt id vel justo. Duis ac accumsan dui. Sed pretium, diam sed pulvinar molestie, elit ligula ultrices ipsum, nec dapibus turpis sem eu sapien. Mauris interdum lectus non dui rutrum ut malesuada justo accumsan. Maecenas tortor ligula, convallis ac dictum et, ultrices non nisl. Maecenas in nulla sem. Duis tincidunt placerat fringilla. Ut tempus, lectus in bibendum feugiat, tortor lorem fermentum orci, ut porta ipsum erat ac nisl. Aenean sit amet lacus nisl, at lobortis ligula.</p>
+<h2>Derde kop</h2>
+<p>
+
+Fusce dui justo, dapibus non pulvinar vitae, suscipit eget augue. Maecenas eu lorem nec lorem laoreet dignissim in non lacus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam ut sem eros, ut lacinia felis. Morbi varius, nulla in semper elementum, tortor arcu auctor orci, nec vulputate sem lacus nec lacus. Cras a condimentum nisi. Vestibulum sed orci in augue adipiscing adipiscing. Nam egestas porta metus fermentum gravida. Nulla facilisi. Maecenas aliquet facilisis nulla vel euismod. Pellentesque sagittis vulputate imperdiet.</p>
+
+<h3>Sub Test 123</h3>
+<p>
+
+Donec id leo non ipsum rutrum viverra. In vitae urna a velit blandit condimentum. Sed lobortis ligula quis mi fermentum tincidunt. In vel leo at est condimentum molestie at vitae velit. Aenean lectus orci, sollicitudin nec euismod ac, ornare id justo. Nullam venenatis vulputate blandit. In lacinia aliquet ipsum vel faucibus. Quisque rutrum, nunc vel egestas sodales, nunc risus viverra felis, convallis ullamcorper ligula dui nec lectus. Pellentesque id nulla nec est convallis volutpat. Suspendisse mauris nibh, dapibus id fringilla in, egestas in augue. Proin a sem in lorem pretium venenatis. Curabitur ac ornare leo. Praesent facilisis adipiscing risus vitae placerat. Nunc tristique, lorem eget euismod luctus, est ligula varius elit, in dignissim libero orci at tellus. Donec dignissim eleifend nunc, sed tincidunt orci aliquam vitae.</p>
+<h2>Vierde kop</h2>
+<p>Cras vitae porta tortor. Nulla tempus molestie sodales. Sed vel dignissim est. Nulla eu risus interdum lacus dictum imperdiet sit amet adipiscing urna. Curabitur nisl dui, hendrerit eu consectetur in, cursus ac metus. Cras quis ante eros, et accumsan massa. In ultrices massa sit amet metus pharetra a convallis sapien aliquet. In quis ultrices ligula. Aliquam dui lorem, gravida eu elementum eleifend, accumsan vel neque. Vestibulum vitae nisl libero, vel sodales risus. </p>
+</div>
+<div class="notoc">
+<h2>Test 123</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros massa, molestie nec placerat vel, eleifend non turpis. In mi felis, malesuada consequat euismod ac, bibendum eget tellus. Vestibulum a sapien ut enim vestibulum hendrerit non in arcu. Nullam volutpat posuere sollicitudin. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed elementum vehicula nulla, eget adipiscing diam egestas a. Morbi quis augue metus, vitae ornare nisl. Donec fermentum pellentesque pharetra. Maecenas et nibh ut orci aliquam vehicula. Praesent commodo vehicula arcu vitae varius. Suspendisse eget nisl nisi.</p>
+</div>
+</body>
+</html>

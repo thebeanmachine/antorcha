@@ -2,7 +2,7 @@
 
 module AntorchaHelper
 
-  %w[step message definition transaction reaction].each do |model|
+  %w[step message definition transaction reaction role organization delivery].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default
         @mock_#{model} ||= {}
@@ -70,8 +70,8 @@ module AntorchaHelper
     s.and_return(mocked_model)
   end
 
-  def stub_build_on(finder, mocked_model, params = nil)
-    s = finder.stub(:build)
+  def stub_find_on(finder, mocked_model, params = nil)
+    s = finder.stub(:find)
     s = s.with(params) if params
     s.and_return(mocked_model)
   end
@@ -143,6 +143,11 @@ module AntorchaHelper
     description do
       "have before filter #{expected}"
     end
+  end
+  
+  
+  def stub_render_partial
+    template.stub(:render).with(hash_including(:partial => anything())).and_return('')
   end
   
   def should_render_partial name

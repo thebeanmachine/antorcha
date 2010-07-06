@@ -10,6 +10,8 @@ a img {
 	border: none;
 }
 
+/* DEFAULT MENU */
+
 ul.menu {
 	list-style: none;
 	margin:0;
@@ -20,6 +22,27 @@ ul.menu li {
 	float: left;
 	margin: 0;
 	padding: 0;
+}
+
+/* FLASH NOTICES/ERRORS/ETC... */
+
+.flash {
+  margin: auto;
+  width: 76%;
+  margin-bottom: 1em;
+}
+.flash.notice {
+  background: #484;
+  color: white;
+}
+.flash.error {
+  background: #822;
+  color: white;
+}
+
+.flash p {
+  margin: 0em 2em;
+  padding: 1em 0em;
 }
 
 #header {
@@ -61,3 +84,6 @@ ul.menu li {
 	padding: 0;
 	position: absolute;
 }
+
+
+

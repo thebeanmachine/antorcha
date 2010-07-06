@@ -1,6 +1,6 @@
 class DefinitionStepsController < ApplicationController
   load_and_authorize_resource :name => :step, :nested => :definition
-  after_filter :assign_steps
+  before_filter :assign_steps
   
   def index
     @steps = @definition.steps

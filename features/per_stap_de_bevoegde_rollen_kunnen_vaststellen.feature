@@ -4,11 +4,19 @@ Feature: Adviser add roles to step
 	So that messages are authorised
 	
 	Scenario: Add role to step
-		Given roles titled Consulent, Verpleger
+	  Given the "Bakkerij" example
+		And definition "Bakkerij" has roles titled Consulent, Verpleger
 		And I am an advisor
-		And I have a definition "A Definition"
-		When I create a step Melding with role Consulent
-		Then Melding should be in the Consulent role
+		And I am on the "Bakkerij" definition page
+		When I follow "Stappen" within ".page"
+
+		And I follow "Nieuwe Stap"
+		And I fill in "Titel" with "Uber Coole Stap"
+		And I check step permission "Consulent"
+		And I press "Maak Stap"
+
+#		When I create a step Melding with role Consulent
+#		Then Melding should be in the Consulent role
 	
 	# Scenario: check roles on a new step page
 	# 	Given	I have a new untitled step

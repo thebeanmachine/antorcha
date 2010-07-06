@@ -2,17 +2,21 @@ require 'spec_helper'
 
 describe MessageDeliveryJob do
   subject {
-    MessageDeliveryJob.new(mock_message.to_param)
+    MessageDeliveryJob.new(mock_delivery.to_param)
   }
 
   def stub_perform
-    stub_find(mock_message)
+    stub_find(mock_delivery)
     stub_rest_client_post
 
+    mock_delivery.stub \
+      :message => mock_message,
+      :url => 'http://example.com/messages',
+      :delivered! => nil
+
     mock_message.stub \
-      :to_xml => "XML!",
-      :delivered! => nil,
-      :destination_url => 'http://example.com/messages'
+      :to_xml => "XML!"
+      
   end
 
   def stub_rest_client_post
@@ -21,19 +25,19 @@ describe MessageDeliveryJob do
   
   describe "undelivered message" do
     def stub_undelivered
-      mock_message.stub(:delivered? => false)
+      mock_delivery.stub :delivered? => false
       stub_perform
     end
     
-    it "should find the message" do
+    it "should find the delivery" do
       stub_undelivered
-      Message.should_receive(:find).with(mock_message.to_param).and_return(mock_message)
+      Delivery.should_receive(:find).with(mock_delivery.to_param).and_return(mock_delivery)
       subject.perform
     end
 
-    it "should flag the message as delivered" do
+    it "should flag the delivery as delivered" do
       stub_undelivered
-      mock_message.should_receive(:delivered!)
+      mock_delivery.should_receive(:delivered!)
       subject.perform
     end
 
@@ -52,34 +56,34 @@ describe MessageDeliveryJob do
       subject.perform
     end
     
-    it "should post the message to the destination url" do
+    it "should post the message to the destination url of organizations" do
       stub_undelivered
-      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything())
+      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything()).once
       subject.perform
     end
 
-    it "should fetch destination url from the message" do
+    it "should fetch destination url from the delivery (is delegated to organization)" do
       stub_undelivered
-      mock_message.should_receive(:destination_url)
+      mock_delivery.should_receive(:url).once
       subject.perform
     end
   end
   
   describe "a delivered message" do
     def stub_undelivered
-      mock_message.stub(:delivered? => true)
+      mock_delivery.stub :delivered? => true
       stub_perform
     end
     
-    it "should check if the message was delivered" do
+    it "should check if the delivery was delivered" do
       stub_undelivered
-      mock_message.should_receive(:delivered?)
+      mock_delivery.should_receive(:delivered?)
       subject.perform
     end
     
-    it "should not flag the message as delivered" do
+    it "should not flag the delivery as delivered" do
       stub_undelivered
-      mock_message.should_not_receive(:delivered!)
+      mock_delivery.should_not_receive(:delivered!)
       subject.perform
     end
 

@@ -6,9 +6,11 @@ $(document).ready(function() {
 
   $('a.add_role').click(function(event) {
     event.preventDefault();
+    alert(" hoi")
 
-    functie = $('.campagne_functie.template').clone().removeClass('template').show();
-    $('.new_role').append(functie);
+    //functie = $('.campagne_functie').clone().removeClass('template').show();
+    functie = $('.campagne_functie').clone().show();
+    $('.new_role').append(functie)
 
     //$(functie.find('a.destroy').get(0)).click(function(event) {
       //$(this).parents('.campagne_functie').remove();
@@ -16,7 +18,6 @@ $(document).ready(function() {
     //});
   });
   
-  $('.campagne_functie.template').hide();
-
+  //$('.campagne_functie.template').hide();
   
 });

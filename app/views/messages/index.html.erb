@@ -1,4 +1,8 @@
+<% if @transaction %>
+<h1>Messages <small>(transactie: <%= @transaction.title %> </small>)</h1>
+<% else %>
 <h1>Messages</h1>
+<% end %>
 
 <p class="intro">
   <% if @transaction %>
@@ -15,6 +19,7 @@
   <%= link_to "outbox", :search => {:outbox => true} %>
 </p>
 
+<% if controller.current_user.include? :advisor %>
 <ul>
 	Filter op Transacties
 	* een overzicht zien van alle berichten per transactie type binnen mijn Antorcha
@@ -27,9 +32,10 @@
 <ul>
 	Filter op Definitie:
 	<% Definition.all.each do |definition| %>
-		<li><%= link_to definition.title, :search => {:with_definition => definition} %></li>
+		<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) %></li>
 	<% end %>
 </ul>
+<% end %>
 
 <table>
   <tr>

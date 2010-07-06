@@ -1,26 +1,35 @@
 require 'spec_helper'
 
 describe "/steps/edit.html.erb" do
-  include StepsHelper
-
-  before(:each) do
+  
+  def stub_render
     assigns[:step] = mock_step
     assigns[:definition] = mock_definition
+
+    mock_definition.stub \
+      :title => 'Definitie titel'
     
     mock_step.stub \
-      :title => "value for title",
-      :start => false,
-      :errors => stub("errors").as_null_object,
-      :destination_url => 'http://example.com/messages'
-
-    mock_definition.stub( :title => 'value for definition')
+      :title => 'Stap titel'
+      
+    stub_render_partial
   end
 
-  it "renders the edit step form" do
+  it "should render the title" do
+    stub_render
     render
+    should have_tag('h1', /Stap titel/)
+  end
 
-    response.should have_tag("form[action=?][method=post]", step_path(mock_step)) do
-      with_tag('input#step_title[name=?]', "step[title]")
-    end
+  it "should render link to definition" do
+    stub_render
+    render
+    should have_tag('a', /Definitie titel/)
+  end
+  
+  it "should call the _form partial" do
+    stub_render
+    should_render_partial "form"
+    render
   end
 end

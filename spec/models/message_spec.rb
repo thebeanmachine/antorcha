@@ -11,8 +11,11 @@ describe Message do
     }
   end
 
-  it "should create a new instance given valid attributes" do
-    Message.create!(@valid_attributes)
+  describe "given valid attributes" do
+    subject {Message.create(@valid_attributes)}
+    it "should create a new instance" do
+      subject.should have(:no).errors
+    end
   end
   
   describe "accessibility" do
@@ -89,15 +92,19 @@ describe Message do
   end
   
   describe "delivery" do
-    subject { Factory(:message) }
+    subject {
+      m = Factory(:message)
+      m.delivery_organizations << Factory(:organization)
+      m
+    }
 
     it "can be delivered" do
-      subject.delivered!
+      subject.deliveries.first.delivered!
       subject.should be_delivered
     end
 
     it "has errors if message is delivered but not sent" do
-      subject.delivered!
+      subject.deliveries.first.delivered!
       subject.should have(1).error_on(:sent_at)
     end
 
@@ -106,14 +113,16 @@ describe Message do
     end
 
     it "status should be :delivered" do
-      subject.delivered!
+      subject.deliveries.first.delivered!
       subject.status.should == :delivered
     end
 
     it "should not be delivered twice" do
       yesterday = 1.day.ago
-      subject.delivered_at = yesterday 
-      subject.delivered!
+      delivery = subject.deliveries.first
+      delivery.delivered_at = yesterday 
+      delivery.delivered!
+      delivery.save
       subject.delivered_at.to_i.should == yesterday.to_i
     end
   end

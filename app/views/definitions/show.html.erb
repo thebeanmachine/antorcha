@@ -1,11 +1,7 @@
 <h1>Definition <strong><%=h @definition.title %></strong></h1>
-<p class="intro">
-  <%= link_to "Reacties", definition_reactions_path(@definition) %> van deze definitie.
-  <%= link_to "Stappen", definition_steps_path(@definition) %> van deze definitie.
-</p>
 
 <p>
-  <b>name:</b> '<%=h @definition.name %>'.
+  <%= link_to "Stappen", definition_steps_path(@definition) %> van deze definitie.
 </p>
 <div class="actions">
   <%= link_to_edit_definition @definition %>

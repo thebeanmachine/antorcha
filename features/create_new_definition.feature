@@ -16,8 +16,8 @@ Feature: Create new Definition
     And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
     And I follow "Stappen" within ".page"
-    And I follow "New Step"
-    Then I should see "New Step"
+    And I follow "Nieuwe Stap"
+    Then I should see "Nieuwe Stap"
   
 
   Scenario: Create an Step under a Definition
@@ -25,7 +25,7 @@ Feature: Create new Definition
     And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
     And I follow "Stappen" within ".page"
-    And I follow "New Step"
+    And I follow "Nieuwe Stap"
     And I fill in "Titel" with "My defined Step"
     And I press "Maak Stap"
     Then I should see "Step created successfully"

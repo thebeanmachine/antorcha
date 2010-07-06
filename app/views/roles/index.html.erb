@@ -1,25 +1,17 @@
 <h1>Listing roles</h1>
+<p class="intro">
+  Definitie <%= link_to_definition @definition %> » Rollen.
+</p>
 
-<table>
-  <tr>
-    <th>Title</th>
-  </tr>
+<p class="create">
+  <%= musketeer ['Maak een ', link_to_new_role(@definition), ''] %>
+</p>
 
+<ul>
 <% @roles.each do |role| %>
-  <tr>
-    <td><%=h role.title %></td>
-    <td>
-      <% role.organizations.each do |org| %>
-        <%= org.title %> |
-      <% end %>
-    </td>
-    <td><%= link_to 'Show', role %></td>
-    <td><%= link_to 'Edit', edit_role_path(role) %></td>
-    <td><%= link_to 'Destroy', role, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li>
+    <%= link_to h(role.title), definition_role_path(@definition, role) %>
+  </li>
 <% end %>
-</table>
+</ul>
 
-<br />
-
-<%= link_to 'New role', new_role_path %>

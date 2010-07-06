@@ -1,10 +1,15 @@
-<h1>Steps of definition <%=h @definition.title %></h1>
+<h1>Steps of definition: <%=h @definition.title %></h1>
 <p class="intro">
-  Steps of definition <%= link_to_definition @definition %>. Create a <%= link_to "New Step", new_definition_step_path(@definition) %>.
+  <%= link_to_definitions %> »
+  <%= link_to_definition @definition %> »
+  <%= link_to_definition_steps @definition %>. 
+</p>
+<p class="create">
+  Maak een <%= link_to "Nieuwe Stap", new_definition_step_path(@definition) %>.
 </p>
 
 <div class="steps">
-  <ul>
+  <ol>
     <%= render :partial => 'step', :collection => @steps %>
-  </ul>
+  </ol>
 </div>

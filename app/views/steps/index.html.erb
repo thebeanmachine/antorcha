@@ -8,7 +8,8 @@
 <ul>
 <% @steps.each do |step| %>
   <li>
-    <%= link_to_step step %> in <%= link_to_definition step.definition %>
+    step #<%= step.id %>: <%= link_to_step step %> <small>(belongs to definition:<%= link_to_definition step.definition %>)</small>
+		<b><%= "start step" if step.start? %></b>
   </li>
 <% end %>
 </ul>
