@@ -9,9 +9,7 @@ describe MessageDeliveryController do
     
     def stub_create
       stub_find(mock_message)
-      stub_new_message_delivery_job
-      mock_message.stub(:sent! => nil)
-      Delayed::Job.stub(:enqueue => nil)
+      mock_message.stub(:send_deliveries => nil)
     end
 
     describe "as anonymous" do
@@ -33,15 +31,9 @@ describe MessageDeliveryController do
         assigns[:message].should == mock_message
       end
 
-      it "flags the message as sent" do
+      it "sends the deliveries!" do
         stub_create
-        mock_message.should_receive(:sent!)
-        post_create
-      end
-    
-      it "enqueues a delivery job" do
-        stub_create
-        Delayed::Job.should_receive(:enqueue).with(mock_message_delivery_job)
+        mock_message.should_receive(:send_deliveries)
         post_create
       end
     
