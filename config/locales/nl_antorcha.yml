@@ -29,6 +29,7 @@ nl:
     edit: "Bewerk {{model}}"
     destroy: "Vernietig {{model}}"
     send: "Verstuur {{model}}"
+    reply: "Reageer op {{model}}"
   
   notice:
     created: "{{model}} was succesvol aangemaakt."

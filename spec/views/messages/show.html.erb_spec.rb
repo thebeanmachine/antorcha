@@ -66,6 +66,8 @@ describe "/messages/show.html.erb" do
       mock_message.stub :incoming? => true, :outgoing? => false
     end
 
+
+
     it "should not render send link" do
       render
       response.should_not have_text(/Verstuur Bericht/)
