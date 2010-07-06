@@ -16,11 +16,14 @@ describe "/messages/show.html.erb" do
       :sent? => true,
       :request => mock_message(:request),
       :sent_at => Time.now,
-      :created_at => Time.now
+      :created_at => Time.now,
+      :effect_steps => mock_steps
     
     mock_message(:request).stub \
       :title => 'requested message title'
-    
+
+    mock_steps.stub :count => mock_steps.size
+  
     mock_step.stub( :title => 'hallo wereld', :definition => mock_definition )
     mock_definition.stub( :title => 'definition title' )
     mock_transaction.stub( :title => 'transaction title' )
