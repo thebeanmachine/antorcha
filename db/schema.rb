@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100702123511) do
+ActiveRecord::Schema.define(:version => 20100706084736) do
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
@@ -96,9 +96,8 @@ ActiveRecord::Schema.define(:version => 20100702123511) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "start"
-    t.string   "name",                                                          :null => false
-    t.integer  "definition_id",   :default => 1,                                :null => false
-    t.string   "destination_url", :default => "http://localhost:3000/messages"
+    t.string   "name",                         :null => false
+    t.integer  "definition_id", :default => 1, :null => false
   end
 
   create_table "transactions", :force => true do |t|

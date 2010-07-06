@@ -12,7 +12,9 @@ describe MessageDeliveryJob do
     mock_message.stub \
       :to_xml => "XML!",
       :delivered! => nil,
-      :destination_url => 'http://example.com/messages'
+      :destination_organizations => mock_organizations
+    
+    mock_organization.stub :url => 'http://example.com/messages'
   end
 
   def stub_rest_client_post
@@ -52,15 +54,15 @@ describe MessageDeliveryJob do
       subject.perform
     end
     
-    it "should post the message to the destination url" do
+    it "should post the message to the destination url of organizations" do
       stub_undelivered
-      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything())
+      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything()).twice
       subject.perform
     end
 
     it "should fetch destination url from the message" do
       stub_undelivered
-      mock_message.should_receive(:destination_url)
+      mock_organization.should_receive(:url).twice
       subject.perform
     end
   end

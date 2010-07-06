@@ -34,4 +34,27 @@ describe Step do
       step.name.should == 'aap-noot-mies'
     end
   end
+  
+  describe "fetch destination organizations" do
+    before(:each) do
+      Antorcha.definition "noot" do |noot|
+        noot.role "aap"
+        noot.step "mies" do |mies|
+          mies.recipients "aap"
+        end
+      end
+      Antorcha.organization "bean" do |bean|
+        bean.fulfills "noot" => "aap"
+      end
+    end
+  
+    subject { Step.find_by_title 'mies' }
+    
+    it "should find organization bean" do
+      @bean = Organization.find_by_title 'bean'
+      subject.destination_organizations.should == [@bean]
+    end
+    
+  end
+   
 end

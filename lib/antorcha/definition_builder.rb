@@ -2,7 +2,7 @@
 module Antorcha
   class DefinitionBuilder < Struct.new(:title)
     def build &block
-      puts "Building definition #{title}"
+      #puts "Building definition #{title}"
 
       @definition = Definition.find_by_title title
       @definition = Definition.create :title => title unless @definition
@@ -28,7 +28,7 @@ module Antorcha
   
   class StepBuilder < Struct.new(:definition, :title)
     def build &block
-      puts "Building step #{title} for #{definition.title}"
+      #puts "Building step #{title} for #{definition.title}"
       
       @step = definition.steps.find_by_title title
       @step = definition.steps.create :title => title unless @step
