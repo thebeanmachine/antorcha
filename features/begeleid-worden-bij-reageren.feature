@@ -17,8 +17,4 @@ Feature: Begeleid worden bij reageren
     And I check "Bak brood"
     And I press "Bewaar veranderingen"
     
-    Then I should see "Stap heeft als oorzaak Bak brood"
-  
-  
-
-  
+    Then I should see "Deze stap heeft als oorzaak Bak brood"
