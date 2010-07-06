@@ -9,41 +9,50 @@
 
 </head>
 <body class="<%= controller.controller_name %>">
-  
-  <div class="heading"><div class="inner">
-    <span class="title">Antorcha</span>
-    <p>
-      <%= [
-        link_to_transactions, link_to_messages,
-        link_to_definitions, link_to_steps,
-        link_to_workers, link_to_reactions
-      ].compact.join(" | ") %>
-    </p>
+  <div id="page_container">
+ 	 <div id="header">
+			<div id="logo">
+				<a href="/"><img src="/images/header_logo.png" alt="Antorcha"></a>
+			</div>
+		</div>
+		<div id="navigation">
+			<ul class="menu" id="tabs">
+	      <% [
+	        link_to_transactions, link_to_messages,
+	        link_to_definitions, link_to_steps,
+	        link_to_workers, link_to_reactions, link_to("Nieuwe transactie", new_transaction_initiation_path)
+	      ].compact.each do |link|
+			  %>
+				<li>
+				<%= link %>
+				</li>
+				<% end %>
+	   	</ul>
+	    <div id="user">
+	      <% %w[maintainer sender advisor].each do |user_session| %>
+	        <% if controller.current_user.include? user_session.to_sym %>
+	          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
+	        <% else %>          
+	          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
+	        <% end %>
+	      <% end %>
+	    </div>
     
-    <p>
-      <% %w[maintainer sender advisor].each do |user_session| %>
-        <% if controller.current_user.include? user_session.to_sym %>
-          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
-        <% else %>          
-          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
-        <% end %>
-      <% end %>
-    </p>
-    
-  </div></div>
+		</div>
   
-  <% if flash[:error] %>
-    <div class="flash error">
-      <p><%= flash[:error] %></p>
-    </div>
-  <% end %>
-  <% if flash[:notice] %>
-    <div class="flash notice">
-      <p><%= notice %></p>
-    </div>
-  <% end %>
-  <div class="page">
-    <%= yield %>
-  </div>
+	  <% if flash[:error] %>
+	    <div class="flash error">
+	      <p><%= flash[:error] %></p>
+	    </div>
+	  <% end %>
+	  <% if flash[:notice] %>
+	    <div class="flash notice">
+	      <p><%= notice %></p>
+	    </div>
+	  <% end %>
+	  <div class="page">
+	    <%= yield %>
+	  </div>
+	</div>
 </body>
 </html>
