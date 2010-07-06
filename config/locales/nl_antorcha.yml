@@ -73,6 +73,8 @@ nl:
         causes: Oorzaken
         destination_url: Bestemming
         start: Start van de definitie
+        recipient_roles: Wordt verstuurd naar
+        permission_roles: Toegankelijk voor
       message:
         title: Titel
       reaction:
@@ -82,6 +84,5 @@ nl:
         title: Titel
         url: Bestemming
         roles: Rollen
-
         
         

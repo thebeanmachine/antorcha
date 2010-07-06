@@ -15,7 +15,6 @@ Feature: Adviser add roles to step
 		And I check step permission "Consulent"
 		And I press "Maak Stap"
 
-
 #		When I create a step Melding with role Consulent
 #		Then Melding should be in the Consulent role
 	
