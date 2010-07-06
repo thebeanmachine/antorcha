@@ -8,7 +8,7 @@
 <% if @step.causes %>
   <p>
     <% @step.causes.each do |cause| %>
-      Stap heeft als oorzaak <%= link_to_step cause %>.
+      Deze stap heeft als oorzaak (is een reactie op) <%= link_to_step cause %>.
     <% end %>
   </p>
 <% end %>
