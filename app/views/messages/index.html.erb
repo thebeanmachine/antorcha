@@ -1,4 +1,8 @@
+<% if @transaction %>
+<h1>Messages <small>(transactie: <%= @transaction.title %> </small>)</h1>
+<% else %>
 <h1>Messages</h1>
+<% end %>
 
 <p class="intro">
   <% if @transaction %>
