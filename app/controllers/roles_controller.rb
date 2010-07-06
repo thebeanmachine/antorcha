@@ -1,5 +1,7 @@
 class RolesController < ApplicationController
-  
+  # load_and_authorize_resource
+  before_filter :authorize, :except => [:index, :show]
+   
   def index
     @roles = Role.all
   end
@@ -9,6 +11,7 @@ class RolesController < ApplicationController
   end
 
   def new
+    # @role = Role.new # No need for that because of cancan's load_and_authorize_resource()
     @role = Role.new
   end
 

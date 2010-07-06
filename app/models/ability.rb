@@ -5,6 +5,8 @@ class Ability
     if user.include? :maintainer
       can :manage, :all
       can :send, Message
+      cannot :create, Role
+      cannot :update, Role
     end
     if user.include? :advisor
       can :manage, :all
@@ -14,6 +16,8 @@ class Ability
     if user.include? :sender
       can :send, Message
       can :create, Message
+      cannot :create, Role
+      cannot :update, Role
     end
     can :read, [Transaction, Message]
     can :create, [Transaction]
