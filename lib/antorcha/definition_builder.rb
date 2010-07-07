@@ -32,6 +32,11 @@ module Antorcha
       
       @step = definition.steps.find_by_title title
       @step = definition.steps.create :title => title unless @step
+
+      # clear out the settings
+      @step.causes.delete_all
+      @step.permission_roles.delete_all
+      @step.recipient_roles.delete_all
       
       block.call self
       unless @step.save
