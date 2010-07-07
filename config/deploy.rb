@@ -10,7 +10,7 @@ set :repository, "git@github.com:thebeanmachine/antorcha.git"  # Your clone URL
 set :scm, "git"
 #set :scm_passphrase, "p@ssw0rd"  # The deploy user's password
 
-set :branch, "master"
+set :branch, "maint"
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
