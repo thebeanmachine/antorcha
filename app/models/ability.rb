@@ -13,7 +13,7 @@ class Ability
       cannot :manage, Worker
       cannot :send, Message
     end
-    if user.include? :sender
+    if user.include? :communicator
       can :send, Message
       can :create, Message
       cannot :create, Role
