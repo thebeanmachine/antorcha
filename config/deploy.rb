@@ -46,6 +46,13 @@ namespace :database do
   end
 end
 
+namespace :delayed_job do
+  desc "stop delayed_job, will be started by monit within 3 minutes"
+  task :stop, :roles => [:app] do
+    run "cd #{latest_release} && RAILS_ENV=production script/delayed_job stop"
+  end
+end
+
 namespace :rails do
 
   namespace :db do
@@ -68,9 +75,13 @@ namespace :rails do
   end
 end
 
-after "deploy:migrate","rails:db:seed"
+
 after "deploy:setup","rails:gems:rails"
+
 after "deploy:update_code","database:symlink"
 after "deploy:update_code","rails:gems:install"
 
+after "deploy:migrate","rails:db:seed"
+
+after "deploy:restart", "delayed_job:stop"
 
