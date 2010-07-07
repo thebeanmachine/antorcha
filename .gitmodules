@@ -7,3 +7,6 @@
 [submodule "vendor/plugins/formtastic"]
 	path = vendor/plugins/formtastic
 	url = git://github.com/dusdanig/formtastic.git
+[submodule "vendor/plugins/more"]
+	path = vendor/plugins/more
+	url = git://github.com/cloudhead/more.git
