@@ -1,4 +1,5 @@
 class StepsController < ApplicationController
+  load_and_authorize_resource
   # GET /steps
   # GET /steps.xml
   def index

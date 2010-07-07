@@ -1,10 +1,13 @@
 class DefinitionsController < ApplicationController
+  
+  load_and_authorize_resource :name => :step, :nested => :definition
+  
   def index
-    @definitions = Definition.all
+    # @definitions = Definition.all
   end
 
   def show
-    @definition = Definition.find(params[:id])
+    #@definition = Definition.find(params[:id])
     @steps = @definition.steps
   end
 

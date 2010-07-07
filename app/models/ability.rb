@@ -18,6 +18,7 @@ class Ability
       can :create, Message
       cannot :create, Role
       cannot :update, Role
+      cannot :manage, [Definition, Step]
     end
     can :read, [Transaction, Message, Role]
     can :create, [Transaction]
