@@ -15,6 +15,6 @@ class MessageDeliveriesController < ApplicationController
 
     @message.send_deliveries
     
-    redirect_to @message, :notice => 'Message is being sent'
+    redirect_to @message, :notice => 'Bericht is succesvol bij de uitgaande post terechtgekomen.'
   end
 end
