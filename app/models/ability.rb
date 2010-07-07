@@ -11,7 +11,7 @@ class Ability
     if user.include? :advisor
       can :manage, :all
       cannot :manage, Worker
-      can :send, Message
+      cannot :send, Message
     end
     if user.include? :sender
       can :send, Message

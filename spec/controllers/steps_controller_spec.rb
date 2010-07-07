@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe StepsController do
+  
+  before(:each) do
+     act_as :advisor
+   end
 
   def mock_step(stubs={})
     @mock_step ||= mock_model(Step, stubs)
