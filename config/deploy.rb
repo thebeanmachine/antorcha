@@ -51,7 +51,7 @@ namespace :rails do
   namespace :db do
     desc "Seed the database"
     task :seed, :roles => :db do
-      run "cd #{current_path} && rake RAILS_ENV=production db:seed"
+      run "cd #{latest_release} && rake RAILS_ENV=production db:seed"
     end
   end
 
