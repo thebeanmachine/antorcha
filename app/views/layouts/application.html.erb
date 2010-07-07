@@ -17,9 +17,8 @@
 		<div id="navigation">
 			<ul class="menu" id="tabs">
 	      <% [
-	        link_to_transactions, link_to_messages,
-	        link_to_definitions, link_to_steps,
-	        link_to_workers, link_to_reactions, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
+	        link_to_messages, link_to_definitions,
+	        link_to_workers, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
 	      ].compact.each do |link|
 			  %>
 					<li>
@@ -57,6 +56,25 @@
 		        <% end %>
 		      <% end %>
 		    </div>
+		
+				<% if controller.current_user.include? "maintainer".to_sym %>
+					<div id="devnav">
+						<ul class="menu">
+				      <% [
+				        link_to_transactions, link_to_messages,
+				        link_to_definitions, link_to_steps,
+				        link_to_workers, link_to_reactions, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
+				      ].compact.each do |link|
+						  %>
+								<li>
+									<%= link %>
+								</li>
+							<% end %>
+				   	</ul>
+
+					</div>
+				<% end %>
+		 			<%= yield(:sidebar) %>
 			</div>
 	  </div>
 	</div>

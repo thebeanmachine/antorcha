@@ -29,6 +29,7 @@ ul.menu li {
   float: left;
   margin: 0;
   padding: 0;
+  margin-right: 2px;
 }
 .flash {
   margin: auto;
@@ -126,6 +127,9 @@ ul.menu li {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-bottomright: 0px;
   -moz-border-radius-bottomleft: 0px;
+  border-bottom: 1px solid #e8e8e8;
+  font-weight: bold;
+  color: 444;
 }
 .transaction_initiations #breadcrumb { background: #0f80b5; }
 #page_container {
