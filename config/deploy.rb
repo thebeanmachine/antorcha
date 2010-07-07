@@ -47,6 +47,14 @@ namespace :database do
 end
 
 namespace :rails do
+
+  namespace :db do
+    desc "Seed the database"
+    task :seed, :roles => :db do
+      run "cd #{latest_release} && rake RAILS_ENV=production db:seed"
+    end
+  end
+
   namespace :gems do
     desc "Install rails"
     task :rails, :roles => :app do
@@ -60,8 +68,9 @@ namespace :rails do
   end
 end
 
+after "deploy:migrate","rails:db:seed"
 after "deploy:setup","rails:gems:rails"
-after "deploy:symlink","database:symlink"
+after "deploy:update_code","database:symlink"
 after "deploy:update_code","rails:gems:install"
 
 
