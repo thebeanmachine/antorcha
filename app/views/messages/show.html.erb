@@ -1,4 +1,9 @@
-<h1>Message <strong><%=h @message.title  %></strong></h1>
+<h1 class="as_in_table">
+	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
+	<small class="sender">{afzender}</small>
+	 <strong>Message <%=h @message.title  %></strong>
+	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
+<div class="message_content">
 <p class="intro">
   <%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
   <%= musketeer 'Bericht volgt definitie ', link_to_definition(@message.step.definition), '.' %>
@@ -28,7 +33,7 @@
   <b>Body:</b>
   <%=h @message.body %>
 </p>
-
+</div>
 <div class="actions">
   <%= link_to_reply_message(@message) %>
   <%= link_to_send_message(@message) %>
