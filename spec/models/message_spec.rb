@@ -19,8 +19,7 @@ describe Message do
   end
   
   describe "accessibility" do
-    it "incomming should not be accessible"
-    it "delivered_at should not be accessible"
+    it "incoming should not be accessible"
   end
   
   describe "delegation" do
@@ -146,21 +145,82 @@ describe Message do
   end
   
   describe "from hash" do
-    def stub_find_step_by_name
-      Step.stub(:find_by_name).and_return(mock_step)
+    def stub_from_hash
+      stub_find_by mock_step, :name => 'aap-noot-mies'
     end
     
-    it "should find the step by name" do
-      stub_find_step_by_name
-      message = Message.new
-      message.from_hash( :step => 'aap-noot-mies')
-      message.step.should == mock_step
+    def message_from_hash
+      @message = Message.new
+      @message.from_hash :step => 'aap-noot-mies', :transaction => 'http://example.com/transactions/1'
     end
     
-    it "should return itself" do
-      message = Message.new
-      message.from_hash({}).should == message
+
+    describe "with a unknown transaction" do
+      def stub_unknown_transaction
+        stub_from_hash
+        stub_create mock_transaction
+        stub_find_by nil, :uri => 'http://example.com/transactions/1', :on => Transaction
+        mock_step.stub :definition => mock_definition
+      end
+
+      it "should create a transaction" do
+        stub_unknown_transaction
+        Transaction.should_receive :create
+        message_from_hash
+      end
+
+      it "should create a transaction with the uri set" do
+        stub_unknown_transaction
+        Transaction.should_receive(:create).with(hash_including(:uri => 'http://example.com/transactions/1')).and_return(mock_transaction)
+        message_from_hash
+      end
+
+      it "should create a transaction with the definition set" do
+        stub_unknown_transaction
+        Transaction.should_receive(:create).with(hash_including(:definition => mock_definition)).and_return(mock_transaction)
+        message_from_hash
+      end
+
+      it "should assign this created transaction" do
+        stub_unknown_transaction
+        message_from_hash
+        @message.transaction.should == mock_transaction
+      end
     end
+    
+    describe "with a known transaction" do
+      def stub_known_transaction
+        stub_from_hash
+        stub_find_by mock_transaction, :uri => 'http://example.com/transactions/1'
+      end
+      
+      it "should find the step by name" do
+        stub_known_transaction
+        message_from_hash
+        @message.step.should == mock_step
+      end
+      
+      
+      it "should not create a transaction" do
+        stub_known_transaction
+        Transaction.should_not_receive :create
+        message_from_hash
+      end
+
+      it "should assign the found transaction" do
+        stub_known_transaction
+        message_from_hash
+        @message.transaction.should == mock_transaction
+      end
+      
+      it "should return itself" do
+        stub_known_transaction
+        @message = Message.new
+        @message.from_hash(:step => 'aap-noot-mies', :transaction => 'http://example.com/transactions/1').should == @message
+      end
+    end
+    
+
   end
   
 end

@@ -20,9 +20,9 @@ describe MessageDeliveriesController do
       end
     end
 
-    describe "as sender" do
+    describe "as communicator" do
       before(:each) do
-        act_as :sender
+        act_as :communicator
       end
       
       it "assigns the message to @message" do

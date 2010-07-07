@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe DefinitionsController do
+  
+  before(:each) do
+    act_as :advisor
+  end
 
   def mock_definition(stubs={})
     @mock_definition ||= mock_model(Definition, stubs)

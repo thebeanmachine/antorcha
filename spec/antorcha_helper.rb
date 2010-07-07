@@ -58,6 +58,12 @@ module AntorchaHelper
     s.and_return(mocked_model)
   end
 
+  def stub_create(mocked_model, params = nil)
+    s = mocked_model.class.stub(:create)
+    s = s.with(params) if params
+    s.and_return(mocked_model)
+  end
+
   def stub_new_on(finder, mocked_model, params = nil)
     s = finder.stub(:new)
     s = s.with(params) if params
@@ -84,15 +90,19 @@ module AntorchaHelper
     mocked_model.class.stub(:find).with(mocked_model.to_param).and_return(mocked_model)
   end
   
-  def stub_find_by model, hash
-    mock_transaction.stub hash
-    hash.each do |key, value|
-      model.class.stub("find_by_#{key}").with(value).and_return(model)
+  def stub_find_by model, options
+    scope = options.delete :on
+    scope ||= model.class
+
+    model.stub options unless model.nil?
+
+    options.each do |key, value|
+      scope.stub("find_by_#{key}").with(value).and_return(model)
     end
   end
 
   def stub_find_by! model, hash
-    mock_transaction.stub hash
+    model.stub hash
     hash.each do |key, value|
       model.class.stub("find_by_#{key}!").with(value).and_return(model)
     end

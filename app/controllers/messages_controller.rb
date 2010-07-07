@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
       if @message.save
         format.xml { render :xml => @message, :status => :created, :location => message_url(@message) }
       else
-        format.xml { render :nothing, :status => 422 }
+        format.xml { render :nothing => true, :status => 422 }
       end
     end
   end

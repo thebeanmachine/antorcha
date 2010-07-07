@@ -27,6 +27,7 @@
 				<% end %>
 	   	</ul>
 
+
 		</div>
  		<% if flash[:error] %>
 	    <div class="flash error">
@@ -48,15 +49,22 @@
 				<div class="devnav">
 
 					<div id="user">
-			      <% %w[maintainer sender advisor].each do |user_session| %>
-			        <% if controller.current_user.include? user_session.to_sym %>
-			          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
-			        <% else %>          
-			          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
-			        <% end %>
-			      <% end %>
+			       <p>communicator
+					      <% %w[maintainer communicator advisor].each do |user_session| %>
+					        <% if controller.current_user.include? user_session.to_sym %>
+					          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
+					        <% else %>          
+					          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
+					        <% end %>
+					      <% end %>
+					      <% if Rails.env.development? %>
+					      	Active user role: <%=h controller.current_user.join(', ') %>
+					      <% end %>
+					    </p>
 			    </div>
-		
+				  <p>
+					<%= debug session.inspect %>
+					</p>
 					<% if controller.current_user.include? "maintainer".to_sym %>
 						<ul class="menu">
 				      <% [
@@ -76,5 +84,6 @@
 			</div>
 	  </div>
 	</div>
+
 </body>
 </html>

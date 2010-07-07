@@ -10,9 +10,9 @@ Given /^I am an advisor$/ do
   Given "I press \"Act as advisor\""
 end
 
-Given /^I am a sender$/ do
+Given /^I am a communicator$/ do
   Given "I am on the messages page"
-  Given "I press \"Act as sender\""
+  Given "I press \"Act as communicator\""
 end
 
 
