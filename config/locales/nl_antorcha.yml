@@ -8,7 +8,12 @@ nl:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
-    
+  messages: "Berichten"
+  transactions: "Transacties"
+  transaction_initiations: "Transactie starten"
+  
+  index: "Overzicht"
+  new: "Nieuw"
 
       
   formtastic:

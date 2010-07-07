@@ -1,56 +1,47 @@
-<% if @transaction %>
-<h1>Messages <small>(transactie: <%= @transaction.title %> </small>)</h1>
-<% else %>
-<h1>Messages</h1>
-<% end %>
-
-<p class="intro">
-  <% if @transaction %>
-    of <%= link_to_transaction @transaction %>.
-    <% if can? :create, Message %>
-      Create a <%= link_to_new_transaction_message @transaction %>.
-    <% end %>
-  <% end %>
-  <%= link_to "Nieuwe transactie", new_transaction_initiation_path %>
-</p>
-
-<p>
-  <%= link_to "inbox", :search => {:inbox => true} %> |
-  <%= link_to "outbox", :search => {:outbox => true} %>
-</p>
-
-<% if controller.current_user.include? :advisor %>
-<ul>
-	Filter op Transacties
-	* een overzicht zien van alle berichten per transactie type binnen mijn Antorcha
-	<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path %></li>
-	<% Transaction.all.each do |transaction| %>
-		<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) %></li>
-	<% end %>
-</ul>
-	
-<ul>
-	Filter op Definitie:
-	<% Definition.all.each do |definition| %>
-		<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) %></li>
-	<% end %>
-</ul>
-<% end %>
-
-<table>
+<table id="messages">
+	<thead>
   <tr>
-    <th>Message title</th>
-    <th>Step title</th>
-    <th>Definition title</th>
+		<th></th>
+		<th>Verzender</th>
+    <th>Bericht titel</th>
     <th>Direction</th>
   </tr>
-
+	</thead>
 <% @messages.each do |message| %>
-  <tr class="message <%= message.shown? %>">
-    <td><%= link_to h(message.title), message %></td>
-    <td><%= link_to_step message.step %></td>
-    <td><%= link_to h(message.step.definition.title), message.step.definition %></td>
-    <td><%= message.incoming? ? "In" : "Out" %> <%= l(message.sent_at, :format => :short) if message.sent? %></td>
+  <tr class="message <%= message.shown? %> js_blocklink">
+		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Out" %></span></td>
+		<td class="sender">{AFZENDER}</td>
+    <td class="title"><%= link_to h(message.step.definition.title), message %> <%= link_to h(message.title), message %></td>
+    <td class="date"><%= l(message.sent_at, :format => :short) if message.sent? %> <%= l(message.created_at, :format => :short) if message.incoming? %></td>
   </tr>
 <% end %>
 </table>
+<% content_for :sidebar do -%>
+<h2>Berichten filteren </h2>
+
+<ul>
+	<li><%= link_to "Alle", :search => nil %></li>
+  <li><%= link_to "Inkomende", :search => {:inbox => true} %></li>
+  <li><%= link_to "Uitgaande", :search => {:outbox => true} %></li>
+</ul>
+
+
+	<% if controller.current_user.include? :advisor %>
+		<h3>Filter op Definitie</h3>
+		<ul>
+		<% Definition.all.each do |definition| %>
+			<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) %></li>
+		<% end %>
+		</ul>
+		<h3>Filter op Transacties</h3>
+		<ul>
+			<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path %></li>
+			<% Transaction.all.each do |transaction| %>
+				<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) %></li>
+			<% end %>
+		</ul>
+
+	
+
+	<% end %>
+<% end -%>
