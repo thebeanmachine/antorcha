@@ -21,9 +21,11 @@
         link_to_workers, link_to_reactions, link_to_organizations
       ].compact.join(" | ") %>
 
-
+      
     </p>
-    
+    <p>
+      <%= yield(:breadcrumb) %>
+    </p>
     <p>communicator
       <% %w[maintainer communicator advisor].each do |user_session| %>
         <% if controller.current_user.include? user_session.to_sym %>

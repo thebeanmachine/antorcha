@@ -6,6 +6,8 @@
   <% if @message.request %>
     <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
   <% end %>
+  
+  <%= breadcrumb [@message.step.definition], [@message.step], @message %>
 </p>
 <p>Message 
   <% if @message.incoming? %>
