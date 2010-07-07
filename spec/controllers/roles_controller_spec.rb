@@ -11,8 +11,8 @@ describe RolesController do
     mock_definition.stub :roles => mock_roles
     stub_find_on mock_roles, mock_role
 
-    stub_build_on mock_roles, mock_role, 'these' => 'params'
-    stub_build_on mock_roles, mock_role
+    stub_build_on mock_roles, mock_role, 'these' => 'params' #create
+    stub_build_on mock_roles, mock_role #new
   end
 
   describe "GET index" do

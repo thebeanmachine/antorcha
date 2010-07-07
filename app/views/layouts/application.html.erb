@@ -8,8 +8,9 @@
   <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application' %>
 </head>
 <body class="<%= controller.controller_name %>">
-  
-	
+  <p>
+	<%= debug session.inspect %>
+	</p>
 
   <div class="heading"><div class="inner">
     <span class="title">Antorcha</span>

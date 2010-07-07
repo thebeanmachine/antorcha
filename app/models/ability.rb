@@ -11,13 +11,14 @@ class Ability
     if user.include? :advisor
       can :manage, :all
       cannot :manage, Worker
-      can :send, Message
+      cannot :send, Message
     end
     if user.include? :sender
       can :send, Message
       can :create, Message
       cannot :create, Role
       cannot :update, Role
+      cannot :manage, [Definition, Step]
     end
     can :read, [Transaction, Message, Role]
     can :create, [Transaction]

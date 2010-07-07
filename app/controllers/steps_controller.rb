@@ -1,4 +1,5 @@
 class StepsController < ApplicationController
+  load_and_authorize_resource
   # GET /steps
   # GET /steps.xml
   def index
@@ -27,7 +28,7 @@ class StepsController < ApplicationController
   end
 
   def update
-    @step = Step.find(params[:id])
+    # @step = Step.find(params[:id])
 
     respond_to do |format|
       if @step.update_attributes(params[:step])
