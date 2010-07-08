@@ -100,9 +100,9 @@ ul.menu li {
 /* FLASH NOTICES/ERRORS/ETC... */
 
 .flash {
-  margin: auto;
-  width: 76%;
+  width: 100%;
   margin-bottom: 1em;
+float: left;
 }
 .flash.notice {
   background: #484;
@@ -114,7 +114,6 @@ ul.menu li {
 }
 
 .flash p {
-  margin: 0em 2em;
   padding: 1em 0em;
 }
 
@@ -128,9 +127,8 @@ ul.menu li {
 
 /* message display */
 .message_content {
-	width: 96%;
+	width: 100%;
 	float: left;
-	padding: 0 2%;
 }
 
 .actions {
@@ -141,6 +139,11 @@ ul.menu li {
 	text-align: right;
 	.different-rounded-corners(0px, 0px, 5px, 5px);
 	
+}
+
+.actions .button-to {
+	float: right;
+	margin-left: 1em;
 }
 
 
@@ -196,6 +199,10 @@ td.sender, h1.as_in_table .sender { width: 6em;}
 	left: 20px;
 }
 
+#navigation {
+	float: left;
+}
+
 #tabs {
 	margin: 3em 0 0 0;
 }
@@ -237,6 +244,14 @@ td.sender, h1.as_in_table .sender { width: 6em;}
 	float: left;
 	.different-rounded-corners(0px, 0px, 5px, 5px);
 	
+}
+
+#main p, #main form, #main h1, #main h2 {
+	margin: 1%;
+}
+
+#main h1.as_in_table {
+	margin: 0;
 }
 
 #sidebar {
