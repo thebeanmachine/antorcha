@@ -15,7 +15,7 @@ Feature: Create new Definition
     Given I am an advisor
     And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
-    And I follow "Stappen" within ".page"
+    And I follow "Stappen" within "#page"
     And I follow "Nieuwe Stap"
     Then I should see "Nieuwe Stap"
   
@@ -24,7 +24,7 @@ Feature: Create new Definition
     Given I am an advisor
     And I have a definition "My defined Definition"
     When I am on the "My defined Definition" definition page
-    And I follow "Stappen" within ".page"
+    And I follow "Stappen" within "#page"
     And I follow "Nieuwe Stap"
     And I fill in "Titel" with "My defined Step"
     And I press "Maak Stap"

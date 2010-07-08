@@ -14,6 +14,18 @@
 				<a href="/"><img src="/images/header_logo.png" alt="Antorcha"></a>
 			</div>
 		</div>
+		
+		<% if flash[:error] %>
+	    <div class="flash error">
+	      <p><%= flash[:error] %></p>
+	    </div>
+	  <% end %>
+	  <% if flash[:notice] %>
+	    <div class="flash notice">
+	      <p><%= notice %></p>
+	    </div>
+	  <% end %>
+	
 		<div id="navigation">
 			<ul class="menu" id="tabs">
 	      <% [
@@ -27,16 +39,7 @@
 				<% end %>
 	   	</ul>
 		</div>
- 		<% if flash[:error] %>
-	    <div class="flash error">
-	      <p><%= flash[:error] %></p>
-	    </div>
-	  <% end %>
-	  <% if flash[:notice] %>
-	    <div class="flash notice">
-	      <p><%= notice %></p>
-	    </div>
-	  <% end %>
+ 		
 	  <div id="page">
 			<div id="breadcrumb"><%= yield(:breadcrumb) %>
 			</div>

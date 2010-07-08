@@ -1,7 +1,7 @@
 <% breadcrumb Worker %>
 <h1>Werkers</h1>
 <% if @workers.blank? %>
-  <div class="intro">Start een <%= button_to "Nieuwe werker", workers_path, :method => :post %></div>
+  <p class="intro">Start een <%= button_to "Nieuwe werker", workers_path, :method => :post %></p>
 <% end %>
 
 <p>De werker is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.

@@ -32,11 +32,10 @@ Feature: Start a new Definition using a start step
     Then I should see "Transaction was successfully created"
     And I should see "Chocolade taart bakken"
   
-    When I follow "Messages"
-    And I follow "Nieuw Bericht"
+    When I follow "Nieuwe transactie"
     And I choose "Kneed deeg"
-    And I fill in "Titel" with "Bladerdeeg kneden"
-    And I press "Maak Bericht"
+    #And I fill in "Titel" with "Bladerdeeg kneden"
+    And I press "Maak Transactie"
     
-    Then I should see "Bericht was succesvol aangemaakt"
+    Then I should see "Transactie succesvol aangemaakt"
     

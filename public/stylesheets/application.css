@@ -50,9 +50,9 @@ ul.menu li {
   margin-right: 2px;
 }
 .flash {
-  margin: auto;
-  width: 76%;
+  width: 100%;
   margin-bottom: 1em;
+  float: left;
 }
 .flash.notice {
   background: #448844;
@@ -62,19 +62,15 @@ ul.menu li {
   background: #882222;
   color: white;
 }
-.flash p {
-  margin: 0em 2em;
-  padding: 1em 0em;
-}
+.flash p { padding: 1em 0em; }
 .devnav {
   border: 4px solid #eeeeee;
   background: #f6f6f6;
   margin-top: 1em;
 }
 .message_content {
-  width: 96%;
+  width: 100%;
   float: left;
-  padding: 0 2%;
 }
 .actions {
   width: 100%;
@@ -94,6 +90,10 @@ ul.menu li {
   -moz-border-radius-topright: 0px;
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
+}
+.actions .button-to {
+  float: right;
+  margin-left: 1em;
 }
 h1.as_in_table {
   background: #0f7aae;
@@ -154,6 +154,7 @@ h1.as_in_table .sender { width: 6em; }
   top: -19px;
   left: 20px;
 }
+#navigation { float: left; }
 #tabs { margin: 3em 0 0 0; }
 #tabs li a {
   background: #e3e6e7;
@@ -211,6 +212,11 @@ h1.as_in_table .sender { width: 6em; }
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
 }
+#main p { margin: 1%; }
+#main form { margin: 1%; }
+#main h1 { margin: 1%; }
+#main h2 { margin: 1%; }
+#main h1.as_in_table { margin: 0; }
 #sidebar {
   background: #ffffff;
   width: 29%;
