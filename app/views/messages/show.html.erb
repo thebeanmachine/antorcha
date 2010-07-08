@@ -12,7 +12,7 @@
     <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
   <% end %>
   
-  <%= breadcrumb [@message.step.definition], [@message.step], @message %>
+  <% breadcrumb [@message.transaction], @message %>
 </p>
 <p>Message 
   <% if @message.incoming? %>
