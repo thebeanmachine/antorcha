@@ -7,7 +7,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 
-Antorcha.definition 'Huizenlijkgeweld' do |geweld|
+Antorcha.definition 'Huizelijkgeweld' do |geweld|
 
   geweld.role "Bureau Jeugdzorg"
   geweld.role "Zorgaanbieder"
