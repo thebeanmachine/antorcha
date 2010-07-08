@@ -8,7 +8,7 @@ Feature: Adviser add roles to step
 		And definition "Bakkerij" has roles titled Consulent, Verpleger
 		And I am an advisor
 		And I am on the "Bakkerij" definition page
-		When I follow "Stappen" within ".page"
+		When I follow "Stappen" within "#page"
 
 		And I follow "Nieuwe Stap"
 		And I fill in "Titel" with "Uber Coole Stap"

@@ -16,7 +16,7 @@ Feature: Messages index
     Given I have a incoming message "Incoming message"
     And I have a outgoing message "Outgoing message"
     When I am on the messages page
-    And I follow "inbox"
+    And I follow "Inkomende"
     Then I should see "Incoming message"
     And I should not see "Outgoing message"
   
@@ -25,7 +25,7 @@ Feature: Messages index
     Given I have a incoming message "Incoming message"
     And I have a outgoing message "Outgoing message"
     When I am on the messages page
-    And I follow "outbox"
+    And I follow "Uitgaande"
     Then I should not see "Incoming message"
     And I should see "Outgoing message"
   
