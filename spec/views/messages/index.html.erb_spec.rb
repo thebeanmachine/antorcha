@@ -33,23 +33,23 @@ describe "/messages/index.html.erb" do
 
   it "renders titles" do
     render
-    response.should have_tag("tr.message>td", "value for title".to_s, 2)
+    response.should have_tag("tr.message>td", /value for title/, 2)
   end
 
-  it "renders titles of steps" do
+  it "doesn't render titles of steps (in contrast to what was earliers specified ;)" do
     act_as :maintainer
     render
-    response.should have_tag("tr.message>td", "step title".to_s, 2)
+    response.should_not have_tag("tr.message>td", /step title/, 2)
   end
 
   it "renders titles of definitions" do
     render
-    response.should have_tag("tr.message>td", "definition title".to_s, 2)
+    response.should have_tag("tr.message>td", /definition title/, 2)
   end
 
   it "links to message show" do
     render
-    response.should have_tag("a[href=?]", message_path(mock_message), 1)
+    response.should have_tag("a[href=?]", message_path(mock_message), 2)
   end
 
 
