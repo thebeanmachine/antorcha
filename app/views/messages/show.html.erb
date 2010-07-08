@@ -1,3 +1,5 @@
+<% breadcrumb @message %>
+<%# breadcrumb [@message.step.definition],[@message.step], @message %>
 <h1 class="as_in_table">
 	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
 	<small class="sender">{afzender}</small>
@@ -12,7 +14,6 @@
     <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
   <% end %>
   
-  <% breadcrumb [@message.transaction], @message %>
 </p>
 <p>Message 
   <% if @message.incoming? %>

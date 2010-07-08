@@ -1,9 +1,5 @@
+<% breadcrumb @definition, Step %>
 <h1>Steps of definition: <%=h @definition.title %></h1>
-<p class="intro">
-  <%= link_to_definitions %> »
-  <%= link_to_definition @definition %> »
-  <%= link_to_definition_steps @definition %>. 
-</p>
 <p class="create">
   Maak een <%= link_to "Nieuwe Stap", new_definition_step_path(@definition) %>.
 </p>

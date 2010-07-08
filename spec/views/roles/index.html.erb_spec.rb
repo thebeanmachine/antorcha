@@ -7,6 +7,10 @@ describe "/roles/index.html.erb" do
     assigns[:definition] = mock_definition
     assigns[:roles] = mock_roles
     
+    assigns[:definition] = mock_definition
+    mock_definition.stub :title => 'definition title'
+    
+    
     mock_role.stub :title => 'Role title'
   end
 

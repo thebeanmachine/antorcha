@@ -18,7 +18,7 @@
 			<ul class="menu" id="tabs">
 	      <% [
 	        link_to_messages, link_to_definitions,
-	        link_to_workers, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
+	        link_to_workers, link_to_organizations, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
 	      ].compact.each do |link|
 			  %>
 					<li>

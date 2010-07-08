@@ -1,7 +1,5 @@
-<h1>Listing roles</h1>
-<p class="intro">
-  Definitie <%= link_to_definition @definition %> » Rollen.
-</p>
+<% breadcrumb @definition, Role %>
+<h1>Rollenoverzicht</h1>
 
 <p class="create">
   <%= musketeer ['Maak een ', link_to_new_role(@definition), ''] %>
