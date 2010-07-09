@@ -15,22 +15,7 @@
   <% end %>
   
 </p>
-<p>Message 
-  <% if @message.incoming? %>
-    was received at <%=h l(@message.created_at, :format => :short) %>.
-  <% else %>
-    <% if @message.sent? %>
-      was sent at <%=h l(@message.sent_at, :format => :short) %>
-      <% if @message.delivered? %>
-        and received at <%=h l(@message.delivered_at, :format => :short) %>.
-      <% else %>
-        and not received.
-      <% end %>
-    <% else %>
-      is a concept and has not yet been sent.
-    <% end %>
-  <% end %>
-</p>
+<p><%= message_status(@message) %></p>
 
 <p>
   <b>Body:</b>

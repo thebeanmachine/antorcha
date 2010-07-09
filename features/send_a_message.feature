@@ -10,7 +10,7 @@ Feature: Create a message
     And I press "Act as communicator"
     And I press "Verstuur Bericht"
     Then I should see "Bericht is succesvol bij de uitgaande post terechtgekomen"
-    And I should see "Message was sent at"
-    And I should see "and not received"
+    And I should see "Bericht is in postvak uit geplaatst om"
+    And I should see "en word momenteel verzonden"
     And I should not see submit button "Verstuur Bericht"
   
