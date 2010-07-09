@@ -53,9 +53,9 @@
 			       <p>communicator
 					      <% %w[maintainer communicator advisor].each do |user_session| %>
 					        <% if controller.current_user.include? user_session.to_sym %>
-					          <%= button_to "Give up #{user_session} role", user_session_path(:id => user_session), :method => :delete %>
+					          <%= button_to "Give up #{user_session} type", user_session_path(:id => user_session), :method => :delete %>
 					        <% else %>          
-					          <%= button_to "Act as #{user_session} role", user_session_path(:id => user_session), :method => :put %>
+					          <%= button_to "Act as #{user_session} type", user_session_path(:id => user_session), :method => :put %>
 					        <% end %>
 					      <% end %>
 					      <% if Rails.env.development? %>
