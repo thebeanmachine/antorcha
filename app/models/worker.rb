@@ -10,11 +10,8 @@ class Worker
   end
 
   def self.start
-    begin
-      Delayed::Command.new(['start']).daemonize
-    rescue SystemExit
-      puts "owke"
-    end
+    puts "RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')} start"
+    puts system "env RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')}   start"
   end
 
   def pid
