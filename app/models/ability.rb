@@ -5,6 +5,7 @@ class Ability
     if user.include? :maintainer
       can :manage, :all
       can :send, Message
+      cannot :manage, [Definition, Role, Step]
       cannot :create, Role
       cannot :update, Role
     end
