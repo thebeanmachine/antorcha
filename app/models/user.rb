@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   devise :authenticatable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :username, :password, :password_confirmation
 end
