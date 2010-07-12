@@ -27,7 +27,7 @@
 </ul>
 
 
-	<% if controller.current_user.include? :advisor %>
+	<% if current_user.roles.include? :advisor %>
 		<h3>Filter op Definitie</h3>
 		<ul>
 		<% Definition.all.each do |definition| %>
