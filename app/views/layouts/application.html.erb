@@ -8,6 +8,11 @@
   <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application' %>
 </head>
 <body class="<%= controller.controller_name %>">
+	
+		<div>
+				<%= debug current_user %>
+		</div>
+	
   <div id="page_container">
  	 <div id="header">
 			<div id="logo">
@@ -19,6 +24,8 @@
 			<%= content_tag :div, message, :class => "flash #{name}" %>
 		<% end %>
 		
+	
+	
 	
 		<div id="navigation">
 			
