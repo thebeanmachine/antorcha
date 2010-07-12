@@ -6,6 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
+User.create(:username => 'admin', :password => 'thorax', :password_confirmation => 'thorax', :email => "admin@foooo.br")
 
 Antorcha.definition 'Huizenlijkgeweld' do |geweld|
 
