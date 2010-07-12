@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100712102156) do
+ActiveRecord::Schema.define(:version => 20100712130813) do
+
+  create_table "castables", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "definitions", :force => true do |t|
     t.string   "title",      :null => false
