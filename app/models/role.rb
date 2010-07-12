@@ -8,6 +8,9 @@ class Role < ActiveRecord::Base
   
   has_many :permissions
   has_many :steps, :through => :permissions
+  
+  has_many :castables
+  has_many :users, :through => :castables
 
   def title_with_definition
     return title unless definition
