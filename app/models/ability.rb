@@ -2,6 +2,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    
+    user.roles.each do |role|
+      if role.title == "Manager"
+         can :manage, :all
+      end
+      if role.title == "Whatever"
+         can :manage, :all
+      end
+    end
     # if user.roles.include? :maintainer
     #   can :manage, :all
     #   can :send, Message
@@ -23,6 +32,6 @@ class Ability
     # end
     # can :read, [Transaction, Message, Role]
     # can :create, [Transaction]
-    can :manage, :all
+  
   end
 end
