@@ -10,20 +10,23 @@
   </p>
 <% end %>
 
-<% if @step.permission_roles %>
-  <h2>Toegankelijk voor rollen:</h2>
+<% if @step.roles %>
+  <h2>Toegankelijk voor ROL(LEN):</h2>
   <ul>
-    <% @step.permission_roles.each do |role| %>
-      <li><%= link_to_role role %></li>
+    <% @step.roles.each do |role| %>
+      <li><%= role.title %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @step.recipient_roles %>
-  <h2>Verstuur bericht naar rollen:</h2>
+<% if @step.organizations %>
+  <h2>Verstuur bericht naar ORGANISATIE(s):</h2>
   <ul>
-    <% @step.recipient_roles.each do |role| %>
-      <li><%= link_to_role role %></li>
+    <% @step.organizations.each do |organization| %>
+      <li>
+				<%# link_to_role organization %>
+				<%= organization.title %>
+			</li>
     <% end %>
   </ul>
 <% end %>

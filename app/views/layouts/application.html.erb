@@ -10,8 +10,20 @@
 <body class="<%= controller.controller_name %>">
 	
 		<div>
+			<b>Current User:</b>
 				<%= debug current_user %>
 		</div>
+		<div>
+			<b>Current User Roles:</b>
+				<%= debug current_user.roles %>
+		</div>
+		
+		<ul>
+			<b>Session:</b>
+			<% session.each do |k, v| %>
+			<li><%= "#{k} => #{v}" %></li>
+			<% end %>
+		</ul>
 	
   <div id="page_container">
  	 <div id="header">
@@ -73,9 +85,7 @@
 					    </p>
 			    </div>
 					<% end %>
-				  <p>
-					<%= debug session.inspect %>
-					</p>
+
 					<% if current_user.roles.include? "maintainer".to_sym %>
 						<ul class="menu">
 				      <% [

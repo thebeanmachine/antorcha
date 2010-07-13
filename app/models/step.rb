@@ -8,11 +8,14 @@ class Step < ActiveRecord::Base
   
   has_many_siblings :reaction, :cause => :effect
 
+  # has_many :recipients
+  # has_many :recipient_roles, :through => :recipients, :source => :role
   has_many :recipients
-  has_many :recipient_roles, :through => :recipients, :source => :role
+  has_many :organizations, :through => :recipients
 
   has_many :permissions
-  has_many :permission_roles, :through => :permissions, :class_name => 'Role', :source => :role
+  # has_many :permission_roles, :through => :permissions, :class_name => 'Role', :source => :role
+  has_many :roles, :through => :permissions
 
 
   named_scope :to_start_with, :conditions => {:start => true}
@@ -23,8 +26,9 @@ class Step < ActiveRecord::Base
 
   # No premature optimalizations.
   def destination_organizations
-    recipient_roles.all.inject [] do |memo, role|
-      memo += role.organizations
+    # recipient_roles.all.inject [] do |memo, role| # WTF?
+    organizations.all.inject [] do |memo, organization|
+      memo += organizations
       memo.uniq
     end
   end

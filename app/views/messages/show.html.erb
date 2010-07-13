@@ -15,7 +15,19 @@
   <% end %>
   
 </p>
+<br />
 <p><%= message_status(@message) %></p>
+<br />
+<p>
+<b>Intended for Organization(s):</b>
+<%= debug @message.step.organizations %>
+</p>
+
+<p>
+<b>Intended for Rol(es):</b>
+<%= debug @message.step.roles %>
+</p>
+
 
 <p>
   <b>Body:</b>

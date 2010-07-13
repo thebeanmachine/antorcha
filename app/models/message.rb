@@ -11,6 +11,7 @@ class Message < ActiveRecord::Base
 
   belongs_to :transaction
   belongs_to :step
+  belongs_to :user
 
   flagstamp :sent, :shown
   antonym :outgoing => :incoming

@@ -2,18 +2,22 @@
 <% semantic_form_for @step.new_record? ? [@definition, @step] : [@step] do |f| %>
   <%= f.inputs :title, :start %>
   
-  <% f.inputs "Condities" do %>
+  <% f.inputs "(Waarom deze stap?)" do %>
     <%= f.input :causes, :as => :check_boxes, :label_method => :title, :collection => @steps %>
-    <%= f.input :permission_roles, :as => :check_boxes, :collection => @definition.roles %>
+	<% end %>
+
+	<% f.inputs "(Voor wie is deze stap bedoeld?)" do %>
+    <%= f.input :roles, :as => :check_boxes, :collection => @definition.roles %>
   <% end %>
   
-  <% f.inputs "Versturing" do %>
-    <%= f.input :recipient_roles, :as => :check_boxes, :collection => @definition.roles %>
+  <% f.inputs "(Waar moet het naar toe?)" do %>
+    <%= f.input :organizations, :as => :check_boxes, :collection => Organization.all %>
   <% end %>
   
   <% f.buttons do %>
     <%= f.commit_button %> of <%= link_to 'ga terug naar de transactiedefinitie', @definition %>
   <% end %> 
+
 <% end %>
 
 

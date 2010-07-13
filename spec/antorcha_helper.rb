@@ -1,7 +1,7 @@
 
 
 module AntorchaHelper
-
+  
   %w[step message definition transaction reaction role organization delivery].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default
