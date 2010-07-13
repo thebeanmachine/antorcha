@@ -57,8 +57,10 @@
 				<%= yield %>
 			</div>
 			<div id="sidebar">
+				
+	
 				<div class="devnav">
-      
+      		<% if false %>
 					<div id="user">
 			       <p>communicator
 					      <% %w[maintainer communicator advisor].each do |user_session| %>
@@ -70,6 +72,7 @@
 					      <% end %>
 					    </p>
 			    </div>
+					<% end %>
 				  <p>
 					<%= debug session.inspect %>
 					</p>

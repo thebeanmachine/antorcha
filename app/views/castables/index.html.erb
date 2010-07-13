@@ -8,8 +8,8 @@
 
 <% @castables.each do |castable| %>
   <tr>
-    <td><%=h castable.user %></td>
-    <td><%=h castable.role %></td>
+    <td><%=h castable.user.username %></td>
+    <td><%=h castable.role.title %></td>
     <td><%= link_to 'Show', castable %></td>
     <td><%= link_to 'Edit', edit_castable_path(castable) %></td>
     <td><%= link_to 'Destroy', castable, :confirm => 'Are you sure?', :method => :delete %></td>
