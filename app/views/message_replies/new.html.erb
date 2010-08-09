@@ -1,9 +1,10 @@
+<% breadcrumb @origin %>
 <h1>Reageer op Bericht</h1>
 <p class="intro">
   
 </p>
 
-<% semantic_form_for @message, :url => message_replies_path(@reply) do |f| %>
+<% semantic_form_for @message, :url => message_replies_path(@origin) do |f| %>
   <% f.inputs do %>
     <%= f.input :step, :as => :radio, :collection => @steps, :label_method => :title %>
   <% end %>

@@ -1,4 +1,4 @@
-
+<% breadcrumb @definition, @role %>
 <h1>Rol <strong><%=h @role.title %></strong></h1>
 
 <p class="intro">
@@ -11,6 +11,6 @@
 </p>
 
 <div class="actions">
-  <%= button_to_destroy_role @role %>
+  <%= link_to "Bewerk Rol", [:edit, @definition, @role] %> of <%= button_to_destroy_role @role %>
 </div>
 

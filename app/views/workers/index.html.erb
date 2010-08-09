@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 
 <h1>Engine</h1>
 
 <p>De engine is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
   Als de engine wordt gestopt dan is antorcha inactief en worden er geen berichten verstuurd.</p>
 
+=======
+<% breadcrumb Worker %>
+<h1>Werkers</h1>
+>>>>>>> 4ed9b935c17ae8f31187a881fd922b0963e9e825
 <% if @workers.blank? %>
   <p class="intro"><%= button_to "Start de Antorcha Engine", workers_path, :method => :post %></p>
 <% end %>
