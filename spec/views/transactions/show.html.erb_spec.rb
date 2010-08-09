@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "/transactions/show.html.erb" do
   include TransactionsHelper
+
   before(:each) do
     assigns[:transaction] = mock_transaction
     
@@ -17,7 +18,6 @@ describe "/transactions/show.html.erb" do
 
     act_as :advisor
   end
-  
 
   it "renders attributes in <p>" do
     render

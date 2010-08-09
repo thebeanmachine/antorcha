@@ -57,10 +57,8 @@ tr.shown {
 	border-bottom: 1px solid #e5e5e5;
 }
 
-tr.cancelled {
-  .vertical-gradient(#edd, #fee);
-  text-decoration: line-through;
-}
+
+
 
 td {
 	padding: 4px 2px;
@@ -295,3 +293,15 @@ td.sender, h1.as_in_table .sender { width: 6em;}
 #messages thead {
 	display:none;
 }
+
+.messages {
+  tr.cancelled {
+    .vertical-gradient(#edd, #fee);
+    text-decoration: line-through;
+  }
+  .cancelled h1 {
+    .vertical-gradient(#d66, #f66);
+    text-decoration: line-through;
+  }
+}
+
