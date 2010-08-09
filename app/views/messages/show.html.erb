@@ -28,7 +28,7 @@
     <%= link_to_reply_message(@message) %>
     <%= link_to_send_message(@message) %>
     <% unless @message.cancelled? %>
-      of <%= button_to_transaction_cancellation @message.transaction %>
+      of <%= button_to_transaction_cancellation @message.transaction, @message %>
     <% end %>
   </div>
 </div>

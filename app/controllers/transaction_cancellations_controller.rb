@@ -14,6 +14,12 @@ class TransactionCancellationsController < ApplicationController
       flash[:notice] = "Transaction was already cancelled."
     end
   
-    redirect_to @transaction
+    @message = @transaction.messages.find(params[:message_id]) if params[:message_id]
+  
+    if @message
+      redirect_to @message
+    else
+      redirect_to @transaction
+    end
   end
 end
