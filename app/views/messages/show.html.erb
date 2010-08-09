@@ -24,8 +24,11 @@
   </p>
   </div>
   <div class="actions">
+    <%= link_to_edit_message(@message) if @message.outgoing? %>, 
     <%= link_to_reply_message(@message) %>
     <%= link_to_send_message(@message) %>
-    <%= link_to_edit_message(@message) if @message.outgoing? %>
+    <% unless @message.cancelled? %>
+      of <%= button_to_transaction_cancellation @message.transaction %>
+    <% end %>
   </div>
 </div>

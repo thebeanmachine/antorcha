@@ -91,10 +91,10 @@ ul.menu li {
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
 }
-.actions .button-to {
-  float: right;
-  margin-left: 1em;
-}
+.actions { padding: 1em 0em; }
+.actions .button-to { display: inline; }
+.button-to input { display: inline; }
+.button-to div { display: inline; }
 h1.as_in_table {
   background: #0f7aae;
   background: -webkit-gradient(linear, left top, left bottom, from(#0b94d5), to(#0f7aae));
