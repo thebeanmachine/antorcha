@@ -29,6 +29,7 @@ class Message < ActiveRecord::Base
   
   delegate :definition, :to => :step
   delegate :destination_url, :to => :step
+  delegate :cancelled?, :to => :transaction
 
   after_create :format_title
   before_validation :take_over_transaction_from_request

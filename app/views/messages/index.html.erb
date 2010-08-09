@@ -9,7 +9,7 @@
   </tr>
 	</thead>
 <% @messages.each do |message| %>
-  <tr class="message <%= message.shown? %> js_blocklink">
+  <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink">
 		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Out" %></span></td>
 		<td class="sender">{AFZENDER}</td>
     <td class="title"><%= link_to h(message.step.definition.title), message %> <%= link_to h(message.title), message %></td>

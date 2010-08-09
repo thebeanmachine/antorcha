@@ -30,6 +30,12 @@ tr.shown {
   background: #f1f1f1;
   border-bottom: 1px solid #e5e5e5;
 }
+tr.cancelled {
+  background: #ffeeee;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eedddd), to(#ffeeee));
+  background: -moz-linear-gradient(top, #eedddd, #ffeeee);
+  text-decoration: line-through;
+}
 td { padding: 4px 2px; }
 td a {
   text-decoration: none;

@@ -15,7 +15,7 @@ describe "/transactions/show.html.erb" do
     mock_definition.stub \
       :title => 'My Definition'
 
-    act_as :maintainer
+    act_as :advisor
   end
   
 
