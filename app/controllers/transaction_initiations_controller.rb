@@ -16,7 +16,7 @@ class TransactionInitiationsController < ApplicationController
       render :action => :new
     else
       create_transaction_and_message
-      redirect_to message_url(@message), :notice => 'Transactie succesvol aangemaakt.'
+      redirect_to edit_message_url(@message), :notice => 'Transactie succesvol aangemaakt.'
     end
   end
   

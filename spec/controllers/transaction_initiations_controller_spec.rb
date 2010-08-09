@@ -85,10 +85,10 @@ describe TransactionInitiationsController do
         get :create
       end
     
-      it "should redirect to the created message" do
+      it "should redirect to the edit screen of created message" do
         stub_successful_create
         get :create
-        response.should redirect_to(message_url(mock_message))
+        response.should redirect_to(edit_message_url(mock_message))
       end
       
       it "should flash successful message" do

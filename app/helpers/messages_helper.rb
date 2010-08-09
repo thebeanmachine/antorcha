@@ -14,5 +14,16 @@ module MessagesHelper
       button_to t('action.send', :model => Message.human_name), message_deliveries_path(@message), :method => :post
     end
   end
+
+  
+  def message_status message
+    options = [:created_at, :sent_at, :delivered_at].inject({}) do |memo, atr|
+      value = message.send(atr.to_sym)
+      memo[atr.to_sym] = l(value, :format => :short) unless value.blank?
+      memo
+    end
+    I18n.t "view.message.show.status.#{message.status}", options
+  end
+  
 end
 

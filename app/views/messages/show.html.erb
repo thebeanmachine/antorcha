@@ -1,44 +1,34 @@
 <% breadcrumb @message %>
 <%# breadcrumb [@message.step.definition],[@message.step], @message %>
-<h1 class="as_in_table">
-	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
-	<small class="sender">{afzender}</small>
-	 <strong>Message <%=h @message.title  %></strong>
-	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
-<div class="message_content">
-<p class="intro">
-  <%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
-  <%= musketeer 'Bericht volgt definitie ', link_to_definition(@message.step.definition), '.' %>
-  <%= musketeer 'Bericht is gebaseerd op stap ', link_to_step(@message.step), '.' %>
-  <% if @message.request %>
-    <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
-  <% end %>
-  
-</p>
-<p>Message 
-  <% if @message.incoming? %>
-    was received at <%=h l(@message.created_at, :format => :short) %>.
-  <% else %>
-    <% if @message.sent? %>
-      was sent at <%=h l(@message.sent_at, :format => :short) %>
-      <% if @message.delivered? %>
-        and received at <%=h l(@message.delivered_at, :format => :short) %>.
-      <% else %>
-        and not received.
-      <% end %>
-    <% else %>
-      is a concept and has not yet been sent.
+<div class="<%= @message.cancelled? %>">
+  <h1 class="as_in_table">
+  	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
+  	<small class="sender">{afzender}</small>
+  	 <strong>Message <%=h @message.title  %></strong>
+  	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
+  <div class="message_content">
+  <p class="intro">
+    <%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
+    <%= musketeer 'Bericht volgt definitie ', link_to_definition(@message.step.definition), '.' %>
+    <%= musketeer 'Bericht is gebaseerd op stap ', link_to_step(@message.step), '.' %>
+    <% if @message.request %>
+      <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
     <% end %>
-  <% end %>
-</p>
+  
+  </p>
+  <p><%= message_status(@message) %></p>
 
-<p>
-  <b>Body:</b>
-  <%=h @message.body %>
-</p>
-</div>
-<div class="actions">
-  <%= link_to_reply_message(@message) %>
-  <%= link_to_send_message(@message) %>
-  <%= link_to_edit_message(@message) if @message.outgoing? %>
+  <p>
+    <b>Body:</b>
+    <%=h @message.body %>
+  </p>
+  </div>
+  <div class="actions">
+    <%= link_to_edit_message(@message) if @message.outgoing? %>, 
+    <%= link_to_reply_message(@message) %>
+    <%= link_to_send_message(@message) %>
+    <% unless @message.cancelled? %>
+      of <%= button_to_transaction_cancellation @message.transaction, @message %>
+    <% end %>
+  </div>
 </div>

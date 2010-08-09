@@ -8,6 +8,16 @@ nl:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
+
+  view:
+    message:
+      show:
+        status:
+          incoming: "Bericht is ontvangen op {{created_at}}."
+          sent: "Bericht is in postvak uit geplaatst om {{sent_at}} en word momenteel verzonden."
+          delivered: "Bericht is aangekomen om {{delivered_at}}."
+          draft: "Bericht is een conceptbericht en is nog niet verstuurd."
+
   messages: "Berichten"
   transactions: "Transacties"
   transaction_initiations: "Transactie starten"

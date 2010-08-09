@@ -13,11 +13,11 @@ describe "/steps/index.html.erb" do
       )
     ]
     mock_definition.stub(:title => 'My Definition')
-    act_as :maintainer
+    act_as :advisor
   end
 
   it "renders a list of steps" do
     render
-    response.should have_tag("li a", "value for title".to_s, 2)
+    response.should have_tag("li a.step", "value for title".to_s, 2)
   end
 end

@@ -14,6 +14,7 @@ describe "/messages/show.html.erb" do
       :transaction => mock_transaction,
       :delivered? => false,
       :sent? => true,
+      :cancelled? => false,
       :request => mock_message(:request),
       :sent_at => Time.now,
       :created_at => Time.now,
@@ -27,6 +28,8 @@ describe "/messages/show.html.erb" do
     mock_step.stub( :title => 'hallo wereld', :definition => mock_definition )
     mock_definition.stub( :title => 'definition title' )
     mock_transaction.stub( :title => 'transaction title' )
+    
+    template.stub :message_status => 'status of message'
   end
 
   shared_examples_for "message view" do
@@ -44,6 +47,11 @@ describe "/messages/show.html.erb" do
     it "renders body" do
       render
       response.should have_text(/value\ for\ body/)
+    end
+    
+    it "renders status message helper in p" do
+      render
+      response.should have_tag('p',/status of message/)
     end
   end
 
@@ -69,8 +77,6 @@ describe "/messages/show.html.erb" do
       mock_message.stub :incoming? => true, :outgoing? => false
     end
 
-
-
     it "should not render send link" do
       render
       response.should_not have_text(/Verstuur Bericht/)
@@ -79,6 +85,18 @@ describe "/messages/show.html.erb" do
     it "should not render edit link" do
       render
       response.should_not have_text(/Bewerk Bericht/)
+    end
+  end
+  
+  describe "cancelled message" do
+    it_should_behave_like "message view"
+    before(:each) do
+      mock_message.stub :incoming? => true, :outgoing? => false, :cancelled? => :cancelled
+    end
+    
+    it "should show the message as cancelled" do
+      render
+      response.should have_tag("div.cancelled")
     end
   end
 end
