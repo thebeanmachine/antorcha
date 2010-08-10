@@ -24,6 +24,7 @@ nl:
   
   index: "Overzicht"
   new: "Nieuw"
+  edit: "Bewerken"
 
       
   formtastic:
@@ -66,8 +67,8 @@ nl:
         one: Bericht
         other: Berichten
       worker:
-        one: Werker
-        other: Werkers
+        one: Engine
+        other: Engines
       reaction:
         one: Reactie
         other: Reacties

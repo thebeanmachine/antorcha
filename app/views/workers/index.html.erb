@@ -1,26 +1,30 @@
 <% breadcrumb Worker %>
-<h1>Werkers</h1>
+
+<h1>De Antorcha Berichten Engine</h1>
+
+<p>De Berichten Engine is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
+  Als de engine wordt gestopt dan is Antorcha inactief en worden er geen berichten verstuurd. Gebruikers kunnen echter nog wel inloggen om berichten te lezen en op te stellen.</p>
+
+
 <% if @workers.blank? %>
-  <p class="intro">Start een <%= button_to "Nieuwe werker", workers_path, :method => :post %></p>
+  <p class="intro"><%= button_to "Start de Antorcha Berichten Engine", workers_path, :method => :post %></p>
 <% end %>
 
-<p>De werker is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
-  Als de werker wordt gestopt dan is antorcha inactief.</p>
 
 <% @workers.each do |worker| %>
   <div class="worker">
-    <p>Werker heeft een pid <%= worker.pid %>.
+    <p>De Berichten Engine (pid <%= worker.pid %>)
       <% if worker.running? %>
-        Werker loopt.
+        loopt goed.
       <% else %>
-        Werker loopt niet meer. En moet opgeruimd worden, waarschijnlijk is de antorcha werker niet correct gestopt.
+      draait, maar deze loopt niet goed meer en zou daarom opgeruimd moeten worden door de systeembeheerder. Waarschijnlijk is de Antorchia engine niet correct gestopt.
       <% end %>
     </p>
     <div class="actions">
       <% if worker.running? %>
-        <%= button_to "Stop Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?'%> en deactiveer daardoor deze antorcha.
+        <%= button_to "Stop de Berichten Engine", worker_path(worker), :method => :delete, :confirm => 'Weet u zeker dat u deze engine wilt stoppen en daarmee het berichtenverkeer stop zetten?'%>
       <% else %>
-        <%= button_to "Stop Werker", worker_path(worker), :method => :delete, :confirm => 'Are you sure?' %>
+        <%= button_to "Verwijder de Berichten Engine", worker_path(worker), :method => :delete, :confirm => 'Hiermee ruimt u de niet goed lopende engine op' %>
       <% end %>
     </div>
   </div>
