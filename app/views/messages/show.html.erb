@@ -19,8 +19,9 @@
   <p><%= message_status(@message) %></p>
 
   <p>
-    <b>Body:</b>
-    <%=h @message.body %>
+    <% if can? :examine, @message %>
+      <%=h @message.body %>
+    <% end %>
   </p>
   </div>
   <div class="actions">

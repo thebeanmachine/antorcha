@@ -14,7 +14,7 @@ Feature: Cancel transaction
   Scenario: Cancel a transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
-    And I press "Act as maintainer"
+    And I press "Act as communicator"
     When I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"
@@ -27,7 +27,7 @@ Feature: Cancel transaction
   Scenario: Cancel a transaction
     Given I have a definition "Bake bread"
     And I am on the new transaction page
-    And I press "Act as maintainer"
+    And I press "Act as communicator"
     And I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"

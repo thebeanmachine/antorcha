@@ -30,6 +30,8 @@ describe "/messages/show.html.erb" do
     mock_transaction.stub( :title => 'transaction title' )
     
     template.stub :message_status => 'status of message'
+    
+    act_as :communicator
   end
 
   shared_examples_for "message view" do
