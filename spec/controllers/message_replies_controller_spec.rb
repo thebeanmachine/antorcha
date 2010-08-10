@@ -5,9 +5,7 @@ describe MessageRepliesController do
   def stub_find_origin_message
     stub_find(mock_message(:origin))
     mock_message(:origin).stub :definition => mock_definition
-
     mock_message(:origin).stub :effect_steps => mock_steps
-
     stub_authorize!
   end
 

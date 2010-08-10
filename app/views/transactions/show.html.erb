@@ -21,9 +21,7 @@
 <% end %>
 
 <div class="actions">
-	<% if can? :edit, @transaction %>
 	  <% unless @transaction.cancelled? %>
 	    <%= button_to_transaction_cancellation @transaction %>
 	  <% end %>
-	<% end %>
 </div>

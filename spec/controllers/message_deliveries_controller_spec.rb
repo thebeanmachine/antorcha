@@ -10,6 +10,12 @@ describe MessageDeliveriesController do
     def stub_create
       stub_find(mock_message)
       mock_message.stub(:send_deliveries => nil)
+      mock_message.stub(:cancelled? => false)
+    end
+    
+    def stub_create_cancelled_message
+      stub_find(mock_message)
+      mock_message.stub(:cancelled? => true)
     end
 
     describe "as anonymous" do
@@ -48,6 +54,14 @@ describe MessageDeliveriesController do
         post_create
         flash[:notice].should =~ /Bericht is succesvol bij de uitgaande post terechtgekomen/
       end
+      
+      it "should not be possible to send a message when it's transaction was cancelled" do
+        stub_create_cancelled_message
+        post_create
+        flash[:notice].should_not =~ /Bericht is succesvol bij de uitgaande post terechtgekomen/
+        flash[:error].should =~ /Transactie is tussentijds geannuleerd, kan niet worden verzonden/
+      end
+      
     end
   end
   

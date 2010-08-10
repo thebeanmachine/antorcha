@@ -6,6 +6,7 @@ describe "/messages/edit.html.erb" do
   before(:each) do
     assigns[:message] = @message = stub_model(Message,
       :new_record? => false,
+      :step => stub_model(Step, :title=>'title'),
       :title => "value for title",
       :body => "value for body"
     )

@@ -9,9 +9,9 @@ class TransactionCancellationsController < ApplicationController
     unless @transaction.cancelled?
       @transaction.cancelled!
       Delayed::Job.enqueue(TransactionCancellationJob.new(@transaction.id))
-      flash[:notice] = "Transaction was successfully cancelled."
+      flash[:notice] = "De transactie is geannuleerd"
     else
-      flash[:notice] = "Transaction was already cancelled."
+      flash[:notice] = "De transactie was al geannuleerd"
     end
   
     @message = @transaction.messages.find(params[:message_id]) if params[:message_id]

@@ -18,9 +18,7 @@ describe Ability, "of users in antorcha to:" do
       ability_of role, &block
     end
   end
-  
-  it "should not be possible to send a message when it's transaction was cancelled"
-  
+    
   describe "cancellation of transactions" do
     ability_of :communicator do
       specify { should be_able_to :cancel, Transaction}

@@ -29,7 +29,7 @@ Feature: Start a new Definition using a start step
     And I choose "Taart bakken"
     And I press "Maak Transactie"
 
-    Then I should see "Transaction was successfully created"
+    Then I should see "De transactie is aangemaakt"
     And I should see "Chocolade taart bakken"
   
     When I follow "Nieuwe transactie"

@@ -17,7 +17,7 @@ class MessageDeliveriesController < ApplicationController
       @message.send_deliveries
       redirect_to @message, :notice => 'Bericht is succesvol bij de uitgaande post terechtgekomen.'
     else
-      redirect_to @message, :error => "Transactie is geannuleerd, kan niet worden verzonden"
+      redirect_to @message, :flash => {:error => 'Transactie is tussentijds geannuleerd, kan niet worden verzonden.'}
     end
   end
 end

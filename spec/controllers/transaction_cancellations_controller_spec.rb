@@ -39,7 +39,7 @@ describe TransactionCancellationsController do
       it "should flash already cancelled" do
         stub_create_action
         post_create_with_uri
-        flash[:notice].should =~ /Transaction was already cancelled/
+        flash[:notice].should =~ /De transactie was al geannuleerd/
       end
     end
 
@@ -69,7 +69,7 @@ describe TransactionCancellationsController do
       it "should flash cancellation" do
         stub_create_action
         post_create_with_id
-        flash[:notice].should =~ /Transaction was successfully cancelled/
+        flash[:notice].should =~ /De transactie is geannuleerd/
       end
     
       it "should create a cancellation job to cascade cancellation over the network" do

@@ -9,7 +9,7 @@ Feature: Cancel transaction
     When I fill in "Titel" with "Bake bread for George"
     And I choose "Bake bread"
     And I press "Maak Transactie"
-    Then I should see "Transaction was successfully created"
+    Then I should see "De transactie is aangemaakt"
 
   Scenario: Cancel a transaction
     Given I have a definition "Bake bread"
@@ -19,9 +19,9 @@ Feature: Cancel transaction
     And I choose "Bake bread"
     And I press "Maak Transactie"
     And I press "Annuleer Transactie"
-    Then I should see "Transaction was successfully cancelled"
-    And I should see "Transaction was cancelled on"
-    And I should not see "Cancel Transaction"
+    Then I should see "De transactie is geannuleerd"
+    And I should see "Deze transactie is geannuleerd op"
+    And I should not see "Annuleer Transactie"
 
   @selenium
   Scenario: Cancel a transaction
@@ -37,7 +37,7 @@ Feature: Cancel transaction
     When the system processes jobs
     And I am on the "Bake bread for George" transaction page
   
-    Then I should see "Transaction was stopped on"
+    Then I should see "Deze transactie is geannuleerd op"
     
   
 
