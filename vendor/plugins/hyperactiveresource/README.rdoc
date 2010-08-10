@@ -1,0 +1,380 @@
+= HyperactiveResource
+
+v0.2
+
+Many have said that ActiveResource is not really "complete". On the surface,
+this means that many standard ActiveRecord features are not implemented.
+
+This makes the concept of swapping ActiveRecord for ActiveResource immensely
+difficult (and cludgy, hand-built, buggy etc etc)
+
+Arguably, a "complete" ActiveResource would behave like ActiveRecord or, as the
+rdoc for ActiveResource states "very similarly to Active Record".
+
+Hyperactive Resource is an extension to ActiveResource::Base and goes a long
+way towards the goal of an ActiveResource that behaves like ActiveRecord.
+It will slowly be updated with all the standard features of ActiveRecord
+until (someday) it can be used almost interchangeably.
+
+This code could indeed go directly into ActiveResource, but given some of
+the implementations that would put a dependancy between the two which may
+be resolved once Rails 3.0 comes out. It is expected that the common code
+(eg callbacks and validations) should be pulled out into a common mixin
+module, with AR and ARes both only overrriding those that are specific to
+their own ORM...  
+There's nothing stopping this code from being integrated back into ARes in
+that fashion, but until then, this serves as an alternative that can be
+used, under the proviso that anyone using it realises that it's still
+experimental and still under construction.
+
+
+
+
+== Features
+
+These are the features that have been added to HyRes. 
+
+== Base functions  
+ * update_attribute / update_attributes (actually exist now!)
+ * save! / update_attributes! / update_attribute! / create!
+    (raises HyperactiveResource::ResourceNotSaved on failure)
+ * ModelName.count (still experimental) - with optional finder-args
+    - override the default counter_path with your own (see example below)
+ * updated collection_path that allows suffix_options as well as
+   prefix_options = allows us to generate Rails-style named routes
+ * no explosion for delete_all/destroy_all on a 404
+ * ActiveRecord-like attributes= (updates rather than replaces)
+ * ActiveRecord-like #load that doesn't #dup attributes (stores direct reference)
+ * reload that does a full clear/fetch to reload (also clears associations
+   cache!)
+
+
+== Callbacks
+ * Hooks for before_validate, before_save
+ * Callback chaining a la ActiveRecord (still experimental - may have missed
+   some, but you can definitely use "validate :my_validation_method")
+
+
+== Finders
+ * conditional finders eg 
+   Widget.find(:all, :conditions => {:colour => 'blue'}, :limit => 5)
+   Depends on your API accepting the above filter fields and returning
+   something sensible. See "find" doco below for more info
+ * Dynamic finders: find_by_X, find_all_by_X, find_by_X, find_last_by_X
+     (relies on your API accepting filter fields. See "find" doco below for more info)
+ * Dynamic finders take any number of arguments using _and_: find_by_X_and_Y_and_Z 
+ * Dynamic instantiators: find_or_create_by_X OR find_and_instantiate_by_X
+     (also takes any number of args)
+ * Dynamic finders/instantiators take ! eg: find_or_create_by_X! will throw
+     a ResourceNotValid if create fails
+ * no 404-explosion for collection-finders that don't return anything They
+   just return nil (just like ActiveRecord). This includes finders for
+   associations eg User.posts will return nil if the user hasn't any.
+
+
+=== Validations
+ * Client side validations (validates_uniqueness_of is still experimental!)
+
+
+=== Associations
+ * Awareness of associations between resources: belongs_to, has_many, has_one & columns
+   * Patient.new.name returns nil instead of MethodMissing
+   * Patient.new.races returns [] instead of MethodMissing
+   * pat = Patient.new; pat.gender_id = 1; pat.gender #Will return find the gender obj
+ * Resources can be associated with records
+ * Records can be associated with records
+ * Supports saving resources that :include other resources via:
+   * Nested resource saving (creating a patient will create their associated addresses)
+   * Mapping associations ([:gender].id will serialize as :gender_id)
+ * Can fetch associations even with a nested route by using the ":nested"
+   option on the nested resource's class. This command automatically adds a
+   prefix-path, and will pre-populate the parent's id when you do an
+   association collection_fetch.
+
+
+
+
+
+
+== find and Your API
+
+Find can be conditional (ie return only those resources that match your
+given set of conditions)... ion the proviso that your API actually does
+something sensible with any given set of filter_fields you pass in.
+
+HyRes has been written with an assumption that your API will behave in a
+Rails-like manner (eg will accept :conditions, :limit, :offset etc), but it
+should not break if you use other filter-terms... though the "conditions"
+key is assumed in several functions.
+
+It's no longer necessary to pass in the extra "params" key - the finders now
+automatically add that. If you pass a specified "from" URL it will still
+fetch that.
+
+
+It does mean you can pass arguments to your finder functions eg:
+
+Widget.find(:all, :conditions => {:name => 'wodget'}, :limit => 5, :offset => 10)
+Widget.first(:conditions => {:user_id => 42})
+Widget.find_all_by_user_id(42, {:name => 'wodget'})
+
+Currently:
+ * It will only accept conditions that are passed in as a hash (eg you can't
+  use the SQL-syntax forms such as: {:conditions => ['NAME = ?, 'blah']}
+  because (obviously) we're not using SQL...
+ * it's possible to still pass in :params => {:conditions => ...} (ie old
+  code shouldn't break) but it's not essential anymore (too complicated).
+
+
+
+
+== Find-API : expected URL construction
+
+HyRes conditional finders assume your API can consume a URL that contains
+params formatted in a Railsy way. The way that Rails constructs these URLs
+is not well advertised. It seems that Rails will take a hash such as:
+{:conditions => {:user_id => 1, :name => 'wodget'}}
+and construct a URL that looks like:
+http://yourhost:3000/widgets.xml?conditions%5Bname%5D=wodget&conditions%5Buser_id%5D=1
+
+Note the URL-encoding. It evaluates to:
+http://yourhost:3000/widgets.xml?conditions[name]=wodget&conditions[user_id]=1
+
+
+If your API is also written in Rails, this will be converted back into a
+params hash that contains the original hash.
+
+
+HyRes assumes that your API can consume parameters passed on the query
+string in the above format and will return a set of resources that match
+those parameters.
+
+
+
+If you have a nested route for nested resources, you can use a prefix path
+
+
+
+
+== Dynamic finders: find_[by|all_by|first_by|last_by]_X
+
+HyRes supports dynamic finders/initiators as per ActiveRecord eg :
+   find_all_by_name(<the_name>, opts)
+is functionally equivalent to:
+   find(:all, opts.merge(:name => <the_name>))
+
+You can pass in any number of arguments eg:
+   find_last_by_name_and_phone_and_email(the_name, the_phone, the_email)
+
+Adding a bang on the end:
+   find_last_by_name_and_phone_and_email!(the_name, the_phone, the_email)
+Will forcee it to raise an exception (ResourceNotFound) if there isn't one
+to be found.
+
+
+== Dynamic instantiators: find_[or_create|or_instantiate]_by_X
+
+You can also create/instantiate using:
+   find_or_create_by_name(<the_name>, opts)
+
+This will try to find the first resource matching the given attribute and
+options, and will create it (using the options) if it doesn't exist)
+
+If you end it in a bang:
+   find_or_create_by_name!(<the_name>, opts)
+
+It will call create! instead of create and thus raise an exception if create
+fails.
+
+
+By contrast using:
+   find_or_instantiate_by_name(<the_name>, opts)
+
+will work the same way - but will call "new" instead of "create" - which
+allows you to do more to it before it is saved.
+Obviously new! is meaningless so a bang on the end does nothing.
+
+   
+
+
+
+
+
+
+== count and Your API
+
+There are several ways that HyRes.count can work with your API.
+The simplest would be to implement a count action on your remote API that
+returns a result including an attribute of "count".
+
+If your API is implemented in Rails, this would be the equivalent of doing:
+
+  def count
+    @widgets = Widget.all(filters)
+    respond_to do |format|
+      format.xml  { render :xml => { :count => @widgets.count } }
+    end
+  end
+
+Note the filters - if you want to pass conditions to your API, it's a good
+idea to filter based on them.
+
+Even if your API is not implemented in rails - as long as it responds
+appropriately to an action as per the above, count will "just work".
+
+
+If you don't have the liberty of updating the remote API, and the API
+implements a different path, you can pass the counter_path as an argument,
+eg:
+Widget.count(:counter_path => '/widgets/my_counter_path.xml')
+
+
+Finally - if none of the above work for you - count will actually just pull
+out all the items that match your arguments... and count the length of the
+array.
+
+
+
+
+== Nested Resource routes and associations.
+
+If your remote API has a nested route that matches Rails-standard
+nested-route naming conventions eg: '/users/:user_id/widgets.xml'
+Your association 'widget' class will need to pass in the prefix-options when
+doing a collection-fetch (eg '@user.widgets').
+Standard ARes also requires that you setup a prefix-path for the Widget
+class.
+Now, the 'nested' option will allow you to do both of these tasks
+automatically eg:
+
+class User < HyRes
+  has_many :widgets
+end
+class Widget < HyRes
+  belongs_to :user, :nested => true
+end
+
+will mean that: @user.widgets will call the URL:
+/users/<@user.id>/widgets.xml
+
+
+At present this will only deal with one level of nesting... it will also
+blow away any pre-existing prefix-path... so use at your own peril ;)
+
+
+
+
+== Examples
+
+ 1. Install the plugin via:
+
+    cd path/to/rails_root/vendor/plugins
+    git clone	git://github.com/taryneast/hyperactiveresource.git
+
+ 2. Create a HyperactiveResource where you would normally use ActiveResource
+    and define the meta-data/associations that drive the dynamic magic:
+    NOTE: don't use HyperactiveResource::Base... there isn't one (..yet)!
+
+    class Address < HyperactiveResource
+      self.site = 'http://localhost:3001/'
+      self.columns = [ :street_address, :city, :postcode, :phone, :email]
+      self.counter_path = 'address_count.xml' # override default count path
+
+      belongs_to :country
+      belongs_to :state
+      has_many :people
+
+      validates_presence_of :postcode, :phone
+      validates_uniqueness_of :email
+    end
+
+ 3. Enjoy the magic
+
+    Address.delete_all # should not raise a 404
+    Address.count # returns 0
+
+    bad_address = Address.new
+    bad_address.save! # raises ActiveResource::RecordNotSaved
+
+    Address.count # returns 0
+
+    address = Address.new(:postcode => '12345', :phone => '555 1234')
+    address.country # nil instead of method_missing
+    address.country_id = 5
+    address.country  # Returns Country.find(5)
+    address.save!    # returns true
+
+    Address.first.phone # should return '555 1234'
+
+    Address.count # returns 1
+    Address.count(:conditions => {:phone => '555 9876'}) # returns 0
+
+    bad_address = Address.create()
+    bad_address.errors.full_messages.inspect # => "[\"Postcode can't be blank\", \"Phone can't be blank\"]"
+    Address.count(:conditions => {:phone => '555 1234'}) # returns 1
+
+
+    # note - the sort will only work if your API accepts "sort" on the query string
+    l_addresses = Address.find_all_by_city('London', :sort => 'postcode')
+    l_postcodes = l_addresses.map(&:postcode).uniq
+    p "London postcodes: #{l_postcodes.map(&:to_s).to_sentence}"
+
+
+    # assuming you already have people set up in your remote API...
+    number_ten = Address.find(:first, :conditions => {
+      :street_address => "10 Downing street", :city => 'London'})
+    number_ten.people.each {|person| p "Living at #10 is: #{person.name}" }
+
+
+  etc..
+
+
+
+
+
+
+== TODOs
+
+0) Testing!
+
+1) proper callbacks for before/after save/create/validate etc rather than
+  bodgied-up functions called directly in the code
+
+2) MyModel.with_scope
+
+3) find(:include => ...)
+
+4) attr_protected/attr_accessible
+
+5) MyModel.calculate/average/minimum/maximum etc
+
+6) reflections. There should be no reason why we can't re-use
+  ActiveRecord-style reflections for our associations. They are not
+  SQL-specific. This will also allow a lot more code to automatically Just
+  Work (eg an ActiveRecord could use "has_many :through" a HyRes)
+
+7) Split HyRes into Base and other grouped functions as per AR
+
+8) default_scope (as per AR)
+
+9) validates_associated (as per AR)
+
+
+
+N) merge this stuff back into the real ActiveResource
+
+
+
+
+
+== Copyright and Authorship
+
+Author:: Taryn East
+Copyright (c) 2009:: White Label Dating [http://whitelabeldating.com]
+
+Based on Work Done by Medical Decision Logic
+
+Original copyright:
+Copyright (c) 2008 Medical Decision Logic
+
+Released under the MIT license (see attached file)

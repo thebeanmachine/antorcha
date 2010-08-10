@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
   config.gem 'delayed_job', :version => '2.0.3'
   config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
+  config.gem 'fortify', :source => 'http://gemcutter.org'
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
 
   # Only load the plugins named here, in the order given (default is alphabetical).

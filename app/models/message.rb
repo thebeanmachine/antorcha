@@ -2,6 +2,7 @@ require 'message_serialization'
 
 class Message < ActiveRecord::Base
   include MessageSerialization
+  include CrossAssociatedModel
 
   validates_presence_of :title, :on => :update
   validates_presence_of :step
@@ -10,7 +11,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :sent_at, :if => :delivered?
 
   belongs_to :transaction
-  belongs_to :step
+  belongs_to_resource :step
 
   flagstamp :sent, :shown
   antonym :outgoing => :incoming
