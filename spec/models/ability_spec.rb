@@ -14,7 +14,7 @@ describe Ability, "of users in antorcha to:" do
   end
 
   def self.everyone_else_but role, &block
-    (all_roles.dup - [role]).each do |role|
+    (all_roles - [role]).each do |role|
       ability_of role, &block
     end
   end
@@ -41,6 +41,20 @@ describe Ability, "of users in antorcha to:" do
     everyone_else_but :communicator do |other|
       it "should not be allowed" do
         should_not be_able_to(:examine, Message)
+      end
+    end
+  end
+  
+  describe "starting and stopping a worker" do
+    ability_of :maintainer do
+      it "can only be managed by a maintainer" do
+        should be_able_to(:manage, Worker)
+      end
+    end
+
+    everyone_else_but :maintainer do |other|
+      it "cannot manage a worker" do
+        should_not be_able_to(:manage, Worker)
       end
     end
   end

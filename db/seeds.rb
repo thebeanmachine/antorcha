@@ -58,21 +58,21 @@ if Rails.env.production?
     lokaal.destination_url "http://thorax:thorax@jeugdzorg.thebeanmachine.nl/messages"
   
     lokaal.fulfills "Bakkerij" => [ "Bakker" ]
-    lokaal.fulfills "Huizenlijkgeweld" => [ "Bureau Jeugdzorg" ]
+    lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg" ]
   end
 
   Antorcha.organization "Zorgaanbieder test" do |lokaal|
     lokaal.destination_url "http://thorax:thorax@zorgaanbieder.thebeanmachine.nl/messages"
   
     lokaal.fulfills "Bakkerij" => [ "Klant" ]
-    lokaal.fulfills "Huizenlijkgeweld" => [ "Zorgaanbieder" ]
+    lokaal.fulfills "Huizelijkgeweld" => [ "Zorgaanbieder" ]
   end
 else
   Antorcha.organization "Lokale machine" do |lokaal|
     lokaal.destination_url "http://localhost:3000/messages"
 
     lokaal.fulfills "Bakkerij" => [ "Bakker", "Klant"]
-    lokaal.fulfills "Huizenlijkgeweld" => [ "Bureau Jeugdzorg", "Zorgaanbieder" ]
+    lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg", "Zorgaanbieder" ]
   end
 end
 

@@ -3,8 +3,8 @@ class Ability
 
   def initialize(user)
     if user.include? :maintainer
-      can :send, Message
       can :manage, Organization
+      can :manage, Worker
 
       cannot :manage, [Definition, Role, Step]
       cannot :create, Role
