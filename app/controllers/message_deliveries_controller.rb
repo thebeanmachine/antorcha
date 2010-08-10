@@ -13,8 +13,11 @@ class MessageDeliveriesController < ApplicationController
     @message = Message.find(params[:message_id])
     authorize! :send, @message
 
-    @message.send_deliveries
-    
-    redirect_to @message, :notice => 'Bericht is succesvol bij de uitgaande post terechtgekomen.'
+    unless @message.cancelled?
+      @message.send_deliveries
+      redirect_to @message, :notice => 'Bericht is succesvol bij de uitgaande post terechtgekomen.'
+    else
+      redirect_to @message, :error => "Transactie is geannuleerd, kan niet worden verzonden"
+    end
   end
 end
