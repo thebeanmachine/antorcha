@@ -1,24 +1,29 @@
 <% breadcrumb @transaction %>
 <h1>Transaction <strong><%=h @transaction.title %></strong></h1>
-
+	
 
 <p class="intro">
-  follows Definition <%=link_to_definition @transaction.definition %>
+  Volgt definitie 
+	<% if can? :show, @transaction.definition %>
+		<%=link_to_definition @transaction.definition %>
+	<% else %>
+		<%=@transaction.definition.title%>
+	<% end %>
 </p>
 
-<p><%= link_to "Messages", transaction_messages_path(@transaction) %> of this transaction</p>
-<p><%= link_to "Steps", definition_steps_path(@transaction.definition) %> available to this transaction</p>
+<p><%= link_to "Berichten", transaction_messages_path(@transaction) %> binnen deze transactie</p>
 
 <% if @transaction.cancelled? %>
-  <p>Transaction was cancelled on <%= l @transaction.cancelled_at, :format => :short %></p>
+  <p>Deze transactie is geannuleerd op <%= l @transaction.cancelled_at, :format => :short %></p>
 <% end %>
 <% if @transaction.stopped? %>
-  <p>Transaction was stopped on <%= l @transaction.stopped_at, :format => :short %></p>
+  <p>Deze transactie is gestopt op <%= l @transaction.stopped_at, :format => :short %></p>
 <% end %>
 
 <div class="actions">
-  <%= link_to_edit_transaction @transaction %>
-  <% unless @transaction.cancelled? %>
-    or <%= button_to_transaction_cancellation @transaction %>
-  <% end %>
+	<% if can? :edit, @transaction %>
+	  <% unless @transaction.cancelled? %>
+	    <%= button_to_transaction_cancellation @transaction %>
+	  <% end %>
+	<% end %>
 </div>

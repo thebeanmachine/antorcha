@@ -266,15 +266,5 @@ h1.as_in_table .sender { width: 6em; }
   position: absolute;
 }
 #messages thead { display: none; }
-.messages tr.cancelled {
-  background: #ffeeee;
-  background: -webkit-gradient(linear, left top, left bottom, from(#eedddd), to(#ffeeee));
-  background: -moz-linear-gradient(top, #eedddd, #ffeeee);
-  text-decoration: line-through;
-}
-.messages .cancelled h1 {
-  background: #ff6666;
-  background: -webkit-gradient(linear, left top, left bottom, from(#dd6666), to(#ff6666));
-  background: -moz-linear-gradient(top, #dd6666, #ff6666);
-  text-decoration: line-through;
-}
+.messages tr.cancelled td { text-decoration: line-through; }
+.messages .cancelled h1 { text-decoration: line-through; }

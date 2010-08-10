@@ -1,5 +1,5 @@
 <% breadcrumb @message %>
-<h1>Editing message</h1>
+<h1><%= @message.step.title %></h1>
 
 <% semantic_form_for(@message) do |f| %>
 
@@ -8,7 +8,7 @@
     <%= f.input :body %>
   <% end %>
   <% f.buttons do %>
-    <%= f.commit_button %> or <%= link_to "go back to messages", messages_path %>
+  	<%= f.commit_button %>  of <%= link_to "sla niets op en ga terug naar het oorspronkelijke bericht", @message %>
   <% end %>
 
 <% end %>

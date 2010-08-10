@@ -37,7 +37,7 @@ nl:
     actions:
       create: "Maak {{model}}"
       update: "Bewaar veranderingen"
-      dummie: "Launch!"
+      dummie: "Start!"
 
   action:
     new: "Nieuw {{model}}"
@@ -63,6 +63,8 @@ nl:
       transaction:
         one: Transactie
         other: Transacties
+      transaction_initiation:
+        other: Transacties
       message:
         one: Bericht
         other: Berichten
@@ -83,6 +85,7 @@ nl:
       transaction:
         title: Titel
         definition: Definitie
+        starting_step: Start stap
       definition:
         title: Titel
       step:
