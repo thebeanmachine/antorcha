@@ -1,5 +1,15 @@
 <% breadcrumb @message %>
 <h1>Editing message</h1>
 
-<%= render :partial => 'form' %>
+<% semantic_form_for(@message) do |f| %>
+
+  <% f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :body %>
+  <% end %>
+  <% f.buttons do %>
+    <%= f.commit_button %> or <%= link_to "go back to messages", messages_path %>
+  <% end %>
+
+<% end %>
 

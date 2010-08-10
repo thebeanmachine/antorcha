@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     steps.resources :messages, :only => [:new, :create], :controller => 'step_messages'
   end
 
-  map.resources :messages do |messages|
+  map.resources :messages, :except => :new, :requirements => { :id => /[0-9]+/ } do |messages|
     messages.resources :deliveries, :only => [:create, :index], :controller => 'message_deliveries'
     messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
   end

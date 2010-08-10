@@ -6,8 +6,8 @@ describe MessagesController do
       { :get => "/messages" }.should route_to(:controller => "messages", :action => "index")
     end
 
-    it "recognizes and generates #new" do
-      { :get => "/messages/new" }.should route_to(:controller => "messages", :action => "new")
+    it "does not recognize and generate #new action" do
+      { :get => "/messages/new" }.should_not be_routable
     end
 
     it "recognizes and generates #show" do
