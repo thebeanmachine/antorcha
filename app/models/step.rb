@@ -8,6 +8,10 @@ class Step < Resource
   
   #has_many_siblings :reaction, :cause => :effect
 
+  def effects
+    Step.find :all, :from => "/steps/#{to_param}/effects.xml"
+  end
+
   #has_many :recipients
   #has_many :recipient_roles, :through => :recipients, :source => :role
 

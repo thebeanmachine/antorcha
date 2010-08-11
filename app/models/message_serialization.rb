@@ -8,15 +8,12 @@ module MessageSerialization
       xml.tag!(:title, title)
       xml.tag!(:body, body)
       xml.tag!(:transaction, transaction.uri)
-      xml.tag!(:step, step.name)
+      xml.tag!(:step_id, step.id)
     end
   end
 
   def from_hash(hash)
     attributes = hash.dup
-
-    step_name = attributes.delete(:step)
-    attributes[:step] = step = Step.find_by_name(step_name)
 
     transaction_uri = attributes.delete(:transaction)
     attributes[:transaction] = find_or_create_transaction(step, transaction_uri)

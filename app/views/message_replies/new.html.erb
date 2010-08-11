@@ -6,7 +6,7 @@
 
 <% semantic_form_for @message, :url => message_replies_path(@origin) do |f| %>
   <% f.inputs do %>
-    <%= f.input :step, :as => :radio, :collection => @steps, :label_method => :title %>
+    <%= f.input :step_id, :as => :radio, :collection => @steps, :label_method => :title %>
   <% end %>
   <%= f.buttons %>
 <% end %>
