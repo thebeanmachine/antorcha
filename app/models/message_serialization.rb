@@ -16,9 +16,8 @@ module MessageSerialization
     attributes = hash.dup
 
     transaction_uri = attributes.delete(:transaction)
-    attributes[:transaction] = find_or_create_transaction(step, transaction_uri)
-  
     self.attributes = attributes
+    self.transaction = find_or_create_transaction(self.step, transaction_uri)
 
     self
   end
@@ -26,10 +25,10 @@ module MessageSerialization
   def find_or_create_transaction step, transaction_uri
     transaction = Transaction.find_by_uri(transaction_uri)
     return transaction if transaction
-    smrf_transaction(step, transaction_uri)
+    make_transaction(step, transaction_uri)
   end
   
-  def smrf_transaction step, transaction_uri
+  def make_transaction step, transaction_uri
     Transaction.create :definition => step.definition, :uri => transaction_uri
   end
 end
