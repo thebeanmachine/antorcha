@@ -1,6 +1,8 @@
 class Delivery < ActiveRecord::Base
+  include CrossAssociatedModel
+  
   belongs_to :message
-  belongs_to :organization
+  belongs_to_resource :organization
 
   flagstamp :delivered
   

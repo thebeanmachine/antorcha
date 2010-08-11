@@ -23,11 +23,23 @@ describe TransactionsController do
   end
 
   describe "GET new" do
-    it "assigns a new transaction as @transaction" do
+    def stub_get_new
       Transaction.stub(:new).and_return(mock_transaction)
+      stub_all mock_definition
+    end
+    
+    it "assigns a new transaction as @transaction" do
+      stub_get_new
       get :new
       assigns[:transaction].should equal(mock_transaction)
     end
+
+    it "assigns all selectable definitions as @definitions" do
+      stub_get_new
+      get :new
+      assigns[:definitions].should == [mock_definition]
+    end
+
   end
 
   describe "GET edit" do

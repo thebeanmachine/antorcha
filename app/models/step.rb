@@ -24,10 +24,11 @@ class Step < Resource
 
   # No premature optimalizations.
   def destination_organizations
-    recipient_roles.all.inject [] do |memo, role|
-      memo += role.organizations
-      memo.uniq
-    end
+    Organization.all
+    # recipient_roles.all.inject [] do |memo, role|
+    #   memo += role.organizations
+    #   memo.uniq
+    # end
   end
 
   def parameterize_title_for_name

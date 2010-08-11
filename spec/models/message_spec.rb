@@ -101,7 +101,7 @@ describe Message do
   describe "delivery" do
     subject {
       m = example_message
-      m.delivery_organizations << mock_organization
+      m.deliveries.build :organization => mock_organization
       m
     }
 

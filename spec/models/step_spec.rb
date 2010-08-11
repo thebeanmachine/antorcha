@@ -4,6 +4,8 @@ describe Step do
 
   it "should be tested against olympus"
 
+  it "should send to a selection of organizations and not to all organizations"
+
   # before(:each) do
   #   @valid_attributes = {
   #     :title => "value for title"
