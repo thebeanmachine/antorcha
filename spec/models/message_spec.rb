@@ -11,6 +11,14 @@ describe Message do
     }
   end
 
+  def example_message
+    Message.create \
+      :title => "Dit is de message titel",
+      :body => "Dit is de message body",
+      :step => mock_step,
+      :transaction => mock_transaction
+  end
+
   describe "given valid attributes" do
     subject {Message.create(@valid_attributes)}
     it "should create a new instance" do
@@ -66,7 +74,7 @@ describe Message do
   end
   
   describe "sending" do
-    subject { Factory(:message) }
+    subject { example_message }
 
     it "can be send" do
       subject.sent!
@@ -92,8 +100,8 @@ describe Message do
   
   describe "delivery" do
     subject {
-      m = Factory(:message)
-      m.delivery_organizations << Factory(:organization)
+      m = example_message
+      m.deliveries.build :organization => mock_organization
       m
     }
 
@@ -127,7 +135,11 @@ describe Message do
   end
   
   describe "to xml" do
-    subject { Factory(:message) }
+    subject {
+      mock_transaction.stub :uri => "http://example.com"
+      mock_step.stub :name => "dit is de naam van de stap"
+      example_message
+    }
     it "should work" do
       subject.to_xml
     end
@@ -139,19 +151,18 @@ describe Message do
 
     it "should serialize step" do
       subject.step = mock_step
-      mock_step.stub(:name => 'aap-noot-mies')
-      subject.to_xml.should =~ /<step>aap-noot-mies<\/step>/
+      subject.to_xml.should =~ /<step_id>#{mock_step.to_param}<\/step_id>/
     end
   end
   
   describe "from hash" do
     def stub_from_hash
-      stub_find_by mock_step, :name => 'aap-noot-mies'
+      Step.stub(:find).with(mock_step.id).and_return(mock_step)
     end
     
     def message_from_hash
       @message = Message.new
-      @message.from_hash :step => 'aap-noot-mies', :transaction => 'http://example.com/transactions/1'
+      @message.from_hash :step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1'
     end
     
 
@@ -216,7 +227,7 @@ describe Message do
       it "should return itself" do
         stub_known_transaction
         @message = Message.new
-        @message.from_hash(:step => 'aap-noot-mies', :transaction => 'http://example.com/transactions/1').should == @message
+        @message.from_hash(:step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1').should == @message
       end
     end
     

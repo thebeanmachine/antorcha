@@ -22,7 +22,7 @@ class TransactionInitiationsController < ApplicationController
   
 private
   def find_starting_steps
-    @starting_steps = Step.to_start_with.all
+    @starting_steps = Step.to_start_with
   end
   
   def create_transaction_and_message

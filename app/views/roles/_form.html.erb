@@ -1,6 +1,0 @@
-<% semantic_form_for [@definition, @role] do |f| %>
-  <%= f.inputs :title %>
-  <% f.buttons do %>
-    <%= f.commit_button %> of <%= link_to "ga terug naar alle rollen", definition_roles_path(@definition) %>
-  <% end %>
-<% end %>

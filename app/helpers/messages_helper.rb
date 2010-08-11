@@ -4,7 +4,7 @@ module MessagesHelper
   help_can_link_to :message
 
   def link_to_reply_message message
-    if message.effect_steps.count > 0 and message.incoming? and can? :send, message
+    if message.replyable? and can? :send, message
       link_to t('action.reply', :model => Message.human_name), new_message_reply_path(@message)
     end
   end

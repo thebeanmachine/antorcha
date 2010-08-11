@@ -3,7 +3,7 @@
 
   <% f.inputs do %>
     <%= f.input :title %>
-    <%= f.input :definition, :as => :radio, :label_method => :title, :collection => @definitions %>
+    <%= f.input :definition_id, :as => :radio, :label_method => :title, :collection => @definitions %>
   <% end %>
 
   <% f.buttons do %>

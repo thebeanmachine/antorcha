@@ -2,6 +2,7 @@ require 'message_serialization'
 
 class Message < ActiveRecord::Base
   include MessageSerialization
+  include CrossAssociatedModel
 
   validates_presence_of :title, :on => :update
   validates_presence_of :step
@@ -10,7 +11,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :sent_at, :if => :delivered?
 
   belongs_to :transaction
-  belongs_to :step
+  belongs_to_resource :step
 
   flagstamp :sent, :shown
   antonym :outgoing => :incoming
@@ -19,7 +20,7 @@ class Message < ActiveRecord::Base
   has_many :replies, :class_name => 'Message', :foreign_key => 'request_id'
 
   has_many :deliveries
-  has_many :delivery_organizations, :through => :deliveries, :source => :organization
+  #has_many :delivery_organizations, :through => :deliveries, :source => :organization
 
   default_scope :order => 'messages.created_at DESC'
   
@@ -33,6 +34,11 @@ class Message < ActiveRecord::Base
 
   after_create :format_title
   before_validation :take_over_transaction_from_request
+  
+  
+  def replyable?
+    incoming? and step.replyable?
+  end
 
   #
   # should get more complex, add role filter here.
@@ -59,10 +65,10 @@ class Message < ActiveRecord::Base
     :delivered unless deliveries.count == 0 or deliveries.exists? :delivered_at => nil
   end
 
-  # YOU CAN'T OVERRIDE send
   def send_deliveries
-    # OW YEAH!
-    delivery_organizations << destination_organizations
+    destination_organizations.each do |org|
+      deliveries << deliveries.build(:organization => org)
+    end
     sent!
   end
 

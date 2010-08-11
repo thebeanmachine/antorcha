@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
     session[:user] ||= []
   end
   
+  # WTF? we gebruiken toch cancan? of mis ik iets (Daan)
   def authorize
     if current_user.include? :adviser
       true

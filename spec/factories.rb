@@ -15,8 +15,8 @@ end
 
 Factory.define :message do |f|
   f.sequence(:title) {|n| "Message #{n}"}
-  f.step { Factory(:step) }
-  f.transaction { Factory(:transaction) }
+  f.step { mock_step }
+  f.transaction { mock_transaction }
   f.body "Dit is de message body"
 end
 

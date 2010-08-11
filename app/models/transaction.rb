@@ -1,9 +1,11 @@
 class Transaction < ActiveRecord::Base
+  include CrossAssociatedModel
+  
   validates_presence_of :title, :on => :update
   validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
   validates_presence_of :definition
 
-  belongs_to :definition
+  belongs_to_resource :definition
   has_many :messages
 
   after_create :format_title
