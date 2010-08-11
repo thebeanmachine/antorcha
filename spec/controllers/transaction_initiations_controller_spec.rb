@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TransactionInitiationsController do
   
   def stub_find_starting_steps
-    Step.stub_chain(:to_start_with, :all).and_return mock_steps
+    Step.stub :to_start_with => mock_steps
   end
   
   describe "GET new" do

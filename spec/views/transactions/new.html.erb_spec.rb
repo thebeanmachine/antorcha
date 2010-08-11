@@ -17,6 +17,8 @@ describe "/transactions/new.html.erb" do
 
   it "renders new transaction form" do
     render
+    
+    debunk response.body
 
     response.should have_tag("form[action=?][method=post]", transactions_path) do
       with_tag("input#transaction_title[name=?]", "transaction[title]")

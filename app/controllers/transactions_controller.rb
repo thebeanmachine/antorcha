@@ -25,6 +25,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/new.xml
   def new
     @transaction = Transaction.new
+    @definitions = Definition.all
 
     respond_to do |format|
       format.html # new.html.erb

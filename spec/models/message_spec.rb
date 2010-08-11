@@ -11,6 +11,14 @@ describe Message do
     }
   end
 
+  def example_message
+    Message.create \
+      :title => "Dit is de message titel",
+      :body => "Dit is de message body",
+      :step => mock_step,
+      :transaction => mock_transaction
+  end
+
   describe "given valid attributes" do
     subject {Message.create(@valid_attributes)}
     it "should create a new instance" do
@@ -66,7 +74,7 @@ describe Message do
   end
   
   describe "sending" do
-    subject { Factory(:message) }
+    subject { example_message }
 
     it "can be send" do
       subject.sent!
@@ -92,8 +100,8 @@ describe Message do
   
   describe "delivery" do
     subject {
-      m = Factory(:message)
-      m.delivery_organizations << Factory(:organization)
+      m = example_message
+      m.delivery_organizations << mock_organization
       m
     }
 
@@ -127,7 +135,11 @@ describe Message do
   end
   
   describe "to xml" do
-    subject { Factory(:message) }
+    subject {
+      mock_transaction.stub :uri => "http://example.com"
+      mock_step.stub :name => "dit is de naam van de stap"
+      example_message
+    }
     it "should work" do
       subject.to_xml
     end
