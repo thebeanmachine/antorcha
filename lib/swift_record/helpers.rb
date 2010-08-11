@@ -10,7 +10,7 @@ module SwiftRecord
         names.each do |name|
           self.class_eval <<-RUBY
             def #{name}!
-              update_attributes(:#{name}_at => Time.now) unless #{name}?
+              update_attributes(:#{name}_at => Time.zone.now) unless #{name}?
             end
             def #{name}?
               :#{name} if not #{name}_at.nil?

@@ -58,7 +58,8 @@ class Message < ActiveRecord::Base
   end
 
   def delivered_at
-    deliveries.maximum :delivered_at
+    delivered_at = deliveries.maximum :delivered_at
+    delivered_at.in_time_zone if delivered_at
   end
 
   def delivered?
