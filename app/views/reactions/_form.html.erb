@@ -1,9 +1,0 @@
-<% semantic_form_for @reaction do |f| %>
-  <% f.inputs do %>
-    <%= f.input :cause, :as => :radio, :collection => @causes, :label_method => :title %>
-    <%= f.input :effect, :as => :radio, :collection => @effects, :label_method => :title %>
-  <% end %>
-  <% f.buttons do %>
-    <%= f.commit_button %> or <%= link_to "ga terug naar alle reacties", reactions_path %>
-  <% end %>
-<% end %>
