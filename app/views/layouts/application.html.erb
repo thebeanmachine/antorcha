@@ -15,7 +15,11 @@
 		</div>
 		<div>
 			<b>Current User Roles:</b>
-				<%= debug current_user.roles %>
+				<%= debug current_user.roles if current_user%>
+		</div>
+		<div>
+			<b>Current User static user role:</b>
+				<%= debug current_user.static_user_type %>
 		</div>
 		
 		<ul>
@@ -49,6 +53,7 @@
 				<% end %>
 			</div>
 			
+			<% if current_user %>
 			<ul class="menu" id="tabs">
 	      <% [
 	        link_to_messages, link_to_definitions,
@@ -60,6 +65,8 @@
 					</li>
 				<% end %>
 	   	</ul>
+			<% end %>
+	
 		</div>
  		
 	  <div id="page">
@@ -85,20 +92,22 @@
 					    </p>
 			    </div>
 					<% end %>
-
-					<% if current_user.roles.include? "maintainer".to_sym %>
-						<ul class="menu">
-				      <% [
-				        link_to_transactions, link_to_messages,
-				        link_to_definitions, link_to_steps,
-				        link_to_workers, link_to_reactions, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
-				      ].compact.each do |link|
-						  %>
-								<li>
-									<%= link %>
-								</li>
-							<% end %>
-				   	</ul>
+					
+					<% if current_user %>
+						<% if current_user.roles.include? "maintainer".to_sym %>
+							<ul class="menu">
+					      <% [
+					        link_to_transactions, link_to_messages,
+					        link_to_definitions, link_to_steps,
+					        link_to_workers, link_to_reactions, link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation")
+					      ].compact.each do |link|
+							  %>
+									<li>
+										<%= link %>
+									</li>
+								<% end %>
+					   	</ul>
+						<% end %>
 					<% end %>
 				</div>
 		 		<%= yield(:sidebar) %>
