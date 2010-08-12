@@ -1,4 +1,9 @@
 class MessagesController < ApplicationController
+#  web_service_dispatching_mode :delegated
+#  web_service :message, MessageService.new
+#  wsdl_namespace 'http://antorcha.nl/soap/v1/'
+#  web_service_scaffold :invoke if Rails.env.test? or Rails.env.development?
+  
   def index
     @search = Message.search(params[:search])
     @messages = @search.all
