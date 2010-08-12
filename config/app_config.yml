@@ -1,0 +1,15 @@
+development:
+  olympus_resource: 'http://tankenberg.heroku.com'
+
+test:
+  olympus_resource: 'http://tankenberg.heroku.com'
+
+
+staging:
+  olympus_resource: 'http://olympus.heroku.com'
+
+production:
+  olympus_resource: 'http://olympus.heroku.com'
+
+cucumber:
+  olympus_resource: 'http://tankenberg.heroku.com'
