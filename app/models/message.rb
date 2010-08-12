@@ -11,6 +11,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :sent_at, :if => :delivered?
 
   belongs_to :transaction
+
   belongs_to_resource :step
 
   flagstamp :sent, :shown

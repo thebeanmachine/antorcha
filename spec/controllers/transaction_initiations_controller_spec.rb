@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe TransactionInitiationsController do
   
+  before(:each) do
+    pending
+     sign_in_user
+   end
+  
   def stub_find_starting_steps
     Step.stub :to_start_with => mock_steps
   end

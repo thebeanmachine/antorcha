@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.include? :maintainer
+    if user.static_user_type == :maintainer
       can :manage, Organization
       can :manage, Worker
 
@@ -10,12 +10,12 @@ class Ability
       cannot :create, Role
       cannot :update, Role
     end
-    if user.include? :advisor
+    if user.static_user_type == :advisor
       can :manage, [Definition, Step, Role]
       cannot :manage, Worker
       cannot :send, Message
     end
-    if user.include? :communicator
+    if user.static_user_type == :communicator
       can :send, Message
       can :create, Message
       can :examine, Message

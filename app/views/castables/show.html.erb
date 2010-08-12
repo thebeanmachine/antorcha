@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @castable.user.username %>
+</p>
+
+<p>
+  <b>Role:</b>
+  <%=h @castable.role.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_castable_path(@castable) %> |
+<%= link_to 'Back', castables_path %>

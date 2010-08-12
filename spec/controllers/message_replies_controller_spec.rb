@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe MessageRepliesController do
+  
+  before(:each) do
+    sign_in_user
+  end
 
   def stub_find_origin_message
     stub_find(mock_message(:origin))

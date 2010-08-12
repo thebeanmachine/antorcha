@@ -1,8 +1,8 @@
 
 
 module AntorchaHelper
-
-  %w[step message definition transaction reaction role organization delivery].each do |model|
+  
+  %w[step message definition transaction reaction role organization delivery user].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default
         @mock_#{model} ||= {}
@@ -44,8 +44,15 @@ module AntorchaHelper
     RUBY
   end
   
+  
+  def sign_in_user
+    @user = sign_in User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user.stub(:static_user_type).and_return(:communicator)
+  end
+  
   def act_as who
     session[:user] = [who]
+    # session[:user] = sign_in_user.id
   end
 
   def mock_search

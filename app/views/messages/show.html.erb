@@ -14,9 +14,10 @@
     <% if @message.request %>
       <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
     <% end %>
-  
+
   </p>
   <p><%= message_status(@message) %></p>
+
 
   <p>
     <% if can? :examine, @message %>
