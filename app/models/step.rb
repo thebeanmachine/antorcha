@@ -24,8 +24,8 @@ class Step < Resource
 
   before_validation :parameterize_title_for_name
   
-  delegate :definition_roles, :to => :definition #RuntimeError: definition_roles delegated to definition.definition_roles, but definition is nil??
-
+  delegate :definition_roles, :to => :definition 
+  
   # No premature optimalizations.
   def destination_organizations
 
