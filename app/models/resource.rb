@@ -1,4 +1,4 @@
 
 class Resource < HyperactiveResource
-  self.site = "http://localhost:3001"
+  self.site = APP_CONFIG[:olympus_resource]
 end
