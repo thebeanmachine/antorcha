@@ -1,4 +1,4 @@
 
 class Resource < HyperactiveResource
-  self.site = "http://tankenberg.heroku.com"
+  self.site = APP_CONFIG[:olympus_resource]
 end
