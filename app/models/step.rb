@@ -3,6 +3,8 @@ class Step < Resource
   #validates_presence_of :name, :if => :title
   #validates_uniqueness_of :name
 
+  fortify :title, :name
+
   belongs_to :definition
   has_many :messages
   
