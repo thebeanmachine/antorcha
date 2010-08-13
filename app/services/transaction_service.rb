@@ -2,6 +2,7 @@ class TransactionService < ActionWebService::Base
   include TransactionInitiationsController::Smurf
   web_service_api TransactionAPI
 
+  before_invocation :check_token
 
   #def show token, transaction_id
   #end
@@ -29,6 +30,15 @@ private
 
   def url_for *options
     @controller.url_for *options
+  end
+  
+  
+  def check_token method_name, args
+    token = args[0]
+    return [false, "No token specified"] unless token
+    unless token.username == 'aap' and token.password == 'noot'
+      return [false, "Access denied"]
+    end
   end
 
   

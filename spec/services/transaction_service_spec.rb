@@ -34,6 +34,10 @@ describe TransactionService, "soap service" do
   end
 
   describe "creating an initial transaction" do
+      it "should not be permitted with an invalid token" do
+      lambda { invoke_layered :transaction, :initiate, invalid_token, Api::Step.new(:id => 37)}.should deny_access
+    end
+    
     it "should fail on non existing step" do
       lambda { invoke_layered :transaction, :initiate, valid_token, Api::Step.new(:id => 37) }.should raise_transaction_service_error(/Step 37 not found/)
     end
