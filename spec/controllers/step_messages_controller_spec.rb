@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe StepMessagesController do
+  
+  before(:each) do
+    sign_in_user
+  end
 
   def stub_find_step
     stub_find(mock_step)

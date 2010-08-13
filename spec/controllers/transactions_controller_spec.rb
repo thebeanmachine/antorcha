@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe TransactionsController do
 
+  before(:each) do
+     sign_in_user
+   end
+
   def mock_transaction(stubs={})
     @mock_transaction ||= mock_model(Transaction, stubs)
   end

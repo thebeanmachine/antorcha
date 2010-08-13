@@ -4,6 +4,8 @@ describe "/messages/index.html.erb" do
   include MessagesHelper
 
   before(:each) do
+    sign_in_user
+    
     assigns[:messages] = [
       mock_message(:shown),
       mock_message(:new),

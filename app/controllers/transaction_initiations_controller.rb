@@ -26,7 +26,7 @@ private
     @starting_steps = Step.to_start_with
   end
 
-  module Smurf
+  module TransactionInitiationMixin
     def create_transaction_and_message transaction, starting_step
       transaction.definition = starting_step.definition
     
@@ -39,6 +39,6 @@ private
     end
   end
   
-  include Smurf
+  include TransactionInitiationMixin
   
 end

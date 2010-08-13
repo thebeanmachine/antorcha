@@ -1,4 +1,6 @@
 class SoapController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   web_service_dispatching_mode :layered
 
   web_service(:message) { MessageService.new }
@@ -7,6 +9,4 @@ class SoapController < ApplicationController
 
   wsdl_namespace 'http://antorcha.nl/soap/v1/'
   web_service_scaffold :invoke if Rails.env.test? or Rails.env.development?
-
-
 end

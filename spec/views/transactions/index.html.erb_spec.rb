@@ -4,6 +4,9 @@ describe "/transactions/index.html.erb" do
   include TransactionsHelper
 
   before(:each) do
+    
+    sign_in_user
+    
     assigns[:transactions] = [
       stub_model(Transaction,
         :title => "value for title",
@@ -17,8 +20,8 @@ describe "/transactions/index.html.erb" do
       )
     ]
     
-    mock_definition.stub \
-      :title => 'My Definition'
+    mock_definition.stub(:title => 'My Definition')
+    template.stub(:admin_signed_in? => true)
   end
 
   it "renders a list of transactions" do

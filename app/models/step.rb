@@ -6,6 +6,7 @@ class Step < Resource
   fortify :title, :name
 
   belongs_to :definition
+  
   has_many :messages
   
   #has_many_siblings :reaction, :cause => :effect
@@ -26,15 +27,17 @@ class Step < Resource
 
   before_validation :parameterize_title_for_name
   
-  delegate :definition_roles, :to => :definition
-
+  delegate :roles, :to => :definition 
+  
   # No premature optimalizations.
   def destination_organizations
+
     Organization.all
     # recipient_roles.all.inject [] do |memo, role|
     #   memo += role.organizations
     #   memo.uniq
     # end
+
   end
 
   def parameterize_title_for_name

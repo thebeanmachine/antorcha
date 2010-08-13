@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe WorkersController do
   
+  before(:each) do    
+    sign_in_user
+  end
+  
   describe "GET index" do
     it "should assign @workers with all workers" do
       Worker.stub(:all => [:all, :workers])

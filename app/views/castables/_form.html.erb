@@ -1,0 +1,15 @@
+<% form_for(@castable) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user %><br />
+		<%= f.collection_select :user_id, User.all, :id, :username %>
+  </p>
+  <p>
+    <%= f.label :role %><br />
+    <%= f.collection_select :role_id, Role.all, :id, :title %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
