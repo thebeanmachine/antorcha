@@ -27,6 +27,10 @@ class MessageService < ActionWebService::Base
     Message.show(message_id)
   end
   
+  def reply token, api_message
+    Message.find(api_message.id).replies.build(api_message.attributes)
+  end
+  
   def deliver token, message_id
     Message.find(message_id).send_deliveries
   end
