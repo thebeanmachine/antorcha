@@ -13,7 +13,7 @@ class MessageRepliesController < ApplicationController
 
     if @message.save
       flash_notice :created, @message
-      redirect_to @message
+      redirect_to edit_message_path(@message)
     else
       render :action => 'new'
     end

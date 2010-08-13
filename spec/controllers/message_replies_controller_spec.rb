@@ -99,10 +99,10 @@ describe MessageRepliesController do
         flash[:notice].should =~ /Bericht was succesvol aangemaakt/
       end
 
-      it "should redirect to @message show" do
+      it "should redirect to @message edit" do
         stub_create_action
         post_create
-        response.should redirect_to(message_url(mock_message(:reply)))
+        response.should redirect_to(edit_message_url(mock_message(:reply)))
       end
     end
 
