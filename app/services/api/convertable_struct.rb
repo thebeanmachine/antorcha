@@ -20,7 +20,6 @@ module Api
     def attributes= hash
       common_attributes(hash).each {|k,v| self.send("#{k}=", v)}
     end
-
     
     def attributes
       self.class.members.keys.inject({}) {|memo, key| memo[key.to_sym] = self[key]; memo}
