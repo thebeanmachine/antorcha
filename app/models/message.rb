@@ -35,6 +35,11 @@ class Message < ActiveRecord::Base
   after_create :format_title
   before_validation :take_over_transaction_from_request
   
+  def self.show message_id
+    message = find(message_id)
+    message.shown!
+    message
+  end
   
   def replyable?
     incoming? and step.replyable?

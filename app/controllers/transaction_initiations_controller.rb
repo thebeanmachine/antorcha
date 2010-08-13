@@ -24,17 +24,21 @@ private
   def find_starting_steps
     @starting_steps = Step.to_start_with
   end
-  
-  def create_transaction_and_message
-    @step = Step.find @transaction.starting_step
 
-    @transaction.definition = @step.definition
+  module Smurf
+    def create_transaction_and_message
+      @step = Step.find @transaction.starting_step
+
+      @transaction.definition = @step.definition
     
-    @transaction.save
-    @transaction.update_uri url_for(@transaction)
+      @transaction.save
+      @transaction.update_uri url_for(@transaction)
 
-    @message = @transaction.messages.build :step => @step
-    @message.save
+      @message = @transaction.messages.build :step => @step
+      @message.save
+    end
   end
+  
+  include Smurf
   
 end
