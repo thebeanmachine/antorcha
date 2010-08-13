@@ -7,4 +7,5 @@ class MessageAPI < ActionWebService::API::Base
   api_method :index_outbox, :expects => [Api::Token], :returns => [[Api::Message]]
   api_method :index_read, :expects => [Api::Token], :returns => [[Api::Message]]
   api_method :index_unread, :expects => [Api::Token], :returns => [[Api::Message]]
+  api_method :delete, :expects => [Api::Token, :int], :returns => [Api::Message]
 end

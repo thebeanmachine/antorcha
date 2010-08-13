@@ -19,6 +19,10 @@ class MessageService < ActionWebService::Base
     Message.unread
   end
 
+  def delete token, message_id
+    Message.destroy message_id
+  end
+
   def show token, message_id
     Message.show(message_id)
   end
