@@ -27,6 +27,10 @@ class MessageService < ActionWebService::Base
     Message.show(message_id)
   end
   
+  def deliver token, message_id
+    Message.find(message_id).send_deliveries
+  end
+  
   def index token
     Message.all
   end
