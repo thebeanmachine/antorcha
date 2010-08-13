@@ -15,7 +15,8 @@ class TransactionInitiationsController < ApplicationController
     unless @transaction.errors.blank?
       render :action => :new
     else
-      create_transaction_and_message
+      @step = Step.find @transaction.starting_step
+      @message = create_transaction_and_message @transaction, @step
       redirect_to edit_message_url(@message), :notice => 'Transactie succesvol aangemaakt.'
     end
   end
@@ -26,16 +27,15 @@ private
   end
 
   module Smurf
-    def create_transaction_and_message
-      @step = Step.find @transaction.starting_step
-
-      @transaction.definition = @step.definition
+    def create_transaction_and_message transaction, starting_step
+      transaction.definition = starting_step.definition
     
-      @transaction.save
-      @transaction.update_uri url_for(@transaction)
+      transaction.save
+      transaction.update_uri url_for(transaction)
 
-      @message = @transaction.messages.build :step => @step
-      @message.save
+      message = transaction.messages.build :step => starting_step
+      message.save
+      message
     end
   end
   
