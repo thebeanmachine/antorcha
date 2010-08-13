@@ -41,7 +41,11 @@ describe MessageService, "soap service" do
   def deny_access
     raise_dispatch_error(/Access denied/)
   end
-
+  
+  it "should list the messages that are unread"
+  it "should list the messages that already have been read"
+  it "should list the messages that are in the inbox"
+  it "should list the messages that are in the outbox"
   it "should log in the user using the token"
   it "should use cancan to authorize these soap calls"
 
