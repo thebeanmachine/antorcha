@@ -6,73 +6,84 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
+User.create(:username => 'admin', :password => 'thorax', :password_confirmation => 'thorax', :email => "admin@foooo.br")
+User.create(:username => 'henk', :password => 'thorax', :password_confirmation => 'thorax', :email => "henk@foooo.br")
+User.create(:username => 'wim', :password => 'thorax', :password_confirmation => 'thorax', :email => "wim@foooo.br")
+User.create(:username => 'piet', :password => 'thorax', :password_confirmation => 'thorax', :email => "piet@foooo.br")
+User.create(:username => 'bep', :password => 'thorax', :password_confirmation => 'thorax', :email => "bep@foooo.br")
 
 Antorcha.definition 'Huizelijkgeweld' do |geweld|
 
-  geweld.role "Bureau Jeugdzorg"
-  geweld.role "Zorgaanbieder"
+  geweld.role "Huisarts"
+  geweld.role "Consulent"
   
   geweld.step "Melding maken" do |melding|
     melding.start
     
-    melding.permits "Zorgaanbieder"
-    melding.recipients "Bureau Jeugdzorg"
+    melding.permits "Consulent"
+    melding.recipients "Huisarts"
   end
 
   geweld.step "Dossier toesturen" do |toesturen|
     toesturen.follows "Melding maken"
     
-    toesturen.permits "Bureau Jeugdzorg"
-    toesturen.recipients "Zorgaanbieder"
+    toesturen.permits "Huisarts"
+    toesturen.recipients "Consulent"
   end
 
 end
 
-Antorcha.definition "Bakkerij" do |bakkerij|
+Antorcha.definition "Adviseren" do |bakkerij|
 
-  bakkerij.role "Bakker"
-  bakkerij.role "Klant"
+  bakkerij.role "Therapeut"
+  bakkerij.role "Manager"
   
   bakkerij.step "Kneden" do |kneden|
     kneden.start
-    kneden.permits "Bakker"
-    kneden.recipients "Bakker"
+    kneden.permits "Therapeut"
+    kneden.recipients "Therapeut"
   end
 
   bakkerij.step "Bakken" do |bakken|
     bakken.follows "Kneden"
-    bakken.permits "Bakker"
-    bakken.recipients "Bakker"
+    bakken.permits "Therapeut"
+    bakken.recipients "Therapeut"
   end
   
   bakkerij.step "Verkoop" do |verkoop|
     verkoop.follows "Bakken"
-    verkoop.permits "Bakker"
-    verkoop.recipients "Klant"
+    verkoop.permits "Therapeut"
+    verkoop.recipients "Manager"
   end
 end
 
 
 if Rails.env.production?
-  Antorcha.organization "Bureau Jeugdzorg test" do |lokaal|
+  Antorcha.organization "Huisarts test" do |lokaal|
     lokaal.destination_url "http://thorax:thorax@jeugdzorg.thebeanmachine.nl/messages"
   
+
     lokaal.fulfills "Bakkerij" => [ "Bakker" ]
     lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg" ]
+
   end
 
-  Antorcha.organization "Zorgaanbieder test" do |lokaal|
+  Antorcha.organization "Consulent test" do |lokaal|
     lokaal.destination_url "http://thorax:thorax@zorgaanbieder.thebeanmachine.nl/messages"
   
+
     lokaal.fulfills "Bakkerij" => [ "Klant" ]
     lokaal.fulfills "Huizelijkgeweld" => [ "Zorgaanbieder" ]
+
   end
 else
   Antorcha.organization "Lokale machine" do |lokaal|
     lokaal.destination_url "http://localhost:3000/messages"
 
+
     lokaal.fulfills "Bakkerij" => [ "Bakker", "Klant"]
     lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg", "Zorgaanbieder" ]
+
   end
 end
 

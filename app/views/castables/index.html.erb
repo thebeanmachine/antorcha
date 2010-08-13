@@ -1,0 +1,22 @@
+<h1>Listing castables</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Role</th>
+  </tr>
+
+<% @castables.each do |castable| %>
+  <tr>
+    <td><%=h castable.user.username %></td>
+    <td><%=h castable.role.title %></td>
+    <td><%= link_to 'Show', castable %></td>
+    <td><%= link_to 'Edit', edit_castable_path(castable) %></td>
+    <td><%= link_to 'Destroy', castable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New castable', new_castable_path %>

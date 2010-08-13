@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  
-  def index
+
+  def index    
     @search = Message.search(params[:search])
     @messages = @search.all
     @steps_to_start_with = Step.to_start_with
