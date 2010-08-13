@@ -1,5 +1,5 @@
 class TransactionService < ActionWebService::Base
-  include TransactionInitiationsController::Smurf
+  include TransactionInitiationsController::TransactionInitiationMixin
   web_service_api TransactionAPI
 
   before_invocation :check_token
