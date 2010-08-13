@@ -10,6 +10,13 @@ class MessageService < ActionWebService::Base
   def index token
     Message.all
   end
+  
+  def update token, api_message
+    message = Message.find(api_message.id)
+    message.attributes = api_message.attributes.slice :title, :body
+    message.save
+    message
+  end
 
 private
 

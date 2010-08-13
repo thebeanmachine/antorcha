@@ -19,7 +19,7 @@ describe MessageService, "soap service" do
   end
 
   def example_message
-    @example_message ||= Message.new(:title => 'aap')
+    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
   end
 
   def example_api_message
@@ -80,6 +80,25 @@ describe MessageService, "soap service" do
     end
     
     it "should scrub the body if user is not permitted to :examine the message (maybe this should be done in Message#show)"
+  end
+  
+  describe "updating a message" do
+    it "should not be permitted with an invalid token" do
+      lambda { invoke_layered :message, :update, invalid_token, nil }.should deny_access
+    end
+    
+    it "should save the body and title of the supplied message" do
+      Message.stub(:find).with(example_message.id).and_return(example_message)
+
+      updated_message =  Api::Message.new(example_message)
+      updated_message.title = "new title"
+      updated_message.body = "new body"
+
+      m = invoke_layered :message, :update, valid_token, updated_message
+
+      m.title.should == 'new title'
+      m.body.should == 'new body'
+    end
   end
 
 end
