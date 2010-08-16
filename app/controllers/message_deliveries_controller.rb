@@ -1,6 +1,4 @@
-
 class MessageDeliveriesController < ApplicationController
-
   def index
     @message = Message.find(params[:message_id])
     authorize! :show, @message

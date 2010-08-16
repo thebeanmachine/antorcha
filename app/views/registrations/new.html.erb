@@ -17,4 +17,8 @@
   <p><%= f.submit "Registreren" %></p>
 <% end -%>
 
-<%= render :partial => "shared/devise_links" %>
+
+<% content_for :sidebar do %>
+<h2>Heeft u al een account?</h2>
+<p>In dien u al een account heeft kunt u zich hier inloggen: <%= render :partial => "shared/devise_links" %></p>
+<% end%>
