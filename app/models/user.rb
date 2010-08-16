@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  
-  STATIC_USER_TYPE = :communicator
+  USER_TYPES = %w[ registered communicator maintainer ].collect &:to_s
   
   # Include default devise modules. Others available are:
   # :registerable, :recoverable, :trackable, :rememberable, :confirmable, :http_authenticatable, :token_authenticatable, :lockable, :timeoutable and :activatable
@@ -12,9 +11,19 @@ class User < ActiveRecord::Base
   has_many :castables
   has_many :roles, :through => :castables
 
+  validates_inclusion_of :user_type, :in => USER_TYPES
   
   def static_user_type
-    STATIC_USER_TYPE
+    logger.warn 'static_user_type is deprecated user User#user_type instead.'
+    user_type
+  end
+  
+  USER_TYPES.each do |user_type|
+    self.class_eval <<-RUBY
+      def #{user_type}?
+        read_attribute(:user_type) == '#{user_type}'
+      end
+    RUBY
   end
   
 end

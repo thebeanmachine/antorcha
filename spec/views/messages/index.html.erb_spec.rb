@@ -4,7 +4,7 @@ describe "/messages/index.html.erb" do
   include MessagesHelper
 
   before(:each) do
-    sign_in_user
+    
     
     assigns[:messages] = [
       mock_message(:shown),
@@ -46,36 +46,55 @@ describe "/messages/index.html.erb" do
     
     assigns[:steps_to_start_with] = []
   end
+  
+  shared_examples_for "message index" do
+    it "renders titles of definitions" do
+      render
+      response.should have_tag("tr.message>td", /definition title/, 3)
+    end
 
-  it "renders titles" do
-    render
-    response.should have_tag("tr.message>td", /value for title/, 3)
+    it "links to message show" do
+      render
+      response.should have_tag("a[href=?]", message_path(mock_message(:shown)), 2)
+    end
+
+    it "renders a shown message" do
+      render
+      response.should have_tag("tr.message.shown", 1)
+    end
+
+    it "renders a cancelled message" do
+      render
+      response.should have_tag("tr.message.cancelled", 1)
+    end
+  end
+  
+
+  describe "as maintainer" do
+    before(:each) do
+      sign_in_user :maintainer
+    end
+
+    it_should_behave_like "message index"
+
+    it "doesn't render titles of messages" do
+      render
+      response.should_not have_tag("tr.message>td", /step title/, 3)
+    end
   end
 
-  it "doesn't render titles of steps (in contrast to what was specified earlier ;)" do
-    act_as :maintainer
-    render
-    response.should_not have_tag("tr.message>td", /step title/, 3)
-  end
+  describe "as communicator" do
+    before(:each) do
+      sign_in_user
+    end
 
-  it "renders titles of definitions" do
-    render
-    response.should have_tag("tr.message>td", /definition title/, 3)
-  end
+    it_should_behave_like "message index"
+    
+    it "renders titles of messages" do
+      render
+      response.should have_tag("tr.message>td", /value for title/, 3)
+    end
 
-  it "links to message show" do
-    render
-    response.should have_tag("a[href=?]", message_path(mock_message(:shown)), 2)
-  end
-
-  it "renders a shown message" do
-    render
-    response.should have_tag("tr.message.shown", 1)
-  end
-
-  it "renders a cancelled message" do
-    render
-    response.should have_tag("tr.message.cancelled", 1)
   end
 
 end

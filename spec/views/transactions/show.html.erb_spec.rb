@@ -17,8 +17,6 @@ describe "/transactions/show.html.erb" do
     
     mock_definition.stub \
       :title => 'My Definition'
-
-    act_as :advisor
   end
 
   it "renders attributes in <p>" do
@@ -28,7 +26,7 @@ describe "/transactions/show.html.erb" do
   end
   
   it "has link to definition" do
-    pending
+    pending "link is removed due to movement to olympus"
     render
     response.should have_tag('a[href=?]', definition_path(mock_definition), 'My Definition')
   end

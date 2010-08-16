@@ -45,13 +45,16 @@ module AntorchaHelper
   end
   
   
-  def sign_in_user
-    @user = sign_in User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
-    @user.stub(:static_user_type).and_return(:communicator)
+  def sign_in_user type = 'communicator'
+    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user.update_attribute :user_type, type.to_s
+
+    sign_in @user
   end
   
   def act_as who
-    session[:user] = [who]
+    raise "THIS HELPER IS DEPRECATED"
+    # session[:user] = [who]
     # session[:user] = sign_in_user.id
   end
 

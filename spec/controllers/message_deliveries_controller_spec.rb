@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe MessageDeliveriesController do
 
-  before(:each) do
-    sign_in_user
-  end
   
   describe "POST create" do
     def post_create
@@ -23,8 +20,10 @@ describe MessageDeliveriesController do
     end
 
     describe "as anonymous" do
+      before(:each) do
+        sign_in_user :registered
+      end
       it "should flash 'access denied'" do
-        pending "TODO, no auth yet"
         stub_create
         post_create
         flash[:error].should =~ /You are not authorized to access this page/
@@ -33,7 +32,7 @@ describe MessageDeliveriesController do
 
     describe "as communicator" do
       before(:each) do
-        act_as :communicator
+        sign_in_user :communicator
       end
       
       it "assigns the message to @message" do

@@ -4,7 +4,7 @@ require "cancan/matchers"
 describe Ability, "of users in antorcha to:" do
   
   before(:each) do
-    pending "should we use static user types??"
+    #pending "should we use static user types??"
   end
     
   def self.all_roles
@@ -14,7 +14,8 @@ describe Ability, "of users in antorcha to:" do
   def self.ability_of role, &block
     x = subclass "by #{role}", &block
     local_role = role
-    x.subject { Ability.new([local_role]) }
+    
+    x.subject { u = User.new; u.user_type = local_role.to_s; Ability.new(u) }
   end
 
   def self.everyone_else_but role, &block

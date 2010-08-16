@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user
     
-    if user.static_user_type == :maintainer
+    if user.maintainer?
       can :manage, Organization
       can :manage, Worker
 
@@ -12,12 +12,7 @@ class Ability
       cannot :create, Role
       cannot :update, Role
     end
-    if user.static_user_type == :advisor
-      can :manage, [Definition, Step, Role]
-      cannot :manage, Worker
-      cannot :send, Message
-    end
-    if user.static_user_type == :communicator
+    if user.communicator?
       can :send, Message
       can :create, Message
       can :examine, Message
