@@ -26,8 +26,8 @@ describe MessagesController do
       { :put => "/messages/1" }.should route_to(:controller => "messages", :action => "update", :id => "1") 
     end
 
-    it "recognizes and generates #destroy" do
-      { :delete => "/messages/1" }.should route_to(:controller => "messages", :action => "destroy", :id => "1") 
+    it "does not route to #delete" do
+      { :delete => "/messages/1" }.should_not be_routable 
     end
   end
 end

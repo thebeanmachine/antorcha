@@ -15,6 +15,7 @@ class Message < ActiveRecord::Base
   belongs_to_resource :step
 
   flagstamp :sent, :shown
+  antonym :draft => :sent
   antonym :outgoing => :incoming
 
   belongs_to :request, :class_name => 'Message'
@@ -33,10 +34,15 @@ class Message < ActiveRecord::Base
   
   delegate :definition, :to => :step
   delegate :destination_url, :to => :step
+
   delegate :cancelled?, :to => :transaction
 
   after_create :format_title
   before_validation :take_over_transaction_from_request
+  
+  def updatable?
+    outgoing? and draft? and not cancelled?
+  end
   
   def self.show message_id
     message = find(message_id)

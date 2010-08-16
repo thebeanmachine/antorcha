@@ -39,6 +39,34 @@ describe Message do
     end
   end
   
+  describe "when a message is updatable" do
+    def example_outgoing_draft_message_with_an_active_transaction
+      mock_step.stub :title => 'my step'
+      mock_transaction.stub :cancelled? => false
+      Message.new :transaction => mock_transaction, :step => mock_step, :outgoing => true
+    end
+    
+    subject { example_outgoing_draft_message_with_an_active_transaction }
+    
+    specify { should be_updatable }
+    
+    it "should not be updatable if it's not an outgoing message" do
+      subject.outgoing = false
+      should_not be_updatable
+    end
+
+    it "should not be updatable if it's not an drafted message (has been sent)" do
+      subject.sent!
+      should_not be_updatable
+    end
+
+    it "should not be updatable if it's transaction is cancelled?" do
+      subject.stub :cancelled? => true
+      should_not be_updatable
+    end
+
+  end
+  
   describe "creating a reply message" do
     it "takes over transaction from the request" do
       @request_message =  Message.create \
@@ -230,8 +258,6 @@ describe Message do
         @message.from_hash(:step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1').should == @message
       end
     end
-    
-
   end
   
 end

@@ -57,6 +57,19 @@ describe Ability, "of users in antorcha to:" do
     end
   end
   
+  describe "updating of a message" do
+    ability_of :communicator do
+      it "should not be allowed to update a not updatable message" do
+        mock_message.stub :updatable? => false
+        should_not be_able_to( :update, mock_message)
+      end
+      it "should be allowed to update an updatable message" do
+         mock_message.stub :updatable? => true
+        should be_able_to( :update, mock_message)
+      end
+    end
+  end
+  
   describe "starting and stopping a worker" do
     ability_of :maintainer do
       it "can only be managed by a maintainer" do

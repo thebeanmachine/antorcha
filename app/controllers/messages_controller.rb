@@ -1,9 +1,9 @@
 class MessagesController < ApplicationController
+  load_and_authorize_resource :except => :create
 
   def index    
     @search = Message.search(params[:search])
     @messages = @search.all
-    @steps_to_start_with = Step.to_start_with
   end
 
   def show
@@ -16,7 +16,6 @@ class MessagesController < ApplicationController
   end
 
   def edit
-    @message = Message.find(params[:id])
   end
 
   def create
@@ -33,18 +32,11 @@ class MessagesController < ApplicationController
   end
 
   def update
-    @message = Message.find(params[:id])
     if @message.update_attributes(params[:message])
       redirect_to(@message, :notice => 'Message was successfully updated.')
     else
       render :action => "edit"
     end
-  end
-
-  def destroy
-    @message = Message.find(params[:id])
-    @message.destroy
-    redirect_to(messages_url)
   end
 
 end

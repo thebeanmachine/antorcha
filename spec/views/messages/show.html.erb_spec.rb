@@ -22,7 +22,8 @@ describe "/messages/show.html.erb" do
       :request => mock_message(:request),
       :sent_at => Time.now,
       :created_at => Time.now,
-      :replyable? => true
+      :replyable? => true,
+      :updatable? => true
     
     mock_message(:request).stub \
       :title => 'requested message title'
@@ -43,8 +44,6 @@ describe "/messages/show.html.erb" do
     end
     
     it "renders definition title in <p>" do
-      pending
-      act_as :advisor
       render
       response.should have_tag('p', /definition title/)
     end

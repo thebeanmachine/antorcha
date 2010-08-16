@@ -20,6 +20,7 @@ class Ability
     
     can :send, Message
     can :create, Message
+    can :update, Message do |message| message.updatable? end
     can :examine, Message
   
     can :create, Transaction
