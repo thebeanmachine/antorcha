@@ -8,6 +8,8 @@ describe TransactionService, "soap service" do
 
     @service = TransactionService.new @controller
     TransactionService.stub :new => @service
+    
+    @service.stub :authorize! => nil
   end
 
   def valid_token
