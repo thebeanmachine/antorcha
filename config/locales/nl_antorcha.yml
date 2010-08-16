@@ -22,6 +22,7 @@ nl:
   new: "Nieuw"
   edit: "Bewerken"
   show: "Tonen"
+  create: "Maken"
   devise:
     sessions:
       user:

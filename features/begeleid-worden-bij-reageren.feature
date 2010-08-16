@@ -1,20 +1,7 @@
 Feature: Begeleid worden bij reageren
-  In order to provide the user with guidance
-  As a advisor
-  I want to model the communication paths
-  
+  Ik wil enkel relevante stappen zien bij het antwoorden op een 
+  bericht voor een transactie, dus niet met stappen kunnen
+  antwoorden die niet volgens de definitie zijn toegestaan
 
-  Scenario: Mark "Bak brood" as cause of effect "Verkoop brood" in a "Bakkerij"
-    Given I have a definition "Bakkerij"
-    And I have a step "Bak brood" in "Bakkerij"
-    And I have a step "Verkoop brood" in "Bakkerij"
-    And I am on the messages page
-    And I press "Act as advisor"
-    And I am on the "Bakkerij" definition page
-    And I follow "Stappen"
-    When I follow "Verkoop brood"
-    And I follow "Bewerk Stap"
-    And I check "Bak brood"
-    And I press "Bewaar veranderingen"
-    
-    Then I should see "Deze stap heeft als oorzaak Bak brood"
+  Scenario: Ik zit in de tweede stap van transactie 
+  

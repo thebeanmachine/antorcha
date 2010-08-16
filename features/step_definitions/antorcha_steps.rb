@@ -5,51 +5,10 @@ def debug(x)
   puts "</pre></div>"
 end
 
-Given /^I am an advisor$/ do
-  Given "I am on the messages page"
-  Given "I press \"Act as advisor\""
-end
-
-Given /^I am a communicator$/ do
-  Given "I am on the messages page"
-  Given "I press \"Act as communicator\""
-end
-
-
-Given /^the "Bakkerij" example$/ do
-  definition = Factory(:definition, :title => 'Bakkerij')
-    
-  kneden = Factory( :step, :title => 'Deeg kneden', :start => true, :definition => definition )
-  bakvorm = Factory( :step, :title => 'In bakvorm stoppen', :definition => definition )
-  oven = Factory( :step, :title => 'In de oven', :definition => definition )
-  afkoelen = Factory( :step, :title => 'Afkoelen', :definition => definition )
-  verkopen = Factory( :step, :title => 'Verkopen', :definition => definition )
-  
-  [kneden, bakvorm, oven, afkoelen, verkopen].inject { |l,r| r.causes << l; r.save; r }
-  
-end
-
-Given /^I have a definition "([^\"]*)"$/ do |title|
-  @definition = Factory.create(:definition, :title => title)
-end
 
 Given /^I have a transaction "([^\"]*)"$/ do |title|
   @transaction = Factory.create(:transaction, :title => title)
 end
-
-Given /^I have a (starting )?step "([^\"]*)"$/ do |starting, title|
-  Factory.create :step,
-    :title => title,
-    :start => (starting == 'starting ')
-end
-
-Given /^I have a (starting )?step "([^\"]*)" in "([^\"]*)"$/ do |starting, title, definition|
-  Factory.create :step,
-    :title => title,
-    :start => (starting == 'starting '),
-    :definition => Definition.find_by_title!(definition)
-end
-
 
 Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)" for step "([^\"]*)"$/ do |direction,title,step|
   m = Factory.create(:message, :title => title, :step => Step.find_by_title(step))
@@ -78,29 +37,10 @@ When /^I confirm a js popup on the next step$/ do
   page.evaluate_script("window.confirm = function(msg) { return true; }")
 end
 
-
-Given /^definition "([^"]*)" has roles titled (.+)$/ do |definition, titles|
-  #pending # express the regexp above with the code you wish you had
-  definition = Definition.find_by_title!(definition)
-  titles.split(', ').each do |title|
-    definition.roles.create!(:title => title)
-  end
+Given /^I am a communicator$/ do
+  pending # express the regexp above with the code you wish you had
 end
 
-When /^I check step permission "([^"]*)"$/ do |role|
-  When %[I check "#{role}" within "#step_permission_roles_input"]
+Given /^the "([^"]*)" example$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
 end
-
-# When /^I create a step Melding with role Consulent$/ do
-#   visit definition_steps_path(@definition)
-#   click_link "New Step"
-#   fill_in "Titel", :with => "Uber Coole Stap"
-#   check "Consulent"
-#   click_button "Maak Stap"
-# end
-
-
-Then /^Melding should be in the Consulent role$/ do
-  # pending # express the regexp above with the code you wish you had
-end
-

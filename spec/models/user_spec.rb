@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe User do
-
   describe "with minimal attributes" do
     subject do
       User.create \

@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base  
   USER_TYPES = %w[ registered communicator maintainer ].collect &:to_s
   
   # Include default devise modules. Others available are:
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     logger.warn 'static_user_type is deprecated user User#user_type instead.'
     user_type
   end
-  
+
   USER_TYPES.each do |user_type|
     self.class_eval <<-RUBY
       def #{user_type}?
@@ -25,5 +25,4 @@ class User < ActiveRecord::Base
       end
     RUBY
   end
-  
 end
