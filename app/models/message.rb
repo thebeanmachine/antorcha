@@ -27,6 +27,8 @@ class Message < ActiveRecord::Base
   
   named_scope :inbox, :conditions => {:incoming => true}
   named_scope :outbox, :conditions => {:incoming => false}
+  named_scope :read, :conditions => {:shown_at => !nil}
+  named_scope :unread, :conditions => {:shown_at => nil}
   named_scope :with_definition, lambda{|definition| {:joins => :step, :conditions => { :steps => {:definition_id => definition}}} }
   
   delegate :definition, :to => :step
@@ -36,6 +38,11 @@ class Message < ActiveRecord::Base
   after_create :format_title
   before_validation :take_over_transaction_from_request
   
+  def self.show message_id
+    message = find(message_id)
+    message.shown!
+    message
+  end
   
   def replyable?
     incoming? and step.replyable?

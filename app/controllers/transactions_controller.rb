@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+
   # GET /transactions
   # GET /transactions.xml
   def index
