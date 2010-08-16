@@ -50,43 +50,6 @@
 				<%= yield %>
 			</div>
 			<div id="sidebar">
-				
-				<% if Rails.env.development? %>
-					<div class="devnav">
-	      		<% if false %>
-						<div id="user">
-				       <p>communicator
-						      <% %w[maintainer communicator advisor].each do |user_session| %>
-						        <% if current_user.roles.include? user_session.to_sym %>
-						          <%= button_to "Give up #{user_session} type", user_session_path(:id => user_session), :method => :delete %>
-						        <% else %>          
-						          <%= button_to "Act as #{user_session} type", user_session_path(:id => user_session), :method => :put %>
-						        <% end %>
-						      <% end %>
-						    </p>
-				    </div>
-						<% end %>
-					
-						<% if current_user %>
-							<% if current_user.roles.include? "maintainer".to_sym %>
-								<ul class="menu">
-						      <% 
-									new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :destroy, Transaction
-									[
-						        link_to_transactions, link_to_messages,
-						        link_to_definitions, link_to_steps,
-						        link_to_workers, link_to_reactions, new_transaction_link
-						      ].compact.each do |link|
-								  %>
-										<li>
-											<%= link %>
-										</li>
-									<% end %>
-						   	</ul>
-							<% end %>
-						<% end %>
-					</div>
-				<% end %>
 		 		<%= yield(:sidebar) %>
 			</div>
 	  </div>

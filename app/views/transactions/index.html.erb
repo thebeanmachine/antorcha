@@ -8,7 +8,7 @@
 <ul>
 <% @transactions.each do |transaction| %>
   <li>
-    <%= link_to_transaction transaction %> follows definition <%= link_to_definition transaction.definition %>
+    <%= link_to_transaction transaction %> follows definition <%=h transaction.definition.title %>
   </li>
 <% end %>
 </ul>
