@@ -3,7 +3,6 @@ require 'spec_helper'
 describe TransactionInitiationsController do
   
   before(:each) do
-    pending
      sign_in_user
    end
   

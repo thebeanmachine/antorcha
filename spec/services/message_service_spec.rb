@@ -3,15 +3,16 @@ require 'action_web_service/test_invoke'
 
 describe MessageService, "soap service" do
   
-  
   before(:each) do
-    @controller = SoapController.new
-    @request = ActionController::TestRequest.new
-    @response = ActionController::TestResponse.new
+    stub_authenticated_soap_service
+
+    @service = MessageService.new @controller
+    MessageService.stub :new => @service
+    
   end
 
   def valid_token
-    Api::Token.new(:username => 'aap', :password => 'noot')
+    Api::Token.new(:username => 'aap', :password => 'nootjes')
   end
 
   def invalid_token

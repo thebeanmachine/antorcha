@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    return unless user
+    
     if user.static_user_type == :maintainer
       can :manage, Organization
       can :manage, Worker
@@ -19,9 +21,9 @@ class Ability
       can :send, Message
       can :create, Message
       can :examine, Message
-      
+    
       can :cancel, Transaction
-      
+    
       cannot :create, Role
       cannot :update, Role
       cannot :manage, [Definition, Step]

@@ -170,5 +170,21 @@ module AntorchaHelper
   def should_render_partial name
     template.should_receive(:render).with(hash_including(:partial => name))
   end
+  
+  
+  def stub_authenticated_soap_service
+    @controller = SoapController.new
+    @request = ActionController::TestRequest.new
+    @response = ActionController::TestResponse.new
+    
+    User.create! \
+      :username => 'aap', :email => 'aap@example.com',
+      :password => 'nootjes', :password_confirmation => 'nootjes'
+
+    @warden = mock('warden')
+    @controller.stub :warden => @warden
+    @warden.stub :set_user => nil
+  end
+  
 end
 

@@ -1,8 +1,6 @@
-class MessageService < ActionWebService::Base  
+class MessageService < AuthenticatedService
   web_service_api MessageAPI
 
-  before_invocation :check_token
-  
   def index_inbox token
     Message.inbox
   end
@@ -41,15 +39,4 @@ class MessageService < ActionWebService::Base
     message.save
     message
   end
-
-private
-
-  def check_token method_name, args
-    token = args[0]
-    return [false, "No token specified"] unless token
-    unless token.username == 'aap' and token.password == 'noot'
-      return [false, "Access denied"]
-    end
-  end
-
 end

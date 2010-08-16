@@ -24,7 +24,7 @@ describe MessageDeliveriesController do
 
     describe "as anonymous" do
       it "should flash 'access denied'" do
-        pending
+        pending "TODO, no auth yet"
         stub_create
         post_create
         flash[:error].should =~ /You are not authorized to access this page/
@@ -33,7 +33,6 @@ describe MessageDeliveriesController do
 
     describe "as communicator" do
       before(:each) do
-        pending
         act_as :communicator
       end
       
