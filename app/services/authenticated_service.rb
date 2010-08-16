@@ -14,6 +14,14 @@ private
   def url_for *options
     @controller.url_for *options
   end
+  
+  def authorize! *args
+    raise StandardError, "Authorization failed: Can not #{args.collect(&:to_s).join(', ')}" unless @controller.can? *args
+  end
+
+  def can? *args
+    @controller.can? *args
+  end
 
   def check_token method_name, args
     token = args[0]
@@ -25,4 +33,7 @@ private
       return [false, "Access denied"]
     end
   end
+  
+  
+  
 end

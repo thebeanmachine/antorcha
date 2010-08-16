@@ -1,7 +1,17 @@
 require 'spec_helper'
 require 'action_web_service/test_invoke'
+require 'devise/test_helpers'
 
 describe MessageService, "soap service" do
+  
+  def stub_can what, where = anything()
+    @service.stub(:can?).with(what, where).and_return(false)
+  end
+
+  def stub_cannot what, where = anything()
+    @service.stub(:can?).with(what, where).and_return(false)
+  end
+
   
   before(:each) do
     stub_authenticated_soap_service
@@ -9,6 +19,8 @@ describe MessageService, "soap service" do
     @service = MessageService.new @controller
     MessageService.stub :new => @service
     
+    @service.stub :authorize! => nil
+    @service.stub :can? => true
   end
 
   def valid_token
@@ -28,7 +40,7 @@ describe MessageService, "soap service" do
   end
 
   def example_messages
-    @example_messages ||= [Message.new(:title => 'aap'), Message.new(:title => 'noot')]
+    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies'), Message.new(:title => 'noot', :body => 'bok')]
   end
   
   def example_api_messages
@@ -66,6 +78,12 @@ describe MessageService, "soap service" do
     it "should not be permitted with an invalid token" do
       lambda { invoke_layered :message, :index, invalid_token }.should deny_access
     end
+    
+    it "should scrub the body if user is not permitted to :examine any message" do
+      stub_cannot :examine
+      r = invoke_layered :message, :index, valid_token
+      r.collect(&:body).should == [nil,nil]
+    end
   end
 
   describe "showing a message" do
@@ -87,7 +105,11 @@ describe MessageService, "soap service" do
       r.should == example_api_message
     end
     
-    it "should scrub the body if user is not permitted to :examine the message (maybe this should be done in Message#show)"
+    it "should scrub the body if user is not permitted to :examine the message" do
+      stub_cannot :examine, example_message
+      r = invoke_layered :message, :show, valid_token, 37
+      r.body.should == nil
+    end
   end
   
   describe "updating a message" do

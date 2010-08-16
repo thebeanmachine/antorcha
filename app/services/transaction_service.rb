@@ -5,6 +5,8 @@ class TransactionService < AuthenticatedService
   #def show token, transaction_id
   #end
   
+  before_invocation :can_invoke?
+  
   def initiate token, api_step
     begin
       @step = Step.find(api_step.id)
@@ -21,6 +23,12 @@ class TransactionService < AuthenticatedService
   #end
   
 private
+
+
+  def can_invoke? method_name, args
+    authorize! :create, Transaction
+  end
+
 
   class TransactionServiceError < StandardError
   end

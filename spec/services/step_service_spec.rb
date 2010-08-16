@@ -5,6 +5,11 @@ describe StepService, "soap service" do
   
   before(:each) do
     stub_authenticated_soap_service
+    
+    @service = StepService.new @controller
+    StepService.stub :new => @service
+
+    @service.stub :authorize! => nil
   end
 
   def valid_token
