@@ -9,18 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100816085159) do
+ActiveRecord::Schema.define(:version => 20100816131757) do
 
   create_table "castables", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "definitions", :force => true do |t|
-    t.string   "title",      :null => false
-    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,13 +41,6 @@ ActiveRecord::Schema.define(:version => 20100816085159) do
     t.datetime "updated_at"
   end
 
-  create_table "fulfills", :force => true do |t|
-    t.integer  "organization_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "messages", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -66,52 +52,6 @@ ActiveRecord::Schema.define(:version => 20100816085159) do
     t.datetime "shown_at"
     t.integer  "transaction_id"
     t.integer  "request_id"
-  end
-
-  create_table "organizations", :force => true do |t|
-    t.string   "title"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "permissions", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "step_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "reactions", :force => true do |t|
-    t.integer  "cause_id",   :null => false
-    t.integer  "effect_id",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "reactions", ["cause_id", "effect_id"], :name => "index_reactions_on_cause_id_and_effect_id", :unique => true
-
-  create_table "recipients", :force => true do |t|
-    t.integer  "step_id"
-    t.integer  "organization_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "definition_id"
-  end
-
-  create_table "steps", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "start"
-    t.string   "name",                         :null => false
-    t.integer  "definition_id", :default => 1, :null => false
   end
 
   create_table "transactions", :force => true do |t|

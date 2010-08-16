@@ -75,8 +75,7 @@
 								new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :destroy, Transaction
 								[
 					        link_to_transactions, link_to_messages,
-					        link_to_definitions, link_to_steps,
-					        link_to_workers, link_to_reactions, new_transaction_link
+					        link_to_workers, new_transaction_link
 					      ].compact.each do |link|
 							  %>
 									<li>

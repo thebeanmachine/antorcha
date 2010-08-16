@@ -5,7 +5,7 @@
 <p class="intro">
   Volgt definitie 
 	<% if can? :show, @transaction.definition %>
-		<%=link_to_definition @transaction.definition %>
+		<%=h(@transaction.definition.title) %>
 	<% else %>
 		<%=@transaction.definition.title%>
 	<% end %>
