@@ -12,4 +12,5 @@ class MessageAPI < ActionWebService::API::Base
   api_method :index_unread, :expects => [Api::Token], :returns => [[Api::Message]]
   api_method :delete, :expects => [Api::Token, :int], :returns => [Api::Message]
   api_method :deliver, :expects => [Api::Token, :int], :returns => [Api::Message]
+  api_method :reply, :expects => [Api::Token, Api::Message], :returns => [Api::Message]
 end
