@@ -45,13 +45,16 @@ module AntorchaHelper
   end
   
   
-  def sign_in_user
-    @user = sign_in User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
-    @user.stub(:static_user_type).and_return(:communicator)
+  def sign_in_user type = 'communicator'
+    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user.update_attribute :user_type, type.to_s
+
+    sign_in @user
   end
   
   def act_as who
-    session[:user] = [who]
+    raise "THIS HELPER IS DEPRECATED"
+    # session[:user] = [who]
     # session[:user] = sign_in_user.id
   end
 
@@ -170,5 +173,21 @@ module AntorchaHelper
   def should_render_partial name
     template.should_receive(:render).with(hash_including(:partial => name))
   end
+  
+  
+  def stub_authenticated_soap_service
+    @controller = SoapController.new
+    @request = ActionController::TestRequest.new
+    @response = ActionController::TestResponse.new
+    
+    User.create! \
+      :username => 'aap', :email => 'aap@example.com',
+      :password => 'nootjes', :password_confirmation => 'nootjes'
+
+    @warden = mock('warden')
+    @controller.stub :warden => @warden
+    @warden.stub :set_user => nil
+  end
+  
 end
 

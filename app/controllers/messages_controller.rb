@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+
   def index    
     @search = Message.search(params[:search])
     @messages = @search.all
@@ -6,8 +7,7 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.find(params[:id])
-    @message.shown!
+    @message = Message.show(params[:id])
     
     respond_to do |format|
       format.html

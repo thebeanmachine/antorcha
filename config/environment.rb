@@ -12,7 +12,7 @@ Rails::Initializer.run do |config|
   # -- all .rb files in that directory are automatically loaded.
 
   # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/app/soap )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "bj"
@@ -25,6 +25,8 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
   config.gem 'fortify', :source => 'http://gemcutter.org'
+  config.gem 'datanoise-actionwebservice', :lib => 'actionwebservice', :version => '2.3.2'
+  #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'devise', :version => '1.0.6'
 
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
