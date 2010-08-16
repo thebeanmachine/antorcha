@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :castables
+
+  map.devise_for :users
+
   map.resources :organizations
 
   map.resources :reactions

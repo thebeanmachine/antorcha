@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe MessagesController do
 
+  before(:each) do
+    sign_in_user
+  end
+
   describe "GET index" do
     def stub_index
       Message.stub(:search => mock_search)

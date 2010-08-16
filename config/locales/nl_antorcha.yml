@@ -26,6 +26,14 @@ nl:
   new: "Nieuw"
   edit: "Bewerken"
   show: "Tonen"
+  devise:
+    sessions:
+      user:
+        unauthenticated: "U dient eerst in te loggen."
+        invalid: "Ongeldige gebruikersnaam en/of wachtwoord"
+      link: "Inloggen"
+    registrations:
+      link: "Registreren"
       
   formtastic:
     labels:
@@ -74,12 +82,16 @@ nl:
       reaction:
         one: Reactie
         other: Reacties
+      registration:
+        other: Gebruikers
       role:
         one: Rol
         other: Rollen
       organization:
         one: Organisatie
         other: Organisaties
+      session:
+        other: Sessie
     
     attributes:
       transaction:
@@ -104,5 +116,44 @@ nl:
         title: Titel
         url: Bestemming
         roles: Rollen
-        
+
+        nl:
+          errors:
+            messages:
+              not_found: "Gebruiker niet gevonden"
+              already_confirmed: "Gebruiker is reeds bevestigd"
+              not_locked: "Deze account is niet gesloten"
+
+  devise:
+    failure:
+      unauthenticated: 'U dient in te loggen of in te schrijven.'
+      unconfirmed: 'U dient eerst uw account te bevestigen.'
+      locked: 'Uw account is gelocked.'
+      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid_token: 'Invalide authenticiteit token.'
+      timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
+      inactive: 'Uw account is nog niet geactiveerd.'
+    sessions:
+      signed_in: 'U bent succesvol ingelogd.'
+      signed_out: 'U bent succesvol uitgelogd.'
+    passwords:
+      send_instructions: 'U ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
+      updated: 'Uw wachtwoord is gewijzigd. U bent nu ingelogd.'
+    confirmations:
+      send_instructions: 'U ontvangt via e-mail instructies hoe u uw account kan bevestigen.'
+      confirmed: 'Uw account is bevestigd.'
+    registrations:
+      signed_up: 'U bent inschreven.'
+      updated: 'Uw accountgegevens zijn opgeslagen.'
+      destroyed: 'Uw account is verwijderd, wellicht tot ziens!'
+    unlocks:
+      send_instructions: 'U ontvangt via e-mail instructies hoe u uw account kan ontgrendelen.'
+      unlocked: 'Uw account is ontgrendeld. U kunt nu weer inloggen.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Bevestiging'
+      reset_password_instructions:
+        subject: 'Wachtwoord resetten'
+      unlock_instructions:
+        subject: 'Ontgrendel instructies'
         

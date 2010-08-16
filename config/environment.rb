@@ -25,6 +25,8 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
   config.gem 'fortify', :source => 'http://gemcutter.org'
+  config.gem 'devise', :version => '1.0.6'
+
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'formtastic', :lib => 'formtastic', :version => '0.9.10'
   

@@ -1,0 +1,38 @@
+<h1>Stap: <%=h @step.title %></h1>
+<% breadcrumb [@definition], @step %>
+
+
+<% if @step.causes %>
+  <p>
+    <% @step.causes.each do |cause| %>
+      Deze stap heeft als oorzaak <%= link_to_step cause %>.
+    <% end %>
+  </p>
+<% end %>
+
+<% if @step.roles %>
+  <h2>Toegankelijk voor ROL(LEN):</h2>
+  <ul>
+    <% @step.roles.each do |role| %>
+      <li><%= role.title %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @step.organizations %>
+  <h2>Verstuur bericht naar ORGANISATIE(s):</h2>
+  <ul>
+    <% @step.organizations.each do |organization| %>
+      <li>
+				<%# link_to_role organization %>
+				<%= organization.title %>
+			</li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<div class="actions">
+  <%= link_to_edit_step @step %> of
+  <%= button_to_destroy_step @step %>
+</div>

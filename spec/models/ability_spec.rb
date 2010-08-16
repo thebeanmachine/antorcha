@@ -3,6 +3,10 @@ require "cancan/matchers"
 
 describe Ability, "of users in antorcha to:" do
   
+  before(:each) do
+    pending "should we use static user types??"
+  end
+    
   def self.all_roles
     [:communicator, :maintainer, :advisor, :anonymous]
   end
