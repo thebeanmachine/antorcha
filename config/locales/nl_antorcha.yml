@@ -1,7 +1,3 @@
-
-
-
----
 nl:
   message:
     status:
@@ -26,6 +22,7 @@ nl:
   new: "Nieuw"
   edit: "Bewerken"
   show: "Tonen"
+  create: "Maken"
   devise:
     sessions:
       user:
@@ -136,6 +133,9 @@ nl:
     sessions:
       signed_in: 'U bent succesvol ingelogd.'
       signed_out: 'U bent succesvol uitgelogd.'
+      unauthenticated: 'U dient in te loggen of in te schrijven.'
+      unconfirmed: 'U dient eerst uw account te bevestigen.'
+      link: 'Inloggen'
     passwords:
       send_instructions: 'U ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
       updated: 'Uw wachtwoord is gewijzigd. U bent nu ingelogd.'
@@ -146,6 +146,7 @@ nl:
       signed_up: 'U bent inschreven.'
       updated: 'Uw accountgegevens zijn opgeslagen.'
       destroyed: 'Uw account is verwijderd, wellicht tot ziens!'
+      link: 'Registreren'
     unlocks:
       send_instructions: 'U ontvangt via e-mail instructies hoe u uw account kan ontgrendelen.'
       unlocked: 'Uw account is ontgrendeld. U kunt nu weer inloggen.'
