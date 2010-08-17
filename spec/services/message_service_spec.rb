@@ -62,8 +62,6 @@ describe MessageService, "soap service" do
   it "should delete a messages with a given message_id as argument"
   it "should deliver a message with a given message_id as argument"
   it "should reply to a message"
-  it "should log in the user using the token"
-  it "should use cancan to authorize these soap calls"
 
   describe "listing messages" do
     before(:each) do
@@ -129,7 +127,36 @@ describe MessageService, "soap service" do
       m.title.should == 'new title'
       m.body.should == 'new body'
     end
+    
+    it "should check if it can update this message" do
+      Message.stub(:find).with(example_message.id).and_return(example_message)
+      @service.should_receive(:authorize!).with(:update, example_message).and_return(true)
+      invoke_layered :message, :update, valid_token, example_api_message
+    end
   end
+
+  describe "sending (delivering) a message" do
+    before(:each) do
+      example_message.stub :send_deliveries => nil
+    end
+    
+    it "should not be permitted with an invalid token" do
+      lambda { invoke_layered :message, :deliver, invalid_token, nil }.should deny_access
+    end
+    
+    it "should send deliveries" do
+      Message.stub(:find).with(example_message.id).and_return(example_message)
+      example_message.should_receive(:send_deliveries).and_return(nil)
+      invoke_layered :message, :deliver, valid_token, example_api_message
+    end
+    
+    it "should check if it can send this message" do
+      Message.stub(:find).with(example_message.id).and_return(example_message)
+      @service.should_receive(:authorize!).with(:send, example_message).and_return(true)
+      invoke_layered :message, :deliver, valid_token, example_api_message
+    end
+  end
+
 
 end
 
