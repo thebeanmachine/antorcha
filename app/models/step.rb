@@ -9,11 +9,9 @@ class Step < Resource
   
   has_many :messages
   
-  #has_many_siblings :reaction, :cause => :effect
+  delegate :roles, :to => :definition 
 
-  def effects
-    Step.find :all, :from => "/steps/#{to_param}/effects.xml"
-  end
+  #has_many_siblings :reaction, :cause => :effect
 
   #has_many :recipients
   #has_many :recipient_roles, :through => :recipients, :source => :role
@@ -21,25 +19,22 @@ class Step < Resource
   #has_many :permissions
   #has_many :permission_roles, :through => :permissions, :class_name => 'Role', :source => :role
 
+  before_validation :parameterize_title_for_name
+
+
   def self.to_start_with
     Step.find :all, :from => :start
   end
 
-  before_validation :parameterize_title_for_name
-  
-  delegate :roles, :to => :definition 
-  
-  # No premature optimalizations.
-  def destination_organizations
-
-    Organization.all
-    # recipient_roles.all.inject [] do |memo, role|
-    #   memo += role.organizations
-    #   memo.uniq
-    # end
-
+  def effects
+    Step.find :all, :from => "/steps/#{to_param}/effects.xml"
   end
 
+  def destination_organizations
+    Organization.find :all, :from => "/steps/#{to_param}/destination_organizations.xml"
+  end
+
+private
   def parameterize_title_for_name
     self.name = title.parameterize if title
   end    
