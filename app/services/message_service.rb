@@ -1,7 +1,7 @@
 class MessageService < AuthenticatedService
   web_service_api MessageAPI
 
-  before_invocation :can_invoke?
+  before_invocation :load_and_authorize_message
   after_invocation :scrub_returned_messages
 
   def index_inbox token
@@ -20,8 +20,8 @@ class MessageService < AuthenticatedService
     Message.unread
   end
 
-  def delete token, message_id
-    Message.destroy message_id
+  def delete token, api_message
+    Message.destroy api_message.id
   end
 
   def show token, message_id
@@ -32,8 +32,8 @@ class MessageService < AuthenticatedService
     Message.find(api_message.id).replies.build(api_message.attributes)
   end
   
-  def deliver token, message_id
-    Message.find(message_id).send_deliveries
+  def deliver token, api_message
+    Message.find(api_message.id).send_deliveries
   end
   
   def index token
@@ -48,9 +48,16 @@ class MessageService < AuthenticatedService
   end
   
 private
-  def can_invoke? method_name, args
+  def load_and_authorize_message method_name, args
+    @message = Message.find(args[1].id) if args[1].is_a?(Api::Message)
+    authorize! soap_method_to_resource_action(method_name), @message.blank? ? Message : @message
+  end
+
+  def soap_method_to_resource_action method_name
     method_name.to_s =~ /[a-z]+/
-    authorize! $&.to_sym, Message
+    action = $&
+    action = 'send' if action == 'deliver'
+    action.to_sym
   end
 
   def scrub_returned_messages method_name, params, return_value
