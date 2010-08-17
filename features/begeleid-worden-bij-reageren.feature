@@ -5,7 +5,15 @@ Feature: Begeleid worden bij reageren
 
   Scenario: Ik zit in de tweede stap van transactie en wil reageren, ik zie dan niet alle stappen in de transactie
 		Given the VIS2 transaction definition is available
-		And having received a message titled "Stap te antwoorden" based on the first startstep in the VIS2 transaction definition
+		And I have an incoming message "Melding aan VIS2" for step "Melding aan VIS2"
+		And I am logged in as a "communicator"
 		And I am on the messages page
-		When I click "Stap te antwoorden"
+		Then I should see "Berichten"
+		When I follow "Melding aan VIS2"
+		Then I should see "Reageer"
+		When I follow "Reageer"
+		Then I should see "Reactie op melding VIS2" within "label"
+		And I should not see "Melding aan VIS2" within "label"
+		And I should see "Informatieverzoek (gegevens actueel houden)" within "label"
+		And I should not see "Reactie op informatieverzoek" within "label"
   

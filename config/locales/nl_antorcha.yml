@@ -17,7 +17,9 @@ nl:
   messages: "Berichten"
   transactions: "Transacties"
   transaction_initiations: "Transactie starten"
-  
+  titles:
+    steps:
+      index: Stappen
   index: "Overzicht"
   new: "Nieuw"
   edit: "Bewerken"

@@ -48,14 +48,14 @@ describe "/messages/index.html.erb" do
   end
   
   shared_examples_for "message index" do
-    it "renders titles of definitions" do
+    it "renders titles of messages" do
       render
-      response.should have_tag("tr.message>td", /definition title/, 3)
+      response.should have_tag("tr.message>td", /value for title/, 3)
     end
 
     it "links to message show" do
       render
-      response.should have_tag("a[href=?]", message_path(mock_message(:shown)), 2)
+      response.should have_tag("a[href=?]", message_path(mock_message(:shown)), 1)
     end
 
     it "renders a shown message" do

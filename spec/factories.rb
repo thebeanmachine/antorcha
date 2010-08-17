@@ -1,16 +1,6 @@
-
-Factory.define(:definition) do |f|
-  f.sequence(:title) {|n| "Definition #{n}"}
-end
-
-Factory.define(:step) do |f|
-  f.sequence(:title) {|n| "Step #{n}"}
-  f.definition { Factory(:definition) }
-end
-
 Factory.define :transaction  do |f|
   f.sequence(:title) {|n| "Transaction #{n}"}
-  f.definition { Factory(:definition) }
+  f.definition { Definition.find_by_title("VIS2") }
 end
 
 Factory.define :message do |f|
@@ -26,4 +16,11 @@ end
 
 Factory.define :organization do |f|
   f.sequence(:title) {|n| "Organization #{n}"}
+end
+
+Factory.define :user do |f|
+  f.sequence(:username) {|n| "user#{n}"}
+  f.password "asdfasdf"
+  f.password_confirmation "asdfasdf"
+  f.sequence(:email) {|n| "user#{n}@example.com"}
 end
