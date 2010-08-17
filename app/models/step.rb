@@ -23,7 +23,7 @@ class Step < Resource
 
 
   def self.to_start_with
-    Step.find :all, :from => :start
+    Step.find :all #, :from => :start
   end
 
   def effects
