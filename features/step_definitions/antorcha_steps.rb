@@ -6,7 +6,17 @@ def debug(x)
 end
 
 Given /^the VIS(\d+) transaction definition is available$/ do |arg1|
-  #dit is een fixture die extern is geimplementeerd, nl. op http://tankenberg.heroku.com
+  #dit is een fixture die extern is geimplementeerd, nl. op http://tankenberg.heroku.communicator
+end
+
+Given /^I am logged in as a "([^\"]*)"$/ do |user_type|
+  u = Factory.create(:user)
+  u.user_type = user_type
+  u.save
+  visit path_to("the sign in page")
+  fill_in('user_username', :with => u.username)
+  fill_in('user_password', :with => 'asdfasdf')
+  click_button("Inloggen")
 end
 
 
@@ -15,7 +25,7 @@ Given /^I have a transaction "([^\"]*)"$/ do |title|
 end
 
 Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)" for step "([^\"]*)"$/ do |direction,title,step|
-  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step))
+  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step), :transaction => Factory.create(:transaction, :title => "Transaction"))
   m.incoming = (direction == 'incoming')
   m.save
 end

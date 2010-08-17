@@ -13,6 +13,9 @@ module NavigationHelpers
 
     when /the messages page/
       messages_path
+      
+    when /the sign in page/
+      new_user_session_path
 
     when /the "([^\"]+)" (\w+) page/
       self.send("#{$2}_path", $2.classify.constantize.find_by_title!($1))
