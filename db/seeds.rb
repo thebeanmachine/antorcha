@@ -6,84 +6,41 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
-User.create(:username => 'admin', :password => 'thorax', :password_confirmation => 'thorax', :email => "admin@foooo.br")
-User.create(:username => 'henk', :password => 'thorax', :password_confirmation => 'thorax', :email => "henk@foooo.br")
-User.create(:username => 'wim', :password => 'thorax', :password_confirmation => 'thorax', :email => "wim@foooo.br")
-User.create(:username => 'piet', :password => 'thorax', :password_confirmation => 'thorax', :email => "piet@foooo.br")
-User.create(:username => 'bep', :password => 'thorax', :password_confirmation => 'thorax', :email => "bep@foooo.br")
-
-Antorcha.definition 'Huizelijkgeweld' do |geweld|
-
-  geweld.role "Huisarts"
-  geweld.role "Consulent"
+def new_maintainer  
+  p "Een beheeraccount aanmaken"; p
   
-  geweld.step "Melding maken" do |melding|
-    melding.start
-    
-    melding.permits "Consulent"
-    melding.recipients "Huisarts"
-  end
-
-  geweld.step "Dossier toesturen" do |toesturen|
-    toesturen.follows "Melding maken"
-    
-    toesturen.permits "Huisarts"
-    toesturen.recipients "Consulent"
-  end
-
+  print "Voer uw emailadres in : "
+  STDOUT.flush
+  @email = STDIN.gets.chomp
+  
+  print "Voer uw gebruikersnaam in : "
+  STDOUT.flush
+  @username = STDIN.gets.chomp
+  
+  print "Voer uw nieuwe wachtoord in : "
+  STDOUT.flush
+  @password = STDIN.gets.chomp
+  
+  print "Bevestig uw nieuwe wachtwoord : "
+  STDOUT.flush
+  @confirmation = STDIN.gets.chomp  
 end
 
-Antorcha.definition "Adviseren" do |bakkerij|
-
-  bakkerij.role "Therapeut"
-  bakkerij.role "Manager"
-  
-  bakkerij.step "Kneden" do |kneden|
-    kneden.start
-    kneden.permits "Therapeut"
-    kneden.recipients "Therapeut"
-  end
-
-  bakkerij.step "Bakken" do |bakken|
-    bakken.follows "Kneden"
-    bakken.permits "Therapeut"
-    bakken.recipients "Therapeut"
-  end
-  
-  bakkerij.step "Verkoop" do |verkoop|
-    verkoop.follows "Bakken"
-    verkoop.permits "Therapeut"
-    verkoop.recipients "Manager"
+def create_maintainer
+  @maintainer = User.new(:email => @email, :username => @username, :password => @password, :password_confirm => @confirmation)
+  if @maintainer.save
+    @maintainer.update_attribute(:user_type, "maintainer")
+    print "Uw beheerderaccount is succesvol aangemaakt.\n"
+  else    
+    @maintainer.errors.full_messages.each do |error|
+      p error
+    end
+    p; p "[ Beheeraccount niet aangemaakt. Nogmaals proberen a.u.b ]"; p 
+    new_maintainer
   end
 end
 
-
-if Rails.env.production?
-  Antorcha.organization "Huisarts test" do |lokaal|
-    lokaal.destination_url "http://thorax:thorax@jeugdzorg.thebeanmachine.nl/messages"
-  
-
-    lokaal.fulfills "Bakkerij" => [ "Bakker" ]
-    lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg" ]
-
-  end
-
-  Antorcha.organization "Consulent test" do |lokaal|
-    lokaal.destination_url "http://thorax:thorax@zorgaanbieder.thebeanmachine.nl/messages"
-  
-
-    lokaal.fulfills "Bakkerij" => [ "Klant" ]
-    lokaal.fulfills "Huizelijkgeweld" => [ "Zorgaanbieder" ]
-
-  end
-else
-  Antorcha.organization "Lokale machine" do |lokaal|
-    lokaal.destination_url "http://localhost:3000/messages"
-
-
-    lokaal.fulfills "Bakkerij" => [ "Bakker", "Klant"]
-    lokaal.fulfills "Huizelijkgeweld" => [ "Bureau Jeugdzorg", "Zorgaanbieder" ]
-
-  end
+if User.count == 0
+  new_maintainer
+  create_maintainer
 end
-
