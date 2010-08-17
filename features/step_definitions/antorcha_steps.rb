@@ -5,6 +5,10 @@ def debug(x)
   puts "</pre></div>"
 end
 
+Given /^the VIS(\d+) transaction definition is available$/ do |arg1|
+  #dit is een fixture die extern is geimplementeerd, nl. op http://tankenberg.heroku.com
+end
+
 
 Given /^I have a transaction "([^\"]*)"$/ do |title|
   @transaction = Factory.create(:transaction, :title => title)

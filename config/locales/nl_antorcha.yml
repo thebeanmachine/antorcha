@@ -136,6 +136,11 @@ nl:
       unauthenticated: 'U dient in te loggen of in te schrijven.'
       unconfirmed: 'U dient eerst uw account te bevestigen.'
       link: 'Inloggen'
+      user:
+        invalid: 'Ongeldig e-mail of wachtwoord.'
+        invalid_token: 'Invalide authenticiteit token.'
+        timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
+        inactive: 'Uw account is nog niet geactiveerd.'
     passwords:
       send_instructions: 'U ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
       updated: 'Uw wachtwoord is gewijzigd. U bent nu ingelogd.'
