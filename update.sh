@@ -13,6 +13,7 @@ echo -e "\033[1m Done! \033[0m"
 echo
 echo -e "\033[1m Update submodules \033[0m"
 echo
+git submodule init
 git submodule update
 
 echo
