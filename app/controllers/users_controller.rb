@@ -5,7 +5,8 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find params[:id]
-    if @user.update_attribute(:activated, true)
+    if @user.update_attribute(:user_type, "communicator")
+      @user.update_attribute(:activated, true)
       flash[:notice] = "User is activated"
       redirect_to root_path
     else

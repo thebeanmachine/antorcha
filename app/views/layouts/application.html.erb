@@ -30,7 +30,7 @@
 			
 		<div id="navigation">
 			<ul class="menu" id="tabs">
-				<% if current_user.user_type == "maintainer" %>
+				<% if user_signed_in? && current_user.user_type == "maintainer" %>
 					<li><%= link_to "Inactieve gebruikers", users_path %></li>
 				<% end %>
 	      <% 
