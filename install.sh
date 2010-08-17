@@ -54,10 +54,11 @@ echo -e '\E[37;44m'"\033[1m Please go to http://localhost:3000, when the server 
 echo
 
 echo
-echo -e '\E[37;44m'"\033[1m *** Run the server at port 3000 *** \033[0m"
+echo -e '\E[37;44m'"\033[1m *** Restarting the server *** \033[0m"
 echo
 
-RAILS_ENV=production script/server
+# RAILS_ENV=production script/server
+touch tmp/restart.txt
 
 
 
