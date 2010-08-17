@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :user_type, :in => USER_TYPES
   
+  named_scope :inactivated, :conditions => {:activated => false}
+  
   def static_user_type
     logger.warn 'static_user_type is deprecated user User#user_type instead.'
     user_type

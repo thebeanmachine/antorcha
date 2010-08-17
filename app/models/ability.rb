@@ -11,6 +11,7 @@ class Ability
   def permit_maintainer
     default_permissions
 
+    can :manage, User
     can :manage, Organization
     can :manage, Worker
   end
