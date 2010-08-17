@@ -2,7 +2,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :castables
 
   map.devise_for :users
-
   map.resources :workers, :only => [:index, :create, :show, :destroy]
   map.resources :user_sessions, :only => [:update, :destroy]
 
