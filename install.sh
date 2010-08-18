@@ -6,6 +6,7 @@ echo
 
 echo -e "\033[1m Antorcha downloaden \033[0m"
 echo
+ssh-add ./install_key
 git clone git@github.com:thebeanmachine/antorcha.git antorcha
 echo
 echo -e "\033[1m Gereed! \033[0m"
