@@ -12,15 +12,17 @@ describe "/castables/new.html.erb" do
       :user => mock_user,
       :role => mock_role
     )
+    assigns[:roles] = [stub_model(Role, :title => "test")]
+    assigns[:users] = [stub_model(User, :username => "test")]
   end
 
   it "renders new castable form" do
-    pending
+    
     render
 
     response.should have_tag("form[action=?][method=post]", castables_path) do
-      with_tag("input#castable_user[name=?]", "castable[user]")
-      with_tag("input#castable_role[name=?]", "castable[role]")
+      with_tag("select#castable_user_id[name=?]", "castable[user_id]")
+      with_tag("select#castable_role_id[name=?]", "castable[role_id]")
     end
   end
 end

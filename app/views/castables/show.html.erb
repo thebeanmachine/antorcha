@@ -5,7 +5,7 @@
 
 <p>
   <b>Role:</b>
-  <%=h @castable.role.title %>
+  <%= @castable.role.nil? ? "Géén rol toegekend" : @castable.role.title %>
 </p>
 
 
