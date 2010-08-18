@@ -23,10 +23,10 @@ describe MessageDeliveriesController do
       before(:each) do
         sign_in_user :registered
       end
-      it "should flash 'access denied'" do
+      it "should redirect to the registered page'" do
         stub_create
         post_create
-        flash[:error].should =~ /You are not authorized to access this page/
+        response.should redirect_to('/registered.html')
       end
     end
 
