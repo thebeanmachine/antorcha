@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo -e '\E[37;44m'"\033[1m *** Antorcha update script *** \033[0m"
+echo -e '\033[37;44m'"\033[1m *** Antorcha update script *** \033[0m"
 echo
 echo
 
@@ -13,6 +13,7 @@ echo -e "\033[1m Gereed! \033[0m"
 echo
 echo -e "\033[1m Submodules bijwerken \033[0m"
 echo
+git submodule init
 git submodule update
 
 echo
@@ -29,11 +30,11 @@ echo
 echo -e "\033[1m Gereed! \033[0m"
 echo
 
-echo -e '\E[37;44m'"\033[1m *** Antorcha is bijgewerkt! *** \033[0m"
+echo -e '\033[37;44m'"\033[1m *** Antorcha is bijgewerkt! *** \033[0m"
 echo
 
 echo
-echo -e '\E[37;44m'"\033[1m *** Server herstarten *** \033[0m"
+echo -e '\033[37;44m'"\033[1m *** Herstart Passenger *** \033[0m"
 echo
 
 # Onderstaande regel werkt enkel voor Passenger

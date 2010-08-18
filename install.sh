@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo -e '\E[37;44m'"\033[1m *** Antorcha installatie script *** \033[0m"
+echo -e '\033[37;44m'"\033[1m *** Antorcha installatie script *** \033[0m"
 echo
 echo
 
@@ -46,11 +46,11 @@ echo
 echo -e "\033[1m Gereed! \033[0m"
 echo
 
-echo -e '\E[37;44m'"\033[1m *** Antorcha is geinstalleerd! *** \033[0m"
+echo -e '\033[37;44m'"\033[1m *** Antorcha is geinstalleerd! *** \033[0m"
 echo
 
 echo 
-echo -e '\E[37;44m'"\033[1m U dient nu uw webserver dusdanig te configureren. \033[0m"
+echo -e '\033[37;44m'"\033[1m U dient nu uw webserver dusdanig te configureren. \033[0m"
 echo
 
 
