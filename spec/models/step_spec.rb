@@ -2,9 +2,24 @@ require 'spec_helper'
 
 describe Step do
 
-  it "should be tested against olympus"
+  subject {
+    Step.new :id => 37
+  }
 
-  it "should send to a selection of organizations and not to all organizations"
+  it "should get the effects from a step from the subcollection starting steps on olympus" do
+    Step.should_receive(:find).with(:all, :from => :start)
+    Step.to_start_with
+  end
+  
+  it "should get the effects from a step from the subcollection effects on olympus" do
+    Step.should_receive(:find).with(:all, :from => "/steps/37/effects.xml")
+    subject.effects
+  end
+
+  it "should send to a selection of organizations and not to all organizations" do
+    Organization.should_receive(:find).with(:all, :from => "/steps/37/destination_organizations.xml")
+    subject.destination_organizations
+  end
 
   # before(:each) do
   #   @valid_attributes = {
