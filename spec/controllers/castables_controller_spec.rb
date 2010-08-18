@@ -3,18 +3,19 @@ require 'spec_helper'
 describe CastablesController do
 
   before(:each) do
-    sign_in_user
-  end
-
-  def mock_castable(stubs={})
-    @mock_castable ||= mock_model(Castable, stubs)
+    sign_in_user :maintainer
   end
 
   describe "GET index" do
+    
+    def stub_index
+      Castable.stub(:all => mock_castables)
+    end
+    
     it "assigns all castables as @castables" do
-      Castable.stub(:find).with(:all).and_return([mock_castable])
+      stub_index
       get :index
-      assigns[:castables].should == [mock_castable]
+      assigns[:castables].should == mock_castables
     end
   end
 
@@ -46,13 +47,15 @@ describe CastablesController do
 
     describe "with valid params" do
       it "assigns a newly created castable as @castable" do
-        Castable.stub(:new).with({'these' => 'params'}).and_return(mock_castable(:save => true))
+        mock_castable.stub(:save => true)
+        Castable.stub(:new).with({'these' => 'params'}).and_return(mock_castable)
         post :create, :castable => {:these => 'params'}
         assigns[:castable].should equal(mock_castable)
       end
 
       it "redirects to the created castable" do
-        Castable.stub(:new).and_return(mock_castable(:save => true))
+        mock_castable.stub(:save => true)
+        Castable.stub(:new).and_return(mock_castable)
         post :create, :castable => {}
         response.should redirect_to(castable_url(mock_castable))
       end
@@ -60,13 +63,15 @@ describe CastablesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved castable as @castable" do
-        Castable.stub(:new).with({'these' => 'params'}).and_return(mock_castable(:save => false))
+        mock_castable.stub(:save => false)
+        Castable.stub(:new).with({'these' => 'params'}).and_return(mock_castable)
         post :create, :castable => {:these => 'params'}
         assigns[:castable].should equal(mock_castable)
       end
 
       it "re-renders the 'new' template" do
-        Castable.stub(:new).and_return(mock_castable(:save => false))
+        mock_castable.stub(:save => false)
+        Castable.stub(:new).and_return(mock_castable)
         post :create, :castable => {}
         response.should render_template('new')
       end
@@ -84,13 +89,15 @@ describe CastablesController do
       end
 
       it "assigns the requested castable as @castable" do
-        Castable.stub(:find).and_return(mock_castable(:update_attributes => true))
+        mock_castable.stub(:update_attributes => true)
+        Castable.stub(:find).and_return(mock_castable)
         put :update, :id => "1"
         assigns[:castable].should equal(mock_castable)
       end
 
       it "redirects to the castable" do
-        Castable.stub(:find).and_return(mock_castable(:update_attributes => true))
+        mock_castable.stub(:update_attributes => true)
+        Castable.stub(:find).and_return(mock_castable)
         put :update, :id => "1"
         response.should redirect_to(castable_url(mock_castable))
       end
@@ -104,13 +111,15 @@ describe CastablesController do
       end
 
       it "assigns the castable as @castable" do
-        Castable.stub(:find).and_return(mock_castable(:update_attributes => false))
+        mock_castable.stub(:update_attributes => false)
+        Castable.stub(:find).and_return(mock_castable)
         put :update, :id => "1"
         assigns[:castable].should equal(mock_castable)
       end
 
       it "re-renders the 'edit' template" do
-        Castable.stub(:find).and_return(mock_castable(:update_attributes => false))
+        mock_castable.stub(:update_attributes => false)
+        Castable.stub(:find).and_return(mock_castable)
         put :update, :id => "1"
         response.should render_template('edit')
       end
@@ -126,7 +135,8 @@ describe CastablesController do
     end
 
     it "redirects to the castables list" do
-      Castable.stub(:find).and_return(mock_castable(:destroy => true))
+      mock_castable.stub(:destroy => true)
+      Castable.stub(:find).and_return(mock_castable)
       delete :destroy, :id => "1"
       response.should redirect_to(castables_url)
     end
