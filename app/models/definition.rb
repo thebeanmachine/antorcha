@@ -20,4 +20,6 @@ class Definition < Resource
   def parameterize_title_for_name
     self.name = title.parameterize if title
   end
+  
+ 
 end

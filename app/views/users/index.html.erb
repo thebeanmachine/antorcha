@@ -1,5 +1,5 @@
 <ul>
 <% @users.each do |user| %>
-<li><%= user.username %> <%= link_to "activate", user_path(user), :method => :put %></li>
+<li><%= user.username %> <%= button_to "Activeer deze gebruiker", user_path(user), :method => :put %></li>
 <% end %>
 </ul>

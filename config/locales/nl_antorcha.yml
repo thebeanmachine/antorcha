@@ -86,6 +86,9 @@ nl:
         other: Reacties
       registration:
         other: Gebruikers
+      user:
+        one: Gebruiker
+        other: Gebruikers
       role:
         one: Rol
         other: Rollen
