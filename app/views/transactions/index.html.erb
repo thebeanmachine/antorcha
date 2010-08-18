@@ -1,9 +1,12 @@
 <% breadcrumb Transaction %>
-<h1>Listing transactions</h1>
+<h1>Transactie overzicht</h1>
 <p class="intro">
-  Create a new <%=link_to_new_transaction %>.
+  Maak een <%=link_to_new_transaction %>.
 </p>
 
+<% if @filtered_organizations %>
+<h2>met communicatie aan: <%= Array(@filtered_organizations).collect(&:title).join(', ') %></h2>
+<% end %>
 
 <ul>
 <% @transactions.each do |transaction| %>

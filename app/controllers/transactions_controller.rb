@@ -7,6 +7,8 @@ class TransactionsController < ApplicationController
     @transactions = @search.all
     @organizations = Organization.all
 
+    @filtered_organizations = @organizations.find_all {|o| @search.with_organizations.include? o.to_param } if @search.with_organizations
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @transactions }

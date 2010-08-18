@@ -10,17 +10,30 @@ describe TransactionsController do
     before(:each) do
       stub_search mock_transactions
       stub_all mock_organizations
+      mock_search.stub :with_organizations => [mock_organization.to_param]
     end
     
-    it "assigns all transactions as @transactions" do
+    it "assigns searched transactions as @transactions" do
       get :index
       assigns[:transactions].should == mock_transactions
     end
 
-    it "assigns all transactions as @transactions" do
+    it "assigns all organizations as @organizations" do
       get :index
       assigns[:organizations].should == mock_organizations
     end
+
+    it "assigns all filtered organizations as @filtered_organizations" do
+      get :index
+      assigns[:filtered_organizations].should == mock_organizations
+    end
+
+    it "assigns nil to @filtered_organizations if there are none filtered organizations" do
+      mock_search.stub :with_organizations => []
+      get :index
+      assigns[:filtered_organizations].should == []
+    end
+
   end
 
   describe "GET show" do
