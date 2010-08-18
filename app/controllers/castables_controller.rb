@@ -1,4 +1,5 @@
 class CastablesController < ApplicationController
+  load_and_authorize_resource
   # GET /castables
   # GET /castables.xml
   def index
@@ -13,7 +14,7 @@ class CastablesController < ApplicationController
   # GET /castables/1
   # GET /castables/1.xml
   def show
-    @castable = Castable.find(params[:id])
+    # @castable = Castable.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +25,9 @@ class CastablesController < ApplicationController
   # GET /castables/new
   # GET /castables/new.xml
   def new
-    @castable = Castable.new
+    # @castable = Castable.new
+    @users = User.all
+    @roles = Definition.all.map{|d| d.roles}.flatten.uniq # WE should fix this later into the model!  
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +37,15 @@ class CastablesController < ApplicationController
 
   # GET /castables/1/edit
   def edit
-    @castable = Castable.find(params[:id])
+    # @castable = Castable.find(params[:id])
+    @users = User.all
+    @roles = Definition.all.map{|d| d.roles}.flatten.uniq # WE should fix this later into the model!
   end
 
   # POST /castables
   # POST /castables.xml
   def create
-    @castable = Castable.new(params[:castable])
+    # @castable = Castable.new(params[:castable])
 
     respond_to do |format|
       if @castable.save
@@ -56,7 +61,7 @@ class CastablesController < ApplicationController
   # PUT /castables/1
   # PUT /castables/1.xml
   def update
-    @castable = Castable.find(params[:id])
+    # @castable = Castable.find(params[:id])
 
     respond_to do |format|
       if @castable.update_attributes(params[:castable])
@@ -72,7 +77,7 @@ class CastablesController < ApplicationController
   # DELETE /castables/1
   # DELETE /castables/1.xml
   def destroy
-    @castable = Castable.find(params[:id])
+    # @castable = Castable.find(params[:id])
     @castable.destroy
 
     respond_to do |format|

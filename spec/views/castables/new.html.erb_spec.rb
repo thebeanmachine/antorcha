@@ -15,7 +15,7 @@ describe "/castables/new.html.erb" do
   end
 
   it "renders new castable form" do
-    pending
+    
     render
 
     response.should have_tag("form[action=?][method=post]", castables_path) do

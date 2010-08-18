@@ -14,6 +14,7 @@ class Ability
     can :manage, User
     can :manage, Organization
     can :manage, Worker
+    can :manage, Castable
   end
   
   def permit_communicator

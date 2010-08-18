@@ -13,13 +13,19 @@ describe "/castables/edit.html.erb" do
     )
   end
 
-  it "renders the edit castable form" do
-    pending
-    render
-
-    response.should have_tag("form[action=#{castable_path(@castable)}][method=post]") do
-      with_tag('input#castable_user[name=?]', "castable[user]")
-      with_tag('input#castable_role[name=?]', "castable[role]")
-    end
+  it "should display the div" do
+    render :partial => "/castables/form", :locals => { :btn_name => "Update" }  
+    response.should have_tag('div#div-id')  
   end
+
+
+  # it "renders the edit castable form" do
+  #   # pending
+  #   render
+  # 
+  #   # response.should have_tag("form[action=#{castable_path(@castable)}][method=post]") do
+  #   #   with_tag('input#castable_user[name=?]', "castable[user]")
+  #   #   with_tag('input#castable_role[name=?]', "castable[role]")
+  #   # end
+  # end
 end
