@@ -11,11 +11,18 @@ describe "/castables/edit.html.erb" do
       :user => mock_user,
       :role => mock_role
     )
+    assigns[:roles] = [stub_model(Role, :title => "test")]
+    assigns[:users] = [stub_model(User, :username => "test")]
   end
 
-  it "should display the div" do
-    render :partial => "/castables/form", :locals => { :btn_name => "Update" }  
-    response.should have_tag('div#div-id')  
+  it "renders edit castable form" do
+    
+    render
+
+    response.should have_tag("form[action=#{castable_path(@castable)}][method=post]") do
+      with_tag("select#castable_user_id[name=?]", "castable[user_id]")
+      with_tag("select#castable_role_id[name=?]", "castable[role_id]")
+    end
   end
 
 
