@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 clear
 echo -e '\033[37;44m'"\033[1m *** Antorcha update script *** \033[0m"
 echo
