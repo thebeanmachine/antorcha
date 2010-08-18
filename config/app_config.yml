@@ -3,6 +3,10 @@ development:
 
 test:
   olympus_resource: 'http://tankenberg.heroku.com'
+  
+cucumber:
+  olympus_resource: 'http://tankenberg.heroku.com'  
+
 
 
 staging:
@@ -11,5 +15,4 @@ staging:
 production:
   olympus_resource: 'http://olympus.heroku.com'
 
-cucumber:
-  olympus_resource: 'http://tankenberg.heroku.com'
+
