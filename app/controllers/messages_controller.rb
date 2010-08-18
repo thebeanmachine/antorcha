@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
   def index    
     @search = Message.search(params[:search])
-    @messages = @search.all
+    @messages = @search.all(:include => :transaction)
   end
 
   def show

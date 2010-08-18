@@ -11,7 +11,6 @@ describe MessagesController do
       def stub_index
         Message.stub(:search => mock_search)
         mock_search.stub(:all => mock_messages)
-        Step.stub(:to_start_with => mock_steps)
       end
     
       it "uses searchlogic" do
@@ -24,6 +23,12 @@ describe MessagesController do
         stub_index
         get :index
         assigns[:messages].should == mock_messages
+      end
+
+      it "should include transactions" do
+        stub_index
+        mock_search.should_receive(:all).with(hash_including(:include => :transaction)).and_return(mock_messages)
+        get :index
       end
     end
 
