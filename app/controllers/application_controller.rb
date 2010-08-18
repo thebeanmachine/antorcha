@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
   
   #
   # Current user is a user without roles.
