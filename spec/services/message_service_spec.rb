@@ -43,8 +43,40 @@ describe MessageService, "soap service" do
     @example_messages ||= [Message.new(:title => 'aap', :body => 'mies'), Message.new(:title => 'noot', :body => 'bok')]
   end
   
+  def example_inbox_messages
+    [Message.new(:title => 'aap', :body => 'mies', :incoming => true), Message.new(:title => 'aap', :body => 'mies', :incoming => true)]
+  end
+  
+  def example_outbox_messages
+    [Message.new(:title => 'aap', :body => 'mies', :incoming => false), Message.new(:title => 'aap', :body => 'mies', :incoming => false)]
+  end  
+  
+  def example_unread_messages
+    [Message.new(:title => 'aap', :body => 'mies', :shown_at => nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => nil)]
+  end
+  
+  def example_read_messages
+    [Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil)]
+  end
+  
   def example_api_messages
-    @example_api_messages ||= example_messages.map {|x| Api::Message.new(x)}
+    example_messages.map {|x| Api::Message.new(x)}
+  end
+  
+  def example_api_unread_messages
+    example_unread_messages.map {|x| Api::Message.new(x)}
+  end
+  
+  def example_api_read_messages
+    example_read_messages.map {|x| Api::Message.new(x)}
+  end
+  
+  def example_api_inbox_messages
+    example_inbox_messages.map {|x| Api::Message.new(x)}
+  end
+  
+  def example_api_outbox_messages
+    example_outbox_messages.map {|x| Api::Message.new(x)}
   end
   
   def raise_dispatch_error match = nil
@@ -54,23 +86,39 @@ describe MessageService, "soap service" do
   def deny_access
     raise_dispatch_error(/Access denied/)
   end
-  
-  it "should list the messages that are unread"
-  it "should list the messages that already have been read"
-  it "should list the messages that are in the inbox"
-  it "should list the messages that are in the outbox"
-  it "should delete a messages with a given message_id as argument"
-  it "should deliver a message with a given message_id as argument"
-  it "should reply to a message"
 
-  describe "listing messages" do
+  describe "listing messages with different scopes" do
     before(:each) do
       Message.stub(:all).and_return(example_messages)
-    end
+      Message.stub(:unread).and_return(example_unread_messages)
+      Message.stub(:read).and_return(example_read_messages)
+      Message.stub(:inbox).and_return(example_inbox_messages)
+      Message.stub(:outbox).and_return(example_outbox_messages)    
+    end    
 
-    it "should return the list of api messages" do
+    it "should return all messages of api messages" do
       r = invoke_layered :message, :index, valid_token
       r.should == example_api_messages
+    end
+    
+    it "should return the unread messages of api messages" do
+      r = invoke_layered :message, :index_unread, valid_token
+      r.should == example_api_unread_messages
+    end
+    
+    it "should return the read messages of api messages" do
+      r = invoke_layered :message, :index_read, valid_token
+      r.should == example_api_read_messages
+    end
+    
+    it "should return the inbox messages of api messages" do
+      r = invoke_layered :message, :index_inbox, valid_token
+      r.should == example_api_inbox_messages
+    end
+    
+    it "should return the outbox messages of api messages" do
+      r = invoke_layered :message, :index_outbox, valid_token
+      r.should == example_api_outbox_messages
     end
 
     it "should not be permitted with an invalid token" do

@@ -30,6 +30,7 @@ def create_maintainer
   @maintainer = User.new(:email => @email, :username => @username, :password => @password, :password_confirm => @confirmation)
   if @maintainer.save
     @maintainer.update_attribute(:user_type, "maintainer")
+    @maintainer.update_attribute(:activated, true)
     print "Uw beheerderaccount is succesvol aangemaakt.\n"
   else    
     @maintainer.errors.full_messages.each do |error|
@@ -43,4 +44,6 @@ end
 if User.count == 0
   new_maintainer
   create_maintainer
+else
+  p "Er is reeds een beheeraccount"
 end

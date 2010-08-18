@@ -19,8 +19,12 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = exception.message
-    redirect_to root_url
+    if current_user.activated?
+      flash[:error] = exception.message
+      redirect_to messages_path
+    else
+      redirect_to "/registered.html"
+    end
   end
   
 end
