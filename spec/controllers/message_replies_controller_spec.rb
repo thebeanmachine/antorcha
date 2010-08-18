@@ -114,7 +114,7 @@ describe MessageRepliesController do
       it "should render new action" do
         stub_create_action
         post_create
-        should render_template 'new'
+        should render_template('new')
       end
     end
   end

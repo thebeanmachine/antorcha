@@ -26,20 +26,20 @@ describe Ability, "of users in antorcha to:" do
 
   describe "initiation and starting of transactions" do
     ability_of :communicator do
-      specify { should be_able_to :create, Transaction}
+      specify { should be_able_to(:create, Transaction)}
     end
   end
 
     
   describe "cancellation of transactions" do
     ability_of :communicator do
-      specify { should be_able_to :cancel, Transaction}
+      specify { should be_able_to(:cancel, Transaction)}
     end
   end
   
   describe "management of organizations" do
     ability_of :maintainer do
-      specify { should be_able_to :manage, Organization}
+      specify { should be_able_to(:manage, Organization)}
     end
   end
 
