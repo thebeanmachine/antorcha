@@ -20,10 +20,6 @@ class MessageService < AuthenticatedService
     Message.unread
   end
 
-  def delete token, api_message
-    Message.destroy api_message.id
-  end
-
   def show token, message_id
     Message.show(message_id)
   end
