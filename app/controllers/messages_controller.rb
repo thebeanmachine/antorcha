@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   load_and_authorize_resource :except => :create
+  skip_before_filter :authenticate_user!, :only => [:create]
 
   def index    
     @search = Message.search(params[:search])

@@ -6,7 +6,6 @@ describe Step do
     Step.new :id => 37
   }
 
-
   describe "step effects" do
     it "should get the effects from a step from the subcollection effects on olympus" do
       Step.should_receive(:find).with(:all, :from => "/steps/37/effects.xml")
