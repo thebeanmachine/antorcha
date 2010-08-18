@@ -25,7 +25,8 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic', :version => '2.4.19'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
   config.gem 'fortify', :source => 'http://gemcutter.org'
-  config.gem 'datanoise-actionwebservice', :lib => 'actionwebservice', :version => '2.3.2', :source => "http://rubyforge.org/projects/aws"
+  config.gem 'rails', :version => '2.3.2'
+  config.gem 'datanoise-actionwebservice', :lib => 'actionwebservice', :version => '2.3.2', :source => "http://gems.github.com"
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'devise', :version => '1.0.6'
 
