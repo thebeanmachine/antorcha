@@ -75,6 +75,9 @@ nl:
       message:
         one: Bericht
         other: Berichten
+      message_reply:
+        one: Antwoord
+        other: Antwoorden
       worker:
         one: Engine
         other: Engines
