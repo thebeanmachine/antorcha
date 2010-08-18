@@ -6,15 +6,20 @@ describe TransactionsController do
      sign_in_user
    end
 
-  def mock_transaction(stubs={})
-    @mock_transaction ||= mock_model(Transaction, stubs)
-  end
-
   describe "GET index" do
+    before(:each) do
+      stub_search mock_transactions
+      stub_all mock_organizations
+    end
+    
     it "assigns all transactions as @transactions" do
-      Transaction.stub(:find).with(:all).and_return([mock_transaction])
       get :index
-      assigns[:transactions].should == [mock_transaction]
+      assigns[:transactions].should == mock_transactions
+    end
+
+    it "assigns all transactions as @transactions" do
+      get :index
+      assigns[:organizations].should == mock_organizations
     end
   end
 
@@ -59,8 +64,7 @@ describe TransactionsController do
     describe "with valid params" do
       def stub_successful_create
         stub_new(mock_transaction, {'these' => 'params'})
-        stub_successful_save_for(mock_transaction)
-        mock_transaction.stub(:update_uri => true)
+        mock_transaction.stub :save => true, :update_uri => true
       end
       
       def post_create
@@ -87,15 +91,18 @@ describe TransactionsController do
     end
 
     describe "with invalid params" do
+      before(:each) do
+        mock_transaction.stub :save => false
+        stub_new mock_transaction, {'these' => 'params'}
+      end
+      
       it "assigns a newly created but unsaved transaction as @transaction" do
-        Transaction.stub(:new).with({'these' => 'params'}).and_return(mock_transaction(:save => false))
         post :create, :transaction => {:these => 'params'}
         assigns[:transaction].should equal(mock_transaction)
       end
 
       it "re-renders the 'new' template" do
-        Transaction.stub(:new).and_return(mock_transaction(:save => false))
-        post :create, :transaction => {}
+        post :create, :transaction => {:these => 'params'}
         response.should render_template('new')
       end
     end

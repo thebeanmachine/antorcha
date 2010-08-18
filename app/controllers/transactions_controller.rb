@@ -3,7 +3,9 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.xml
   def index
-    @transactions = Transaction.all
+    @search = Transaction.search params[:search]
+    @transactions = @search.all
+    @organizations = Organization.all
 
     respond_to do |format|
       format.html # index.html.erb
