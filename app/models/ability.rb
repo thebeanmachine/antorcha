@@ -13,6 +13,7 @@ class Ability
 
     can :manage, Organization
     can :manage, Worker
+    can :read, Transaction
   end
   
   def permit_communicator
@@ -28,6 +29,6 @@ class Ability
   end
   
   def default_permissions
-    can :read, [Transaction, Message]
+    can :read, [Message]
   end
 end
