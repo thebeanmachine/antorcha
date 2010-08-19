@@ -17,9 +17,9 @@
 			</div>
 			<div id="authentication">
 				<% if user_signed_in? %>
-					<%= link_to "Sign out", destroy_user_session_path %>
+					<%= link_to "Uitloggen", destroy_user_session_path %>
 				<% else %>
-					<%= link_to 'Sign in', new_user_session_path %>
+					<%= link_to 'Inloggen', new_user_session_path %>
 				<% end %>
 			</div>
 		</div>
@@ -30,19 +30,16 @@
 			
 		<div id="navigation">
 			<ul class="menu" id="tabs">
-				<% if user_signed_in? && current_user.user_type == "maintainer" %>
-					<li><%= link_to "Inactieve gebruikers", users_path %></li>
-				<% end %>
-	      <% 
-					new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :create, Transaction
-					[
-		        link_to_messages, link_to_workers, new_transaction_link
-		      ].compact.each do |link|
-			  %>
-					<li>
-						<%= link %>
-					</li>
-				<% end %>
+	    	  <% 
+						new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :create, Transaction
+						[
+			        link_to_messages, link_to_workers, new_transaction_link, link_to_users
+			      ].compact.each do |link|
+						  %>
+							<li>
+								<%= link %>
+							</li>
+					<% end %>
 	   	</ul>
 		</div>
  		
