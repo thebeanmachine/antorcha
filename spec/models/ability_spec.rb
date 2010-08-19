@@ -30,18 +30,13 @@ describe Ability, "of users in antorcha to:" do
     end
   end
 
-    
+
   describe "cancellation of transactions" do
     ability_of :communicator do
       specify { should be_able_to(:cancel, Transaction)}
     end
   end
   
-  describe "management of organizations" do
-    ability_of :maintainer do
-      specify { should be_able_to(:manage, Organization)}
-    end
-  end
 
   describe "the examination of a message" do
     ability_of :communicator do

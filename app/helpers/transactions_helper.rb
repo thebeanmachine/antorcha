@@ -11,7 +11,7 @@ module TransactionsHelper
   
   def button_to_transaction_cancellation transaction, message = nil
     if can? :cancel, Transaction
-      button_to h(t('action.cancel', :model => Transaction.human_name)), transaction_cancellation_path(transaction, :message_id => message ), :method => :post, :confirm => 'Are you sure?'
+      button_to h(t('action.cancel', :model => Transaction.human_name)), transaction_cancellation_path(transaction, :message_id => message ), :method => :post, :confirm => 'Weet u het zeker?'
     end
   end
 end
