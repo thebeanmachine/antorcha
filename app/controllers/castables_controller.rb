@@ -49,7 +49,7 @@ class CastablesController < ApplicationController
 
     respond_to do |format|
       if @castable.save
-        format.html { redirect_to(@castable, :notice => 'Castable was successfully created.') }
+        format.html { redirect_to(@castable, :notice => 'Roltoewijzing aangemaakt') }
         format.xml  { render :xml => @castable, :status => :created, :location => @castable }
       else
         format.html { render :action => "new" }
@@ -65,7 +65,7 @@ class CastablesController < ApplicationController
 
     respond_to do |format|
       if @castable.update_attributes(params[:castable])
-        format.html { redirect_to(@castable, :notice => 'Castable was successfully updated.') }
+        format.html { redirect_to(@castable, :notice => 'Roltoewijzing bijgewerkt') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

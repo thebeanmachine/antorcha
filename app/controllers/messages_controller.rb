@@ -34,7 +34,7 @@ class MessagesController < ApplicationController
 
   def update
     if @message.update_attributes(params[:message])
-      redirect_to(@message, :notice => 'Message was successfully updated.')
+      redirect_to(@message, :notice => 'Bericht is bijgewerkt')
     else
       render :action => "edit"
     end
