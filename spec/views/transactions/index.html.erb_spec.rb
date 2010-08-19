@@ -5,7 +5,7 @@ describe "/transactions/index.html.erb" do
 
   before(:each) do
     
-    sign_in_user
+    sign_in_user :maintainer
     
     assigns[:transactions] = [
       stub_model(Transaction,
@@ -21,6 +21,7 @@ describe "/transactions/index.html.erb" do
     ]
     
     assigns[:search] = mock_search
+    mock_search.stub :id => nil
     
     mock_search.stub :with_organizations => [1,2,3]
     

@@ -59,7 +59,7 @@ module AntorchaHelper
   end
 
   def mock_search
-    @mock_search ||= mock(Searchlogic::Search)
+    @mock_search ||= mock(Searchlogic::Search, :id => nil)
   end
 
   def stub_search mocked_models

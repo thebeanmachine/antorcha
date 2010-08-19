@@ -22,8 +22,8 @@
     <% f.inputs do %>
       <%= f.input :with_organizations, :as => :check_boxes, :collection => Organization.all, :value_method => :to_param %>
     <% end %>
-  	<% f.buttons do %>
-  	  <%= f.commit_button 'Zoek' %>
-  	<% end %>
-	<% end %>
+    <% f.buttons do %>
+      <%= f.commit_button 'Zoek' %>
+    <% end %>
+  <% end %>
 <% end %>
