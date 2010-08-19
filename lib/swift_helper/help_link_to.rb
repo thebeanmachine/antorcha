@@ -27,7 +27,7 @@ module SwiftHelper
           end
           
           def button_to_destroy_#{model}(model)
-            button_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Are you sure?'
+            button_to h(t('action.destroy', :model => '#{model_class.human_name}')), #{model}_path(model), :class => '#{model}', :method => :delete, :confirm => 'Weet u dit zeker?'
           end
          
 

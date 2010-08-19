@@ -1,13 +1,13 @@
 <p>
-  <b>User:</b>
+  <b>Gebruikersnaam:</b>
   <%=h @castable.user.username %>
 </p>
 
 <p>
-  <b>Role:</b>
+  <b>Rol:</b>
   <%= @castable.role.nil? ? "Géén rol toegekend" : @castable.role.title %>
 </p>
 
 
-<%= link_to 'Edit', edit_castable_path(@castable) %> |
-<%= link_to 'Back', castables_path %>
+<%= link_to 'Bewerken', edit_castable_path(@castable) %> |
+<%= link_to 'Terug', castables_path %>
