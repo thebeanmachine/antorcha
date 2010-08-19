@@ -1,6 +1,7 @@
 
 class TransactionCancellationsController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  skip_before_filter :authenticate_user!
   
   def create
     @transaction = Transaction.find_by_uri(params[:transaction_uri]) if params[:transaction_uri]

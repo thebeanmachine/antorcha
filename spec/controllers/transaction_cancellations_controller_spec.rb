@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe TransactionCancellationsController do
   
-  before(:each) do
-    sign_in_user
-  end
-  
   describe "POST create" do
     
     def stub_create_action
