@@ -89,6 +89,9 @@ nl:
       user:
         one: Gebruiker
         other: Gebruikers
+      castable:
+        one: Roltoekenning
+        other: Roltoekenningen
       role:
         one: Rol
         other: Rollen
