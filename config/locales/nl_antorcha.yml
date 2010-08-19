@@ -80,7 +80,7 @@ nl:
         other: Antwoorden
       worker:
         one: Engine
-        other: Engines
+        other: Engine
       reaction:
         one: Reactie
         other: Reacties
