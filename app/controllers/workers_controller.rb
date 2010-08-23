@@ -1,5 +1,7 @@
 class WorkersController < ApplicationController
-
+  
+  load_and_authorize_resource
+  
   def index
     @workers = Worker.all
   end
