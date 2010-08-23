@@ -31,7 +31,7 @@ describe TransactionCancellationsController do
 
     describe "cancellation on cancelled transaction" do
       before(:each) do
-        mock_transaction.stub :cancel_and_cascade_cancellations => true
+        mock_transaction.stub :cancel_and_cascade_cancellations => false
       end
       
       it "should flash already cancelled" do
@@ -43,7 +43,7 @@ describe TransactionCancellationsController do
 
     describe "uncancelled" do
       before(:each) do
-        mock_transaction.stub :cancel_and_cascade_cancellations => false
+        mock_transaction.stub :cancel_and_cascade_cancellations => true
       end
 
       it "should find transaction by uri and redirect to it" do

@@ -13,7 +13,7 @@ class TransactionCancellationsController < ApplicationController
       @transaction = Transaction.find_by_uri(params[:transaction_uri]) if params[:transaction_uri]
     end
 
-    unless @transaction.cancel_and_cascade_cancellations
+    if @transaction.cancel_and_cascade_cancellations
       flash[:notice] = "De transactie wordt geannuleerd"
     else
       flash[:notice] = "De transactie was al geannuleerd"
