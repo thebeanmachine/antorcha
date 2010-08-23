@@ -2,13 +2,15 @@ require 'spec_helper'
 
 describe TransactionCancellationsController do
   
+  it "should authenticate the other antorcha by oauth or other means."
+  
   describe "POST create" do
     
     def stub_create_action
+      sign_in_user
+      
       stub_find mock_transaction
       stub_find_by mock_transaction, :uri => 'http://example.com/transactions'
-
-      mock_transaction.stub :cancelled! => nil
 
       Delayed::Job.stub :enqueue => nil
       stub_new_transaction_cancellation_job
@@ -29,14 +31,9 @@ describe TransactionCancellationsController do
 
     describe "cancellation on cancelled transaction" do
       before(:each) do
-        mock_transaction.stub :cancelled? => true
+        mock_transaction.stub :cancel_and_cascade_cancellations => true
       end
       
-      it "should be idempotent" do
-        stub_create_action
-        post_create_with_uri
-        mock_transaction.should_not_receive :cancelled!
-      end
       it "should flash already cancelled" do
         stub_create_action
         post_create_with_uri
@@ -46,7 +43,7 @@ describe TransactionCancellationsController do
 
     describe "uncancelled" do
       before(:each) do
-        mock_transaction.stub :cancelled? => false
+        mock_transaction.stub :cancel_and_cascade_cancellations => false
       end
 
       it "should find transaction by uri and redirect to it" do
@@ -61,23 +58,12 @@ describe TransactionCancellationsController do
         response.should redirect_to(transaction_path(mock_transaction))
       end
 
-      it "should flag transaction as cancelled" do
-        stub_create_action
-        mock_transaction.should_receive(:cancelled!)
-        post_create_with_id
-      end
-
       it "should flash cancellation" do
         stub_create_action
         post_create_with_id
-        flash[:notice].should =~ /De transactie is geannuleerd/
+        flash[:notice].should =~ /De transactie wordt geannuleerd/
       end
     
-      it "should create a cancellation job to cascade cancellation over the network" do
-        stub_create_action
-        Delayed::Job.should_receive(:enqueue).with(mock_transaction_cancellation_job)
-        post_create_with_id
-      end
     end
   end
 end

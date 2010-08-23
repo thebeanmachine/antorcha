@@ -8,7 +8,9 @@ class Delivery < ActiveRecord::Base
   
   after_save :deliver
   
-  delegate :url, :to => :organization
+  def url
+    organization.delivery_url
+  end
   
   def deliver
     Delayed::Job.enqueue MessageDeliveryJob.new(id)

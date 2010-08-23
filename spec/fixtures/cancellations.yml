@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  transaction: 
+  organization: 
+  cancelled_at: 2010-08-19 15:53:40
+
+two:
+  transaction: 
+  organization: 
+  cancelled_at: 2010-08-19 15:53:40

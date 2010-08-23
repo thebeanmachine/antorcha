@@ -2,7 +2,10 @@
 
 module AntorchaHelper
   
-  %w[step message definition transaction reaction role organization delivery user castable].each do |model|
+  %w[
+    step message definition transaction reaction role
+    organization delivery user castable cancellation
+  ].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default
         @mock_#{model} ||= {}

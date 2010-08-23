@@ -4,6 +4,19 @@ describe Organization do
 
   it "should be specced against olympus"
 
+  describe "resource location" do
+    subject do
+      Organization.new :url => 'http://example.com/messages'
+    end
+
+    it "should format the delivery url" do
+      subject.delivery_url.should == 'http://example.com/messages'
+    end
+    it "should format the cancellation url" do
+      subject.cancellation_url.should == 'http://example.com/transactions/cancellations'
+    end
+  end
+
   # before(:each) do
   #   @valid_attributes = {
   #     :title => "value for title",

@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100817094200) do
+ActiveRecord::Schema.define(:version => 20100819135340) do
+
+  create_table "cancellations", :force => true do |t|
+    t.integer  "transaction_id",  :null => false
+    t.integer  "organization_id", :null => false
+    t.datetime "cancelled_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "castables", :force => true do |t|
     t.integer  "user_id"
