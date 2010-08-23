@@ -81,7 +81,5 @@ after "deploy:setup","rails:gems:rails"
 after "deploy:update_code","database:symlink"
 after "deploy:update_code","rails:gems:install"
 
-after "deploy:migrate","rails:db:seed"
-
 after "deploy:restart", "delayed_job:stop"
 
