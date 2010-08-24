@@ -4,7 +4,7 @@ describe "/transactions/index.html.erb" do
   include TransactionsHelper
 
   before(:each) do
-    sign_in_user :communicator
+    sign_in_user :maintainer
     
     assigns[:transactions] = [
       stub_model(Transaction,
@@ -23,8 +23,9 @@ describe "/transactions/index.html.erb" do
     template.stub(:admin_signed_in? => true)
   end
 
+  it "YOU SHOULDN'T TURN OFF SPECS BECAUSE OF A QUESTION (pending 'Is dit wel nodig?' of 'is ongeldig?')"
+
   it "renders a list of transactions" do
-    pending "Is dit wel nodig?"
     render
     response.should have_tag("ul li a", "value for title".to_s, 2)
   end
