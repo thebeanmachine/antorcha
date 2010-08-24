@@ -7,7 +7,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 def new_maintainer  
-  p "Een beheeraccount aanmaken"; p
+  puts "Een beheeraccount aanmaken"; p
   
   print "Voer uw emailadres in : "
   STDOUT.flush
@@ -41,9 +41,9 @@ def create_maintainer
   end
 end
 
-if User.count == 0
+if User.maintainers.count == 0
   new_maintainer
   create_maintainer
 else
-  p "Er is reeds een beheeraccount"
+  puts "Er is reeds een beheeraccount"
 end

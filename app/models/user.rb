@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   USER_TYPES.each do |user_type|
     self.class_eval <<-RUBY
+      named_scope :#{user_type.pluralize}, :conditions => {:user_type => '#{user_type}'}
+    
       def #{user_type}?
         read_attribute(:user_type) == '#{user_type}'
       end
