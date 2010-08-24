@@ -54,11 +54,8 @@ class Message < ActiveRecord::Base
     incoming? and step.replyable?
   end
 
-  #
-  # should get more complex, add role filter here.
-  #
-  def effect_steps
-    step.effects
+  def effect_steps options = {}
+    step.effects options
   end
   
   delegate :destination_organizations, :to => :step

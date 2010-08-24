@@ -24,7 +24,7 @@ private
     @origin = Message.find(params[:message_id])
     authorize! :show, @origin
 
-    @steps = @origin.effect_steps
+    @steps = @origin.effect_steps :user => current_user
   end
 
 end

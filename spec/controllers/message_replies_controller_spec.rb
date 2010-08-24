@@ -36,6 +36,13 @@ describe MessageRepliesController do
       assigns[:steps].should == mock_steps
     end
 
+    it "should call effect steps with the current_user" do
+      stub_new_action
+      mock_message(:origin).should_receive(:effect_steps).with(hash_including(:user => controller.current_user))
+      get_new
+      assigns[:steps].should == mock_steps
+    end
+
     it "should call effect steps of the origin step to @steps" do
       stub_new_action
       mock_message(:origin).should_receive(:effect_steps)
