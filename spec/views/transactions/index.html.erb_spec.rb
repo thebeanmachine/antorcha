@@ -23,8 +23,6 @@ describe "/transactions/index.html.erb" do
     template.stub(:admin_signed_in? => true)
   end
 
-  it "YOU SHOULDN'T TURN OFF SPECS BECAUSE OF A QUESTION (pending 'Is dit wel nodig?' of 'is ongeldig?')"
-
   it "renders a list of transactions" do
     render
     response.should have_tag("ul li a", "value for title".to_s, 2)

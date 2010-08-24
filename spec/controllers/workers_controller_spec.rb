@@ -34,10 +34,6 @@ describe WorkersController do
   
   describe "DELETE destroy" do
     
-    before(:each) do    
-      pending "is ongeldig????"
-    end
-    
     def stub_destroy_action
       Worker.stub :all => mock_workers
       mock_worker.stub :to_param => 'aap', :stop => nil
@@ -46,8 +42,7 @@ describe WorkersController do
     def delete_destroy id = 'aap'
       delete :destroy, :id => id
     end
-    
-    
+      
     
     it "should stop the matching worker" do     
       stub_destroy_action
