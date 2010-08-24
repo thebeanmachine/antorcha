@@ -44,7 +44,7 @@ describe "/messages/index.html.erb" do
     mock_definition.stub :title => 'definition title'
     
     
-    assigns[:steps_to_start_with] = []
+    assigns[:steps_starting_steps] = []
   end
   
   shared_examples_for "message index" do

@@ -22,7 +22,7 @@ class Step < Resource
   before_validation :parameterize_title_for_name
 
 
-  def self.to_start_with
+  def self.starting_steps
     Step.find :all, :from => :start
   end
 

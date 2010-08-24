@@ -24,11 +24,11 @@ describe Step do
   describe "starting steps" do
     it "should send query to the correct url" do
       Step.should_receive(:find).with(:all, :from => :start)
-      Step.to_start_with
+      Step.starting_steps
     end
     
     it "should return the defined fixtures" do
-      Step.to_start_with.collect(&:title).sort.should include("Melding aan VIS2", "Informatieverzoek (gegevens actueel houden)")
+      Step.starting_steps.collect(&:title).sort.should include("Melding aan VIS2", "Informatieverzoek (gegevens actueel houden)")
     end
   end
 
