@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation
   
   has_many :castables
-  has_many :roles, :through => :castables
+  #has_many :roles, :through => :castables
 
   validates_uniqueness_of :username, :email
 

@@ -59,7 +59,7 @@ describe StepService, "soap service" do
     end
     
     it "should list starting steps" do
-      Step.stub :to_start_with => example_steps
+      Step.stub :starting_steps => example_steps
       r = invoke_layered :step, :starting_steps_index, valid_token
       r.should == example_api_steps
     end

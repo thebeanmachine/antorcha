@@ -22,8 +22,11 @@ class Step < Resource
   before_validation :parameterize_title_for_name
 
 
-  def self.to_start_with
-    Step.find :all, :from => :start
+  def self.starting_steps options = {}
+    user = options.delete :user if options[:user]
+    params = {}
+    params[:permitted_for_roles] = user.castables.collect(&:role_id) if user
+    Step.find :all, :from => :start, :params => params
   end
 
   def effects

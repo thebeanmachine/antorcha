@@ -28,22 +28,21 @@
 </ul>
 
 
-	<% if current_user.roles.include? :advisor %>
+	<%# if current_user.roles.include? :advisor % >
 		<h3>Filter op Definitie</h3>
 		<ul>
-		<% Definition.all.each do |definition| %>
-			<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) %></li>
-		<% end %>
+		<% Definition.all.each do |definition| % >
+			<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) % ></li>
+		<% end % >
 		</ul>
 		<h3>Filter op Transacties</h3>
 		<ul>
-			<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path %></li>
-			<% Transaction.all.each do |transaction| %>
-				<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) %></li>
-			<% end %>
+			<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path % ></li>
+			<% Transaction.all.each do |transaction| % >
+				<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) % ></li>
+			<% end % >
 		</ul>
+	<% end #%>
 
-	
 
-	<% end %>
 <% end -%>

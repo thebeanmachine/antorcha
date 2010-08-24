@@ -4,7 +4,7 @@ class StepService < AuthenticatedService
   before_invocation :can_invoke?
 
   def starting_steps_index token
-    Step.to_start_with
+    Step.starting_steps
   end
   
   def effect_steps_index token, api_message
