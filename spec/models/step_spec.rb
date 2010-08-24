@@ -8,7 +8,7 @@ describe Step do
 
   describe "step effects" do
     it "should get the effects from a step from the subcollection effects on olympus" do
-      Step.should_receive(:find).with(:all, :from => "/steps/37/effects.xml")
+      Step.should_receive(:find).with(:all, hash_including(:from => "/steps/37/effects.xml"))
       subject.effects
     end
 
@@ -18,6 +18,13 @@ describe Step do
         "Informatieverzoek (gegevens actueel houden)",
         "Reactie op melding VIS2"
       ]
+    end
+    
+    it "should send query with the user roles as parameter" do
+      mock_user.stub :castables => mock_castables
+      mock_castable.stub :role_id => 1
+      Step.should_receive(:find).with(:all, hash_including(:params => { :permitted_for_roles => [1,1]}))
+      subject.effects :user => mock_user
     end
   end
   

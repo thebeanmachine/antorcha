@@ -23,14 +23,11 @@ class Step < Resource
 
 
   def self.starting_steps options = {}
-    user = options.delete :user if options[:user]
-    params = {}
-    params[:permitted_for_roles] = user.castables.collect(&:role_id) if user
-    Step.find :all, :from => :start, :params => params
+    Step.find :all, :from => :start, :params => filter_params_from_options(options)
   end
 
-  def effects
-    Step.find :all, :from => "/steps/#{to_param}/effects.xml"
+  def effects options = {}
+    Step.find :all, :from => "/steps/#{to_param}/effects.xml", :params => Step.filter_params_from_options(options)
   end
 
   def destination_organizations
@@ -40,5 +37,12 @@ class Step < Resource
 private
   def parameterize_title_for_name
     self.name = title.parameterize if title
+  end
+  
+  def self.filter_params_from_options options
+    params = {}
+    user = options.delete :user if options[:user]
+    params[:permitted_for_roles] = user.castables.collect(&:role_id) if user
+    params
   end    
 end
