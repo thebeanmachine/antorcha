@@ -29,8 +29,6 @@
     <%= link_to_edit_message(@message) if @message.outgoing? %>, 
     <%= link_to_reply_message(@message) %>
     <%= link_to_send_message(@message) %>
-    <% unless @message.cancelled? %>
-      of <%= button_to_transaction_cancellation @message.transaction, @message %>
-    <% end %>
+    <%= button_to_message_transaction_cancellation @message %>
   </div>
 </div>

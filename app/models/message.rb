@@ -53,6 +53,10 @@ class Message < ActiveRecord::Base
   def replyable?
     incoming? and step.replyable?
   end
+  
+  def cancellable?
+    outgoing? and step.start? and not cancelled?
+  end
 
   def effect_steps options = {}
     step.effects options

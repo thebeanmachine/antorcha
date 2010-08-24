@@ -64,8 +64,33 @@ describe Message do
       subject.stub :cancelled? => true
       should_not be_updatable
     end
-
   end
+  
+  describe "when a transaction of a message can be cancelled" do
+    subject do
+      mock_step.stub :start? => true
+      mock_transaction.stub :cancelled? => false
+      Message.new :transaction => mock_transaction, :step => mock_step, :outgoing => true
+    end
+    
+    specify { should be_cancellable }
+    
+    it "should not be cancellable if step is not a starting step" do
+      subject.step = mock_step(:not_a_starting_step).tap {|m| m.stub :start? => false}
+      should_not be_cancellable
+    end
+
+    it "should not be cancellable if it is an incoming message" do
+      subject.incoming = true
+      should_not be_cancellable
+    end
+
+    it "should not be cancellable if it's transaction is cancelled" do
+      subject.transaction = mock_transaction(:cancelled_transaction).tap {|m| m.stub :cancelled? => true}
+      should_not be_cancellable
+    end
+  end
+  
   
   describe "creating a reply message" do
     it "takes over transaction from the request" do

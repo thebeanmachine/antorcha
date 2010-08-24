@@ -15,6 +15,9 @@ module MessagesHelper
     end
   end
 
+  def button_to_message_transaction_cancellation message
+    button_to_transaction_cancellation message.transaction, message if message.cancellable?
+  end
   
   def message_status message
     options = [:created_at, :sent_at, :delivered_at].inject({}) do |memo, atr|

@@ -19,6 +19,7 @@ describe "/messages/show.html.erb" do
       :delivered? => false,
       :sent? => true,
       :cancelled? => false,
+      :cancellable? => true,
       :request => mock_message(:request),
       :sent_at => Time.now,
       :created_at => Time.now,
