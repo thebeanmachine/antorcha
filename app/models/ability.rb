@@ -5,9 +5,10 @@ class Ability
     return unless user
     
     permit_maintainer if user.maintainer?
-    permit_communicator if user.communicator?
+    permit_communicator(user) if user.communicator?
   end
 
+  private 
   def permit_maintainer
     default_permissions
 
@@ -17,15 +18,15 @@ class Ability
     can :read, Transaction
   end
   
-  def permit_communicator
+  def permit_communicator(user)
     default_permissions
     
     can :send, Message
     can :create, Message
     can :update, Message do |message| message.updatable? end
     can :examine, Message
-  
-    can :create, Transaction
+    
+    can :create, Transaction unless user.castables.empty?
     can :cancel, Transaction
   end
   
