@@ -62,7 +62,12 @@ module AntorchaHelper
   end
 
   def mock_search
-    @mock_search ||= mock(Searchlogic::Search)
+    @mock_search ||= mock(Searchlogic::Search, :id => nil)
+  end
+
+  def stub_search mocked_models
+    mocked_models.first.class.stub :search => mock_search
+    mock_search.stub :all => mocked_models
   end
 
   def stub_new(mocked_model, params = nil)
@@ -95,8 +100,16 @@ module AntorchaHelper
     s.and_return(mocked_model)
   end
 
-  def stub_all(mocked_model)
-    mocked_model.class.stub(:all => [mocked_model])
+  def stub_all(mocked_model_or_models)
+    case mocked_model_or_models
+    when Array:
+      mocked_model = mocked_model_or_models.first
+      mocked_models = mocked_model_or_models
+    when Object:
+      mocked_model = mocked_model_or_models
+      mocked_models = [mocked_model]
+    end
+    mocked_model.class.stub(:all => mocked_models)
   end
 
   def stub_find(mocked_model)

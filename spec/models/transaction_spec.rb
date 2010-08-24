@@ -30,7 +30,7 @@ describe Transaction do
       should have(1).error_on(:uri)
     end
   end
-  
+
   describe "cancel and cascade cancellations" do
     subject do
       Transaction.create(@valid_attributes)
@@ -50,5 +50,18 @@ describe Transaction do
       should be_cancelled
     end
   end
-  
+
+  describe "with organizations scope" do
+    it "should get the transactions communicating with an organization" do
+      mock_step.stub :title => 'aap'
+      @transaction = Transaction.create!(@valid_attributes)
+      @message = @transaction.messages.create!( :step => mock_step )
+    
+      @message.deliveries.create! :organization_id => 2
+
+      Transaction.with_organizations([2]).should == [@transaction]
+      Transaction.with_organizations([3]).should == []
+    end
+  end
+
 end

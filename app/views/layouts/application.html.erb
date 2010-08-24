@@ -30,16 +30,18 @@
 			
 		<div id="navigation">
 			<ul class="menu" id="tabs">
+
 	    	  <% 
 						new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :create, Transaction
 						[
-			        link_to_messages, link_to_workers, new_transaction_link, link_to_users, link_to_castables
+			        link_to_messages, link_to_workers, new_transaction_link, link_to_users, link_to_castables, link_to_transactions
 			      ].compact.each do |link|
 						  %>
 							<li>
 								<%= link %>
 							</li>
 					<% end %>
+
 	   	</ul>
 		</div>
  		
