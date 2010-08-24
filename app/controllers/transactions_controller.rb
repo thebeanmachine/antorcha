@@ -1,11 +1,16 @@
 class TransactionsController < ApplicationController
+  load_and_authorize_resource
 
   load_and_authorize_resource
 
   # GET /transactions
   # GET /transactions.xml
   def index
-    @transactions = Transaction.all
+    @search = Transaction.search params[:search]
+    @transactions = @search.all
+    @organizations = Organization.all
+
+    @filtered_organizations = @organizations.find_all {|o| @search.with_organizations.include? o.to_param } if @search.with_organizations
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +21,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.xml
   def show
-    @transaction = Transaction.find(params[:id])
+    #@transaction = Transaction.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +32,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   # GET /transactions/new.xml
   def new
-    @transaction = Transaction.new
+    #@transaction = Transaction.new
     @definitions = Definition.all
 
     respond_to do |format|
@@ -44,7 +49,7 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.xml
   def create
-    @transaction = Transaction.new(params[:transaction])
+    #@transaction = Transaction.new(params[:transaction])
 
     respond_to do |format|
       if @transaction.save

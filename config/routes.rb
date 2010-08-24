@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :transaction_initiations, :as => :initiations, :path_prefix => 'transactions', :only => [:new, :create]
   map.resources :transaction_cancellations, :as => :cancellations, :path_prefix => 'transactions', :only => :create
-  map.resources :transactions do |transaction|
+  map.resources :transactions, :only => [:index, :show, :new, :create] do |transaction|
     transaction.resources :messages, :only => [:index, :new, :create], :controller => 'transaction_messages'
     transaction.resource :cancellation, :only => :create, :controller => 'transaction_cancellations'
   end

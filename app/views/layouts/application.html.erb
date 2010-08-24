@@ -30,6 +30,7 @@
 			
 		<div id="navigation">
 			<ul class="menu" id="tabs">
+
 	    	  <% 
 						new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :create, Transaction
 						[
@@ -40,6 +41,7 @@
 								<%= link %>
 							</li>
 					<% end %>
+
 	   	</ul>
 		</div>
  		

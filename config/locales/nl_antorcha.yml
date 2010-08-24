@@ -36,6 +36,7 @@ nl:
       
   formtastic:
     labels:
+      with_organizations: Gecommuniceerd met organisatie
     hints:
       step:
         destination_url: Bijvoorbeeld http://example.com/messages

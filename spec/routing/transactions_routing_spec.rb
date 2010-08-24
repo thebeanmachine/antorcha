@@ -14,20 +14,20 @@ describe TransactionsController do
       { :get => "/transactions/1" }.should route_to(:controller => "transactions", :action => "show", :id => "1")
     end
 
-    it "recognizes and generates #edit" do
-      { :get => "/transactions/1/edit" }.should route_to(:controller => "transactions", :action => "edit", :id => "1")
+    it "does not recognize #edit" do
+      { :get => "/transactions/1/edit" }.should_not be_routable #route_to(:controller => "transactions", :action => "edit", :id => "1")
     end
 
     it "recognizes and generates #create" do
       { :post => "/transactions" }.should route_to(:controller => "transactions", :action => "create") 
     end
 
-    it "recognizes and generates #update" do
-      { :put => "/transactions/1" }.should route_to(:controller => "transactions", :action => "update", :id => "1") 
+    it "does not recognize #update" do
+      { :put => "/transactions/1" }.should_not be_routable
     end
 
-    it "recognizes and generates #destroy" do
-      { :delete => "/transactions/1" }.should route_to(:controller => "transactions", :action => "destroy", :id => "1") 
+    it "does not recognize #destroy" do
+      { :delete => "/transactions/1" }.should_not be_routable
     end
   end
 end
