@@ -23,7 +23,7 @@ class TransactionInitiationsController < ApplicationController
   
 private
   def find_starting_steps
-    @starting_steps = Step.starting_steps
+    @starting_steps = Step.starting_steps :user => current_user
   end
 
   module TransactionInitiationMixin

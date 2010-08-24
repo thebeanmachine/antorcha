@@ -23,9 +23,18 @@ describe Step do
   
   describe "starting steps" do
     it "should send query to the correct url" do
-      Step.should_receive(:find).with(:all, :from => :start)
+      Step.should_receive(:find).with(:all, hash_including(:from => :start))
+
       Step.starting_steps
     end
+
+    it "should send query with the user roles as parameter" do
+      mock_user.stub :castables => mock_castables
+      mock_castable.stub :role_id => 1
+      Step.should_receive(:find).with(:all, hash_including(:params => { :permitted_for_roles => [1,1]}))
+      Step.starting_steps  :user => mock_user
+    end
+
     
     it "should return the defined fixtures" do
       Step.starting_steps.collect(&:title).sort.should include("Melding aan VIS2", "Informatieverzoek (gegevens actueel houden)")
