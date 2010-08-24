@@ -4,6 +4,12 @@ describe TransactionCancellationsController do
   
   it "should authenticate the other antorcha by oauth or other means."
   
+  it <<-TEXT 
+    The user action should be moved to the message controller.
+    It needs authentication from this object in order to cancel the transaction as a whole.
+    This controller can then be used to model the communication between antorchas
+  TEXT
+  
   describe "POST create" do
     
     def stub_create_action

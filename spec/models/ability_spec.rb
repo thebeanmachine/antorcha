@@ -24,6 +24,8 @@ describe Ability, "of users in antorcha to:" do
     end
   end
 
+  it "should check if one can cancel a message using the cancellable? attribute"
+
   describe "initiation and starting of transactions" do
     ability_of :communicator do
       specify { should be_able_to(:create, Transaction)}
