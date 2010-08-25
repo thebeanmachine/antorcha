@@ -28,9 +28,8 @@ Rails::Initializer.run do |config|
   config.gem 'thebeanmachine-actionwebservice', :lib => 'actionwebservice', :version => '2.3.2', :source => "http://intern.thebeanmachine.nl/rubygems"
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'devise', :version => '1.0.6'
-
-  #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'formtastic', :lib => 'formtastic', :version => '0.9.10'
+  config.gem 'less'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
