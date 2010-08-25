@@ -3,14 +3,21 @@ require 'spec_helper'
 describe WorkersController do
   
   before(:each) do    
-    sign_in_user :maintainer
+    turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
   end
+  
+  specify { should have_devise_before_filter }
   
   describe "GET index" do
     it "should assign @workers with all workers" do
       Worker.stub(:all => [:all, :workers])
       get :index
       assigns[:workers].should == [:all, :workers]
+    end
+    
+    it "should authorize the worker index" do
+      controller.should_receive(:authorize!).with(:index, Worker)
+      get :index
     end
   end
   
@@ -30,6 +37,12 @@ describe WorkersController do
       post :create
       response.should redirect_to(workers_url)
     end
+    
+    it "should authorize the worker create" do
+      controller.should_receive(:authorize!).with(:create, Worker)
+      post :create
+    end
+    
   end
   
   describe "DELETE destroy" do
@@ -43,6 +56,10 @@ describe WorkersController do
       delete :destroy, :id => id
     end
       
+    it "should authorize destroy on worker" do
+      controller.should_receive(:authorize!).with(:destroy, Worker)
+      delete_destroy
+    end
     
     it "should stop the matching worker" do     
       stub_destroy_action

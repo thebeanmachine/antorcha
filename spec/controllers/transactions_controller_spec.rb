@@ -2,16 +2,24 @@ require 'spec_helper'
 
 describe TransactionsController do
 
+  before(:each) do
+    turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
+  end
+  
+  specify { should have_devise_before_filter }
+  
   describe "for maintainers" do
-    before(:each) do
-      sign_in_user :maintainer
-    end
 
     describe "GET index" do
       before(:each) do
         stub_search mock_transactions
         stub_all mock_organizations
         mock_search.stub :with_organizations => [mock_organization.to_param]
+      end
+    
+      it "should authorize :index, Transactions" do
+        controller.should_receive(:authorize!).with(:index, Transaction)
+        get :index
       end
     
       it "assigns searched transactions as @transactions" do
@@ -47,10 +55,6 @@ describe TransactionsController do
   end
 
   describe "for communicators" do
-    before(:each) do
-      sign_in_user :communicator
-    end
-
     describe "GET new" do
       def stub_get_new
         Transaction.stub(:new).and_return(mock_transaction)

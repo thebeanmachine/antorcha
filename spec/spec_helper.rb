@@ -33,8 +33,8 @@ Spork.each_run do
     config.use_transactional_fixtures = true
     config.use_instantiated_fixtures  = false
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-    config.include Devise::TestHelpers, :type => :controller
-    config.include Devise::TestHelpers, :type => :view
+    #config.include Devise::TestHelpers, :type => :controller
+    #config.include Devise::TestHelpers, :type => :view
     include AntorchaHelper
 
     # == Fixtures

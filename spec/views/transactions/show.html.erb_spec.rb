@@ -4,7 +4,7 @@ describe "/transactions/show.html.erb" do
   include TransactionsHelper
 
   before(:each) do
-    sign_in_user
+    view_as_user :communicator
     
     assigns[:transaction] = mock_transaction
     

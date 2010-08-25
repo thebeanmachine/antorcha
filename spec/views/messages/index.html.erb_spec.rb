@@ -4,8 +4,6 @@ describe "/messages/index.html.erb" do
   include MessagesHelper
 
   before(:each) do
-    
-    
     assigns[:messages] = [
       mock_message(:shown),
       mock_message(:new),
@@ -72,7 +70,7 @@ describe "/messages/index.html.erb" do
 
   describe "as maintainer" do
     before(:each) do
-      sign_in_user :maintainer
+      view_as_user :maintainer
     end
 
     it_should_behave_like "message index"
@@ -85,7 +83,7 @@ describe "/messages/index.html.erb" do
 
   describe "as communicator" do
     before(:each) do
-      sign_in_user
+      view_as_user :communicator
     end
 
     it_should_behave_like "message index"

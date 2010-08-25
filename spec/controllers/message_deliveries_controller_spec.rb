@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MessageDeliveriesController do
-
+  include Devise::TestHelpers
   
   describe "POST create" do
     def post_create

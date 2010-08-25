@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 describe "/messages/show.html.erb" do
-  include MessagesHelper
   include AntorchaHelper
 
   before(:each) do
-    
-    sign_in_user
+    view_as_user :communicator
         
     assigns[:message] = mock_message
     
@@ -32,10 +30,10 @@ describe "/messages/show.html.erb" do
     mock_step.stub( :title => 'hallo wereld', :definition => mock_definition )
     mock_definition.stub( :title => 'definition title' )
     mock_transaction.stub( :title => 'transaction title' )
-    
-    template.stub :message_status => 'status of message'
-    
-    # act_as :communicator
+
+    # niet echt te verklaren waarom dit zo werkt.
+    @controller.stub :message_status => 'status of message'
+    template.stub :message_status => 'status of message2'
   end
 
   shared_examples_for "message view" do
