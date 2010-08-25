@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TransactionCancellationsController do
+  include Devise::TestHelpers
   
   it "should authenticate the other antorcha by oauth or other means."
   

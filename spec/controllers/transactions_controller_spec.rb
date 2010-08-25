@@ -2,17 +2,11 @@ require 'spec_helper'
 
 describe TransactionsController do
 
-  def turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
-    controller.stub \
-      :authenticate_user! => nil,
-      :authorize! => nil
-  end
-
   before(:each) do
     turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
   end
   
-  specify { should have_before_filter(:authenticate_user!) }
+  specify { should have_devise_before_filter }
   
   describe "for maintainers" do
 

@@ -56,6 +56,15 @@ describe Ability do
     end
   end
 
+  describe "reading the index of transactions" do
+    it "should be able for the maintainer" do
+      ability_of(:maintainer).should be_able_to(:index, Transaction)
+    end
+    it "should not be able for anyone but maintainer" do
+      everyone_else_but(:maintainer).should_not be_able_to(:index, Transaction)
+    end
+  end
+
   describe "cancellation of transactions" do
     ability_of :communicator do
       specify { should be_able_to(:cancel, Transaction)}

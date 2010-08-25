@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe TransactionInitiationsController do
-  
+  include Devise::TestHelpers
+
   before(:each) do
     sign_in_user :communicator, :as => :hulpverlener
   end

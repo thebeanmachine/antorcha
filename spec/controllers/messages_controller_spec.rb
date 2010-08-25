@@ -2,122 +2,147 @@ require 'spec_helper'
 
 describe MessagesController do
 
-  describe "authenticated actions" do
+  before(:each) do    
+    turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
+  end
+  
+  specify { should have_devise_before_filter }
+
+  describe "GET index" do
+    def stub_index
+      Message.stub(:search => mock_search)
+      mock_search.stub(:all => mock_messages)
+    end
+  
+    it "uses searchlogic" do
+      stub_index
+      Message.should_receive(:search).with("a query")
+      get :index, :search => 'a query'
+    end
+  
+    it "assigns all messages as @messages" do
+      stub_index
+      get :index
+      assigns[:messages].should == mock_messages
+    end
+
+    it "should include transactions" do
+      stub_index
+      mock_search.should_receive(:all).with(hash_including(:include => :transaction)).and_return(mock_messages)
+      get :index
+    end
+  end
+
+  describe "GET show" do
+    def stub_get_action
+      stub_find(mock_message)
+      mock_message.stub(:shown! => nil)
+    end
+    
+    def get_show
+      get :show, :id => mock_message.to_param
+    end
+  
+    it "assigns the requested message as @message" do
+      stub_get_action
+      get_show
+      assigns[:message].should equal(mock_message)
+    end
+  
+    it "should flag the message as shown" do
+      stub_get_action
+      mock_message.should_receive(:shown!)
+      get_show
+    end
+    
+    it "authorizes show on the @message" do
+      stub_get_action
+      controller.should_receive(:authorize!).with(:show, mock_message)
+      get_show
+    end
+    
+  end
+
+  describe "GET edit" do
     before(:each) do
-      sign_in_user
+      Message.stub(:find).with("37").and_return(mock_message)
+      mock_message.stub :updatable? => true
     end
 
-    describe "GET index" do
-      def stub_index
-        Message.stub(:search => mock_search)
-        mock_search.stub(:all => mock_messages)
-      end
-    
-      it "uses searchlogic" do
-        stub_index
-        Message.should_receive(:search).with("a query")
-        get :index, :search => 'a query'
-      end
-    
-      it "assigns all messages as @messages" do
-        stub_index
-        get :index
-        assigns[:messages].should == mock_messages
-      end
-
-      it "should include transactions" do
-        stub_index
-        mock_search.should_receive(:all).with(hash_including(:include => :transaction)).and_return(mock_messages)
-        get :index
-      end
+    it "assigns the requested message as @message" do
+      get :edit, :id => "37"
+      assigns[:message].should equal(mock_message)
     end
 
-    describe "GET show" do
-      def stub_get_action
-        stub_find(mock_message)
-        mock_message.stub(:shown! => nil)
-      end
-    
-      it "assigns the requested message as @message" do
-        stub_get_action
-        get :show, :id => mock_message.to_param
-        assigns[:message].should equal(mock_message)
-      end
-    
-      it "should flag the message as shown" do
-        stub_get_action
-        mock_message.should_receive(:shown!)
-        get :show, :id => mock_message.to_param
-      end
+    it "authorizes edit on the @message" do
+      controller.should_receive(:authorize!).with(:edit, mock_message)
+      get :edit, :id => "37"
     end
 
-    describe "GET edit" do
-      before(:each) do
-        Message.stub(:find).with("37").and_return(mock_message)
-        mock_message.stub :updatable? => true
-      end
+  end
 
-      it "assigns the requested message as @message" do
-        get :edit, :id => "37"
-        assigns[:message].should equal(mock_message)
-      end
+  describe "PUT update" do
 
-      it "checks if the message is updatable" do
-        mock_message.should_receive(:updatable?).and_return(true)
-        get :edit, :id => "37"
+    def stub_update_action
+      stub_find(mock_message)
+    end
+
+    def put_update
+      put :update, :id => mock_message.to_param, :message => {:these => 'params'}
+    end
+
+    describe "with valid params" do
+      def stub_succesful_update_action
+        stub_update_action
+        stub_succesful_update(mock_message, {'these' => 'params'})
+      end
       
+      it "authorizes update on the @message" do
+        stub_succesful_update_action
+        controller.should_receive(:authorize!).with(:update, mock_message)
+        put_update
+      end
+      
+      it "updates the requested message" do
+        Message.should_receive(:find).with("37").and_return(mock_message)
+        mock_message.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => "37", :message => {:these => 'params'}
       end
 
+      it "assigns the requested message as @message" do
+        mock_message.stub(:update_attributes => true)
+        Message.stub(:find).and_return(mock_message())
+        put :update, :id => "1"
+        assigns[:message].should equal(mock_message)
+      end
+
+      it "redirects to the message" do
+        mock_message.stub(:update_attributes => true)
+        Message.stub(:find).and_return(mock_message)
+        put :update, :id => "1"
+        response.should redirect_to(message_url(mock_message))
+      end
     end
 
-    describe "PUT update" do
-    
-      before(:each) do
-        mock_message.stub :updatable? => true
-      end
-    
-      describe "with valid params" do
-        it "updates the requested message" do
-          Message.should_receive(:find).with("37").and_return(mock_message)
-          mock_message.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => "37", :message => {:these => 'params'}
-        end
-
-        it "assigns the requested message as @message" do
-          mock_message.stub(:update_attributes => true)
-          Message.stub(:find).and_return(mock_message())
-          put :update, :id => "1"
-          assigns[:message].should equal(mock_message)
-        end
-
-        it "redirects to the message" do
-          mock_message.stub(:update_attributes => true)
-          Message.stub(:find).and_return(mock_message)
-          put :update, :id => "1"
-          response.should redirect_to(message_url(mock_message))
-        end
+    describe "with invalid params" do
+      it "updates the requested message" do
+        Message.should_receive(:find).with("37").and_return(mock_message)
+        mock_message.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => "37", :message => {:these => 'params'}
       end
 
-      describe "with invalid params" do
-        it "updates the requested message" do
-          Message.should_receive(:find).with("37").and_return(mock_message)
-          mock_message.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => "37", :message => {:these => 'params'}
-        end
+      it "assigns the message as @message" do
+        mock_message.stub(:update_attributes => false)
+        Message.stub(:find).and_return(mock_message)
+        put :update, :id => "1"
+        assigns[:message].should equal(mock_message)
+      end
 
-        it "assigns the message as @message" do
-          mock_message.stub(:update_attributes => false)
-          Message.stub(:find).and_return(mock_message)
-          put :update, :id => "1"
-          assigns[:message].should equal(mock_message)
-        end
-
-        it "re-renders the 'edit' template" do
-          mock_message.stub(:update_attributes => false)
-          Message.stub(:find).and_return(mock_message)
-          put :update, :id => "1"
-          response.should render_template('edit')
-        end
+      it "re-renders the 'edit' template" do
+        mock_message.stub(:update_attributes => false)
+        Message.stub(:find).and_return(mock_message)
+        put :update, :id => "1"
+        response.should render_template('edit')
       end
     end
   end
@@ -138,6 +163,14 @@ describe MessagesController do
       def stub_with_valid_params
         stub_create_and_from_hash
         stub_successful_save_for(mock_message)
+      end
+      
+      it "should implement peer-to-peer authentication"
+      
+      it "should not authorize create on the @message, because it is an api call (will change after implementing peer-to-peer authentication)" do
+        stub_with_valid_params
+        controller.should_not_receive(:authorize!).with(:create, mock_message)
+        post_create
       end
             
       it "uses from_hash to create the message" do

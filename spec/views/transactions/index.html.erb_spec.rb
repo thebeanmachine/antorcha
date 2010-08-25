@@ -5,7 +5,7 @@ describe "/transactions/index.html.erb" do
 
   before(:each) do
 
-    sign_in_user :maintainer
+    view_as_user :maintainer
     
     assigns[:transactions] = [
       stub_model(Transaction,
