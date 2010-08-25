@@ -48,11 +48,18 @@ module AntorchaHelper
   end
   
   
-  def sign_in_user type = 'communicator'
+  def sign_in_user type = 'communicator', options = {}
     @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
     @user.update_attribute :user_type, type.to_s
 
+    @user.stub :castables => castables_for(options.delete(:as)) if options[:as]
+
     sign_in @user
+    controller.stub :current_user => @user if self.respond_to?(:controller)
+  end
+  
+  def castables_for roles
+    Array(roles).map {|title| mock(Castable, :role => mock(Role, :title => title.to_s))} 
   end
   
   def act_as who

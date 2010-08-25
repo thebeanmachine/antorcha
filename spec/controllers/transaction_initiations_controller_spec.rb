@@ -3,8 +3,8 @@ require 'spec_helper'
 describe TransactionInitiationsController do
   
   before(:each) do
-     sign_in_user :communicator
-   end
+    sign_in_user :communicator, :as => [:hulpverlener, :aap]
+  end
   
   def stub_find_starting_steps
     Step.stub :starting_steps => mock_steps
@@ -12,7 +12,6 @@ describe TransactionInitiationsController do
   
   describe "GET new" do
     it "should assign starting steps as @starting_steps" do
-      @user.stub(:castables).and_return(mock_model(Castable))
       stub_find_starting_steps
       get :new
       assigns[:starting_steps].should == mock_steps

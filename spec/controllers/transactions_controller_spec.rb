@@ -48,7 +48,7 @@ describe TransactionsController do
 
   describe "for communicators" do
     before(:each) do
-      sign_in_user :communicator
+      sign_in_user :communicator, :as => :hulpverlener
     end
 
     describe "GET new" do

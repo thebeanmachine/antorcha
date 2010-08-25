@@ -1,7 +1,7 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-describe Ability, "of users in antorcha to:" do
+describe Ability do
     
   def self.all_roles
     [:communicator, :maintainer, :advisor, :anonymous]
@@ -27,11 +27,14 @@ describe Ability, "of users in antorcha to:" do
     end
   end
 
-  def ability_of role
-    u = User.new
-    u.user_type = role.to_s;
-    Ability.new(u)
+  def ability_of role, options = {}
+    user = User.new
+    user.stub :castables => castables_for(options.delete(:as)) if options[:as]
+    
+    user.user_type = role.to_s;
+    Ability.new(user)
   end
+
 
   def everyone_else_but role
     Abilities.new(([:communicator, :maintainer, :advisor, :anonymous] - [role]).collect do |role|
@@ -45,11 +48,13 @@ describe Ability, "of users in antorcha to:" do
   end
 
   describe "initiation and starting of transactions" do
-    ability_of :communicator do
-      specify { should_not be_able_to(:create, Transaction) }
+    it "should not be possible for a communicator if it is not casted into a role" do
+      ability_of(:communicator).should_not be_able_to(:create, Transaction)
+    end
+    it "should be possible for a user cast into a role" do
+      ability_of(:communicator, :as => :hulpverlener).should be_able_to(:create, Transaction)
     end
   end
-
 
   describe "cancellation of transactions" do
     ability_of :communicator do
