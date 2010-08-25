@@ -47,12 +47,42 @@ module AntorchaHelper
     RUBY
   end
   
+  def turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
+    controller.stub \
+      :authenticate_user! => nil,
+      :authorize! => nil
+  end
+
+  def have_devise_before_filter
+    have_before_filter(:authenticate_user!)
+  end
   
-  def sign_in_user type = 'communicator'
+  def sign_in_user type = 'communicator', options = {}
     @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
     @user.update_attribute :user_type, type.to_s
 
+    @user.stub :castables => castables_for(options.delete(:as)) if options[:as]
+
     sign_in @user
+    stub_current_user_so_that_cancan_uses_the_mock_for_testing_abilities
+  end
+
+  def view_as_user type = 'communicator', option = {}
+    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user.update_attribute :user_type, type.to_s
+
+    @user.stub :castables => castables_for(options.delete(:as)) if options[:as]
+
+    stub_current_user_so_that_cancan_uses_the_mock_for_testing_abilities
+  end
+
+  def stub_current_user_so_that_cancan_uses_the_mock_for_testing_abilities
+    controller.stub :current_user => @user if self.respond_to?(:controller)
+    @controller.stub :current_user => @user if @controller
+  end
+  
+  def castables_for roles
+    Array(roles).map {|title| mock(Castable, :role => mock(Role, :title => title.to_s))} 
   end
   
   def act_as who
@@ -80,6 +110,20 @@ module AntorchaHelper
     s = mocked_model.class.stub(:create)
     s = s.with(params) if params
     s.and_return(mocked_model)
+  end
+
+  def stub_update(mocked_model, succes = true, params = nil)
+    s = mocked_model.stub(:update_attributes)
+    s = s.with(params) if params
+    s.and_return(succes)
+  end
+
+  def stub_succesful_update(mocked_model, params = nil)
+    stub_update(mocked_model, true, params)
+  end
+
+  def stub_unsuccesful_update(mocked_model, params = nil)
+    stub_update(mocked_model, false, params)
   end
 
   def stub_new_on(finder, mocked_model, params = nil)

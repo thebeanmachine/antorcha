@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe TransactionInitiationsController do
-  
+  include Devise::TestHelpers
+
   before(:each) do
-     sign_in_user
-   end
+    sign_in_user :communicator, :as => :hulpverlener
+  end
   
   def stub_find_starting_steps
     Step.stub :starting_steps => mock_steps

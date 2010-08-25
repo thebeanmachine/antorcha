@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe MessageRepliesController do
+  include Devise::TestHelpers
   
   before(:each) do
     sign_in_user

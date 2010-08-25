@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CastablesController do
+  include Devise::TestHelpers
 
   before(:each) do
     sign_in_user :maintainer

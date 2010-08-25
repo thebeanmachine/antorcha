@@ -5,7 +5,7 @@ describe "/castables/new.html.erb" do
 
   before(:each) do
     
-    sign_in_user
+    view_as_user :communicator
     
     assigns[:castable] = stub_model(Castable,
       :new_record? => true,
