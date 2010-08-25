@@ -55,6 +55,10 @@ module AntorchaHelper
     @user.stub :castables => castables_for(options.delete(:as)) if options[:as]
 
     sign_in @user
+    stub_current_user_so_that_cancan_uses_the_mock_for_testing_abilities
+  end
+
+  def stub_current_user_so_that_cancan_uses_the_mock_for_testing_abilities
     controller.stub :current_user => @user if self.respond_to?(:controller)
   end
   

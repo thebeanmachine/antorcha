@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TransactionInitiationsController do
   
   before(:each) do
-    sign_in_user :communicator, :as => [:hulpverlener, :aap]
+    sign_in_user :communicator, :as => :hulpverlener
   end
   
   def stub_find_starting_steps
