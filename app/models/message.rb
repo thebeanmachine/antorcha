@@ -51,7 +51,7 @@ class Message < ActiveRecord::Base
   end
   
   def replyable?
-    incoming? and step.replyable?
+    incoming? and step.replyable? and not cancelled?
   end
   
   def cancellable?

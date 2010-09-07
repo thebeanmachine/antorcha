@@ -4,10 +4,11 @@ module MessagesHelper
   help_can_link_to :message
 
   def link_to_reply_message message
-    if message.replyable? and can? :send, message
+    if can? :reply, message
       link_to t('action.reply', :model => Message.human_name), new_message_reply_path(@message)
     end
   end
+  
   
   def link_to_send_message(message)
     if not message.sent? and message.outgoing? and can? :send, message
