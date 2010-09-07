@@ -10,6 +10,9 @@
 	<%= javascript_include_tag :all, :cache => true %>
 </head>
 <body class="<%= controller.controller_name %>">
+	
+	<%= debug current_user if current_user && Rails.env.development? %>
+	
   <div id="page_container">
  	 <div id="header">
 			<div id="logo">
