@@ -205,6 +205,10 @@ describe MessageService, "soap service" do
     end
   end
 
+  it "should delete a message" do
+    Message.stub(:find).with(example_message.id).and_return(example_message)
+    invoke_layered :message, :delete, valid_token, example_api_message
+  end
 
 end
 

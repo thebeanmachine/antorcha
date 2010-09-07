@@ -32,6 +32,10 @@ class MessageService < AuthenticatedService
     Message.find(api_message.id).send_deliveries
   end
   
+  def delete token, api_message
+    Message.find(api_message.id).destroy
+  end
+  
   def index token
     Message.all
   end
