@@ -1,0 +1,13 @@
+
+<h1>Jobs</h1>
+
+<ol>
+  <% @jobs.each do |job| %>
+    <li>
+      <p><%=h job.handler %></p>
+      <p><%=h job.attempts %> attempts.</p>
+      <p><pre style="width: 90%; overflow: auto;"><%= /^.+\n.+/.match(job.last_error)[0] %><%=h($1)%></pre></p>
+    </li>
+  <% end %>
+</ol>
+

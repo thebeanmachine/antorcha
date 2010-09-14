@@ -1,14 +1,10 @@
-<h1>Message deliveries</h1>
-<p class="intro">
-  <%= link_to_messages %> »
-  <%= link_to_message @message %> »
-  Deliveries
-</p>
+<% breadcrumb @message, Delivery %>
+<h1>Bezorgingen</h1>
 
 <ul>
 <% @deliveries.each do |delivery| %>
   <li>
-    <%= link_to_organization delivery.organization %> @ 
+    <%= delivery.organization.title %> @ 
     <%= l(delivery.delivered_at, :format => :short ) if delivery.delivered? %>
     <%= 'Nog niet aangekomen' unless delivery.delivered? %>
   </li>

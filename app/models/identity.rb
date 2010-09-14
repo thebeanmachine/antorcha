@@ -7,6 +7,20 @@ class Identity < ActiveRecord::Base
   validate :verification_of_private_key
   validate :only_one_identity
 
+  def self.first!
+    identity = Identity.first
+    raise "No identity" unless identity
+    identity
+  end
+
+  def self.certificate
+    first!.organization.certificate
+  end
+  
+  def self.private_key
+    OpenSSL::PKey::RSA.new(first!.private_key)
+  end
+
 private
 
   def verification_of_private_key
