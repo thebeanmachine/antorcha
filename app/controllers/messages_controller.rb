@@ -1,7 +1,11 @@
 class MessagesController < ApplicationController
   load_and_authorize_resource :except => :create
   
-  open_https_client_auth_for_sending_messages_on_create
+  def self.open_https_client_auth_for_sending_messages_on_create
+    skip_before_filter :authenticate_user!, :only => :create
+    skip_before_filter :verify_authenticity_token, :only => :create
+    before_filter :ensure_https_connection, :only => :create
+  end
 
   def index    
     @search = Message.search(params[:search])
@@ -19,6 +23,8 @@ class MessagesController < ApplicationController
 
   def edit
   end
+
+  open_https_client_auth_for_sending_messages_on_create
 
   def create
     @message = Message.new
@@ -40,14 +46,5 @@ class MessagesController < ApplicationController
       render :action => "edit"
     end
   end
-
-private
-
-  def self.open_https_client_auth_for_sending_messages_on_create
-    skip_before_filter :authenticate_user!, :only => :create
-    skip_before_filter :verify_authenticity_token, :only => :create
-    before_filter :ensure_https_connection, :only => :create
-  end
-
 
 end
