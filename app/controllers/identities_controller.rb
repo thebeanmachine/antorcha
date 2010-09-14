@@ -1,11 +1,11 @@
 class IdentitiesController < ApplicationController
 
 
-  # GET /identities/1
-  # GET /identities/1.xml
+  # GET /identity
+  # GET /identity.xml
   def show
     @identity = Identity.first
-    authorize! :show, @identity
+    authorize! :show, Identity
 
     respond_to do |format|
       format.html # show.html.erb

@@ -49,7 +49,9 @@ describe Ability do
   describe "identity management by maintainer" do
     subject { ability_of :maintainer }
     
-    specify { showing(Identity).should be_possible }
+    it 'should be possible to show identity' do
+      showing(Identity).should be_possible
+    end
   end
 
   it "is only possible for a communicator to send a message" do

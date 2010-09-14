@@ -1,5 +1,5 @@
 
 class Resource < HyperactiveResource
   self.site = APP_CONFIG[:olympus_resource]
-  self.site = 'http://localhost:3001' if Rails.env.development? and ENV['USER'] == 'daan'
+  self.site = 'http://tankenberg.heroku.com' if Rails.env.production? and ENV['USER'] == 'daan'
 end
