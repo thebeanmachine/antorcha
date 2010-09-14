@@ -4,7 +4,7 @@ module AntorchaHelper
   
   %w[
     step message definition transaction reaction role
-    organization delivery user castable cancellation
+    organization delivery user castable cancellation identity
   ].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default

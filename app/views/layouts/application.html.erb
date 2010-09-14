@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title> <%= t "activerecord.models.#{controller.controller_name.singularize}.other" %> - <%= t controller.action_name %></title>
+  <title> <%= t "activerecord.models.#{controller.controller_name.singularize}", :count => 2 %> - <%= t controller.action_name %></title>
   <%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'application', :cache => true %>
 	<%= javascript_include_tag 'jquery/jquery.base', 'jquery/jquery.ui', :cache => true %>
 	<%= javascript_include_tag :all, :cache => true %>

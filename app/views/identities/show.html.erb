@@ -4,11 +4,16 @@
 <%= render :partial => 'introductie' %>
 
 <% if @identity %>
+  <h2>De identiteit is geverifieerd tegen:</h2>
+
   <p>
-    <b>Organization:</b>
-    <%=h @identity.organization_id %>
+    <%=h @identity.organization.title %>
   </p>
 
+  <div class="actions">
+    <%= link_to 'Verwijder de identiteit van deze Antorcha', identity_path, :method => :delete, :confirm => 'Communicatie wordt onmogelijk na het verwijderen van de identiteit. Weet u het zeker?' %>
+  </div>
+  
 <% else %>
   <h2>Er is geen identiteit voor deze antorcha gedefinieerd.</h2>
   <div class="actions">

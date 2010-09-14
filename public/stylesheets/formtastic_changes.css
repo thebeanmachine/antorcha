@@ -9,5 +9,6 @@
 
 
 */#main p.inline-hints { margin: 0.5em 0px 0px 25%; }
+#main p.inline-errors { margin: 0.5em 0px 0px 25%; }
 #main fieldset legend span { font-size: 125%; }
 #main fieldset legend { padding: 1em 0em; }

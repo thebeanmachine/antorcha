@@ -1,8 +1,11 @@
 class IdentitiesController < ApplicationController
+
+
   # GET /identities/1
   # GET /identities/1.xml
   def show
     @identity = Identity.first
+    authorize! :show, @identity
 
     respond_to do |format|
       format.html # show.html.erb
@@ -10,10 +13,11 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  # GET /identities/new
-  # GET /identities/new.xml
+
+  # GET /identity/new
   def new
     @identity = Identity.new
+    authorize! :new, @identity
 
     respond_to do |format|
       format.html # new.html.erb
@@ -21,19 +25,15 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  # GET /identities/1/edit
-  def edit
-    @identity = Identity.find(params[:id])
-  end
 
-  # POST /identities
-  # POST /identities.xml
+  # POST /identity
   def create
-    @identity = Identity.new(params[:identity])
+    @identity = Identity.new params[:identity]
+    authorize! :create, @identity
 
     respond_to do |format|
       if @identity.save
-        format.html { redirect_to(@identity, :notice => 'Identity was successfully created.') }
+        format.html { redirect_to identity_url, :notice => 'Identity was successfully created.' }
         format.xml  { render :xml => @identity, :status => :created, :location => @identity }
       else
         format.html { render :action => "new" }
@@ -42,30 +42,15 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  # PUT /identities/1
-  # PUT /identities/1.xml
-  def update
-    @identity = Identity.find(params[:id])
 
-    respond_to do |format|
-      if @identity.update_attributes(params[:identity])
-        format.html { redirect_to(@identity, :notice => 'Identity was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @identity.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /identities/1
-  # DELETE /identities/1.xml
+  # DELETE /identity
   def destroy
-    @identity = Identity.find(params[:id])
+    @identity = Identity.first
+    authorize! :destroy, @identity
     @identity.destroy
 
     respond_to do |format|
-      format.html { redirect_to(identities_url) }
+      format.html { redirect_to(identity_url) }
       format.xml  { head :ok }
     end
   end

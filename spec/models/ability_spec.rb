@@ -2,6 +2,7 @@ require 'spec_helper'
 require "cancan/matchers"
 
 describe Ability do
+  include ActAct
     
   def self.all_roles
     [:communicator, :maintainer, :advisor, :anonymous]
@@ -42,6 +43,13 @@ describe Ability do
     Abilities.new(([:communicator, :maintainer, :advisor, :anonymous] - [role]).collect do |role|
       ability_of role
     end)
+  end
+
+
+  describe "identity management by maintainer" do
+    subject { ability_of :maintainer }
+    
+    specify { showing(Identity).should be_possible }
   end
 
   it "is only possible for a communicator to send a message" do
