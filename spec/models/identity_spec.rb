@@ -42,6 +42,20 @@ describe Identity do
     end
   end
   
+  describe "with an organization without an certificate" do
+    subject { Identity.create :organization => mock_organization, :private_key => other_private_key}
+
+    before(:each) do
+      mock_organization.stub \
+        :certificate => nil
+    end
+
+    it "should have one error on private key" do
+      should have(1).error_on(:private_key)
+    end
+  end
+  
+  
   def example_certificate
     certificate = <<-SSL_CERT
       -----BEGIN CERTIFICATE-----
