@@ -9,3 +9,5 @@ db/shared
 *.*~
 **.DS_Store
 capybara-*.html
+*.dot
+*.png
