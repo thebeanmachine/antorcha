@@ -16,17 +16,39 @@ describe MessageDeliveryJob do
 
     mock_message.stub \
       :to_xml => "XML!"
+  end
+  
+  def stub_identity
+    Identity.stub \
+      :certificate => mock_certificate,
+      :private_key => :private_key
       
+    mock_certificate.stub :certificate => :certificate
+  end
+
+  def mock_resource
+    @mock_resource ||= mock(RestClient::Resource)
   end
 
   def stub_rest_client_post
-    RestClient.stub(:post => nil)
+    RestClient::Resource.stub :new => mock_resource
+    mock_resource.stub :post => nil
+  end
+  
+  
+  describe "without an identity" do
+    it "should raise as exception" do
+      mock_delivery.stub :delivered? => false
+      stub_perform
+      lambda { subject.perform }.should raise_exception('No identity')
+    end
   end
   
   describe "undelivered message" do
     def stub_undelivered
       mock_delivery.stub :delivered? => false
       stub_perform
+      stub_identity
     end
     
     it "should find the delivery" do
@@ -43,14 +65,14 @@ describe MessageDeliveryJob do
 
     it "should post the message" do
       stub_undelivered
-      RestClient.should_receive(:post)
+      mock_resource.should_receive(:post)
       subject.perform
     end
     
     it "should post the message as xml" do
       stub_undelivered
-      RestClient.should_receive(:post).with(
-        anything(), mock_message.to_xml, hash_including(
+      mock_resource.should_receive(:post).with(
+        mock_message.to_xml, hash_including(
           :content_type => :xml, :accept => :xml
         ))
       subject.perform
@@ -58,7 +80,7 @@ describe MessageDeliveryJob do
     
     it "should post the message to the destination url of organizations" do
       stub_undelivered
-      RestClient.should_receive(:post).with('http://example.com/messages', anything(), anything()).once
+      RestClient::Resource.should_receive(:new).with('http://example.com/messages', anything())
       subject.perform
     end
 
@@ -67,12 +89,38 @@ describe MessageDeliveryJob do
       mock_delivery.should_receive(:url).once
       subject.perform
     end
+
+    it "should send the client certificate" do
+      stub_undelivered
+      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:ssl_client_cert => :certificate))
+      subject.perform
+    end
+
+    it "should configure the client private key" do
+      stub_undelivered
+      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:ssl_client_key => :private_key))
+      subject.perform
+    end
+
+    it "should configure the certificate authority" do
+      stub_undelivered
+      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:ssl_ca_file => anything()))
+      subject.perform
+    end
+
+    it "should configure ssl verify to verify peer" do
+      stub_undelivered
+      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:verify_ssl => OpenSSL::SSL::VERIFY_PEER))
+      subject.perform
+    end
+
   end
   
   describe "a delivered message" do
     def stub_undelivered
       mock_delivery.stub :delivered? => true
       stub_perform
+      stub_identity
     end
     
     it "should check if the delivery was delivered" do

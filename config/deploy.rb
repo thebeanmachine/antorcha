@@ -1,4 +1,4 @@
-set :stages, %w(jeugdzorg zorgaanbieder)
+set :stages, %w(jeugdzorg zorgaanbieder jeugdzorg-local)
 require 'capistrano/ext/multistage'
 
 set :application, "antorcha"
@@ -21,10 +21,6 @@ set :ssh_options, { :forward_agent => true, :keys => [
   File.join(ENV["HOME"], ".ssh", "antorcha_id_rsa")
 ]}
 set :use_sudo, false
-
-role :web, "thebeanmachine.nl"                          # Your HTTP server, Apache/etc
-role :app, "thebeanmachine.nl"                          # This may be the same as your `Web` server
-role :db,  "thebeanmachine.nl", :primary => true # This is where Rails migrations will run
 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need

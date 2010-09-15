@@ -1,0 +1,27 @@
+<h1>De identiteit vaststellen</h1>
+
+<%= render :partial => 'introductie' %>
+
+<p>
+  Hieronder kan de systeembeheerder de identiteit vaststellen van zijn organisatie doormiddel van de ontvangen privésleutel.
+</p>
+
+<p>
+<%= link_to 'Haal me hier vandaan', identity_path %>
+</p>
+
+<% semantic_form_for @identity, :url => identity_path do |f| %>
+  <%= f.error_messages %>
+
+  <% f.inputs 'Registrant' do %>
+    <%= f.input :organization_id, :label => 'Mijn organisatie', :collection => Organization.all, :hint => 'Organisatie die deze antorcha representeert.' %>
+  <% end %>
+
+
+  <% f.inputs 'Ondertekening' do %>
+    <%= f.input :private_key, :as => :text, :hint => 'De privésleutel waarmee alle uitgaande berichten worden ondertekend. Geen privé sleutel? Neem contract op met de uitweg.' %>
+    <%= f.input :passphrase, :as => :password, :hint => 'Optioneel een wachtwoord die de privé sleutel activeert.' %>
+  <% end %>
+  <%= f.buttons %>
+<% end %>
+

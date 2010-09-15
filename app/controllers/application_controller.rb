@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
   # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
+  filter_parameter_logging :password, :private_key
   
   def flash_notice action, model
     flash[:notice] = t("notice.#{action}", :model => model.class.human_name)

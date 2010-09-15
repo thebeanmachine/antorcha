@@ -101,6 +101,7 @@ nl:
         other: Organisaties
       session:
         other: Sessie
+      identity: Identiteit
     
     attributes:
       transaction:

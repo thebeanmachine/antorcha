@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resource :identity
+  
+  map.resources :jobs, :only => :index, :member => {:retry => :put}
+
   map.resources :castables
 
   map.devise_for :users
