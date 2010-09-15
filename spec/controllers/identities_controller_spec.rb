@@ -16,7 +16,7 @@ describe IdentitiesController do
     
     it "authorizes showing the identity" do
       Identity.stub :first => mock_identity
-      controller.should_receive(:authorize!).with(:show, mock_identity)
+      controller.should_receive(:authorize!).with(:show, Identity)
       get :show
     end
   end

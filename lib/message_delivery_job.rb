@@ -2,11 +2,8 @@ class MessageDeliveryJob < Struct.new(:delivery_id)
   def perform
     delivery = Delivery.find(delivery_id)
     message = delivery.message
+
     unless delivery.delivered?
-      puts delivery.url
-      puts Identity.certificate
-      puts Identity.private_key
-      
       RestClient::Resource.new(delivery.url,
         :ssl_client_cert  =>  Identity.certificate.certificate,
         :ssl_client_key   =>  Identity.private_key,
