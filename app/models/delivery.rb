@@ -8,6 +8,8 @@ class Delivery < ActiveRecord::Base
   
   after_save :deliver
   
+  named_scope :queued, :conditions => {:delivered_at => nil}
+  
   def url
     organization.delivery_url
   end

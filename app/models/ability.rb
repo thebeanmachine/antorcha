@@ -16,6 +16,8 @@ class Ability
     can :manage, Worker
     can :manage, Castable
     can :read, Transaction
+    can :manage, Identity
+    can :read, Delivery
   end
   
   def permit_communicator(user)

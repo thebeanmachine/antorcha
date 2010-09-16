@@ -11,3 +11,4 @@ db/shared
 capybara-*.html
 *.dot
 *.png
+coverage

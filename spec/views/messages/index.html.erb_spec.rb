@@ -43,6 +43,8 @@ describe "/messages/index.html.erb" do
     
     
     assigns[:steps_starting_steps] = []
+    assigns[:messages].stub!(:total_pages).and_return(0)
+    
   end
   
   shared_examples_for "message index" do

@@ -3,6 +3,7 @@ module ApplicationHelper
   include SwiftHelper
   help_can_link_to :user
   help_can_link_to :castable
+  help_can_link_to :deliveries
 
   
   def index_title

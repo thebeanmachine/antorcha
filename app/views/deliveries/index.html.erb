@@ -1,0 +1,15 @@
+<h1>Wachtrij</h1>
+<p>Bezorgingen die nog moeten plaatsvinden.</p>
+<br />
+<% if @queued_deliveries.empty? %>
+<p>Er is geen wachtrij.</p>
+<% else %>
+<dl>
+<% @queued_deliveries.each do |delivery| %>
+	<dt><b>Bericht: <%= delivery.message.title %></b></dt>
+	<dd>Organisatie: <%= delivery.organization.title %></dd>
+	<dd>Aangemaakt op: <%= delivery.created_at %></dd>
+	<dd>Laatste wijziging <%= delivery.updated_at %></dd>
+<% end %>
+</dl>
+<% end %>

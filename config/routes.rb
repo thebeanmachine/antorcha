@@ -1,5 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resource :identity
+  
+  map.resources :jobs, :only => :index, :member => {:retry => :put}
+
   map.resources :castables
+  map.resources :deliveries
 
   map.devise_for :users
   map.resources :users, :only => [:index, :update] # FOR THE MAINAINTER ONLY!

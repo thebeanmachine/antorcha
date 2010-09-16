@@ -65,6 +65,9 @@ nl:
       definition:
         one: Transactiedefinitie
         other: Transactiedefinities
+      delivery:
+        one: Wachtrij
+        other: Wachtrij  
       step:
         one: Stap
         other: Stappen
@@ -101,6 +104,7 @@ nl:
         other: Organisaties
       session:
         other: Sessie
+      identity: Identiteit
     
     attributes:
       transaction:

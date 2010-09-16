@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  string: 
+  string: 
+  organization_id: 1
+
+two:
+  string: 
+  string: 
+  organization_id: 1
