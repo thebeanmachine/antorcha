@@ -4,7 +4,7 @@ echo *** Antorcha installatie script ***
 echo.
 echo  Antorcha downloaden
 echo.
-git clone git@github.com:thebeanmachine/antorcha.git antorcha
+git clone git://github.com/thebeanmachine/antorcha.git antorcha
 cd antorcha
 mkdir db
 mkdir db\shared

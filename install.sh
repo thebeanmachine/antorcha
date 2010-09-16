@@ -7,7 +7,7 @@ echo
 
 echo -e "\033[1m Antorcha downloaden \033[0m"
 echo
-git clone git@github.com:thebeanmachine/antorcha.git antorcha
+git clone git://github.com/thebeanmachine/antorcha.git antorcha
 echo
 echo -e "\033[1m Gereed! \033[0m"
 
