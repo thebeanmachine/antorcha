@@ -1,0 +1,24 @@
+<h1>Editing reception</h1>
+
+<% form_for(@reception) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :certificate %><br />
+    <%= f.text_area :certificate %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :message_id %><br />
+    <%= f.text_field :message_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @reception %> |
+<%= link_to 'Back', receptions_path %>

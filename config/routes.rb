@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :receptions
+
   map.resource :identity
   
   map.resources :jobs, :only => :index, :member => {:retry => :put}

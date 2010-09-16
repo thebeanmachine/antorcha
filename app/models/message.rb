@@ -8,11 +8,13 @@ class Message < ActiveRecord::Base
   validates_presence_of :step
   validates_presence_of :transaction
 
+  validates_presence_of :organization, :if => :incoming?
   validates_presence_of :sent_at, :if => :delivered?
 
   belongs_to :transaction
 
   belongs_to_resource :step
+  belongs_to_resource :organization
 
   flagstamp :sent, :shown
   antonym :draft => :sent
