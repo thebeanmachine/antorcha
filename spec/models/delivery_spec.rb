@@ -20,4 +20,9 @@ describe Delivery do
     Delayed::Job.should_receive(:enqueue).with(mock_message_delivery_job)
     Delivery.create!(@valid_attributes)
   end
+  
+  it "should create an undelivered messages" do
+    Delivery.create(@valid_attributes.merge!(:delivered_at => nil))    
+  end
+  
 end
