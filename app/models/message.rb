@@ -13,9 +13,6 @@ class Message < ActiveRecord::Base
   belongs_to :transaction
 
   belongs_to_resource :step
-  
-  cattr_reader :per_page
-  @@per_page = 25  
 
   flagstamp :sent, :shown
   antonym :draft => :sent
