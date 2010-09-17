@@ -49,7 +49,9 @@ class MessageService < AuthenticatedService
   end
   
   def deliver token, api_message
-    Message.find(api_message.id).send_deliveries
+    @message = Message.find(api_message.id)
+    @message.send_deliveries
+    @message
   end
   
   def delete token, api_message
