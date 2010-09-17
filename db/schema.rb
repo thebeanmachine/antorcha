@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100910140903) do
+ActiveRecord::Schema.define(:version => 20100917140813) do
 
   create_table "cancellations", :force => true do |t|
     t.integer  "transaction_id",  :null => false
@@ -72,12 +72,13 @@ ActiveRecord::Schema.define(:version => 20100910140903) do
 
   create_table "transactions", :force => true do |t|
     t.string   "title"
-    t.integer  "definition_id", :null => false
+    t.integer  "definition_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "cancelled_at"
     t.string   "uri"
     t.datetime "stopped_at"
+    t.datetime "initialized_at"
   end
 
   create_table "users", :force => true do |t|
