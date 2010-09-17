@@ -1,4 +1,7 @@
 class MessageService < AuthenticatedService
+  
+  include TransactionInitiationsController::TransactionInitiationMixin
+  
   web_service_api MessageAPI
 
   before_invocation :load_and_authorize_message
@@ -26,6 +29,23 @@ class MessageService < AuthenticatedService
   
   def reply token, api_message
     Message.find(api_message.id).replies.build(api_message.attributes)
+  end
+  
+  def deliver_message_after_init_transaction token, api_step, message_title, message_body
+    
+    begin
+      @step = Step.find(api_step.id)
+    rescue ActiveResource::ResourceNotFound
+      raise TransactionServiceError, "Step #{api_step.id} not found"
+    end
+    
+    @transaction = Transaction.new
+    
+    @message = create_transaction_and_message(@transaction, @step)
+    @message.title = message_title
+    @message.body = message_body
+    @message.send_deliveries
+    @message
   end
   
   def deliver token, api_message
@@ -77,5 +97,10 @@ private
   def scrub_message message
     message.body = nil unless can? :examine, message
   end
+  
+  class TransactionServiceError < StandardError
+  end
 
 end
+
+
