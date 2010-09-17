@@ -193,29 +193,56 @@ describe Message do
       mock_step.stub :name => "dit is de naam van de stap"
       example_message
     }
-    it "should work" do
-      subject.to_xml
+
+    describe "without identity" do
+      it "should raise 'no identity'" do
+        lambda { subject.to_xml }.should raise_error('No identity')
+      end
     end
 
-    it "should serialize title" do
-      subject.title = 'Aap noot mies'
-      subject.to_xml.should =~ /<title>Aap noot mies<\/title>/
-    end
+    describe "with identity" do
+      before(:each) do
+        Identity.stub :first! => mock_identity
+        mock_identity.stub :organization => mock_organization
+      end
+      
+      it "should work" do
+        subject.to_xml
+      end
 
-    it "should serialize step" do
-      subject.step = mock_step
-      subject.to_xml.should =~ /<step_id>#{mock_step.to_param}<\/step_id>/
+      it "should serialize title" do
+        subject.title = 'Aap noot mies'
+        subject.to_xml.should =~ /<title>Aap noot mies<\/title>/
+      end
+
+      it "should serialize step" do
+        subject.step = mock_step
+        subject.to_xml.should =~ %r[<step_id>#{mock_step.to_param}</step_id>]
+      end
+      
+      it "should serialize organization" do
+        subject.to_xml.should =~ %r[<organization_id>#{mock_organization.to_param}</organization_id>]
+      end
     end
   end
   
   describe "from hash" do
     def stub_from_hash
       Step.stub(:find).with(mock_step.id).and_return(mock_step)
+      Organization.stub(:find).with(mock_organization.id).and_return(mock_organization)
     end
     
     def message_from_hash
       @message = Message.new
-      @message.from_hash :step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1'
+      @message.from_hash :step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1', :organization_id => mock_organization.to_param
+    end
+    
+    it "should assign the organization" do
+      stub_from_hash
+      stub_find_by mock_transaction, :uri => 'http://example.com/transactions/1'
+
+      message_from_hash
+      @message.organization.should == mock_organization
     end
     
 

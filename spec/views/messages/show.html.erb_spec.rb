@@ -22,7 +22,8 @@ describe "/messages/show.html.erb" do
       :sent_at => Time.now,
       :created_at => Time.now,
       :replyable? => true,
-      :updatable? => true
+      :updatable? => true,
+      :organization_title => 'ASHG'
     
     mock_message(:request).stub \
       :title => 'requested message title'
@@ -55,6 +56,11 @@ describe "/messages/show.html.erb" do
     it "renders status message helper in p" do
       render
       response.should have_tag('p',/status of message/)
+    end
+    
+    it "renders organization title" do
+      render
+      response.should have_tag('.sender',/ASHG/)
     end
   end
 

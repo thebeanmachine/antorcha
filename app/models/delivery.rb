@@ -14,6 +14,10 @@ class Delivery < ActiveRecord::Base
     organization.delivery_url
   end
   
+  def https?
+    organization.https?
+  end
+  
   def deliver
     Delayed::Job.enqueue MessageDeliveryJob.new(id)
   end

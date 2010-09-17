@@ -37,14 +37,17 @@ describe MessageDeliveryJob do
   
   
   describe "without an identity" do
-    it "should raise as exception" do
+    before(:each) do
+      mock_delivery.stub :https? => true
+    end
+    it "should raise an exception" do
       mock_delivery.stub :delivered? => false
       stub_perform
       lambda { subject.perform }.should raise_exception('No identity')
     end
   end
   
-  describe "undelivered message" do
+  shared_examples_for "undelivered message" do
     def stub_undelivered
       mock_delivery.stub :delivered? => false
       stub_perform
@@ -78,15 +81,28 @@ describe MessageDeliveryJob do
       subject.perform
     end
     
+    it "should fetch destination url from the delivery (is delegated to organization)" do
+      stub_undelivered
+      mock_delivery.should_receive(:url).once
+      subject.perform
+    end
+  end
+
+  describe "https" do
+    before(:each) do
+      mock_delivery.stub :https? => true
+    end
+    it_should_behave_like "undelivered message"
+
     it "should post the message to the destination url of organizations" do
       stub_undelivered
       RestClient::Resource.should_receive(:new).with('http://example.com/messages', anything())
       subject.perform
     end
 
-    it "should fetch destination url from the delivery (is delegated to organization)" do
+    it "should configure ssl verify to verify peer" do
       stub_undelivered
-      mock_delivery.should_receive(:url).once
+      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:verify_ssl => OpenSSL::SSL::VERIFY_PEER))
       subject.perform
     end
 
@@ -107,15 +123,22 @@ describe MessageDeliveryJob do
       RestClient::Resource.should_receive(:new).with(anything(), hash_including(:ssl_ca_file => anything()))
       subject.perform
     end
-
-    it "should configure ssl verify to verify peer" do
-      stub_undelivered
-      RestClient::Resource.should_receive(:new).with(anything(), hash_including(:verify_ssl => OpenSSL::SSL::VERIFY_PEER))
-      subject.perform
-    end
-
   end
   
+  describe "http" do
+    before(:each) do
+      mock_delivery.stub :https? => false
+    end
+    it_should_behave_like "undelivered message"
+    
+    it "should post the message to the destination url of organizations" do
+      stub_undelivered
+      RestClient::Resource.should_receive(:new).with('http://example.com/messages')
+      subject.perform
+    end
+  end
+
+
   describe "a delivered message" do
     def stub_undelivered
       mock_delivery.stub :delivered? => true

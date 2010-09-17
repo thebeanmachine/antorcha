@@ -9,6 +9,7 @@ module MessageSerialization
       xml.tag!(:body, body)
       xml.tag!(:transaction, transaction.uri)
       xml.tag!(:step_id, step.id)
+      xml.tag!(:organization_id, Identity.first!.organization.id)
     end
   end
 

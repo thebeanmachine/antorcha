@@ -17,7 +17,8 @@ describe "/messages/index.html.erb" do
       :cancelled? => false,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
+      :incoming? => false,
+      :organization_title => 'MEE'
 
     mock_message(:cancelled).stub \
       :title => "value for title",
@@ -26,7 +27,8 @@ describe "/messages/index.html.erb" do
       :cancelled? => :cancelled,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
+      :incoming? => false,
+      :organization_title => 'Advies en Steunpunt Huiselijk Geweld'
       
 
     mock_message(:new).stub \
@@ -36,7 +38,8 @@ describe "/messages/index.html.erb" do
       :cancelled? => false,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
+      :incoming? => false,
+      :organization_title => nil
     
     mock_step.stub :title => 'step title', :definition => mock_definition
     mock_definition.stub :title => 'definition title'
@@ -66,6 +69,15 @@ describe "/messages/index.html.erb" do
     it "renders a cancelled message" do
       render
       response.should have_tag("tr.message.cancelled", 1)
+    end
+    
+    it "renders afzender MEE" do
+      render
+      response.should have_text(/MEE/)
+    end
+    it "renders afzender ASHG" do
+      render
+      response.should have_text(/Advies en Steunpunt Huiselijk Geweld/)
     end
   end
   

@@ -11,7 +11,7 @@
 <% @messages.each do |message| %>
   <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink">
 		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Uit" %></span></td>
-		<td class="sender">{AFZENDER}</td>
+		<td class="sender"><%=h message.organization_title %></td>
 
     <td class="title"><%= link_to h(message.title), message %></td>
     <td class="date"><%= l(message.sent_at, :format => :short) if message.sent? %> <%= l(message.created_at, :format => :short) if message.incoming? %></td>

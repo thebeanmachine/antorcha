@@ -4,13 +4,17 @@ class Message < ActiveRecord::Base
   include MessageSerialization
   include CrossAssociatedModel
 
+
   validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
 
   validates_presence_of :sent_at, :if => :delivered?
+  validates_presence_of :organization, :if => :incoming?
 
   belongs_to :transaction
+  belongs_to_resource :organization
+  delegate :title, :to => :organization, :prefix => true, :allow_nil => true, :cache => true
 
   belongs_to_resource :step
 
