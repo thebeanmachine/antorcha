@@ -31,7 +31,7 @@ echo.
 echo  Gems en database bijwerken
 echo.
 
-set RAILS_ENV=production 
+set RAILS_ENV=production
 call rake gems:install
 call rake db:migrate
 
