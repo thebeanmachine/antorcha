@@ -22,11 +22,11 @@ module AntorchaHelper
   %w[message_delivery transaction_cancellation].each do |job|
     self.class_eval <<-RUBY
       def stub_new_#{job}_job
-        #{job.classify}Job.stub(:new => mock_#{job}_job)
+        Jobs::#{job.classify}Job.stub(:new => mock_#{job}_job)
       end
   
       def mock_#{job}_job
-        @mock_#{job}_job ||= mock(#{job.classify}Job)
+        @mock_#{job}_job ||= mock(Jobs::#{job.classify}Job)
       end
     RUBY
   end
