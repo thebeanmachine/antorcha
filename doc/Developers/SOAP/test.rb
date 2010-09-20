@@ -50,8 +50,17 @@
       response =  driver.IsValidISBN13(:sISBN => '9780393068474')
       puts response.isValidISBN13Result #true
     end
+    
+    def quickSend
+      step = startSteps().first
+      driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
+      message = driver.DeliverMessageAfterInitTransaction({:username=>"maarten",:password=>"asdfasdf"},step,"Titel van quicksend Message","Mijn body") #OK
+      puts "Bericht verstuurd met bericht id #{message.id}"
+    end
 
     testSoap 
+    quickSend
+    
     step = startSteps.first
     message = startTransaction(step)
     puts showMessage(message.id).title
@@ -63,7 +72,7 @@
     updateMessage(message)
     puts "Alle berichten"
     index.each do |m| puts m.title end
-    #deleteMessage(message) Geen authorisatie
+    #deleteMessage(message) #Geen authorisatie
     puts "Alleen gelezen berichten"
     indexRead.each do |m| puts m.title end
     deliver(message)
