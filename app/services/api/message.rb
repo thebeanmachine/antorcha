@@ -4,7 +4,7 @@ module Api
     member :id, :integer
     member :title, :string
     member :body, :string
-    member :transaction_id, :integer
+    member :transaction, Api::Transaction
     member :step_id, :integer
   end
 end

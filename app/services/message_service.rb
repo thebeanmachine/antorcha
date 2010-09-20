@@ -58,8 +58,8 @@ class MessageService < AuthenticatedService
     Message.find(api_message.id).destroy
   end
   
-  def index token
-    Message.all
+  def index token, search
+    search.blank? ? Message.all : Message.send(search)      
   end
   
   def update token, api_message
