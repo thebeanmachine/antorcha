@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100917140813) do
+ActiveRecord::Schema.define(:version => 20100920095833) do
 
   create_table "cancellations", :force => true do |t|
     t.integer  "transaction_id",  :null => false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20100917140813) do
     t.string   "uri"
     t.datetime "stopped_at"
     t.datetime "initialized_at"
+    t.datetime "expired_at"
   end
 
   create_table "users", :force => true do |t|

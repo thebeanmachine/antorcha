@@ -1,6 +1,6 @@
 <% breadcrumb @message %>
 <%# breadcrumb [@message.step.definition],[@message.step], @message %>
-<div class="<%= @message.cancelled? %>">
+<div class="<%= @message.cancelled? %> <%= @message.expired? %>">
   <h1 class="as_in_table">
   	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
   	<small class="sender">{afzender}</small>

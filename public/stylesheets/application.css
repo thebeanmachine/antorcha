@@ -18,6 +18,11 @@
   font-family: Helvetica Neue, Arial, sans-serif;
   font-size: 0.9em;
 }
+
+.expired{
+	color: #ff0000;
+}
+
 a { color: #0f80b5; }
 a:visited { color: #888888; }
 table {

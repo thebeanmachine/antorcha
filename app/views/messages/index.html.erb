@@ -9,7 +9,7 @@
   </tr>
 	</thead>
 <% @messages.each do |message| %>
-  <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink">
+  <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink <%= message.expired? %>">
 		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Uit" %></span></td>
 		<td class="sender">{AFZENDER}</td>
 
@@ -25,6 +25,7 @@
 	<li><%= link_to "Alle", :search => nil %></li>
   <li><%= link_to "Inkomende", :search => {:inbox => true} %></li>
   <li><%= link_to "Uitgaande", :search => {:outbox => true} %></li>
+	<li><%= link_to "Verlopen", :search => {:expired => true} %></li>
 </ul>
 
 

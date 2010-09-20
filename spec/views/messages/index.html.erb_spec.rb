@@ -17,7 +17,8 @@ describe "/messages/index.html.erb" do
       :cancelled? => false,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
+      :incoming? => false,
+      :expired? => false 
 
     mock_message(:cancelled).stub \
       :title => "value for title",
@@ -26,8 +27,18 @@ describe "/messages/index.html.erb" do
       :cancelled? => :cancelled,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
-      
+      :incoming? => false,
+      :expired? => false 
+    
+    mock_message(:expired).stub \
+      :title => "value for title",
+      :body => "value for body",
+      :shown? => false,
+      :cancelled? => :cancelled,
+      :sent? => false,
+      :step => mock_step,
+      :incoming? => false,
+      :expired? => true  
 
     mock_message(:new).stub \
       :title => "value for title",
@@ -36,7 +47,8 @@ describe "/messages/index.html.erb" do
       :cancelled? => false,
       :sent? => false,
       :step => mock_step,
-      :incoming? => false
+      :incoming? => false,
+      :expired? => false 
     
     mock_step.stub :title => 'step title', :definition => mock_definition
     mock_definition.stub :title => 'definition title'
@@ -67,6 +79,12 @@ describe "/messages/index.html.erb" do
       render
       response.should have_tag("tr.message.cancelled", 1)
     end
+    
+    it "renders an expired message" do
+       pending
+       render
+       response.should have_tag("tr.message.expired", 1)
+     end
   end
   
 

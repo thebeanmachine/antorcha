@@ -22,7 +22,8 @@ describe "/messages/show.html.erb" do
       :sent_at => Time.now,
       :created_at => Time.now,
       :replyable? => true,
-      :updatable? => true
+      :updatable? => true,
+      :expired? => false
     
     mock_message(:request).stub \
       :title => 'requested message title'

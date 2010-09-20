@@ -24,11 +24,14 @@ class Transaction < ActiveRecord::Base
   has_many :cancellations
 
   after_create :format_title
+  after_create :expiration_date
 
   flagstamp :cancelled
 
   attr_accessor :starting_step
-
+  
+  named_scope :expired, lambda { {:conditions => ["expired_at < ?", Time.now]} }
+ 
   def validate_initiation
     errors.add_on_blank([:starting_step, :initialized_at])
   end
@@ -51,10 +54,18 @@ class Transaction < ActiveRecord::Base
       cancel_and_cascade_cancellations_if_not_cancelled if not_cancelled
     end
   end
+  
+  def expired?
+    :expired if Time.now > expired_at
+  end
 
 private
   def format_title
     update_attribute :title, "#{definition.title} \##{id}" if title.blank?
+  end
+  
+  def expiration_date
+    update_attribute :expired_at, (initialized_at + definition.expiration_days.days)
   end
   
   def cancel_and_cascade_cancellations_if_not_cancelled

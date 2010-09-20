@@ -44,11 +44,13 @@ describe TransactionInitiationsController do
     def stub_create_transaction
       stub_new(mock_transaction)
 
+      mock_transaction.stub :initialized_at=
+      mock_transaction.stub :definition=
+
       mock_transaction.stub \
-        :definition= => nil,
         :save => true,
         :update_uri => nil
-
+        
       mock_step.stub :definition => mock_definition
     end
 

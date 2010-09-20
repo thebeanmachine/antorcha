@@ -2,9 +2,14 @@ require 'spec_helper'
 
 describe Transaction do
   before(:each) do
+    
+    mock_definition.stub(:expiration_days => 2)
+    
     @valid_attributes = {
       :title => "value for title",
-      :definition => mock_definition
+      :definition => mock_definition,
+      :initialized_at => DateTime.now,
+      :expired_at => (DateTime.now + 2.days)
     }
   end
 

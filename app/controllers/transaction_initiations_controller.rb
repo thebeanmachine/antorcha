@@ -11,7 +11,7 @@ class TransactionInitiationsController < ApplicationController
   end
   
   def create
-    @transaction.initialized_at = DateTime.now
+    @transaction.initialized_at = DateTime.now    
     @transaction.validate_initiation
     unless @transaction.errors.blank?
       render :action => :new
