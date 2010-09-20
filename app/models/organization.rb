@@ -11,6 +11,10 @@ class Organization < Resource
     url
   end
 
+  def https?
+    url =~ /^https:/
+  end
+
   def cancellation_url
     url.gsub(%r[/messages], "/transactions/cancellations")
   end

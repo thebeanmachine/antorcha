@@ -17,7 +17,6 @@ class Ability
     can :manage, Castable
     can :read, Transaction
     can :manage, Identity
-    
     can :read, Delivery
   end
   
@@ -30,7 +29,7 @@ class Ability
     can :reply, Message do |message| message.replyable? end
     #can :cancel, Message { |message| message.cancellable?}
     can :examine, Message
-    
+    can :index, Step
     can :create, Transaction unless user.castables.empty?
     can :cancel, Transaction
   end

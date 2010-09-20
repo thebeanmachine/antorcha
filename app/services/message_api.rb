@@ -13,4 +13,5 @@ class MessageAPI < ActionWebService::API::Base
   api_method :delete, :expects => [Api::Token, Api::Message], :returns => [Api::Message]
   api_method :deliver, :expects => [Api::Token, Api::Message], :returns => [Api::Message]
   api_method :reply, :expects => [Api::Token, Api::Message], :returns => [Api::Message]
+  api_method :deliver_message_after_init_transaction, :expects => [Api::Token, Api::Step, :string, :string], :returns => [Api::Message]
 end

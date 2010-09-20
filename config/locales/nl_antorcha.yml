@@ -65,6 +65,9 @@ nl:
       definition:
         one: Transactiedefinitie
         other: Transactiedefinities
+      delivery:
+        one: Wachtrij
+        other: Wachtrij  
       step:
         one: Stap
         other: Stappen

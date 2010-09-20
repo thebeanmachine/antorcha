@@ -23,7 +23,7 @@ class Step < Resource
 
 
   def self.starting_steps options = {}
-    Step.find :all, :from => :start, :params => filter_params_from_options(options)
+    Step.find :all, :from => :start , :params => filter_params_from_options(options)
   end
 
   def effects options = {}

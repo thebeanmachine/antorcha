@@ -9,7 +9,8 @@ class MessagesController < ApplicationController
 
   def index    
     @search = Message.search(params[:search])
-    @messages = @search.all(:include => :transaction)
+    @messages = @search.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
+    # render :text => @messages.class
   end
 
   def show

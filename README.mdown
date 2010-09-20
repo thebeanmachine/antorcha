@@ -1,9 +1,7 @@
-
-antorcha
+Antorcha
 ========
 
-De [backlog](http://thescrummachine.com/products/10/releases) is leidend voor dit project.
+Antorcha (voorheen Talaris) is een product dat bedrijven gelieerd aan De Uitweg in staat stelt op een veilige manier gedistribueerde datasystemen aan elkaar te koppelen. De voorloper van dit systeem is de protocol module in combinatie met de in-/uitvoer module. De applicatie komt nog het dichts in de buurt van soort mail clients die, danwel automatisch, danwel na gebruikers interventie, gestructureerde berichten kunnen afhandelen, afhankelijk van de configuratie door De Uitweg partner.
 
-Test 3
-
+De [backlog op The Scrum Machine](http://thescrummachine.com/products/10/releases) is leidend voor dit project.
 
