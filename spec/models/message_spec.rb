@@ -245,6 +245,14 @@ describe Message do
       @message.organization.should == mock_organization
     end
     
+    it "should set incoming to true, because from hash message are _always_ received" do
+      stub_from_hash
+      stub_find_by mock_transaction, :uri => 'http://example.com/transactions/1'
+
+      message_from_hash
+      @message.should be_incoming
+    end
+    
 
     describe "with a unknown transaction" do
       def stub_unknown_transaction

@@ -13,7 +13,7 @@ describe "/receptions/show.html.erb" do
   it "renders attributes in <p>" do
     render
     response.should have_text(/value\ for\ certificate/)
-    response.should have_text(/value\ for\ body/)
+    response.should_not have_text(/value\ for\ body/)
     response.should have_text(/1/)
   end
 end

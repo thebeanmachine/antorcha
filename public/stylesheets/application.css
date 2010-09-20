@@ -134,8 +134,8 @@ h1.as_in_table .icons {
   width: 3em;
   padding-left: 1em;
 }
-td.sender { width: 6em; }
-h1.as_in_table .sender { width: 6em; }
+td.sender { width: 20em; }
+h1.as_in_table .sender { width: 20em; }
 #header {
   background: #0f80b5;
   background: -webkit-gradient(linear, left top, left bottom, from(#1188c1), to(#0f80b5));

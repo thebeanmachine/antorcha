@@ -2,21 +2,17 @@
 
 <table>
   <tr>
-    <th>Certificate</th>
-    <th>Body</th>
-    <th>Message</th>
+    <th>Ontvangen</th>
+    <th>Bericht</th>
   </tr>
 
-<% @receptions.each do |reception| %>
-  <tr>
-    <td><%=h reception.certificate %></td>
-    <td><%=h reception.body %></td>
-    <td><%=h reception.message_id %></td>
-    <td><%= link_to 'Show', reception %></td>
-    <td><%= link_to 'Edit', edit_reception_path(reception) %></td>
-    <td><%= link_to 'Destroy', reception, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @receptions.each do |reception| %>
+    <tr>
+      <td><%=h reception.created_at %></td>
+      <td><%=h reception.certificate %></td>
+      <td><%= link_to "Bericht", reception.message if reception.message %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />

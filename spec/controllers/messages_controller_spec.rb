@@ -150,74 +150,79 @@ describe MessagesController do
   end
 
   describe "POST create" do
-    
-    def stub_create_and_from_hash
-      stub_new(mock_message)
-      mock_message.stub(:from_hash).and_return(mock_message)
-      mock_message.stub(:incoming= => nil)
+
+    it "should be deprecated" do
+      
+      lambda { post :create }.should raise_error(/^DEPRECATED/)
     end
     
-    def post_create
-      post :create, :message => {'these' => 'params'}
-    end
-
-    describe "with valid params" do
-      def stub_with_valid_params
-        stub_create_and_from_hash
-        stub_successful_save_for(mock_message)
-      end
-      
-      it "should implement peer-to-peer authentication"
-      
-      it "should not authorize create on the @message, because it is an api call (will change after implementing peer-to-peer authentication)" do
-        stub_with_valid_params
-        controller.should_not_receive(:authorize!).with(:create, mock_message)
-        post_create
-      end
-            
-      it "uses from_hash to create the message" do
-        stub_with_valid_params
-        mock_message.should_receive(:from_hash).with({'these' => 'params'})
-        post_create
-      end
-            
-      it "assigns a newly created message as @message" do
-        stub_with_valid_params
-        post_create
-        assigns[:message].should equal(mock_message)
-      end
-
-      it "response status should be http 'Created'" do
-        stub_with_valid_params
-        post_create
-        response.status.should == '201 Created'
-      end
-      
-      it "flags message as incoming" do
-        stub_with_valid_params
-        mock_message.should_receive(:incoming=).with(true)
-        post_create
-      end
-    end
-
-    describe "with invalid params" do
-      def stub_with_invalid_params
-        stub_create_and_from_hash
-        stub_unsuccessful_save_for(mock_message)
-      end
-      
-      it "assigns a newly created but unsaved message as @message" do
-        stub_with_invalid_params
-        post_create
-        assigns[:message].should equal(mock_message)
-      end
-
-      it "re-renders the 'new' template" do
-        stub_with_invalid_params
-        post_create
-        response.status.should == '422 Unprocessable Entity'
-      end
-    end
+    # def stub_create_and_from_hash
+    #   stub_new(mock_message)
+    #   mock_message.stub(:from_hash).and_return(mock_message)
+    #   mock_message.stub(:incoming= => nil)
+    # end
+    # 
+    # def post_create
+    #   post :create, :message => {'these' => 'params'}
+    # end
+    # 
+    # describe "with valid params" do
+    #   def stub_with_valid_params
+    #     stub_create_and_from_hash
+    #     stub_successful_save_for(mock_message)
+    #   end
+    #   
+    #   it "should implement peer-to-peer authentication"
+    #   
+    #   it "should not authorize create on the @message, because it is an api call (will change after implementing peer-to-peer authentication)" do
+    #     stub_with_valid_params
+    #     controller.should_not_receive(:authorize!).with(:create, mock_message)
+    #     post_create
+    #   end
+    #         
+    #   it "uses from_hash to create the message" do
+    #     stub_with_valid_params
+    #     mock_message.should_receive(:from_hash).with({'these' => 'params'})
+    #     post_create
+    #   end
+    #         
+    #   it "assigns a newly created message as @message" do
+    #     stub_with_valid_params
+    #     post_create
+    #     assigns[:message].should equal(mock_message)
+    #   end
+    # 
+    #   it "response status should be http 'Created'" do
+    #     stub_with_valid_params
+    #     post_create
+    #     response.status.should == '201 Created'
+    #   end
+    #   
+    #   it "flags message as incoming" do
+    #     stub_with_valid_params
+    #     mock_message.should_receive(:incoming=).with(true)
+    #     post_create
+    #   end
+    # end
+    # 
+    # describe "with invalid params" do
+    #   def stub_with_invalid_params
+    #     stub_create_and_from_hash
+    #     stub_unsuccessful_save_for(mock_message)
+    #   end
+    #   
+    #   it "assigns a newly created but unsaved message as @message" do
+    #     stub_with_invalid_params
+    #     post_create
+    #     assigns[:message].should equal(mock_message)
+    #   end
+    # 
+    #   it "re-renders the 'new' template" do
+    #     stub_with_invalid_params
+    #     post_create
+    #     response.status.should == '422 Unprocessable Entity'
+    #   end
+    # end
   end
 
 

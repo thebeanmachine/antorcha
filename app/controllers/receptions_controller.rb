@@ -1,7 +1,15 @@
 class ReceptionsController < ApplicationController
+  
+  def self.open_https_client_auth_for_receiving_message_on_create
+    skip_before_filter :authenticate_user!, :only => :create
+    skip_before_filter :verify_authenticity_token, :only => :create
+    before_filter :impose_https_on_production, :only => :create
+  end
+  
   # GET /receptions
   # GET /receptions.xml
   def index
+    authorize! :index, Reception
     @receptions = Reception.all
 
     respond_to do |format|
@@ -14,6 +22,7 @@ class ReceptionsController < ApplicationController
   # GET /receptions/1.xml
   def show
     @reception = Reception.find(params[:id])
+    authorize! :show, @reception
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,10 +30,12 @@ class ReceptionsController < ApplicationController
     end
   end
 
-  # POST /receptions
-  # POST /receptions.xml
+  open_https_client_auth_for_receiving_message_on_create
+
   def create
-    @reception = Reception.new(params[:reception])
+    @reception = Reception.new
+    @reception.content = params[:message]
+    @reception.certificate = Rails.env.production? ? ENV['SSL_CLIENT_CERT'] : 'NO CERTIFICATE'
 
     respond_to do |format|
       if @reception.save
@@ -34,6 +45,13 @@ class ReceptionsController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @reception.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+private
+  def impose_https_on_production
+    if Rails.env.production? and not request.https?
+      raise "it is prohibited to send messages over http in production mode." 
     end
   end
 

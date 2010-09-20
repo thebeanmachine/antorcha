@@ -20,6 +20,8 @@ module MessageSerialization
     self.attributes = attributes
     self.transaction = find_or_create_transaction(self.step, transaction_uri)
 
+    self.incoming = true
+
     self
   end
   

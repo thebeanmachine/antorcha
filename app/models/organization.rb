@@ -3,12 +3,13 @@ class Organization < Resource
   validates_uniqueness_of :title
 
   has_many :certificates
+
   def certificate
     certificates.first
   end
 
   def delivery_url
-    url
+    url.gsub(%r[/messages], "/receptions")
   end
 
   def https?

@@ -50,6 +50,16 @@ class Message < ActiveRecord::Base
     outgoing? and draft? and not cancelled?
   end
   
+  def self.receive! reception
+    message = Message.new
+    message = message.from_hash(reception.content)
+    
+    message.save!
+
+    reception.message = message
+    reception.save!
+  end
+  
   def self.show message_id
     message = find(message_id)
     message.shown!

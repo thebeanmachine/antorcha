@@ -10,7 +10,7 @@ describe Organization do
     end
 
     it "should format the delivery url" do
-      subject.delivery_url.should == 'http://example.com/messages'
+      subject.delivery_url.should == 'http://example.com/receptions'
     end
     it "should format the cancellation url" do
       subject.cancellation_url.should == 'http://example.com/transactions/cancellations'

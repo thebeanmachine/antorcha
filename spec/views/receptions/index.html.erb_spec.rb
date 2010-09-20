@@ -7,13 +7,13 @@ describe "/receptions/index.html.erb" do
     assigns[:receptions] = [
       stub_model(Reception,
         :certificate => "value for certificate",
-        :body => "value for body",
-        :message_id => 1
+        :content => "value for body",
+        :message => mock_message
       ),
       stub_model(Reception,
         :certificate => "value for certificate",
-        :body => "value for body",
-        :message_id => 1
+        :content => "value for body",
+        :message => mock_message
       )
     ]
   end
@@ -21,7 +21,7 @@ describe "/receptions/index.html.erb" do
   it "renders a list of receptions" do
     render
     response.should have_tag("tr>td", "value for certificate".to_s, 2)
-    response.should have_tag("tr>td", "value for body".to_s, 2)
-    response.should have_tag("tr>td", 1.to_s, 2)
+    response.should_not have_tag("tr>td", "value for body".to_s, 2)
+    response.should have_tag("tr>td>a[href=?]", message_path(mock_message.to_param), 2)
   end
 end

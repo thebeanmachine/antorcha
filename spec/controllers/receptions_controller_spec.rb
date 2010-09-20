@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe ReceptionsController do
 
+  before(:each) do    
+    turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
+  end
+  
+  specify { should have_devise_before_filter }
+
   def mock_reception(stubs={})
     @mock_reception ||= mock_model(Reception, stubs)
   end
@@ -22,30 +28,52 @@ describe ReceptionsController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new reception as @reception" do
-      Reception.stub(:new).and_return(mock_reception)
-      get :new
-      assigns[:reception].should equal(mock_reception)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested reception as @reception" do
-      Reception.stub(:find).with("37").and_return(mock_reception)
-      get :edit, :id => "37"
-      assigns[:reception].should equal(mock_reception)
-    end
-  end
-
   describe "POST create" do
+    before(:each) do
+      Reception.stub(:new).and_return(mock_reception)
+      mock_reception.stub :certificate=
+      mock_reception.stub :content=
+    end
 
+    def post_create
+      post :create, :message => 'CONTENT'
+    end
+    
     describe "with valid params" do
+      before(:each) do
+        mock_reception.stub :save => true
+      end
+      
       it "assigns a newly created reception as @reception" do
-        Reception.stub(:new).with({'these' => 'params'}).and_return(mock_reception(:save => true))
-        post :create, :reception => {:these => 'params'}
+        post_create
         assigns[:reception].should equal(mock_reception)
       end
+
+      it "assigns the message hash to @reception.content" do
+        mock_reception.should_receive(:content=).with('CONTENT')
+        post_create
+      end
+      
+      describe "in production mode" do
+        before(:each) do
+          Rails.env.stub :production? => true
+          request.stub :https? => true
+        end
+
+        it "assigns the certificate from ENV[SSL_CLIENT_CERT] to @reception.certificate" do
+          ENV.stub(:[]).with('SSL_CLIENT_CERT').and_return('CERTIFICATE')
+          mock_reception.should_receive(:certificate=).with('CERTIFICATE')
+          post_create
+        end
+      end
+
+      describe "in development mode" do
+        it "assigns a dummy certificate to @reception.certificate" do
+          mock_reception.should_receive(:certificate=).with('NO CERTIFICATE')
+          post_create
+        end
+      end
+
 
       it "redirects to the created reception" do
         Reception.stub(:new).and_return(mock_reception(:save => true))
@@ -55,6 +83,10 @@ describe ReceptionsController do
     end
 
     describe "with invalid params" do
+      before(:each) do
+        mock_reception.stub :save => false
+      end
+      
       it "assigns a newly created but unsaved reception as @reception" do
         Reception.stub(:new).with({'these' => 'params'}).and_return(mock_reception(:save => false))
         post :create, :reception => {:these => 'params'}
@@ -66,65 +98,6 @@ describe ReceptionsController do
         post :create, :reception => {}
         response.should render_template('new')
       end
-    end
-
-  end
-
-  describe "PUT update" do
-
-    describe "with valid params" do
-      it "updates the requested reception" do
-        Reception.should_receive(:find).with("37").and_return(mock_reception)
-        mock_reception.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :reception => {:these => 'params'}
-      end
-
-      it "assigns the requested reception as @reception" do
-        Reception.stub(:find).and_return(mock_reception(:update_attributes => true))
-        put :update, :id => "1"
-        assigns[:reception].should equal(mock_reception)
-      end
-
-      it "redirects to the reception" do
-        Reception.stub(:find).and_return(mock_reception(:update_attributes => true))
-        put :update, :id => "1"
-        response.should redirect_to(reception_url(mock_reception))
-      end
-    end
-
-    describe "with invalid params" do
-      it "updates the requested reception" do
-        Reception.should_receive(:find).with("37").and_return(mock_reception)
-        mock_reception.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :reception => {:these => 'params'}
-      end
-
-      it "assigns the reception as @reception" do
-        Reception.stub(:find).and_return(mock_reception(:update_attributes => false))
-        put :update, :id => "1"
-        assigns[:reception].should equal(mock_reception)
-      end
-
-      it "re-renders the 'edit' template" do
-        Reception.stub(:find).and_return(mock_reception(:update_attributes => false))
-        put :update, :id => "1"
-        response.should render_template('edit')
-      end
-    end
-
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested reception" do
-      Reception.should_receive(:find).with("37").and_return(mock_reception)
-      mock_reception.should_receive(:destroy)
-      delete :destroy, :id => "37"
-    end
-
-    it "redirects to the receptions list" do
-      Reception.stub(:find).and_return(mock_reception(:destroy => true))
-      delete :destroy, :id => "1"
-      response.should redirect_to(receptions_url)
     end
   end
 
