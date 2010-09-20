@@ -1,23 +1,6 @@
 <% breadcrumb [@transaction, Message].compact %>
-<table id="messages">
-	<thead>
-  <tr>
-		<th></th>
-		<th>Verzender</th>
-    <th>Bericht titel</th>
-    <th>Direction</th>
-  </tr>
-	</thead>
-<% @messages.each do |message| %>
-  <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink">
-		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Uit" %></span></td>
-		<td class="sender"><%=h message.organization_title %></td>
+<%= render :partial => 'index' %>
 
-    <td class="title"><%= link_to h(message.title), message %></td>
-    <td class="date"><%= l(message.sent_at, :format => :short) if message.sent? %> <%= l(message.created_at, :format => :short) if message.incoming? %></td>
-  </tr>
-<% end %>
-</table>
 <% content_for :sidebar do -%>
 <h2>Berichten filteren </h2>
 

@@ -5,8 +5,8 @@ echo.
 echo  Antorcha bijwerken
 echo.
 
-git checkout origin/maint -b maint
-git pull
+call git checkout origin/maint -b maint
+call git pull
 
 echo.
 echo    Gereed!
@@ -18,8 +18,8 @@ echo.
 echo  Submodules bijwerken
 echo.
 
-git submodule init
-git submodule update
+call git submodule init
+call git submodule update
 
 echo.
 echo    Gereed!
@@ -31,8 +31,9 @@ echo.
 echo  Gems en database bijwerken
 echo.
 
-RAILS_ENV=production rake gems:install
-RAILS_ENV=production rake db:migrate
+set RAILS_ENV=production 
+call rake gems:install
+call rake db:migrate
 
 echo.
 echo    Gereed!
