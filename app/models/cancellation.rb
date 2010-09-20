@@ -12,7 +12,11 @@ class Cancellation < ActiveRecord::Base
     organization.cancellation_url
   end
   
+  def https?
+    organization.https?
+  end
+  
   def cancel
-    Delayed::Job.enqueue TransactionCancellationJob.new(id)
+    Delayed::Job.enqueue Jobs::TransactionCancellationJob.new(id)
   end
 end

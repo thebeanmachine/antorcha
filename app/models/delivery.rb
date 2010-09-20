@@ -19,6 +19,6 @@ class Delivery < ActiveRecord::Base
   end
   
   def deliver
-    Delayed::Job.enqueue MessageDeliveryJob.new(id)
+    Delayed::Job.enqueue Jobs::MessageDeliveryJob.new(id)
   end
 end

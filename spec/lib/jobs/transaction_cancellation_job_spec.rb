@@ -1,6 +1,10 @@
 require 'spec_helper'
 
-describe TransactionCancellationJob do
+describe Jobs::TransactionCancellationJob do
+
+  before(:each) do
+    resource_method_is_speced_in_resource_mixin_spec
+  end
 
   def stub_perform
     stub_find(mock_cancellation)
@@ -13,10 +17,15 @@ describe TransactionCancellationJob do
 
     mock_transaction.stub :uri => 'http://example.com/transaction/uri'
     
-    RestClient.stub :post => nil
+    mock_resource.stub :post => nil
   end
 
-  subject { TransactionCancellationJob.new(mock_cancellation.to_param)}
+  def mock_resource
+    @mock_resource ||= mock(RestClient::Resource)
+  end
+
+
+  subject { Jobs::TransactionCancellationJob.new(mock_cancellation.to_param)}
 
   def stub_perform_on_cancelled_transaction
     stub_perform
@@ -31,14 +40,19 @@ describe TransactionCancellationJob do
   
   it "should post a cancellation request to localhost" do
     stub_perform_on_cancelled_transaction
-    RestClient.should_receive(:post).with('http://example.com/cancellations', anything).once
+    subject.should_receive(:resource).with(mock_cancellation).once
     subject.perform
   end
 
   it "should post a cancellation request with the transaction uri" do
     stub_perform_on_cancelled_transaction
-    RestClient.should_receive(:post).with(anything, hash_including(:transaction_uri => mock_transaction.uri)).once
+    mock_resource.should_receive(:post).with(hash_including(:transaction_uri => mock_transaction.uri)).once
     subject.perform
+  end
+
+
+  def resource_method_is_speced_in_resource_mixin_spec
+    subject.stub :resource => mock_resource
   end
 
 end
