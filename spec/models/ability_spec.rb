@@ -77,6 +77,13 @@ describe Ability do
     end
   end
 
+  describe "listing the reception of messages" do
+    subject { ability_of :maintainer }
+    it "should be possible for the maintainer" do
+      listing(Reception).should be_possible
+    end
+  end
+
   describe "cancellation of transactions" do
     ability_of :communicator do
       specify { should be_able_to(:cancel, Transaction)}
