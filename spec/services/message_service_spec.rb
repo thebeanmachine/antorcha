@@ -55,6 +55,14 @@ describe MessageService, "soap service" do
     [Message.new(:title => 'aap', :body => 'mies', :shown_at => nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => nil)]
   end
   
+  def example_expired_messages
+    [Message.new(:title => 'aap', :body => 'mies', :transaction => mock_transaction)]
+  end
+  
+  def example_cancelled_messages
+    [Message.new(:title => 'aap', :body => 'mies', :transaction => mock_transaction)]
+  end
+  
   def example_read_messages
     [Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil)]
   end
@@ -87,6 +95,11 @@ describe MessageService, "soap service" do
     raise_dispatch_error(/Access denied/)
   end
 
+  before(:each) do
+    mock_transaction.stub(:cancelled? => true, :expired? => true)
+    
+  end
+
   describe "listing messages with different scopes" do
     before(:each) do
       Message.stub(:all).and_return(example_messages)
@@ -94,6 +107,8 @@ describe MessageService, "soap service" do
       Message.stub(:read).and_return(example_read_messages)
       Message.stub(:inbox).and_return(example_inbox_messages)
       Message.stub(:outbox).and_return(example_outbox_messages)    
+      Message.stub(:expired).and_return(example_expired_messages)
+      Message.stub(:cancelled).and_return(example_cancelled_messages)
     end    
 
     it "should return all messages of api messages" do
@@ -206,6 +221,8 @@ describe MessageService, "soap service" do
   end
 
   it "should delete a message" do
+    mock_transaction.stub(:expired?).and_return(true)
+    
     Message.stub(:find).with(example_message.id).and_return(example_message)
     invoke_layered :message, :delete, valid_token, example_api_message
   end

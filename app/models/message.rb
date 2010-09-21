@@ -53,6 +53,18 @@ class Message < ActiveRecord::Base
     message
   end
   
+  def expired
+    expired?
+  end
+  
+  def unread
+    shown_at.nil?
+  end
+  
+  def cancelled
+    cancelled? == :cancelled ? true : false
+  end
+  
   def replyable?
     incoming? and step.replyable? and not cancelled?
   end

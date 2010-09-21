@@ -46,7 +46,19 @@ class Transaction < ActiveRecord::Base
   end
 
   def stopped?
-    :stopped unless cancellations.count == 0 or cancellations.exists? :cancelled_at => nil
+    !(cancellations.count == 0 or cancellations.exists? :cancelled_at => nil)
+  end
+  
+  def stopped
+    stopped?
+  end
+  
+  def expired
+    expired?
+  end
+  
+  def cancelled
+    cancelled? == :cancelled ? true : false
   end
 
   def cancel_and_cascade_cancellations
@@ -56,7 +68,7 @@ class Transaction < ActiveRecord::Base
   end
   
   def expired?
-    :expired if Time.now > expired_at
+    Time.now > expired_at
   end
 
 private

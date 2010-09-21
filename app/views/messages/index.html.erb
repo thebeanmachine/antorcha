@@ -9,7 +9,7 @@
   </tr>
 	</thead>
 <% @messages.each do |message| %>
-  <tr class="message <%= message.shown? %> <%= message.cancelled? %> js_blocklink <%= message.expired? %>">
+  <tr class="message <%= message.shown? %> <%= "cancelled" if message.cancelled? %> js_blocklink <%= "expired" if message.expired? %>">
 		<td class="icons"><span class="<%= message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= message.incoming? ? "In" : "Uit" %></span></td>
 		<td class="sender">{AFZENDER}</td>
 
