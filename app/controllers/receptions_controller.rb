@@ -50,7 +50,7 @@ class ReceptionsController < ApplicationController
 
 private
   def impose_https_on_production
-    if Rails.env.production? and not request.https?
+    if Rails.env.production? and not request.ssl?
       raise "it is prohibited to send messages over http in production mode." 
     end
   end

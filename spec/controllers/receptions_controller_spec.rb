@@ -57,7 +57,7 @@ describe ReceptionsController do
       describe "in production mode" do
         before(:each) do
           Rails.env.stub :production? => true
-          request.stub :https? => true
+          request.stub :ssl? => true
         end
 
         it "assigns the certificate from ENV[SSL_CLIENT_CERT] to @reception.certificate" do
