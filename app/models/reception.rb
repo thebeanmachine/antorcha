@@ -32,7 +32,7 @@ private
   end
 
   def organization
-    organization = Organization.find(content[:message][:organization_id])
+    Organization.find(content[:organization_id])
   end
 
 end
