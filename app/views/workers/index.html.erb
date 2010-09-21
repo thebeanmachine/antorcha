@@ -1,30 +1,30 @@
 <% breadcrumb Worker %>
 
-<h1>De Antorcha Berichten Engine</h1>
+<h1>Berichten-engine</h1>
 
-<p>De Berichten Engine is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
+<p>De berichten-engine is verantwoordelijk voor het verwerken van de inkomende en uitgaande berichten.
   Als de engine wordt gestopt dan is Antorcha inactief en worden er geen berichten verstuurd. Gebruikers kunnen echter nog wel inloggen om berichten te lezen en op te stellen.</p>
 
 
 <% if @workers.blank? %>
-  <p class="intro"><%= button_to "Start de Antorcha Berichten Engine", workers_path, :method => :post %></p>
+  <p class="intro"><%= button_to "Start de Berichten-engine", workers_path, :method => :post %></p>
 <% end %>
 
 
 <% @workers.each do |worker| %>
   <div class="worker">
-    <p>De Berichten Engine (pid <%= worker.pid %>)
+    <p>De Berichten-engine (pid <%= worker.pid %>)
       <% if worker.running? %>
         loopt goed.
       <% else %>
-      draait, maar deze loopt niet goed meer en zou daarom opgeruimd moeten worden door de systeembeheerder. Waarschijnlijk is de Antorchia engine niet correct gestopt.
+      draait, maar deze loopt niet goed meer en zou daarom opgeruimd moeten worden door de systeembeheerder. Waarschijnlijk is de  engine niet correct gestopt.
       <% end %>
     </p>
     <div class="actions">
       <% if worker.running? %>
-        <%= button_to "Stop de Berichten Engine", worker_path(worker), :method => :delete, :confirm => 'Weet u zeker dat u deze engine wilt stoppen en daarmee het berichtenverkeer stop zetten?'%>
+        <%= button_to "Stop de Berichten-engine", worker_path(worker), :method => :delete, :confirm => 'Weet u zeker dat u deze engine wilt stoppen en daarmee het berichtenverkeer stop zetten?'%>
       <% else %>
-        <%= button_to "Verwijder de Berichten Engine", worker_path(worker), :method => :delete, :confirm => 'Hiermee ruimt u de niet goed lopende engine op' %>
+        <%= button_to "Verwijder de Berichten-engine", worker_path(worker), :method => :delete, :confirm => 'Hiermee ruimt u de niet goed lopende engine op' %>
       <% end %>
     </div>
   </div>
