@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :castables
   map.resources :deliveries
+  map.resources :processings
 
   map.devise_for :users
   map.resources :users, :only => [:index, :update] # FOR THE MAINAINTER ONLY!
