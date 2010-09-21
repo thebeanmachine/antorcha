@@ -7,7 +7,7 @@
       <p><%=h job.handler %></p>
       <p><%=h job.attempts %> attempts.</p>
       <% if job.last_error %>
-        <p><pre style="width: 90%; overflow: auto;"><%= /^.+\n.+/.match(job.last_error)[0] %><%=h($1)%></pre></p>
+        <p><pre style="width: 90%; overflow: auto;"><%=h /^.+\n.+/.match(job.last_error)[0] %></pre></p>
       <% end %>
       <p><%= button_to 'Opnieuw', retry_job_path(job), :method => :put %>
     </li>
