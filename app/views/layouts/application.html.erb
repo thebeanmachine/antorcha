@@ -56,6 +56,10 @@
 			</div>
 			<div id="sidebar">
 		 		<%= yield(:sidebar) %>
+		
+				<p>
+					Antorcha engine staat: <%= Worker.all.empty? ? "uit" : "aan" %>
+				</p>
 			</div>
 	  </div>
 	</div>
