@@ -33,7 +33,6 @@
 			
 		<div id="navigation">
 			<ul class="menu" id="tabs">
-
 	    	  <% 
 						new_transaction_link = link_to("Nieuwe transactie", new_transaction_initiation_path, :class=>"transaction_initiation") if can? :create, Transaction
 						[
@@ -45,7 +44,7 @@
 								<%= link %>
 							</li>
 					<% end %>
-
+					<%= content_tag :li, link_to("Logboek", processings_path, :class => "processings #{'selected' if controller_name == 'processings'}") if can? :read, Processing  %>
 	   	</ul>
 		</div>
  		
@@ -57,6 +56,10 @@
 			</div>
 			<div id="sidebar">
 		 		<%= yield(:sidebar) %>
+		
+				<p>
+					Antorcha engine staat: <%= Worker.all.empty? ? "uit" : "aan" %>
+				</p>
 			</div>
 	  </div>
 	</div>
