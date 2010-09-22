@@ -118,6 +118,7 @@ nl:
         title: Titel
       user:
         email: E-mailadres
+        password: Wachtwoord
       step:
         title: Titel
         causes: Oorzaken
