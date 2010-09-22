@@ -60,8 +60,8 @@ describe ReceptionsController do
           request.stub :ssl? => true
         end
 
-        it "assigns the certificate from ENV[SSL_CLIENT_CERT] to @reception.certificate" do
-          ENV.stub(:[]).with('SSL_CLIENT_CERT').and_return('CERTIFICATE')
+        it "assigns the certificate from request.headers[SSL_CLIENT_CERT] to @reception.certificate" do
+          request.env['SSL_CLIENT_CERT'] = 'CERTIFICATE'
           mock_reception.should_receive(:certificate=).with('CERTIFICATE')
           post_create
         end
