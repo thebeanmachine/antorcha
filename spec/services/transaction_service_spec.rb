@@ -29,6 +29,14 @@ describe TransactionService, "soap service" do
     raise_error TransactionService::TransactionServiceError, match
   end
 
+  def example_message
+    mock_transaction.stub \
+      :expired? => false,
+      :cancelled? => false
+    
+    Message.new :transaction => mock_transaction
+  end
+
   def deny_access
     raise_dispatch_error(/Access denied/)
   end
@@ -44,7 +52,7 @@ describe TransactionService, "soap service" do
     
     it "should create a transaction based on a step" do
       Step.stub(:find).with(37).and_return(mock_step)
-      @service.stub :create_transaction_and_message => Message.new
+      @service.stub :create_transaction_and_message => example_message
       
       invoke_layered :transaction, :initiate, valid_token, Api::Step.new(:id => 37)
     end
