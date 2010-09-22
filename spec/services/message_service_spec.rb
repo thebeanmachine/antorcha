@@ -40,7 +40,7 @@ describe MessageService, "soap service" do
   end
 
   def example_messages
-    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies'), Message.new(:title => 'noot', :body => 'bok')]
+    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction), Message.new(:title => 'noot', :body => 'bok', :step => mock_step, :transaction => mock_transaction)]
   end
   
   def example_inbox_messages
@@ -101,48 +101,53 @@ describe MessageService, "soap service" do
   end
 
   describe "listing messages with different scopes" do
-    before(:each) do
-      Message.stub(:all).and_return(example_messages)
-      Message.stub(:unread).and_return(example_unread_messages)
-      Message.stub(:read).and_return(example_read_messages)
-      Message.stub(:inbox).and_return(example_inbox_messages)
-      Message.stub(:outbox).and_return(example_outbox_messages)    
-      Message.stub(:expired).and_return(example_expired_messages)
-      Message.stub(:cancelled).and_return(example_cancelled_messages)
-    end    
+    def stub_named_scope scope
+      Message.stub(scope).and_return(example_messages)
+    end
+
+    it "should check whether the named scope is not an evil method" do
+      pending "whoeps :D"
+      r = invoke_layered :message, :index, valid_token, 'delete_all'
+    end
 
     it "should return all messages of api messages" do
-      r = invoke_layered :message, :index, valid_token
+      stub_named_scope :all
+      r = invoke_layered :message, :index, valid_token, ''
       r.should == example_api_messages
     end
     
     it "should return the unread messages of api messages" do
+      stub_named_scope :unread
       r = invoke_layered :message, :index_unread, valid_token
-      r.should == example_api_unread_messages
+      r.should == example_api_messages
     end
     
     it "should return the read messages of api messages" do
+      stub_named_scope :read
       r = invoke_layered :message, :index_read, valid_token
-      r.should == example_api_read_messages
+      r.should == example_api_messages
     end
     
     it "should return the inbox messages of api messages" do
+      stub_named_scope :inbox
       r = invoke_layered :message, :index_inbox, valid_token
-      r.should == example_api_inbox_messages
+      r.should == example_api_messages
     end
     
     it "should return the outbox messages of api messages" do
+      stub_named_scope :outbox
       r = invoke_layered :message, :index_outbox, valid_token
-      r.should == example_api_outbox_messages
+      r.should == example_api_messages
     end
 
     it "should not be permitted with an invalid token" do
-      lambda { invoke_layered :message, :index, invalid_token }.should deny_access
+      lambda { invoke_layered :message, :index, invalid_token, '' }.should deny_access
     end
     
     it "should scrub the body if user is not permitted to :examine any message" do
+      stub_named_scope :all
       stub_cannot :examine
-      r = invoke_layered :message, :index, valid_token
+      r = invoke_layered :message, :index, valid_token, ''
       r.collect(&:body).should == [nil,nil]
     end
   end
