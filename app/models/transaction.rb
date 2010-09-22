@@ -68,7 +68,7 @@ class Transaction < ActiveRecord::Base
   end
   
   def expired?
-    return true if expired_at.nil?
+    return false if expired_at.nil?
     Time.now > expired_at
   end
 
@@ -78,7 +78,9 @@ private
   end
   
   def expiration_date
-    update_attribute :expired_at, (initialized_at + definition.expiration_days.days)
+    if definition.expiration_days
+      update_attribute :expired_at, (initialized_at + definition.expiration_days.days)
+    end
   end
   
   def cancel_and_cascade_cancellations_if_not_cancelled
