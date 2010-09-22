@@ -102,6 +102,9 @@ nl:
       organization:
         one: Organisatie
         other: Organisaties
+      processing:
+        one: Logboek entry
+        other: Logboek
       session:
         other: Sessie
       identity: Identiteit
@@ -113,6 +116,8 @@ nl:
         starting_step: Start stap
       definition:
         title: Titel
+      user:
+        email: E-mailadres
       step:
         title: Titel
         causes: Oorzaken
@@ -139,21 +144,21 @@ nl:
 
   devise:
     failure:
-      unauthenticated: 'U dient in te loggen of in te schrijven.'
+      unauthenticated: 'U dient in te loggen of te registreren.'
       unconfirmed: 'U dient eerst uw account te bevestigen.'
       locked: 'Uw account is gelocked.'
-      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid: 'Ongeldig e-mailadres of wachtwoord.'
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Uw account is nog niet geactiveerd.'
     sessions:
       signed_in: 'U bent succesvol ingelogd.'
       signed_out: 'U bent succesvol uitgelogd.'
-      unauthenticated: 'U dient in te loggen of in te schrijven.'
+      unauthenticated: 'U dient in te loggen of te registreren.'
       unconfirmed: 'U dient eerst uw account te bevestigen.'
       link: 'Inloggen'
       user:
-        invalid: 'Ongeldig e-mail of wachtwoord.'
+        invalid: 'Ongeldig e-mailadres of wachtwoord.'
         invalid_token: 'Invalide authenticiteit token.'
         timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
         inactive: 'Uw account is nog niet geactiveerd.'
