@@ -1,13 +1,17 @@
 
 module MessageSerialization
+    
   def to_xml(options = {})
     options[:indent] ||= 2
     xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
     xml.instruct! unless options[:skip_instruct]
     xml.message do
       xml.tag!(:title, title)
-      xml.tag!(:body, body)
-      xml.tag!(:transaction, transaction.uri)
+      xml.tag!(:body, body)      
+      xml.transaction do
+        xml.tag!(:uri, transaction.uri)
+        xml.tag!(:initialized_at, transaction.initialized_at)
+      end
       xml.tag!(:step_id, step.id)
       xml.tag!(:organization_id, Identity.first!.organization.id)
     end

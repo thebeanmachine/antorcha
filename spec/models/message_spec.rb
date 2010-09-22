@@ -190,6 +190,7 @@ describe Message do
   describe "to xml" do
     subject {
       mock_transaction.stub :uri => "http://example.com"
+      mock_transaction.stub :initialized_at => DateTime.now
       mock_step.stub :name => "dit is de naam van de stap"
       example_message
     }

@@ -23,7 +23,7 @@ class Message < ActiveRecord::Base
   flagstamp :sent, :shown
   antonym :draft => :sent
   antonym :outgoing => :incoming
-
+  
   belongs_to :request, :class_name => 'Message'
   has_many :replies, :class_name => 'Message', :foreign_key => 'request_id'
 
@@ -37,11 +37,15 @@ class Message < ActiveRecord::Base
   named_scope :read, :conditions => "shown_at is NOT NULL"
   named_scope :unread, :conditions => "shown_at is NULL"
   named_scope :with_definition, lambda{|definition| {:joins => :step, :conditions => { :steps => {:definition_id => definition}}} }
+  named_scope :expired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at < ?", Time.now]} }
+  named_scope :unexpired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at > ?", Time.now]} }
+  named_scope :cancelled, lambda { {:joins => :transaction, :conditions => "transactions.cancelled_at is NOT NULL"} }
   
   delegate :definition, :to => :step
   delegate :destination_url, :to => :step
 
   delegate :cancelled?, :to => :transaction
+  delegate :expired?, :to => :transaction  
 
   after_create :format_title
   before_validation :take_over_transaction_from_request
@@ -66,6 +70,18 @@ class Message < ActiveRecord::Base
     message
   end
   
+  def expired
+    expired?
+  end
+  
+  def unread
+    shown_at.nil?
+  end
+  
+  def cancelled
+    cancelled? == :cancelled ? true : false
+  end
+  
   def replyable?
     incoming? and step.replyable? and not cancelled?
   end
@@ -87,6 +103,10 @@ class Message < ActiveRecord::Base
     status ||= :draft
     status
   end
+
+  # def statuses
+  #   [ delivered?, expired?].compact
+  # end
 
   def delivered_at
     delivered_at = deliveries.maximum :delivered_at

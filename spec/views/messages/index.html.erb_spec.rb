@@ -18,7 +18,10 @@ describe "/messages/index.html.erb" do
       :sent? => false,
       :step => mock_step,
       :incoming? => false,
-      :organization_title => 'MEE'
+
+      :organization_title => 'MEE',
+
+      :expired? => false 
 
     mock_message(:cancelled).stub \
       :title => "value for title",
@@ -28,8 +31,19 @@ describe "/messages/index.html.erb" do
       :sent? => false,
       :step => mock_step,
       :incoming? => false,
-      :organization_title => 'Advies en Steunpunt Huiselijk Geweld'
-      
+      :organization_title => 'Advies en Steunpunt Huiselijk Geweld',
+      :expired? => false 
+    
+    mock_message(:expired).stub \
+      :title => "value for title",
+      :body => "value for body",
+      :shown? => false,
+      :cancelled? => :cancelled,
+      :sent? => false,
+      :step => mock_step,
+      :incoming? => false,
+      :expired? => true  
+
 
     mock_message(:new).stub \
       :title => "value for title",
@@ -39,7 +53,11 @@ describe "/messages/index.html.erb" do
       :sent? => false,
       :step => mock_step,
       :incoming? => false,
-      :organization_title => nil
+
+      :organization_title => nil,
+
+      :expired? => false 
+
     
     mock_step.stub :title => 'step title', :definition => mock_definition
     mock_definition.stub :title => 'definition title'
@@ -71,6 +89,7 @@ describe "/messages/index.html.erb" do
       response.should have_tag("tr.message.cancelled", 1)
     end
     
+
     it "renders afzender MEE" do
       render
       response.should have_text(/MEE/)
@@ -79,6 +98,13 @@ describe "/messages/index.html.erb" do
       render
       response.should have_text(/Advies en Steunpunt Huiselijk Geweld/)
     end
+
+    it "renders an expired message" do
+       pending
+       render
+       response.should have_tag("tr.message.expired", 1)
+     end
+
   end
   
 

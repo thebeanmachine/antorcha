@@ -5,6 +5,7 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
   validates_presence_of :definition
 
+
   default_scope :order => "transactions.created_at DESC"
   named_scope :with_organizations, lambda { |organization_ids| {
     :joins => {:messages => :deliveries}, 
@@ -23,13 +24,16 @@ class Transaction < ActiveRecord::Base
   has_many :cancellations
 
   after_create :format_title
+  after_create :expiration_date
 
   flagstamp :cancelled
 
   attr_accessor :starting_step
-
+  
+  named_scope :expired, lambda { {:conditions => ["expired_at < ?", Time.now]} }
+ 
   def validate_initiation
-    errors.add_on_blank([:starting_step])
+    errors.add_on_blank([:starting_step, :initialized_at])
   end
 
   def update_uri uri
@@ -42,7 +46,19 @@ class Transaction < ActiveRecord::Base
   end
 
   def stopped?
-    :stopped unless cancellations.count == 0 or cancellations.exists? :cancelled_at => nil
+    !(cancellations.count == 0 or cancellations.exists? :cancelled_at => nil)
+  end
+  
+  def stopped
+    stopped?
+  end
+  
+  def expired
+    expired?
+  end
+  
+  def cancelled
+    cancelled? == :cancelled ? true : false
   end
 
   def cancel_and_cascade_cancellations
@@ -50,10 +66,19 @@ class Transaction < ActiveRecord::Base
       cancel_and_cascade_cancellations_if_not_cancelled if not_cancelled
     end
   end
+  
+  def expired?
+    return true if expired_at.nil?
+    Time.now > expired_at
+  end
 
 private
   def format_title
     update_attribute :title, "#{definition.title} \##{id}" if title.blank?
+  end
+  
+  def expiration_date
+    update_attribute :expired_at, (initialized_at + definition.expiration_days.days)
   end
   
   def cancel_and_cascade_cancellations_if_not_cancelled

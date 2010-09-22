@@ -7,6 +7,18 @@ class MessageService < AuthenticatedService
   before_invocation :load_and_authorize_message
   after_invocation :scrub_returned_messages
 
+  def index_expired_unread token
+    Message.expired.unread
+  end
+  
+  def index_cancelled_unread token
+    Message.cancelled.unread
+  end
+  
+  def index_unexpired_unread token
+    Message.unexpired.unread
+  end
+
   def index_inbox token
     Message.inbox
   end

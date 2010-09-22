@@ -11,9 +11,11 @@ class TransactionInitiationsController < ApplicationController
   end
   
   def create
+    @transaction.initialized_at = DateTime.now    
     @transaction.validate_initiation
     unless @transaction.errors.blank?
       render :action => :new
+      # render :text => @transaction.errors.full_messages
     else
       @step = Step.find @transaction.starting_step
       @message = create_transaction_and_message @transaction, @step
