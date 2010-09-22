@@ -9,12 +9,40 @@ describe Transaction do
       :title => "value for title",
       :definition => mock_definition,
       :initialized_at => DateTime.now,
-      :expired_at => (DateTime.now + 2.days)
+      #:expired_at => (DateTime.now + 2.days)
     }
   end
 
   it "should create a new instance given valid attributes" do
     Transaction.create!(@valid_attributes)
+  end
+  
+  describe "the expiration date" do
+    subject { Transaction.create! @valid_attributes }
+    describe "calculated from 2 expiration days" do
+      it "have expired_at" do
+        subject.expired_at.should_not be_nil
+      end
+
+      it "should be two days later" do
+        subject.expired_at.should == subject.initialized_at + 2.days
+      end
+      it "should not be expired" do
+        should_not be_expired
+      end
+    end
+
+    describe "calculation with no expiration days" do
+      before(:each) do
+        mock_definition.stub :expiration_days => nil
+      end
+      it "should be left blank if there are no expiration days" do
+        subject.expired_at.should be_nil
+      end
+      it "should never be expired" do
+        should_not be_expired
+      end
+    end
   end
   
   describe "validations" do
