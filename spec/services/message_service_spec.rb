@@ -105,11 +105,6 @@ describe MessageService, "soap service" do
       Message.stub(scope).and_return(example_messages)
     end
 
-    it "should check whether the named scope is not an evil method" do
-      pending "whoeps :D"
-      r = invoke_layered :message, :index, valid_token, 'delete_all'
-    end
-
     it "should return all messages of api messages" do
       stub_named_scope :all
       r = invoke_layered :message, :index, valid_token
