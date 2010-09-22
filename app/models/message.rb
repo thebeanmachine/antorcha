@@ -32,6 +32,7 @@ class Message < ActiveRecord::Base
   named_scope :unread, :conditions => "shown_at is NULL"
   named_scope :with_definition, lambda{|definition| {:joins => :step, :conditions => { :steps => {:definition_id => definition}}} }
   named_scope :expired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at < ?", Time.now]} }
+  named_scope :unexpired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at > ?", Time.now]} }
   named_scope :cancelled, lambda { {:joins => :transaction, :conditions => "transactions.cancelled_at is NOT NULL"} }
   
   delegate :definition, :to => :step
