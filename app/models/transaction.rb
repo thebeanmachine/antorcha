@@ -68,6 +68,7 @@ class Transaction < ActiveRecord::Base
   end
   
   def expired?
+    return true if expired_at.nil?
     Time.now > expired_at
   end
 
