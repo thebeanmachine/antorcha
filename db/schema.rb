@@ -62,12 +62,22 @@ ActiveRecord::Schema.define(:version => 20100920095833) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "incoming",       :default => false
-    t.integer  "step_id",                           :null => false
+    t.boolean  "incoming",           :default => false
+    t.integer  "step_id",                               :null => false
     t.datetime "sent_at"
     t.datetime "shown_at"
     t.integer  "transaction_id"
     t.integer  "request_id"
+    t.integer  "organization_id"
+    t.string   "organization_title"
+  end
+
+  create_table "receptions", :force => true do |t|
+    t.text     "certificate", :null => false
+    t.text     "content",     :null => false
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transactions", :force => true do |t|
