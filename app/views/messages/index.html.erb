@@ -1,4 +1,5 @@
 <% breadcrumb [@transaction, Message].compact %>
+
 <%= render :partial => 'index' %>
 
 <% content_for :sidebar do -%>
@@ -8,6 +9,11 @@
 	<li><%= link_to "Alle", :search => nil %></li>
   <li><%= link_to "Inkomende", :search => {:inbox => true} %></li>
   <li><%= link_to "Uitgaande", :search => {:outbox => true} %></li>
+	<li><%= link_to "Verlopen", :search => {:expired => true} %></li>
+	<li><%= link_to "Gelezen", :search => {:read => true} %></li>
+	<li><%= link_to "Ongelezen", :search => {:unread => true} %></li>
+	<li><%= link_to "Geannuleerd", :search => {:cancelled => true} %></li>
+	<li><%= link_to "Niet verlopen en ongelezen", :search => {:unread => true, :unexpired => true} %></li>
 </ul>
 
 

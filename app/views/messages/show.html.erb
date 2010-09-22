@@ -1,10 +1,12 @@
 <% breadcrumb @message %>
 <%# breadcrumb [@message.step.definition],[@message.step], @message %>
-<div class="<%= @message.cancelled? %>">
+<div class="<%= @message.cancelled? %> <%= "expired" if @message.expired? %>">
   <h1 class="as_in_table">
   	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
+
   	<small class="sender"><%=h @message.organization_title %></small>
   	<strong>Message <%=h @message.title %></strong>
+
   	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
   <div class="message_content">
   <p class="intro">

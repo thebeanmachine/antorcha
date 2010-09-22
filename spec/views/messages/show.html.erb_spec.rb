@@ -23,7 +23,11 @@ describe "/messages/show.html.erb" do
       :created_at => Time.now,
       :replyable? => true,
       :updatable? => true,
-      :organization_title => 'ASHG'
+
+      :organization_title => 'ASHG',
+
+      :expired? => false
+
     
     mock_message(:request).stub \
       :title => 'requested message title'
