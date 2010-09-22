@@ -112,7 +112,7 @@ describe MessageService, "soap service" do
 
     it "should return all messages of api messages" do
       stub_named_scope :all
-      r = invoke_layered :message, :index, valid_token, ''
+      r = invoke_layered :message, :index, valid_token
       r.should == example_api_messages
     end
     
@@ -141,13 +141,13 @@ describe MessageService, "soap service" do
     end
 
     it "should not be permitted with an invalid token" do
-      lambda { invoke_layered :message, :index, invalid_token, '' }.should deny_access
+      lambda { invoke_layered :message, :index, invalid_token }.should deny_access
     end
     
     it "should scrub the body if user is not permitted to :examine any message" do
       stub_named_scope :all
       stub_cannot :examine
-      r = invoke_layered :message, :index, valid_token, ''
+      r = invoke_layered :message, :index, valid_token
       r.collect(&:body).should == [nil,nil]
     end
   end
