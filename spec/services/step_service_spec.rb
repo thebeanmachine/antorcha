@@ -10,6 +10,8 @@ describe StepService, "soap service" do
     StepService.stub :new => @service
 
     @service.stub :authorize! => nil
+    
+    mock_transaction.stub :cancelled? => false, :expired? => false
   end
 
   def valid_token
