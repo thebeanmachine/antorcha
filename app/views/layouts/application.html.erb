@@ -14,7 +14,7 @@
 	<%= debug current_user if ENV['USER'] == 'robin' and current_user and Rails.env.development? %>
 	
   <div id="page_container">
- 	 <div id="header">
+ 	 <div id="header" class="<%= Worker.all.empty? ? "engine_disabled" : ""%>">
 			<div id="logo">
 				<a href="/"><img src="/images/header_logo.png" alt="Antorcha"></a>
 			</div>
@@ -56,10 +56,7 @@
 			</div>
 			<div id="sidebar">
 		 		<%= yield(:sidebar) %>
-		
-				<p>
-					Antorcha engine staat: <%= Worker.all.empty? ? "uit" : "aan" %>
-				</p>
+
 			</div>
 	  </div>
 	</div>

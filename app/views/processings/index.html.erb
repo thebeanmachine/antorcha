@@ -1,8 +1,7 @@
 <h1>Logboek</h1>
-<p>Laatste 100 processings</p>
-
-<ul>
+<p>Laatste 100 belangrijksteregels uit het logboek, laatste bovenaan.</p>
+	<p>
 	<% @processings.each do |processing| %>
-	<li><%= processing %></li>
+	<tt><%= processing %></tt><br/>
 	<% end %>
-</ul>
+	</p>

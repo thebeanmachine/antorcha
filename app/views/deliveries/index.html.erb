@@ -1,8 +1,9 @@
 <h1>Wachtrij</h1>
-<p>Bezorgingen die nog moeten plaatsvinden.</p>
-<br />
+
 <% if @queued_deliveries.empty? %>
-<p>Er is geen wachtrij.</p>
+<p>Er staan op dit moment geen berichten in de wachtrij.</p>
 <% else %>
+<p>Hier vind u een overzicht van berichten die nog verstuurd dienen te worden:</p>
+<br />
 <%= render 'index' %>
 <% end %>

@@ -155,6 +155,45 @@ ul.menu li {
 	display: inline;
 }
 
+.pagination {
+	position: absolute;
+	right: 0px;
+}
+
+.pagination span, .pagination a {
+	padding: 4px;
+	display: block;
+	float: left;
+	background: #fff;
+	margin-right: 5px;
+	text-decoration: none;
+}
+
+.pagination .current, .pagination a {
+	width: 1.4em;
+	height: 1.4em;
+	text-align: center;
+	border-top: solid 1px #eee;
+}
+
+
+
+.pagination span {
+	background: #D6DBDD;
+}
+
+.pagination .prev_page, .pagination .next_page {
+	background: none;
+	width: auto;
+	border-top: none 0px;
+}
+
+.pagination span.current {
+	background: #0F80B5;
+	color: #fff;
+	border-top: solid 1px #0F80B5;
+	
+}
 
 /* Table data tweaks*/
 h1.as_in_table {
@@ -200,6 +239,11 @@ td.sender, h1.as_in_table .sender { width: 20em;}
 	position: relative;
 	float: left;
 	width: 100%;
+}
+
+#header.engine_disabled {
+	.vertical-gradient(#727272,#6b6b6b);
+	border: 1px solid #555;
 }
 
 #authentication {
@@ -326,6 +370,12 @@ td.sender, h1.as_in_table .sender { width: 20em;}
 	width: 80%;
 	padding: 0;
 	position: absolute;
+}
+
+#messages {
+	float: left;
+	width: 100%;
+	position: relative;
 }
 
 #messages thead {

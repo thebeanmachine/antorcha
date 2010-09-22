@@ -99,6 +99,54 @@ ul.menu li {
 .actions .button-to { display: inline; }
 .button-to input { display: inline; }
 .button-to div { display: inline; }
+.pagination {
+  position: absolute;
+  right: 0px;
+}
+.pagination span {
+  padding: 4px;
+  display: block;
+  float: left;
+  background: #ffffff;
+  margin-right: 5px;
+  text-decoration: none;
+}
+.pagination a {
+  padding: 4px;
+  display: block;
+  float: left;
+  background: #ffffff;
+  margin-right: 5px;
+  text-decoration: none;
+}
+.pagination .current {
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  border-top: solid 1px #eeeeee;
+}
+.pagination a {
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  border-top: solid 1px #eeeeee;
+}
+.pagination span { background: #d6dbdd; }
+.pagination .prev_page {
+  background: none;
+  width: auto;
+  border-top: none 0px;
+}
+.pagination .next_page {
+  background: none;
+  width: auto;
+  border-top: none 0px;
+}
+.pagination span.current {
+  background: #0f80b5;
+  color: #ffffff;
+  border-top: solid 1px #0f80b5;
+}
 h1.as_in_table {
   background: #0f7aae;
   background: -webkit-gradient(linear, left top, left bottom, from(#0b94d5), to(#0f7aae));
@@ -152,6 +200,12 @@ h1.as_in_table .sender { width: 20em; }
   position: relative;
   float: left;
   width: 100%;
+}
+#header.engine_disabled {
+  background: #6b6b6b;
+  background: -webkit-gradient(linear, left top, left bottom, from(#727272), to(#6b6b6b));
+  background: -moz-linear-gradient(top, #727272, #6b6b6b);
+  border: 1px solid #555555;
 }
 #authentication {
   float: right;
@@ -291,6 +345,11 @@ h1.as_in_table .sender { width: 20em; }
   width: 80%;
   padding: 0;
   position: absolute;
+}
+#messages {
+  float: left;
+  width: 100%;
+  position: relative;
 }
 #messages thead { display: none; }
 .messages tr.cancelled td { text-decoration: line-through; }

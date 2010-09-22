@@ -1,4 +1,5 @@
-<table id="messages">
+<div id="messages">
+<table>
 	<thead>
   <tr>
 		<th></th>
@@ -17,3 +18,6 @@
   </tr>
 <% end %>
 </table>
+<%= will_paginate @messages,:prev_label => "«",
+:next_label => "»" %>
+</div>

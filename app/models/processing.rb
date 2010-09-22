@@ -3,7 +3,7 @@ class Processing
      @processings = []
      path = "#{RAILS_ROOT}/log"
      File.open("#{path}/#{Rails.env}.log").each do |line| 
-       @processings << line if (line =~ /Processing TransactionsController#/ || line =~ /Processing MessagesController#/ || line =~ /Processing UsersController#/) 
+       @processings << line if (line =~ /Completed/ || line =~ /Rendering/ || line =~ /Processing/) 
      end
      @processings.reverse![0..99]
   end
