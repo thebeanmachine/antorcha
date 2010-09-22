@@ -20,22 +20,25 @@ module MessageSerialization
   def from_hash(hash)
     attributes = hash.dup
 
-    transaction_uri = attributes.delete(:transaction)
+    transaction_hash = attributes.delete(:transaction)
     self.attributes = attributes
-    self.transaction = find_or_create_transaction(self.step, transaction_uri)
+    self.transaction = find_or_create_transaction(self.step, transaction_hash)
 
     self.incoming = true
 
     self
   end
   
-  def find_or_create_transaction step, transaction_uri
-    transaction = Transaction.find_by_uri(transaction_uri)
+  def find_or_create_transaction step, transaction_hash
+    transaction = Transaction.find_by_uri(transaction_hash[:uri])
     return transaction if transaction
-    make_transaction(step, transaction_uri)
+    make_transaction(step, transaction_hash)
   end
   
-  def make_transaction step, transaction_uri
-    Transaction.create :definition => step.definition, :uri => transaction_uri
+  def make_transaction step, transaction_hash
+    Transaction.create \
+      :definition => step.definition,
+      :uri => transaction_hash[:uri],
+      :initialized_at => transaction_hash[:initialized_at]
   end
 end

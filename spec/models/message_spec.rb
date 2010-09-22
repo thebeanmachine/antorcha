@@ -235,7 +235,9 @@ describe Message do
     
     def message_from_hash
       @message = Message.new
-      @message.from_hash :step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1', :organization_id => mock_organization.to_param
+      @message.from_hash :step_id => mock_step.to_param, :transaction => {
+        :uri => 'http://example.com/transactions/1', :initialized_at => DateTime.now
+      }, :organization_id => mock_organization.to_param
     end
     
     it "should assign the organization" do
@@ -316,7 +318,7 @@ describe Message do
       it "should return itself" do
         stub_known_transaction
         @message = Message.new
-        @message.from_hash(:step_id => mock_step.to_param, :transaction => 'http://example.com/transactions/1').should == @message
+        @message.from_hash(:step_id => mock_step.to_param, :transaction => { :uri =>  'http://example.com/transactions/1' }).should == @message
       end
     end
   end
