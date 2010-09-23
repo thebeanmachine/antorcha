@@ -1,6 +1,7 @@
 class WorkersController < ApplicationController
-  
   authorize_resource
+
+  after_filter :push_statistics, :except => :index
   
   def index
     @workers = Worker.all
@@ -19,6 +20,11 @@ class WorkersController < ApplicationController
     end
     redirect_to workers_url
   end
-  
+
+private
+  def push_statistics
+    Statistic.push
+  end
+
 end
 
