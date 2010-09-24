@@ -12,7 +12,7 @@
 		<td class="icons"><span class="icon_outgoing">Uit</span></td>
 		<td class="sender"><%=h delivery.organization.title %></td>
 
-    <td class="title"><%=  delivery.message.title %></td>
+    <td class="title"><%=  delivery.message ? delivery.message.title : "Bericht onbekend" %></td>
     <td class="date"><%= l(delivery.updated_at, :format => :short) %></td>
 
   </tr>
