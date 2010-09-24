@@ -6,6 +6,9 @@ class MessagesController < ApplicationController
     @search = Message.search(params[:search])
     @messages = @search.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
     # render :text => @messages.class
+    if @messages.empty?
+      flash.now[:error] = "Er zijn geen berichten die '#{t(params[:search].keys)}' zijn."
+    end
   end
 
   def show
