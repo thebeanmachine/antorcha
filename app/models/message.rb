@@ -34,8 +34,8 @@ class Message < ActiveRecord::Base
   
   named_scope :inbox, :conditions => {:incoming => true}
   named_scope :outbox, :conditions => {:incoming => false}
-  named_scope :read, :conditions => "shown_at is NOT NULL"
-  named_scope :unread, :conditions => "shown_at is NULL"
+  named_scope :read, :conditions => "shown_at IS NOT NULL"
+  named_scope :unread, :conditions => "shown_at IS NULL"
   named_scope :with_definition, lambda{|definition| {:joins => :step, :conditions => { :steps => {:definition_id => definition}}} }
   named_scope :expired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at < ?", Time.now]} }
   named_scope :unexpired, lambda { {:joins => :transaction, :conditions => ["transactions.expired_at > ?", Time.now]} }

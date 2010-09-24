@@ -39,7 +39,7 @@ private
   end
 
   def only_one_identity
-    errors.add_to_base 'Een antorcha kan enkel een identiteit hebben.' unless Identity.count == 0
+    errors.add_to_base 'Een Antorcha kan enkel een identiteit hebben.' unless Identity.count == 0
   end
 
 end
