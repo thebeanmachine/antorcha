@@ -1,9 +1,19 @@
 nl:
+  unread: "Ongelezen"
+  read: "Gelezen"
+  inbox: "Inkomende"
+  outbox: "Uitgaande"
+  expired: "Verlopen"
+  unexpired: "Niet verlopen"
+  cancelled: "Geannuleerd"
+  
   message:
+    
     status:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
+      
 
   view:
     message:
