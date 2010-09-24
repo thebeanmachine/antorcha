@@ -42,6 +42,9 @@ nl:
         destination_url: Bijvoorbeeld http://example.com/messages
         causes: 'Stappen die kunnen leiden tot deze stap.'
       url: "bijvoorbeeld http://example.com/messages"
+      user:
+        password: Dient minimaal uit 6 tekens te bestaan.
+        password_confirmation: Voor controle van het wachtwoord.
     actions:
       create: "Maak {{model}}"
       update: "Bewaar veranderingen"
@@ -117,8 +120,10 @@ nl:
       definition:
         title: Titel
       user:
+        username: Gebruikersnaam
         email: E-mailadres
         password: Wachtwoord
+        password_confirmation: Wachtwoord bevestiging
       step:
         title: Titel
         causes: Oorzaken
