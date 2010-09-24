@@ -27,7 +27,7 @@ class Ability
     
     can :send, Message
     can :create, Message
-    can :update, Message do |message| message.updatable? end
+    can :update, Message do |message| message and message.updatable? end
     can :reply, Message do |message| message.replyable? end
     #can :cancel, Message { |message| message.cancellable?}
     can :examine, Message
