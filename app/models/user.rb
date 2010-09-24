@@ -15,13 +15,12 @@ class User < ActiveRecord::Base
   
   named_scope :inactivated, :conditions => {:activated => false}
   
-  def roles
-    @roles = []
-    @role_ids = self.castables.map{|c| c.role_id}
-    Role.all.each do |role|
-       @roles << role if @role_ids.include? role.id
-    end
-    @roles
+  def role_ids
+    self.castables.map(&:role_id).uniq
+  end
+  
+  def messages
+    Message.all :conditions => {:step_id => Step.all( :recipient_role_ids => self.role_ids ).collect(&:id) }    
   end
   
   def static_user_type
