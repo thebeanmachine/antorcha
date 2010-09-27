@@ -6,14 +6,15 @@
 <h2>Berichten filteren </h2>
 
 <ul>
-	<li><%= link_to "Alle", :search => nil %></li>
-  <li><%= link_to "Inkomende", :search => {:inbox => true} %></li>
-  <li><%= link_to "Uitgaande", :search => {:outbox => true} %></li>
-	<li><%= link_to "Verlopen", :search => {:expired => true} %></li>
-	<li><%= link_to "Niet verlopen", :search => {:unexpired => true} %></li>
-	<li><%= link_to "Gelezen", :search => {:read => true} %></li>
-	<li><%= link_to "Ongelezen", :search => {:unread => true} %></li>
-	<li><%= link_to "Geannuleerd", :search => {:cancelled => true} %></li>
+	<li><%= link_to "Alle", messages_path(:search => nil) %></li>
+	<li><%= link_to "Mijn rol(len)", roles_messages_path %></li>
+  <li><%= link_to "Inkomende", messages_path(:search => {:inbox => true}) %></li>
+  <li><%= link_to "Uitgaande", messages_path(:search => {:outbox => true}) %></li>
+	<li><%= link_to "Verlopen", messages_path(:search => {:expired => true}) %></li>
+	<li><%= link_to "Niet verlopen", messages_path(:search => {:unexpired => true}) %></li>
+	<li><%= link_to "Gelezen", messages_path(:search => {:read => true}) %></li>
+	<li><%= link_to "Ongelezen", messages_path(:search => {:unread => true}) %></li>
+	<li><%= link_to "Geannuleerd", messages_path(:search => {:cancelled => true}) %></li>
 </ul>
 
 

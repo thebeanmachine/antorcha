@@ -11,6 +11,11 @@ class MessageService < AuthenticatedService
     Message.expired.unread
   end
   
+  def index_by_roles token
+    user = User.find_by_username token.username
+    user.messages
+  end
+  
   def index_cancelled_unread token
     Message.cancelled.unread
   end
