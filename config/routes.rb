@@ -25,6 +25,8 @@ ActionController::Routing::Routes.draw do |map|
     messages.resources :deliveries, :only => [:create, :index], :controller => 'message_deliveries'
     messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
   end
+  
+  map.roles_messages "/roles_messages", :controller => :messages, :action => :roles_messages
 
   map.root :controller => 'home'
   

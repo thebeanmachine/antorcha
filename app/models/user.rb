@@ -37,4 +37,5 @@ class User < ActiveRecord::Base
       end
     RUBY
   end
+  
 end
