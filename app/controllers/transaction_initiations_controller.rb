@@ -8,6 +8,8 @@ class TransactionInitiationsController < ApplicationController
   before_filter :find_starting_steps
   
   def new
+    
+   @starting_steps.each do |s| s.title = s.title + " (Test-transactie)" if s.definition.test? end
   end
   
   def create
