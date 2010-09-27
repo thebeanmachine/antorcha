@@ -8,13 +8,20 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation
   
   has_many :castables
-  #has_many :roles, :through => :castables
 
   validates_uniqueness_of :username, :email
 
   validates_inclusion_of :user_type, :in => USER_TYPES
   
   named_scope :inactivated, :conditions => {:activated => false}
+  
+  def role_ids
+    self.castables.map(&:role_id).uniq
+  end
+  
+  def messages
+    Message.all :conditions => {:step_id => Step.all( :recipient_role_ids => self.role_ids ).collect(&:id) }    
+  end
   
   def static_user_type
     logger.warn 'static_user_type is deprecated user User#user_type instead.'
@@ -30,4 +37,5 @@ class User < ActiveRecord::Base
       end
     RUBY
   end
+  
 end

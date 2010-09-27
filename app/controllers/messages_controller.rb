@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  load_and_authorize_resource :except => :create
+  load_and_authorize_resource :except => [:create, :roles_messages]
   
 
   def index    
@@ -9,6 +9,11 @@ class MessagesController < ApplicationController
     if @messages.empty?
       flash.now[:error] = "Er zijn geen berichten die '#{t(params[:search].keys)}' zijn."
     end
+  end
+  
+  def roles_messages
+    @messages = current_user.messages.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
+    render :index
   end
 
   def show
