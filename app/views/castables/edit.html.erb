@@ -1,6 +1,5 @@
-<h1>Editing castable</h1>
+<% breadcrumb @castable %>
+<h1>Bewerk <%=h @castable.title%></h1>
 
-<%= render :partial => "form", :locals => { :btn_name => "Update"} %>
+<%= render :partial => "form" %>
 
-<%= link_to 'Show', @castable %> |
-<%= link_to 'Back', castables_path %>

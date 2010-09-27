@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Castable do
   before(:each) do
     @valid_attributes = {
-      :user_id => 1,
-      :role_id => 1
+      :user => mock_user,
+      :role => mock_role
     }
   end
 

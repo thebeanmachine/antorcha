@@ -11,8 +11,11 @@ describe "/castables/edit.html.erb" do
       :user => mock_user,
       :role => mock_role
     )
-    assigns[:roles] = [stub_model(Role, :title => "test")]
-    assigns[:users] = [stub_model(User, :username => "test")]
+    assigns[:roles] = mock_users
+    assigns[:users] = mock_roles
+    
+    mock_user.stub :username => 'daan'
+    mock_role.stub :title => 'programmer'
   end
 
   it "renders edit castable form" do
