@@ -8,7 +8,7 @@
 
     def deliver(message)
       driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
-      puts driver.Deliver({:username=>"maarten",:password=>"asdfasdf"},message)
+      return driver.Deliver({:username=>"maarten",:password=>"asdfasdf"},message)
     end
 
 
@@ -56,26 +56,29 @@
       driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
       message = driver.DeliverMessageAfterInitTransaction({:username=>"maarten",:password=>"asdfasdf"},step,"Titel van quicksend Message","Mijn body") #OK
       puts "Bericht verstuurd met bericht id #{message.id}"
+      puts message.inspect
     end
 
-    testSoap 
-    quickSend
+    #testSoap 
+    #quickSend
     
-    step = startSteps.first
-    message = startTransaction(step)
-    puts showMessage(message.id).title
-    message.title = "updated title"
-    message.body = "updated title"
-    updateMessage(message)
-    message = startTransaction(step)
-    message.title = "delete me"
-    updateMessage(message)
-    puts "Alle berichten"
-    index.each do |m| puts m.title end
-    #deleteMessage(message) #Geen authorisatie
-    puts "Alleen gelezen berichten"
-    indexRead.each do |m| puts m.title end
-    deliver(message)
-
+    #step = startSteps.first
+    #message = startTransaction(step)
+    
+    #puts showMessage(message.id).title
+    #message.title = "updated title"
+    #message.body = "updated title"
+    #message = deliver(message)
+    #puts message.inspect
+    #updateMessage(message)
+    # message = startTransaction(step)
+    #     message.title = "delete me"
+    #     updateMessage(message)
+    #     puts "Alle berichten"
+    #     index.each do |m| puts m.title end
+    #     #deleteMessage(message) #Geen authorisatie
+    #     puts "Alleen gelezen berichten"
+     indexRead.each do |m| puts m.title end
+    
 
 
