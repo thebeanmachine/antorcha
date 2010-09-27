@@ -7,4 +7,9 @@ class Processing
      end
      @processings.reverse![0..99]
   end
+  
+  def self.human_name options = {}
+    "Logboek"
+  end
+  
 end

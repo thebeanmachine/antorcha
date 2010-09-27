@@ -1,6 +1,11 @@
+<% breadcrumb User %>
+
 <h1>Gebruikers activeren</h1>
-<ul>
-<% @users.each do |user| %>
-<li><%= user.username %> <%= button_to "Activeer deze gebruiker", user_path(user), :method => :put %></li>
-<% end %>
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <p><strong><%= user.username %></strong> - <%= link_to h(user.email), "mailto:#{user.email}" %></p>
+      <%= button_to "Activeer deze gebruiker", user_path(user), :method => :put %>
+    </li>
+  <% end %>
 </ul>

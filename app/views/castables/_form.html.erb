@@ -1,15 +1,13 @@
-<% form_for(@castable) do |f| %>
+<% semantic_form_for(@castable) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :user %><br />
-		<%= f.collection_select :user_id, @users, :id, :username %>
-  </p>
-  <p>
-    <%= f.label :role %><br />
-    <%= f.collection_select :role_id, @roles, :id, :title %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+  <% f.inputs do %>
+    <%= f.input :user, :collection => @users %>
+    <%= f.input :role_id, :collection => @roles %>
+  <% end %>
+
+  <% f.buttons do %>
+    <%= f.commit_button 'Rol toewijzen'%>
+    of <%= link_to "ga terug", castables_path %>
+  <% end %>
 <% end %>
