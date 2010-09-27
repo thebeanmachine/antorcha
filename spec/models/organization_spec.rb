@@ -9,12 +9,23 @@ describe Organization do
       Organization.new :url => 'http://example.com/messages'
     end
 
-    it "should format the delivery url" do
-      subject.delivery_url.should == 'http://example.com/receptions'
+    describe "with identity" do
+      before(:each) do
+        Identity.stub :first! => mock_identity
+        mock_identity.stub :organization => mock_organization
+      end
+
+      it "should format the delivery url" do
+        subject.delivery_url.should == "http://example.com/organizations/#{mock_organization.to_param}/receptions"
+      end
+      it "should format the cancellation url" do
+        subject.cancellation_url.should == 'http://example.com/transactions/cancellations'
+      end
+      it "should format the delivery confirmation url" do
+        subject.delivery_confirmation_url(123).should == "http://example.com/organizations/#{mock_organization.to_param}/deliveries/123/confirmation"
+      end
     end
-    it "should format the cancellation url" do
-      subject.cancellation_url.should == 'http://example.com/transactions/cancellations'
-    end
+
   end
 
   # before(:each) do

@@ -11,13 +11,13 @@ module Jobs
 
     def deliver
       unless @delivery.delivered?
-        send_message
+        send_delivery
         @delivery.delivered!
       end
     end
 
-    def send_message
-      resource(@delivery).post @message.to_xml, :content_type => :xml, :accept => :xml
+    def send_delivery
+      resource(@delivery).post @delivery.to_xml, :content_type => :xml, :accept => :xml
     end
   
   end

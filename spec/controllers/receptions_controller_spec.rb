@@ -31,12 +31,20 @@ describe ReceptionsController do
   describe "POST create" do
     before(:each) do
       Reception.stub(:new).and_return(mock_reception)
+      mock_reception.stub :organization_id=
+      mock_reception.stub :delivery_id=
       mock_reception.stub :certificate=
       mock_reception.stub :content=
     end
 
     def post_create
-      post :create, :message => 'CONTENT'
+      post :create, \
+        :delivery => delivery_params,
+        :organization_id => mock_organization.to_param
+    end
+    
+    def delivery_params
+      { :id => mock_delivery.to_param, :message => 'CONTENT' }
     end
     
     describe "with valid params" do
@@ -49,8 +57,18 @@ describe ReceptionsController do
         assigns[:reception].should equal(mock_reception)
       end
 
-      it "assigns the message hash to @reception.content" do
+      it "assigns the delivery hash to @reception.content" do
         mock_reception.should_receive(:content=).with('CONTENT')
+        post_create
+      end
+
+      it "assigns the organization_id to @reception.organization_id" do
+        mock_reception.should_receive(:organization_id=).with(mock_organization.to_param)
+        post_create
+      end
+
+      it "assigns the delivery_id to @reception.delivery_id" do
+        mock_reception.should_receive(:delivery_id=).with(mock_delivery.to_param)
         post_create
       end
       
@@ -74,10 +92,8 @@ describe ReceptionsController do
         end
       end
 
-
       it "redirects to the created reception" do
-        Reception.stub(:new).and_return(mock_reception(:save => true))
-        post :create, :reception => {}
+        post_create
         response.should redirect_to(reception_url(mock_reception))
       end
     end
@@ -88,14 +104,12 @@ describe ReceptionsController do
       end
       
       it "assigns a newly created but unsaved reception as @reception" do
-        Reception.stub(:new).with({'these' => 'params'}).and_return(mock_reception(:save => false))
-        post :create, :reception => {:these => 'params'}
+        post_create
         assigns[:reception].should equal(mock_reception)
       end
 
       it "re-renders the 'new' template" do
-        Reception.stub(:new).and_return(mock_reception(:save => false))
-        post :create, :reception => {}
+        post_create
         response.should render_template('new')
       end
     end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920095833) do
+ActiveRecord::Schema.define(:version => 20100928100142) do
 
   create_table "cancellations", :force => true do |t|
     t.integer  "transaction_id",  :null => false
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20100920095833) do
     t.datetime "delivered_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "confirmed_at"
+    t.text     "certificate"
   end
 
   create_table "identities", :force => true do |t|
@@ -73,11 +75,14 @@ ActiveRecord::Schema.define(:version => 20100920095833) do
   end
 
   create_table "receptions", :force => true do |t|
-    t.text     "certificate", :null => false
-    t.text     "content",     :null => false
+    t.text     "certificate",     :null => false
+    t.text     "content",         :null => false
     t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "delivery_id"
+    t.integer  "organization_id"
+    t.datetime "confirmed_at"
   end
 
   create_table "transactions", :force => true do |t|

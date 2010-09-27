@@ -24,5 +24,37 @@ describe Delivery do
   it "should create an undelivered messages" do
     Delivery.create(@valid_attributes.merge!(:delivered_at => nil))    
   end
+
+  describe "serialization" do
+    subject do
+      mock_message.stub :to_xml do |options|
+        options[:builder].message do end
+      end
+      Delivery.create :message => mock_message, :organization => mock_organization
+    end
+    
+    it "serializes to xml" do
+      subject.to_xml
+    end
+    
+    it "passes builder option to message#to_xml" do
+      mock_message.should_receive(:to_xml).with(hash_including(:builder => anything()))
+      subject.to_xml
+    end
+
+    it "passes skip_instruct option to message#to_xml" do
+      mock_message.should_receive(:to_xml).with(hash_including(:skip_instruct => true))
+      subject.to_xml
+    end
+
+    it "adds the id of the delivery" do
+      subject.to_xml.should =~ %r[<id>1</id>]
+    end
+
+    it "adds the organization id of the delivery" do
+      subject.to_xml.should =~ %r[<organization_id>#{mock_organization.id}</organization_id>]
+    end
+
+  end
   
 end

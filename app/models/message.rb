@@ -4,7 +4,6 @@ class Message < ActiveRecord::Base
   include MessageSerialization
   include CrossAssociatedModel
 
-
   validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
@@ -15,7 +14,7 @@ class Message < ActiveRecord::Base
 
   belongs_to :transaction
   belongs_to_resource :organization
-  delegate :title, :to => :organization, :prefix => true, :allow_nil => true, :cache => true
+  cache_and_delegate :title, :to => :organization, :prefix => true, :allow_nil => true
 
   belongs_to_resource :step
   belongs_to_resource :organization
@@ -54,15 +53,7 @@ class Message < ActiveRecord::Base
     outgoing? and draft? and not cancelled?
   end
   
-  def self.receive! reception
-    message = Message.new
-    message = message.from_hash(reception.content)
-    
-    message.save!
 
-    reception.message = message
-    reception.save!
-  end
   
   def self.show message_id
     message = find(message_id)
@@ -98,8 +89,8 @@ class Message < ActiveRecord::Base
 
   def status
     status ||= :incoming if incoming?
-    status ||= delivered?
-    status ||= sent?
+    status ||= :delivered if delivered?
+    status ||= :sent if sent?
     status ||= :draft
     status
   end
@@ -109,12 +100,12 @@ class Message < ActiveRecord::Base
   # end
 
   def delivered_at
-    delivered_at = deliveries.maximum :delivered_at
+    delivered_at = deliveries.maximum :confirmed_at
     delivered_at.in_time_zone if delivered_at
   end
 
   def delivered?
-    :delivered unless deliveries.count == 0 or deliveries.exists? :delivered_at => nil
+    not (deliveries.count == 0 or deliveries.exists? :confirmed_at => nil)
   end
 
   def send_deliveries

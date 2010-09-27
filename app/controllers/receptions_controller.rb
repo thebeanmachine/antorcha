@@ -34,7 +34,9 @@ class ReceptionsController < ApplicationController
 
   def create
     @reception = Reception.new
-    @reception.content = params[:message]
+    @reception.organization_id = params[:organization_id]
+    @reception.delivery_id = params[:delivery][:id]
+    @reception.content = params[:delivery][:message]
     @reception.certificate = Rails.env.production? ? request.headers['SSL_CLIENT_CERT'] : 'NO CERTIFICATE'
 
     respond_to do |format|

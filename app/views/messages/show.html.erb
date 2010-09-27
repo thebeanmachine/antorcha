@@ -1,5 +1,5 @@
 <% breadcrumb @message %>
-<%# breadcrumb [@message.step.definition],[@message.step], @message %>
+
 <div class="<%= @message.cancelled? %> <%= "expired" if @message.expired? %>">
   <h1 class="as_in_table">
   	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
