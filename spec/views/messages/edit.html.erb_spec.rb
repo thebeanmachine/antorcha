@@ -8,7 +8,8 @@ describe "/messages/edit.html.erb" do
       :new_record? => false,
       :step => stub_model(Step, :title=>'title'),
       :title => "value for title",
-      :body => "value for body"
+      :body => "value for body",
+      :test? => "false"
     )
   end
 

@@ -1,6 +1,16 @@
 <% breadcrumb @message %>
 <h1><%= @message.step.title %></h1>
 
+<% if @message.test? %>
+	<br />
+	<hr />
+	<p>
+		<b>Let op: Dit is een test waardoor het bericht ook naar uw eigen Antorcha wordt gestuurd.</b>
+	</p>
+	<hr />
+	<br />
+<% end %>
+
 <% semantic_form_for(@message) do |f| %>
 
   <% f.inputs do %>

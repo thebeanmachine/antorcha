@@ -9,6 +9,12 @@ describe Organization do
       Organization.new :url => 'http://example.com/messages'
     end
 
+    it "should show ourself" do
+      Identity.stub(:first!).and_return(mock_model(Identity))
+      mock_model(Identity).stub(:organization).and_return(mock_model(Organization))
+      Organization.stub(:ourself).and_return(mock_model(Organization))    
+    end
+
     it "should format the delivery url" do
       subject.delivery_url.should == 'http://example.com/receptions'
     end

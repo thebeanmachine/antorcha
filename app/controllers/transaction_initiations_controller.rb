@@ -7,7 +7,8 @@ class TransactionInitiationsController < ApplicationController
   load_and_authorize_resource :name => :transaction
   before_filter :find_starting_steps
   
-  def new
+  def new    
+   @starting_steps
   end
   
   def create
