@@ -7,9 +7,8 @@ class TransactionInitiationsController < ApplicationController
   load_and_authorize_resource :name => :transaction
   before_filter :find_starting_steps
   
-  def new
-    
-   @starting_steps.each do |s| s.title = s.title + " (Test-transactie)" if s.definition.test? end
+  def new    
+   @starting_steps
   end
   
   def create

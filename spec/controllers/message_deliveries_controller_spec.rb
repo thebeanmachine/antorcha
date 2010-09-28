@@ -12,11 +12,13 @@ describe MessageDeliveriesController do
       stub_find(mock_message)
       mock_message.stub(:send_deliveries => nil)
       mock_message.stub(:cancelled? => false)
+      mock_message.stub(:test? => false)
     end
     
     def stub_create_cancelled_message
       stub_find(mock_message)
       mock_message.stub(:cancelled? => true)
+      mock_message.stub(:test? => false)
     end
 
     describe "as anonymous" do

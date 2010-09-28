@@ -19,4 +19,8 @@ class Organization < Resource
   def cancellation_url
     url.gsub(%r[/messages], "/transactions/cancellations")
   end
+  
+  def self.ourself
+    Identity.first!.organization
+  end
 end
