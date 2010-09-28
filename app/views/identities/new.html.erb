@@ -23,7 +23,7 @@
 
   <% f.inputs 'Ondertekening' do %>
     <%= f.input :private_key, :as => :text, :hint => 'De privésleutel waarmee alle uitgaande berichten worden ondertekend. Geen privé sleutel? Neem contract op met de uitweg.' %>
-    <%= f.input :passphrase, :as => :password, :hint => 'Optioneel een wachtwoord die de privé sleutel activeert.' %>
+    <%#= f.input :passphrase, :as => :password, :hint => 'Optioneel een wachtwoord die de privé sleutel activeert.' %>
   <% end %>
   <%= f.buttons %>
 <% end %>
