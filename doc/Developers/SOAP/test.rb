@@ -1,7 +1,7 @@
     require 'soap/wsdlDriver'
 
     def startTransaction(step)
-      driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver
+      driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "TransactionPort")
       transaction = driver.Initiate({:username=>"maarten",:password=>"asdfasdf"},step) #OK
       transaction
     end
@@ -24,7 +24,12 @@
 
     def indexRead
       driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
-      driver.IndexRead({:username=>"maarten",:password=>"asdfasdf"}) #OK
+      return driver.IndexRead({:username=>"maarten",:password=>"asdfasdf"}) #OK
+    end
+    
+    def indexUnexpiredUnread
+      driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
+      return driver.IndexUnexpiredUnread({:username=>"maarten",:password=>"asdfasdf"}) #OK      
     end
 
     def startSteps()
@@ -59,26 +64,27 @@
       puts message.inspect
     end
 
-    #testSoap 
-    #quickSend
-    
-    #step = startSteps.first
-    #message = startTransaction(step)
-    
-    #puts showMessage(message.id).title
-    #message.title = "updated title"
-    #message.body = "updated title"
-    #message = deliver(message)
-    #puts message.inspect
-    #updateMessage(message)
+    # testSoap 
+    # quickSend
+    # step = startSteps.first
     # message = startTransaction(step)
-    #     message.title = "delete me"
-    #     updateMessage(message)
-    #     puts "Alle berichten"
-    #     index.each do |m| puts m.title end
-    #     #deleteMessage(message) #Geen authorisatie
-    #     puts "Alleen gelezen berichten"
-     indexRead.each do |m| puts m.title end
-    
+    # 
+    # puts showMessage(message.id).title
+    # message.title = "updated title"
+    # message.body = "updated title"
+    # updateMessage(message)
+    # 
+    # message = deliver(message)
+    # puts message.inspect
+    # 
+    # message = startTransaction(step)
+    # message.title = "delete me"
+    # updateMessage(message)
+    # puts "Alle berichten"
+    # index.each do |m| puts m.title end
+    # #deleteMessage(message) #Geen authorisatie
+    # puts "Alleen gelezen berichten"
+    # indexRead.each do |m| puts m.title end
+    #     
 
-
+    indexUnexpiredUnread.each do |m| puts m.title end
