@@ -1,6 +1,5 @@
 development:
   olympus_resource: 'http://tankenberg.heroku.com'
-  testing:config/app_config.yml
 
 test:
   olympus_resource: 'http://tankenberg.heroku.com'
