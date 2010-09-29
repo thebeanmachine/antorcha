@@ -30,6 +30,12 @@ describe Message do
     it "incoming should not be accessible"
   end
   
+  
+  describe "named scopes" do
+    it "should include a filter by step"
+  end
+  
+  
   describe "delegation" do
     subject {Message.create!(@valid_attributes)}
 
@@ -90,7 +96,7 @@ describe Message do
       should_not be_cancellable
     end
   end
-  
+
   
   describe "creating a reply message" do
     it "takes over transaction from the request" do

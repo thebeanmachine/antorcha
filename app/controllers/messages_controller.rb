@@ -2,13 +2,23 @@ class MessagesController < ApplicationController
   load_and_authorize_resource :except => [:create, :roles_messages]
   
 
-  def index    
-    @search = Message.search(params[:search])
+  def index
+    if params[:useronly]=="true"
+      relevantsteps = Step.all( :recipient_role_ids => current_user.role_ids ).collect(&:id)
+      @search = Message.steps(relevantsteps).search(params[:search])
+    else
+      @search = Message.search(params[:search])
+    end
     @messages = @search.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
     # render :text => @messages.class
     if @messages.empty?
       if params[:search]
-        flash.now[:error] = "Er zijn geen berichten die '#{t(params[:search].keys)}' zijn."
+        searchkeys = []
+        params[:search].keys.each do |k|
+          searchkeys.push t(k)
+        end
+        searchkeys = searchkeys.join(", ").reverse.sub(/,/," ne ").reverse.downcase
+        flash.now[:error] = "Er zijn geen berichten die #{searchkeys} zijn."
       else 
         flash.now[:info] = "Er zijn nog geen berichten, begin zelf een transactie of wacht totdat iemand anders u een bericht stuurt"
       end
