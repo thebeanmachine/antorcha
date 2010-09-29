@@ -7,7 +7,11 @@ class MessagesController < ApplicationController
     @messages = @search.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
     # render :text => @messages.class
     if @messages.empty?
-      flash.now[:error] = "Er zijn geen berichten die '#{t(params[:search].keys)}' zijn."
+      if params[:search]
+        flash.now[:error] = "Er zijn geen berichten die '#{t(params[:search].keys)}' zijn."
+      else 
+        flash.now[:info] = "Er zijn nog geen berichten, begin zelf een transactie of wacht totdat iemand anders u een bericht stuurt"
+      end
     end
   end
   

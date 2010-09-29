@@ -25,6 +25,10 @@ class Organization < Resource
   end
   
   def self.ourself!
+    ourself
+  end
+  
+  def self.ourself
     Identity.first!.organization
   end
 end

@@ -9,7 +9,7 @@ class TransactionCancellationsController < ApplicationController
       authorize! :cancel, Transaction
       @transaction = Transaction.find(params[:transaction_id]) if params[:transaction_id]
     else
-      # authenticate between antorcha's
+      # authenticate between Antorcha's
       @transaction = Transaction.find_by_uri(params[:transaction_uri]) if params[:transaction_uri]
     end
 

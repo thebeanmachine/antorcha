@@ -45,6 +45,7 @@ class Message < ActiveRecord::Base
 
   delegate :cancelled?, :to => :transaction
   delegate :expired?, :to => :transaction  
+  delegate :test?, :to => :definition
 
   after_create :format_title
   before_validation :take_over_transaction_from_request
@@ -110,6 +111,14 @@ class Message < ActiveRecord::Base
 
   def send_deliveries
     destination_organizations.each do |org|
+      deliveries << deliveries.build(:organization => org)
+    end
+    sent!
+  end
+  
+  def send_deliveries_and_ourself
+    organizations = destination_organizations << Organization.ourself   
+    organizations.each do |org|
       deliveries << deliveries.build(:organization => org)
     end
     sent!
