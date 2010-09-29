@@ -2,12 +2,13 @@ module Jobs
   class ReceiveMessageJob < Struct.new(:reception_id)
     def perform
       @reception = Reception.find(reception_id)
-      receive unless @reception.message
+      receive if @reception.just_arrived?
     end
 
     def receive
-      @reception.verify_organization_certificate if Rails.env.production?
-      Message.receive! @reception
+      unless @reception.process
+        raise "Message could not be received."
+      end
     end
   end
 end

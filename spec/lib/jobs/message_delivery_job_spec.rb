@@ -36,7 +36,7 @@ describe Jobs::MessageDeliveryJob do
     it "should post the message as xml" do
       stub_undelivered
       mock_resource.should_receive(:post).with(
-        mock_message.to_xml, hash_including(
+        mock_delivery.to_xml, hash_including(
           :content_type => :xml, :accept => :xml
         ))
       subject.perform
@@ -77,9 +77,7 @@ describe Jobs::MessageDeliveryJob do
     mock_delivery.stub \
       :message => mock_message,
       :url => 'http://example.com/messages',
-      :delivered! => nil
-
-    mock_message.stub \
+      :delivered! => nil,
       :to_xml => "XML!"
   end
   

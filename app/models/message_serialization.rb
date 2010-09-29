@@ -7,13 +7,16 @@ module MessageSerialization
     xml.instruct! unless options[:skip_instruct]
     xml.message do
       xml.tag!(:title, title)
-      xml.tag!(:body, body)      
+      xml.tag!(:body, body)
       xml.transaction do
         xml.tag!(:uri, transaction.uri)
         xml.tag!(:initialized_at, transaction.initialized_at)
       end
       xml.tag!(:step_id, step.id)
-      xml.tag!(:organization_id, Identity.first!.organization.id)
+
+      # THESE SEMANTICS ARE NOW SEND IN THE SERIALIZATION OF THE DELIVERY
+      # xml.tag!(:organization_id, Identity.first!.organization.id)
+      # xml.tag!(:organization_message_id, id)
     end
   end
 
