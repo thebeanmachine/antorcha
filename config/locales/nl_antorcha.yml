@@ -6,6 +6,7 @@ nl:
   expired: "Verlopen"
   unexpired: "Niet verlopen"
   cancelled: "Geannuleerd"
+  notcancelled: "Niet geannuleerd"
   
   message:
     

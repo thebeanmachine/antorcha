@@ -4,17 +4,21 @@
 
 <% content_for :sidebar do -%>
 <h2>Berichten filteren </h2>
-
+<% if params[:search] == nil %>
+<p>Beperk de lijst met berichten:</p>
+<% else %>
+<p><%= link_to "Toon alle berichten", messages_path(:search => nil) %> of beperk de berichten op:</p>
+<% end %>
 <ul>
-	<li><%= link_to "Alle", messages_path(:search => nil) %></li>
-	<li><%= link_to "Mijn rol(len)", roles_messages_path %></li>
-  <li><%= link_to "Inkomende", messages_path(:search => {:inbox => true}) %></li>
-  <li><%= link_to "Uitgaande", messages_path(:search => {:outbox => true}) %></li>
-	<li><%= link_to "Verlopen", messages_path(:search => {:expired => true}) %></li>
+	<li><%= link_to "Voor mij bestemd, ongelezen en niet verlopen", messages_path(:useronly => true, :search => {:unexpired => true, :unread => true, :notcancelled => true}) %></li>
+	<li><%= link_to "Voor mij bestemd", messages_path(:useronly => true) %></li>
+  <li><%= link_to "Inkomend", messages_path(:search => {:inbox => true}) %></li>
+  <li><%= link_to "Uitgaand", messages_path(:search => {:outbox => true}) %></li>
 	<li><%= link_to "Niet verlopen", messages_path(:search => {:unexpired => true}) %></li>
-	<li><%= link_to "Gelezen", messages_path(:search => {:read => true}) %></li>
 	<li><%= link_to "Ongelezen", messages_path(:search => {:unread => true}) %></li>
 	<li><%= link_to "Geannuleerd", messages_path(:search => {:cancelled => true}) %></li>
+	<li><%= link_to "Inkomend, ongelezen en niet verlopen", messages_path(:search => {:inbox => true, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
+	
 </ul>
 
 

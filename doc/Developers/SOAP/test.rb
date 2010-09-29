@@ -28,7 +28,7 @@
     end
     
     def indexUnexpiredUnread
-      driver = SOAP::WSDLDriverFactory.new('http://localhost:3000/soap/wsdl').create_rpc_driver(nil, "MessagePort")
+      driver = SOAP::WSDLDriverFactory.new('http://localhost:3010/soap/wsdl').create_rpc_driver(nil, "MessagePort")
       return driver.IndexUnexpiredUnread({:username=>"maarten",:password=>"asdfasdf"}) #OK      
     end
 

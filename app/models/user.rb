@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end
   
   def messages
-    Message.all :conditions => {:step_id => Step.all( :recipient_role_ids => self.role_ids ).collect(&:id) }    
+    Message.steps(Step.all( :recipient_role_ids => self.role_ids ).collect(&:id)).all
   end
   
   def static_user_type
