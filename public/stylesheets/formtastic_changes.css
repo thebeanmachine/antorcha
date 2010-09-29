@@ -12,3 +12,13 @@
 #main p.inline-errors { margin: 0.5em 0px 0px 25%; }
 #main fieldset legend span { font-size: 125%; }
 #main > fieldset { padding: 1em 0em; }
+form.formtastic .errorExplanation {
+  border: 1px solid #ff0000;
+  padding: 1em 1em 1.5em 1em;
+  margin: 1em 0;
+}
+form.formtastic .errorExplanation h2 { margin-top: 0; }
+form.formtastic .errorExplanation ul {
+  list-style: disc outside none;
+  margin: 0 0 0 2em;
+}

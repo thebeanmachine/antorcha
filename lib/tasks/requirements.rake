@@ -2,27 +2,27 @@ namespace :requirement do
 
   desc "Check internetconnenction"
   task :online do  
-    check system('ping -c 3 google.com'), 'ONLINE'
+    check system('ping -c 3 google.com > output'), 'ONLINE'
   end
   
   desc "Check ruby"
   task :ruby do
-    check system('ruby --copyright'), 'RUBY'
+    check system('ruby --copyright > output'), 'RUBY'
   end
   
   desc "Check gems"
   task :gems => :ruby do  
-    check system('rake gems:install'), 'GEMS'
+    check system('rake gems:install > output'), 'GEMS'
   end
 
   desc "Check rails"
   task :rails => :gems do
-    check system('rails -v'), 'RAILS'
+    check system('rails -v > output'), 'RAILS'
   end
   
   desc "Check databases"
   task :database => :rails do
-    check system('rake db:version'), 'DATABASE'
+    check system('rake db:version > output'), 'DATABASE'
   end
   
   desc "Check accessibility"
