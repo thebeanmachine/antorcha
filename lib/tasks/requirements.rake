@@ -1,51 +1,44 @@
-task :online do
-  if system 'ping -c 3 google.com'
-    puts "ONLINE = OK :)"
-  else
-    puts "ONLINE = NOT OK :("
-  end
-end
+namespace :requirement do
 
-task :ruby do
-  if system 'ruby --copyright'
-    puts "RUBY = OK :)"
-  else
-    puts "RUBY = NOT OK :("
+  desc "Check internetconnenction"
+  task :online do  
+    check system('ping -c 3 google.com'), 'ONLINE'
   end
-end
-
-task :gems => :ruby do
-  if system 'rake gems:install'
-    puts "GEMS = OK :)"
-  else
-    puts "GEMS = NOT OK :("
-  end
-end
-
-task :rails => :gems do
-  if system 'rails -v'
-    puts "RAILS = OK :)"
-  else
-    puts "RAILS = NOT OK :("
-  end
-end
-
-task :database => :rails do
-  if system 'rake db:version'
-    puts "DATABASE = OK :)"
-  else
-    puts "DATABASE = NOT OK :("
-  end
-end
-
-task :available => [:environment] do
-  raw_config = File.read(RAILS_ROOT + "/config/app_config.yml")
-  APP_CONFIG = YAML.load(raw_config)[RAILS_ENV].symbolize_keys
-  # olympus = APP_CONFIG[:olympus_resource]
-  olympus = "http://localhost:3000"
-  p Net::HTTP.get_print olympus, '/org_available'
   
-  # system "curl olympus.heroku.com/org_available/#{Organization.ourself.id}"
-  # puts Organization.ourself.url  
-end
+  desc "Check ruby"
+  task :ruby do
+    check system('ruby --copyright'), 'RUBY'
+  end
+  
+  desc "Check gems"
+  task :gems => :ruby do  
+    check system('rake gems:install'), 'GEMS'
+  end
 
+  desc "Check rails"
+  task :rails => :gems do
+    check system('rails -v'), 'RAILS'
+  end
+  
+  desc "Check databases"
+  task :database => :rails do
+    check system('rake db:version'), 'DATABASE'
+  end
+  
+  desc "Check accessibility"
+  task :accessible => [:online, :environment] do
+    raw_config = File.read(RAILS_ROOT + "/config/app_config.yml")
+    APP_CONFIG = YAML.load(raw_config)[RAILS_ENV].symbolize_keys
+    url = URI.parse(APP_CONFIG[:olympus_resource])
+    res = Net::HTTP.start(url.host, url.port) {|http| http.get("/org_available/#{Organization.ourself.id}")}
+    check (res.body == "200"), 'ACCESSIBLE'
+  end
+
+  desc "Checks the internetconnenction, ruby, gems, rails, database and the accessibility"
+  task :all => [:online, :ruby, :rails, :gems, :database, :accessible]
+  
+  def check(task, label)    
+    puts "#{label} = #{task ? 'OK :)' : 'NOT OK :('}"
+  end
+  
+end
