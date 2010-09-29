@@ -12,14 +12,25 @@ describe User do
     specify { should be_registered }
   end
 
+  describe "uniqueness of e-mail" do
+    it "should check uniqueness of email" do
+      User.create! \
+        :username => 'aap', :email => 'aap@example.com',
+        :password => 'nootjes', :password_confirmation => 'nootjes'
+
+      u = User.new :username => 'aap', :email => 'aap@example.com'
+      u.should have(1).error_on(:email)
+    end
+  end
+
   describe "of type maintainer" do
-    subject { user = User.new; user.user_type = 'maintainer'; user }
+    subject { User.new.tap {|u| u.user_type = 'maintainer'} }
     specify { subject.should be_maintainer }
     specify { subject.should_not be_communicator }
   end
 
   describe "of type communicator" do
-    subject { user = User.new; user.user_type = 'communicator'; user }
+    subject { User.new.tap {|u| u.user_type = 'communicator'} }
     specify { subject.should be_communicator }
     specify { subject.should_not be_maintainer }
   end

@@ -16,11 +16,7 @@ module SwiftRecord
               :#{name} if not #{name}_at.nil?
             end
             def #{name}= value
-              if value
-                #{name}!
-              else
-                update_attributes(:#{name}_at => nil)
-              end
+              write_attribute :#{name}_at, value ? Time.zone.now : nil
             end
           RUBY
         end

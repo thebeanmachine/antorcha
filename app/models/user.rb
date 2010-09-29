@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :castables
 
-  validates_uniqueness_of :username, :email
+  validates_uniqueness_of :username
 
   validates_inclusion_of :user_type, :in => USER_TYPES
   
