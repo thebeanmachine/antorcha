@@ -38,7 +38,7 @@ namespace :requirement do
   task :all => [:online, :ruby, :rails, :gems, :database, :accessible]
   
   def check(task, label)    
-    puts "#{label} = #{task ? 'OK :)' : 'NOT OK :('}"
+    puts "#{label} = #{task ? 'OK :)' : 'NIET OK :('}"
   end
   
 end
