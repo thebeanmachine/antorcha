@@ -142,7 +142,7 @@ nl:
       unauthenticated: 'U dient in te loggen of in te schrijven.'
       unconfirmed: 'U dient eerst uw account te bevestigen.'
       locked: 'Uw account is gelocked.'
-      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid: 'Ongeldig e-mailadres of wachtwoord.'
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Uw account is nog niet geactiveerd.'
