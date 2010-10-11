@@ -7,8 +7,8 @@ class TransactionInitiationsController < ApplicationController
   load_and_authorize_resource :name => :transaction
   before_filter :find_starting_steps
   
-  def new    
-   @starting_steps
+  def new
+    flash[:notice] = "Er zijn geen startstappen voor u." if @starting_steps.empty?
   end
   
   def create

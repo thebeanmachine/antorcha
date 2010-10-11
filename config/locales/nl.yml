@@ -56,7 +56,7 @@ nl:
       template: 
         body: "Controleer alstublieft de volgende velden:"
         header: 
-          one: "Kon dit {{model}} object niet opslaan: 1 fout."
+          one: "Kan deze {{model}} niet opstarten."
           other: "Kon dit {{model}} niet opslaan: {{count}} fouten."
   time: 
     am: "'s ochtends"

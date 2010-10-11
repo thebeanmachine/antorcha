@@ -1,8 +1,9 @@
 <% breadcrumb Processing %>
 <h1>Logboek</h1>
-<p>Laatste 100 belangrijksteregels uit het logboek, laatste bovenaan.</p>
-	<p>
-	<% @processings.each do |processing| %>
-	<tt><%= processing %></tt><br/>
-	<% end %>
-	</p>
+
+<p>Laatste 100 logregels, laatste bovenaan.</p>
+
+<% @processings.each do |processing| %>
+<tt><%= processing %></tt><br/>
+<% end %>
+
