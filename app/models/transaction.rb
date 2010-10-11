@@ -5,7 +5,6 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :uri, :on => :update, :message => 'should have been assigned'
   validates_presence_of :definition
 
-
   default_scope :order => "transactions.created_at DESC"
   named_scope :with_organizations, lambda { |organization_ids| {
     :joins => {:messages => :deliveries}, 

@@ -110,7 +110,7 @@ nl:
       transaction:
         title: Titel
         definition: Definitie
-        starting_step: Start stap
+        starting_step: Startstap
       definition:
         title: Titel
       step:
