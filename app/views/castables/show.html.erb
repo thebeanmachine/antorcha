@@ -8,6 +8,7 @@
   <%= @castable.role.nil? ? "Géén rol toegekend" : @castable.role.title %>
 </p>
 
-
+<p>
 <%= link_to 'Bewerken', edit_castable_path(@castable) %> |
 <%= link_to 'Terug', castables_path %>
+</p>
