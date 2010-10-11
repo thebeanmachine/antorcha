@@ -8,6 +8,7 @@ class TransactionInitiationsController < ApplicationController
   before_filter :find_starting_steps
   
   def new
+    flash[:notice] = "Er zijn geen startstappen voor u." if @starting_steps.empty?
   end
   
   def create
