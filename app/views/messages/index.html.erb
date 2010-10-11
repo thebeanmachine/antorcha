@@ -1,6 +1,6 @@
 <% breadcrumb [@transaction, Message].compact %>
 
-<%= render :partial => 'index' %>
+<%= render :partial => 'messages/index' %>
 
 <% content_for :sidebar do -%>
 <h2>Berichten filteren </h2>
@@ -36,4 +36,4 @@
 
 <% end -%>
 
-<%= will_paginate @messages %>
+<%= will_paginate @messages unless controller_name == "transaction_messages" %>
