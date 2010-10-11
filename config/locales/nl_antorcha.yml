@@ -153,15 +153,15 @@ nl:
       unconfirmed: 'U dient eerst uw account te bevestigen.'
       link: 'Inloggen'
       user:
-        invalid: 'Ongeldig e-mail of wachtwoord.'
+        invalid: 'Ongeldig e-mailadres of wachtwoord.'
         invalid_token: 'Invalide authenticiteit token.'
         timeout: 'Uw sessie is verlopen, log a.u.b. opnieuw in.'
         inactive: 'Uw account is nog niet geactiveerd.'
     passwords:
-      send_instructions: 'U ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
+      send_instructions: 'U ontvangt via e-mailadres instructies hoe je je wachtwoord moet resetten.'
       updated: 'Uw wachtwoord is gewijzigd. U bent nu ingelogd.'
     confirmations:
-      send_instructions: 'U ontvangt via e-mail instructies hoe u uw account kan bevestigen.'
+      send_instructions: 'U ontvangt via e-mailadres instructies hoe u uw account kan bevestigen.'
       confirmed: 'Uw account is bevestigd.'
     registrations:
       signed_up: 'U bent inschreven.'
@@ -169,7 +169,7 @@ nl:
       destroyed: 'Uw account is verwijderd, wellicht tot ziens!'
       link: 'Registreren'
     unlocks:
-      send_instructions: 'U ontvangt via e-mail instructies hoe u uw account kan ontgrendelen.'
+      send_instructions: 'U ontvangt via e-mailadres instructies hoe u uw account kan ontgrendelen.'
       unlocked: 'Uw account is ontgrendeld. U kunt nu weer inloggen.'
     mailer:
       confirmation_instructions:
