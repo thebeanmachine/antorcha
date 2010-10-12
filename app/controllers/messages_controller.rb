@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
           searchkeys.push t(k)
         end
         searchkeys = searchkeys.join(", ").reverse.sub(/,/," ne ").reverse.downcase
-        flash.now[:error] = "Er zijn geen berichten die #{searchkeys} zijn."
+        flash.now[:notice] = "Er zijn geen berichten die #{searchkeys} zijn."
       else 
         flash.now[:info] = "Er zijn nog geen berichten, begin zelf een transactie of wacht totdat iemand anders u een bericht stuurt"
       end
