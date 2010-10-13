@@ -173,6 +173,16 @@ describe MessageService, "soap service" do
     end
   end
   
+  describe "reply to a message" do
+    it "should create a new reply-message" do
+      Message.stub(:find).with(example_message.id).and_return(example_message)      
+      reply_example_message = Message.new(:request_id => example_message.id)      
+      replies = example_message.stub(:replies).and_return([])
+      replies.stub(:create).and_return(reply_example_message)
+      reply_example_message.request_id.should == example_message.id
+    end
+  end
+  
   describe "updating a message" do
     it "should not be permitted with an invalid token" do
       lambda { invoke_layered :message, :update, invalid_token, nil }.should deny_access
