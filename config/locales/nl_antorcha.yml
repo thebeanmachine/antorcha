@@ -21,7 +21,7 @@ nl:
       show:
         status:
           incoming: "Bericht is ontvangen op {{created_at}}."
-          sent: "Bericht is in postvak uit geplaatst om {{sent_at}} en word momenteel verzonden."
+          sent: "Bericht is in postvak uit geplaatst om {{sent_at}} en wordt verzonden."
           delivered: "Bericht is aangekomen om {{delivered_at}}."
           draft: "Bericht is een conceptbericht en is nog niet verstuurd."
 
