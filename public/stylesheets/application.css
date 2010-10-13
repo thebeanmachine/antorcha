@@ -76,6 +76,22 @@ ul.menu li {
   width: 100%;
   float: left;
 }
+
+.intro{
+/*	font-size: 150%;*/
+	color: #666;
+}
+
+.status{
+/*	background-color: #FF8000;
+	border: 1px solid #ddd;
+	padding: 0.5em;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;*/
+	color: #666;
+}
+
 .actions {
   width: 100%;
   float: left;

@@ -2,22 +2,22 @@
 
 <div class="<%= @message.cancelled? %> <%= "expired" if @message.expired? %>">
   <h1 class="as_in_table">
-  	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Out" %></span></small>
+  	<small class="icons"><span class="<%= @message.incoming? ? "icon_incoming" : "icon_outgoing" %>"><%= @message.incoming? ? "In" : "Uit" %></span></small>
 
   	<small class="sender"><%=h @message.organization_title %></small>
-  	<strong>Message <%=h @message.title %></strong>
+  	<strong>Bericht <%=h @message.title %></strong>
 
   	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
   <div class="message_content">
   <p class="intro">
-    <%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
-    <%= musketeer 'Bericht volgt definitie ', h(@message.step.definition.title), '.' %>
+   	<%= musketeer 'Bericht maak deel uit van transactie', link_to_transaction(@message.transaction), '.' %>
+    <%= musketeer 'Bericht volgt definitie ', h(@message.step.definition.title), '.' %><br />
     <%= musketeer 'Bericht is gebaseerd op stap ', h(@message.step.title), '.' %>
     <% if @message.request %>
       <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
     <% end %>
   </p>
-  <p><%= message_status(@message) %></p>
+  <p class="status"><%= message_status(@message) %></p>
 
   <p>
     <% if can? :examine, @message %>
