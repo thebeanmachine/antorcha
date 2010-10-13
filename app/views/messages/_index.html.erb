@@ -19,5 +19,5 @@
 <% end %>
 </table>
 <%= will_paginate @messages,:prev_label => "«",
-:next_label => "»" %>
+:next_label => "»" unless controller_name == "transaction_messages" %>
 </div>
