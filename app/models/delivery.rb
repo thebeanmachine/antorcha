@@ -12,7 +12,7 @@ class Delivery < ActiveRecord::Base
   
   after_create :deliver
   
-  named_scope :queued, :conditions => {:delivered_at => nil}
+  named_scope :queued, :conditions => {:confirmed_at => nil}
   
   def verified_organization_certificate_on_confirmation
     verified_organization_certificate? if confirmed?
