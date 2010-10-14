@@ -23,4 +23,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  rescue_from "ActiveResource::ResourceNotFound" do |exception|
+    render :status => 503, :file => "public/503.html"
+  end
+  rescue_from "ActiveResource::ServerError" do |exception|
+    render :status => 503, :file => "public/503.html"
+  end      
 end

@@ -11,8 +11,8 @@
   <div class="message_content">
   <p class="intro">
    	<%= musketeer 'Bericht maak deel uit van transactie', link_to_transaction(@message.transaction), '.' %>
-    <%= musketeer 'Bericht volgt definitie ', h(@message.step.definition.title), '.' %><br />
-    <%= musketeer 'Bericht is gebaseerd op stap ', h(@message.step.title), '.' %>
+		<%= musketeer 'Bericht volgt definitie ', h(@message.step.definition.title), '.'  %><br />
+		<%= musketeer 'Bericht is gebaseerd op stap ', h(@message.step.title), '.' %>
     <% if @message.request %>
       <%= musketeer 'Bericht beantwoord ', link_to_message(@message.request), '.' %>
     <% end %>
