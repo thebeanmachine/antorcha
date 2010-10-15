@@ -10,8 +10,8 @@ Feature: Begeleid worden bij reageren
 		And I am on the messages page
 		Then I should see "Berichten"
 		When I follow "Melding aan VIS2"
-		Then I should see "Reageer"
-		When I follow "Reageer"
+		Then I should see "Reageer op Bericht"
+		When I follow "Reageer op Bericht"
 		Then I should see "Reactie op melding VIS2" within "label"
 		And I should not see "Melding aan VIS2" within "label"
 		And I should see "Informatieverzoek (gegevens actueel houden)" within "label"
