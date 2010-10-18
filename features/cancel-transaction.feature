@@ -5,15 +5,15 @@ Feature: Cancel transaction
   
   Scenario: Een gebruiker heeft een bericht gestuurd en wil deze annuleren
 		Given the VIS2 transaction definition is available
+		And I have an outgoing message "Melding aan VIS2" for step "Melding aan VIS2"
 		And I am logged in as a "communicator"
 		And I am on the messages page
-		When I follow "Nieuwe Transactie"
+		And show me the page
+		When I follow "Melding aan VIS2"
 		Then I should see "Melding aan VIS2"
-		When I follow "Reageer"
-		Then I should see "Reactie op melding VIS2" within "label"
-		And I should not see "Melding aan VIS2" within "label"
-		And I should see "Informatieverzoek (gegevens actueel houden)" within "label"
-		And I should not see "Reactie op informatieverzoek" within "label"
+		And show me the page
+		When I press "Annuleer Transactie"
+		Then I should see "De transactie wordt geannuleerd"
 
   @selenium
   Scenario: Cancel a transaction

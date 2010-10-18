@@ -25,7 +25,7 @@ Given /^I have a transaction "([^\"]*)"$/ do |title|
 end
 
 Given /^I have an? (incoming|outgoing)? ?message "([^\"]*)" for step "([^\"]*)"$/ do |direction,title,step|
-  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step), :transaction => Factory.create(:transaction, :title => "Transaction"))
+  m = Factory.create(:message, :title => title, :step => Step.find_by_title(step), :transaction => Factory.create(:transaction, :title => "Transaction"), :organization => Organization.first)
   m.incoming = (direction == 'incoming')
   m.save
 end
