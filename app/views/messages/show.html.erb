@@ -21,7 +21,7 @@
 
   <p>
     <% if can? :examine, @message %>
-      <%=h @message.body %>
+      <pre><%=h @message.body %></pre>
     <% end %>
   </p>
   </div>
