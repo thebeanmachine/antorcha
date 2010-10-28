@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   
   has_many :castables
 
+  validates_presence_of :username, :email, :password, :password_confirmation 
+  
   validates_uniqueness_of :username
 
   validates_inclusion_of :user_type, :in => USER_TYPES
