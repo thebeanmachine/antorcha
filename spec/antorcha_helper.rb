@@ -59,7 +59,7 @@ module AntorchaHelper
   end
   
   def sign_in_user type = 'communicator', options = {}
-    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirmation => "qwerty")
     @user.update_attribute :user_type, type.to_s
 
     @user.stub :castables => castables_for(options.delete(:as)) if options[:as]
@@ -69,7 +69,7 @@ module AntorchaHelper
   end
 
   def view_as_user type = 'communicator', option = {}
-    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirm => "qwerty")
+    @user = User.create!(:email => "test@example.com", :username => "test", :password => "qwerty", :password_confirmation => "qwerty")
     @user.update_attribute :user_type, type.to_s
 
     @user.stub :castables => castables_for(options.delete(:as)) if options[:as]

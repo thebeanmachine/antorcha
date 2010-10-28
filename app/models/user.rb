@@ -9,9 +9,11 @@ class User < ActiveRecord::Base
   
   has_many :castables
 
-  validates_presence_of :username, :email, :password, :password_confirmation 
-  
-  validates_uniqueness_of :username, :email
+  # Note to self: e-mail and username are already validated on uniqueness and presense by devise.
+  # Note to self: also password is validated on presence
+
+  validates_presence_of :username, :password_confirmation 
+  validates_uniqueness_of :username
 
   validates_inclusion_of :user_type, :in => USER_TYPES
   

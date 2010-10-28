@@ -12,14 +12,28 @@ describe User do
     specify { should be_registered }
   end
 
+  describe "with no attributes at all" do
+    subject { User.create }
+    specify { should have(4).errors }
+    specify { should have(1).error_on(:email)}
+    specify { should have(1).error_on(:username)}
+    specify { should have(1).error_on(:password)}
+    specify { should have(1).error_on(:password_confirmation)}
+  end
+
   describe "uniqueness of e-mail" do
-    it "should check uniqueness of email" do
+    subject do
       User.create! \
         :username => 'aap', :email => 'aap@example.com',
         :password => 'nootjes', :password_confirmation => 'nootjes'
 
-      u = User.new :username => 'aap', :email => 'aap@example.com'
-      u.should have(1).error_on(:email)
+      User.new :username => 'aap', :email => 'aap@example.com'
+    end
+    it "should check uniqueness of email" do
+      should have(1).error_on(:email)
+    end
+    it "should check uniqueness of username" do
+      should have(1).error_on(:username)
     end
   end
 
