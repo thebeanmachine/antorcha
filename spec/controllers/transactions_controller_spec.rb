@@ -14,7 +14,7 @@ describe TransactionsController do
       before(:each) do
         stub_search mock_transactions
         stub_all mock_organizations
-        mock_search.stub :with_organizations => [mock_organization.to_param]
+        mock_search.stub :organization_ids => [mock_organization.to_param]
       end
     
       it "should authorize :index, Transactions" do
@@ -38,7 +38,7 @@ describe TransactionsController do
       end
 
       it "assigns nil to @filtered_organizations if there are none filtered organizations" do
-        mock_search.stub :with_organizations => []
+        mock_search.stub :organization_ids => []
         get :index
         assigns[:filtered_organizations].should == []
       end

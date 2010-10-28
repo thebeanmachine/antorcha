@@ -92,8 +92,8 @@ describe Transaction do
     
       @message.deliveries.create! :organization_id => 2
 
-      Transaction.with_organizations([2]).should == [@transaction]
-      Transaction.with_organizations([3]).should == []
+      Transaction.organization_ids([2]).should == [@transaction]
+      Transaction.organization_ids([3]).should == []
     end
   end
 

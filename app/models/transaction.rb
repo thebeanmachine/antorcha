@@ -6,7 +6,7 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :definition
 
   default_scope :order => "transactions.created_at DESC"
-  named_scope :with_organizations, lambda { |organization_ids| {
+  named_scope :organization_ids, lambda { |organization_ids| {
     :joins => {:messages => :deliveries}, 
     :conditions => {
       :messages => {
@@ -70,7 +70,7 @@ class Transaction < ActiveRecord::Base
     return false if expired_at.nil?
     Time.now > expired_at
   end
-
+  
 private
   def format_title
     update_attribute :title, "#{definition.title} \##{id}" if title.blank?

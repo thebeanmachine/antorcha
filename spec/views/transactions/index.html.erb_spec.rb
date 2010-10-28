@@ -23,7 +23,7 @@ describe "/transactions/index.html.erb" do
     assigns[:search] = mock_search
     mock_search.stub :id => nil
     
-    mock_search.stub :with_organizations => [1,2,3]
+    mock_search.stub :organization_ids => [1,2,3]
     
     mock_definition.stub(:title => 'My Definition')
     template.stub(:admin_signed_in? => true)

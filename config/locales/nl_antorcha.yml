@@ -47,7 +47,7 @@ nl:
       
   formtastic:
     labels:
-      with_organizations: Filter op betrokken organisaties
+      organization_ids: Filter op betrokken organisaties
     hints:
       step:
         destination_url: Bijvoorbeeld http://example.com/messages
