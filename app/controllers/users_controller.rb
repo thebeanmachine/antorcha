@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   
   def index
     @users = User.inactivated.all
+    flash[:notice] = "Er zijn momenteel geen geregistreerde gebruikers." if @users.empty?
   end
   
   def update
