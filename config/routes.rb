@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :processings
 
   map.devise_for :users
-  map.resources :users, :only => [:index, :update] # FOR THE MAINAINTER ONLY!
+  map.resources :users, :only => [:index, :update, :destroy] # FOR THE MAINAINTER ONLY!
   map.resources :workers, :only => [:index, :create, :show, :destroy]
   map.resources :user_sessions, :only => [:update, :destroy]
 

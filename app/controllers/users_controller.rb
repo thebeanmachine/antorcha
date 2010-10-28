@@ -18,4 +18,14 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
   end
+  
+  def destroy
+     @user = User.find(params[:id])
+     @user.destroy
+     flash[:notice] = "Gebruiker verwijderd"
+     respond_to do |format|
+       format.html { redirect_to(users_path) }
+       format.xml  { head :ok }
+     end
+   end
 end
