@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username, :email, :password, :password_confirmation 
   
-  validates_uniqueness_of :username
+  validates_uniqueness_of :username, :email
 
   validates_inclusion_of :user_type, :in => USER_TYPES
   
