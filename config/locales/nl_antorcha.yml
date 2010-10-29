@@ -146,6 +146,7 @@ nl:
         permission_roles: Toegankelijk voor
       message:
         title: Titel
+        body: Berichtinhoud
       reaction:
         cause: Oorzaak
         effect: Gevolg
