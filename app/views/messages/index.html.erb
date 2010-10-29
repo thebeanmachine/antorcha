@@ -10,8 +10,8 @@
 <p><%= link_to "Toon alle berichten", messages_path(:search => nil) %> of beperk de berichten op:</p>
 <% end %>
 <ul>
-	<li><%= link_to "Voor mij bestemd, ongelezen en niet verlopen", messages_path(:useronly => true, :search => {:unexpired => true, :unread => true, :notcancelled => true}) %></li>
-	<li><%= link_to "Voor mij bestemd", messages_path(:useronly => true) %></li>
+	<li><%= link_to "Voor mij bestemd, ongelezen en niet verlopen", messages_path(:search => {:user_id => current_user.id, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
+	<li><%= link_to "Voor mij bestemd", messages_path(:search => {:user_id => current_user.id}) %></li>
   <li><%= link_to "Inkomend", messages_path(:search => {:inbox => true}) %></li>
   <li><%= link_to "Uitgaand", messages_path(:search => {:outbox => true}) %></li>
 	<li><%= link_to "Niet verlopen", messages_path(:search => {:unexpired => true}) %></li>

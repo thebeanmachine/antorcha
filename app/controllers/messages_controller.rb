@@ -3,19 +3,15 @@ class MessagesController < ApplicationController
   
 
   def index
-    if params[:useronly]=="true"
-      relevantsteps = Step.all( :recipient_role_ids => current_user.role_ids ).collect(&:id)
-      @search = Message.steps(relevantsteps).search(params[:search])
-    else
-      @search = Message.search(params[:search])
-    end
+    @search = Message.search(params[:search])
+
     @messages = @search.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
-    # render :text => @messages.class
+
     if @messages.empty?
       if params[:search]
         searchkeys = []
         params[:search].keys.each do |k|
-          searchkeys.push t(k)
+          searchkeys.push t("view.message.scope.#{k}")
         end
         searchkeys = searchkeys.join(", ").reverse.sub(/,/," ne ").reverse.downcase
         flash.now[:notice] = "Er zijn geen berichten die #{searchkeys} zijn."
@@ -25,11 +21,6 @@ class MessagesController < ApplicationController
     end
   end
   
-  def roles_messages
-    @messages = current_user.messages.paginate(:page => params[:page], :include => :transaction,  :per_page => 25)
-    render :index
-  end
-
   def show
     @message = Message.show(params[:id])
     

@@ -48,6 +48,24 @@ describe Step do
     end
   end
 
+  describe ".find_by_recipient_role_ids" do
+    it "should delegate this to olympus" do
+      example_role_ids = [1,2]
+      
+      Step.should_receive(:all).with(:recipient_role_ids => example_role_ids).and_return(mock_steps)
+      Step.find_by_recipient_role_ids(example_role_ids).should == mock_steps
+    end
+  end
+  
+  describe ".find_ids_by_recipient_role_ids used for filtering the messages index on recipient users" do
+    it "should delegate this to olympus" do
+      example_role_ids = [1,2]
+      
+      Step.should_receive(:find_by_recipient_role_ids).with(example_role_ids).and_return(mock_steps)
+      Step.find_ids_by_recipient_role_ids(example_role_ids).should == mock_steps.collect(&:id)
+    end
+  end
+
   describe "destination organizations" do
     it "should send query to the correct url" do
       Organization.should_receive(:find).with(:all, :from => "/steps/37/destination_organizations.xml")

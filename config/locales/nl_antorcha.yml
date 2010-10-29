@@ -1,12 +1,5 @@
 nl:
-  unread: "Ongelezen"
-  read: "Gelezen"
-  inbox: "Inkomende"
-  outbox: "Uitgaande"
-  expired: "Verlopen"
-  unexpired: "Niet verlopen"
-  cancelled: "Geannuleerd"
-  notcancelled: "Niet geannuleerd"
+
   
   message:
     
@@ -24,6 +17,16 @@ nl:
           sent: "Bericht is in postvak uit geplaatst om {{sent_at}} en wordt verzonden."
           delivered: "Bericht is aangekomen om {{delivered_at}}."
           draft: "Bericht is een conceptbericht en is nog niet verstuurd."
+      scope:
+        user_id: "voor uw bestemd"
+        unread: "Ongelezen"
+        read: "Gelezen"
+        inbox: "Inkomende"
+        outbox: "Uitgaande"
+        expired: "Verlopen"
+        unexpired: "Niet verlopen"
+        cancelled: "Geannuleerd"
+        notcancelled: "Niet geannuleerd"
 
   messages: "Berichten"
   transactions: "Transacties"

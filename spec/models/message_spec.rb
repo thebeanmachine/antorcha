@@ -30,9 +30,29 @@ describe Message do
     it "incoming should not be accessible"
   end
   
-  
   describe "named scopes" do
     it "should include a filter by step"
+  end
+  
+  describe ".user_id" do
+    before(:each) do
+      @message = example_message
+      
+      stub_find mock_user
+      mock_user.stub :role_ids => [2,5]
+    end
+    
+    it "includes messages with the recipient role steps" do
+      Step.stub(:find_ids_by_recipient_role_ids).with([2,5]).and_return([mock_step.id, 6])
+
+      Message.user_id(mock_user.to_param).all.should include(@message)
+    end
+
+    it "excludes messages without the recipient role steps" do
+      Step.stub(:find_ids_by_recipient_role_ids).with([2,5]).and_return([5, 6])
+
+      Message.user_id(mock_user.to_param).all.should_not include(@message)
+    end
   end
   
   

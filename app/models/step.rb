@@ -34,6 +34,14 @@ class Step < Resource
     Organization.find :all, :from => "/steps/#{to_param}/destination_organizations.xml"
   end
 
+  def self.find_by_recipient_role_ids role_ids
+    Step.all :recipient_role_ids => role_ids
+  end
+  
+  def self.find_ids_by_recipient_role_ids role_ids
+    find_by_recipient_role_ids(role_ids).collect(&:id)
+  end
+
 private
   def parameterize_title_for_name
     self.name = title.parameterize if title

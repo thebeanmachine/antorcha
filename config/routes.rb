@@ -38,8 +38,6 @@ ActionController::Routing::Routes.draw do |map|
     messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
   end
   
-  map.roles_messages "/roles_messages", :controller => :messages, :action => :roles_messages
-
   map.root :controller => 'home'
   
   map.connect 'soap/:action', :controller => 'soap'

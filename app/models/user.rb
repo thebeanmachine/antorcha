@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
   
   def messages
-    Message.steps(Step.all( :recipient_role_ids => self.role_ids ).collect(&:id)).all
+    Message.user_id(id)
   end
   
   def static_user_type
