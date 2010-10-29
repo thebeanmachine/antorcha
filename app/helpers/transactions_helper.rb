@@ -3,6 +3,14 @@ module TransactionsHelper
   
   help_can_link_to :transaction
 
+  def link_to_transactions_always
+    if controller_name == "transaction_messages"
+      link_to "Transaction", transactions_path, :class => 'transaction selected'
+    else
+      link_to_transactions
+    end
+  end
+
   def link_to_new_transaction_message(transaction)
     if can? :new, Message
       link_to h(t('action.new', :model => Message.human_name)), new_transaction_message_path(transaction), :class => 'message'

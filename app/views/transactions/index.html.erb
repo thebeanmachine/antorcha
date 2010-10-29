@@ -1,17 +1,19 @@
 <% breadcrumb Transaction %>
 <h1>Transactieoverzicht</h1>
-<p class="intro">
-	<% if @filtered_organizations %>
-	Transacties waarin de volgende organisaties betrokken zijn: <%= Array(@filtered_organizations).collect(&:title).join(', ') %>
-	<% end %>
-</p>
+
+<!--<p class="intro">-->
+<!--	<% if @filtered_organizations %>-->
+<!--	Transacties waarin de volgende organisaties betrokken zijn: <%= Array(@filtered_organizations).collect(&:title).join(', ') %>-->
+<!--	<% end %>-->
+<!--</p>-->
 
 
 
 <ul>
 <% @transactions.each do |transaction| %>
   <li>
-    <%= link_to_transaction transaction %> (<%=h transaction.messages.count %> messages)
+    <%= link_to_transaction transaction %>
+    <p><%=h transaction.messages.count %> bericht(en) op <%= l(transaction.created_at) %></p>
   </li>
 <% end %>
 </ul>

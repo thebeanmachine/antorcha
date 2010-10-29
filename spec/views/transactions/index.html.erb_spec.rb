@@ -11,12 +11,14 @@ describe "/transactions/index.html.erb" do
       stub_model(Transaction,
         :title => "value for title",
         :name => "value for name",
-        :definition => mock_definition
+        :definition => mock_definition,
+        :created_at => Time.now
       ),
       stub_model(Transaction,
         :title => "value for title",
         :name => "value for name",
-        :definition => mock_definition
+        :definition => mock_definition,
+        :created_at => Time.now
       )
     ]
     
