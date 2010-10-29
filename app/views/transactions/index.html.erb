@@ -12,7 +12,8 @@
 <ul>
 <% @transactions.each do |transaction| %>
   <li>
-    <%= link_to_transaction transaction %> (<%=h transaction.messages.count %> berichten) <%= l(transaction.created_at) %>
+    <%= link_to_transaction transaction %>
+    <p><%=h transaction.messages.count %> bericht(en) op <%= l(transaction.created_at) %></p>
   </li>
 <% end %>
 </ul>
