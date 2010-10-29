@@ -93,6 +93,8 @@ nl:
       message:
         one: Bericht
         other: Berichten
+      transaction_message:
+        other: Transactieberichten
       message_reply:
         one: Antwoord
         other: Antwoorden
