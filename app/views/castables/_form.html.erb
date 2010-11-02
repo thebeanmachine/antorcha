@@ -2,8 +2,8 @@
   <%= f.error_messages %>
 
   <% f.inputs do %>
-    <%= f.input :user, :collection => @users %>
-    <%= f.input :role_id, :collection => @roles %>
+    <%= f.input :user, :collection => @users, :label => "Gebruiker" %>
+    <%= f.input :role_id, :collection => @roles, :label => "Rol" %>
   <% end %>
 
   <% f.buttons do %>
