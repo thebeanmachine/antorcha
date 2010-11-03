@@ -31,18 +31,6 @@ describe TransactionsController do
         get :index
         assigns[:organizations].should == mock_organizations
       end
-
-      it "assigns all filtered organizations as @filtered_organizations" do
-        get :index
-        assigns[:filtered_organizations].should == mock_organizations
-      end
-
-      it "assigns nil to @filtered_organizations if there are none filtered organizations" do
-        mock_search.stub :organization_ids => []
-        get :index
-        assigns[:filtered_organizations].should == []
-      end
-
     end
 
     describe "GET show" do

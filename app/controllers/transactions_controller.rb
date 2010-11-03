@@ -7,9 +7,7 @@ class TransactionsController < ApplicationController
     @search = Transaction.search params[:search]
     @transactions = @search.all
     @organizations = Organization.all
-
-    @filtered_organizations = @organizations.find_all {|o| @search.organization_ids.include? o.to_param } if @search.organization_ids
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @transactions }

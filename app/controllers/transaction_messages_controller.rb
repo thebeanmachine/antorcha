@@ -7,6 +7,8 @@ class TransactionMessagesController < ApplicationController
     render :template => 'messages/index'
   end
 
+  #REVIEW: Ik zie niet waar deze nieuw en create worden gebruikt, kan dit niet weg? De 'new' template die hier bij hoort is ook nog niet vertaald...
+
   def new
     @transaction = Transaction.find(params[:transaction_id])
     #@steps_starting_steps = @transaction.definition.steps.starting_steps.all

@@ -297,10 +297,10 @@ h1.as_in_table .sender { width: 20em; }
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
 }
-#sidebar h2 { padding: 0 1em; }
-#sidebar h3 { padding: 0 1em; }
-#sidebar p { padding: 0 1em; }
-#sidebar .devnav { padding: 0 1em; }
+#sidebar h2 { padding: 0 13px; }
+#sidebar h3 { padding: 0 13px; }
+#sidebar p { padding: 0 13px; }
+#sidebar .devnav { padding: 0 13px; }
 #sidebar form.formtastic fieldset > ol > li fieldset {
   position: static;
   padding: 0 1em;

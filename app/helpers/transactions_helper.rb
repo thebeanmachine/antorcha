@@ -5,7 +5,7 @@ module TransactionsHelper
 
   def link_to_transactions_always
     if controller_name == "transaction_messages"
-      link_to "Transaction", transactions_path, :class => 'transaction selected'
+      link_to "Transactie", transactions_path, :class => 'transaction selected'
     else
       link_to_transactions
     end
