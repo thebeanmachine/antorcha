@@ -157,13 +157,16 @@ nl:
         title: Titel
         url: Bestemming
         roles: Rollen
+      identity:
+        organization: Organisatie
+        private_key: Privésleutel
 
-        nl:
-          errors:
-            messages:
-              not_found: "Gebruiker niet gevonden"
-              already_confirmed: "Gebruiker is reeds bevestigd"
-              not_locked: "Deze account is niet gesloten"
+  nl:
+    errors:
+      messages:
+        not_found: "Gebruiker niet gevonden"
+        already_confirmed: "Gebruiker is reeds bevestigd"
+        not_locked: "Deze account is niet gesloten"
 
   devise:
     failure:

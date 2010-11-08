@@ -51,7 +51,7 @@ describe Identity do
     end
 
     it "should have one error on private key" do
-      should have(1).error_on(:private_key)
+      should have(1).error_on(:organization_id)
     end
   end
   
