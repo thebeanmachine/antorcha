@@ -12,8 +12,9 @@ echo.
 echo.
 echo  Git installeren
 echo.
-echo   Belangrijk: Zorg er voor dat u tijdens de installatie 
-echo   'Run Git from the Windows Command Prompt' aanvinkt.
+echo   Belangrijk: U moet tijdens de installatie het volgende aanvinken: 
+echo   'Run Git from the Windows Command Prompt'.
+echo   'Add Git executables to your PATH'.
 echo.
 
 pause
