@@ -36,9 +36,11 @@ echo.
 echo  Noodzakelijke gems installeren
 echo.
 
+set RAILS_ENV=production
+
 gem install rails -v 2.3.8
 gem install rspec 
-RAILS_ENV=production rake gems:install
+rake gems:install
 
 echo.
 echo    Gereed!
@@ -50,9 +52,11 @@ echo.
 echo  Database configureren en installeren
 echo.
 
-RAILS_ENV=production rake db:create
-RAILS_ENV=production rake db:migrate
-RAILS_ENV=production rake db:seed
+set RAILS_ENV=production
+
+rake db:create
+rake db:migrate
+rake db:seed
 
 echo.
 echo    Gereed!
