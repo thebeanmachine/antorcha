@@ -28,7 +28,7 @@ echo.
 echo    Gereed!
 echo.
 echo.
-echo  U dient nu uw computer te herstarten
+echo  De voorbereiding is klaar. U dient nu uw computer eerst te herstarten.
 echo.
 echo.
 pause 

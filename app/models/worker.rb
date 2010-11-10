@@ -14,7 +14,7 @@ class Worker
 
   def self.start
     if WINDOZE
-      f = IO.popen "SET RAILS_ENV=#{Rails.env} & \"#{File.join(Rails.root,'script','delayed_job')}\" start"
+      f = IO.popen "SET RAILS_ENV=#{Rails.env} & ruby \"#{File.join(Rails.root,'script','delayed_job')}\" start"
     else
       f = IO.popen "env RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')} start"
     end
