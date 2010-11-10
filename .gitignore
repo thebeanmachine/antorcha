@@ -12,3 +12,4 @@ capybara-*.html
 *.dot
 *.png
 coverage
+*.komodoproject
