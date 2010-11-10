@@ -19,6 +19,11 @@ class MessagesController < ApplicationController
         flash.now[:info] = "Er zijn nog geen berichten, begin zelf een transactie of wacht totdat iemand anders u een bericht stuurt"
       end
     end
+    
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @search.all(:include => :transaction).to_xml(:local => true, :scrub => cannot?(:examine, Message)) }
+    end
   end
   
   def show
@@ -26,7 +31,7 @@ class MessagesController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.xml { render :xml => @message }
+      format.xml { render :xml => @message.to_xml(:local => true, :scrub => cannot?(:examine, Message)) }
     end
   end
 

@@ -2,11 +2,11 @@ class User < ActiveRecord::Base
   USER_TYPES = %w[ registered communicator maintainer ].collect &:to_s
   
   # Include default devise modules. Others available are:
-  # :registerable, :recoverable, :trackable, :rememberable, :confirmable, :http_authenticatable, :token_authenticatable, :lockable, :timeoutable and :activatable
-  devise :database_authenticatable, :validatable, :registerable
+  # :registerable, :recoverable, :trackable, :rememberable, :confirmable, :token_authenticatable, :lockable, :timeoutable and :activatable
+  devise :database_authenticatable, :validatable, :registerable, :http_authenticatable
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation
-  
+
   has_many :castables
 
   # Note to self: e-mail and username are already validated on uniqueness and presense by devise.
