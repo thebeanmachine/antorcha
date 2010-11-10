@@ -5,4 +5,4 @@ echo.
 echo  Antorcha wordt gestart in productie modus
 echo.
 set RAILS_ENV=production
-ruby script/server
+call ruby script/server
