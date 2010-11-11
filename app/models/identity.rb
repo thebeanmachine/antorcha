@@ -3,7 +3,7 @@ class Identity < ActiveRecord::Base
 
   belongs_to_record :organization
 
-  validates_presence_of :organization, :private_key
+  validates_presence_of :organization_id, :private_key
   validate :verification_of_private_key
   validate :only_one_identity
 
@@ -27,11 +27,11 @@ private
     return if private_key.blank? or organization.blank?
 
     if organization.certificate.blank?
-      errors.add :private_key, 'Geen certificaat geregistreerd om deze sleutel tegen te verifiëren. Vraag een registratie aan bij de uitweg.'
+      errors.add :organization_id, 'heeft geen bijbehorend certificaat voor de opgegeven privésleutel. Vraag een registratie van uw certificaat aan bij de Uitweg.'
     else
       begin
         pkey = OpenSSL::PKey::RSA.new(private_key)
-        errors.add :private_key, 'is niet de privésleutel voor het certificaat van de organisatie.' unless organization.certificate.check_private_key(pkey)
+        errors.add :private_key, 'komt niet overeen met de privésleutel voor het geregistreerde certificaat van de organisatie.' unless organization.certificate.check_private_key(pkey)
       rescue OpenSSL::PKey::RSAError
         errors.add :private_key, 'is geen geldige RSA-sleutel'
       end
