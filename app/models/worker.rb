@@ -14,13 +14,13 @@ class Worker
 
   def self.start
     if WINDOZE
-      f = IO.popen "SET RAILS_ENV=#{Rails.env} & \"#{File.join(Rails.root,'start_engine.bat')}\""
+      system "start \"Antorcha Engine\" \"#{File.join(Rails.root,'start_engine.bat')}\""
+	    sleep 20
     else
       f = IO.popen "env RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')} start"
+	    f.readlines
+      f.close
     end
-    
-    f.readlines
-    f.close
   end
 
   def pid
@@ -36,7 +36,12 @@ class Worker
   end
   
   def stop
-    @application.stop
+  	if WINDOZE
+  		system "taskkill /PID #{pid} /F"
+  		sleep 3
+  	else
+  		@application.stop
+  	end
   end
 
   def initialize app
