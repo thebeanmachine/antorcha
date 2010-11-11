@@ -23,7 +23,9 @@ def new_maintainer
   
   print "Bevestig uw nieuwe wachtwoord : "
   STDOUT.flush
-  @confirmation = STDIN.gets.chomp  
+  @confirmation = STDIN.gets.chomp
+  
+  create_maintainer 
 end
 
 def create_maintainer
@@ -45,7 +47,6 @@ end
 
 if User.maintainers.count == 0
   new_maintainer
-  create_maintainer
 else
   puts "Er is reeds een beheeraccount"
 end
