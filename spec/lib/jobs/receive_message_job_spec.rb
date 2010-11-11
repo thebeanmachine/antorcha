@@ -25,10 +25,19 @@ describe Jobs::ReceiveMessageJob do
     end
     
     describe "successful processing" do
+      before(:each) do
+        mock_reception.stub(:process).and_return(true)
+      end
       it "should process the reception" do
         mock_reception.should_receive(:process).and_return(true)
         subject.perform
       end
+
+      it "should send notifications all over the place" do
+        Notifier.should_receive(:queue_all_notifications)
+        subject.perform
+      end
+
     end
 
     describe "unsuccessful processing" do

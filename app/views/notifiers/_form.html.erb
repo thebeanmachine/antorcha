@@ -1,0 +1,8 @@
+<% semantic_form_for @notifier do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs %><br />
+  <% f.buttons do %>
+    <%= f.commit_button %> of <%= link_to 'ga terug naar het overzicht', notifiers_path %>
+  <% end %>
+<% end %>

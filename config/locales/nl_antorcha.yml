@@ -127,6 +127,9 @@ nl:
       session:
         other: Sessie
       identity: Identiteit
+      notifier:
+        one: Kennisgever
+        other: Kennisgevers
     
     attributes:
       transaction:
