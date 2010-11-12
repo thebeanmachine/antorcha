@@ -6,7 +6,9 @@ module Jobs
     end
 
     def receive
-      unless @reception.process
+      if @reception.process
+        Notifier.queue_all_notifications
+      else
         raise "Message could not be received."
       end
     end
