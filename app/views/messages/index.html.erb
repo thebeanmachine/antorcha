@@ -2,42 +2,43 @@
 
 <%= render :partial => 'messages/index' %>
 
-<% content_for :sidebar do -%>
-<h2>Berichten filteren </h2>
-<% if params[:search] == nil %>
-<p>Beperk de lijst met berichten:</p>
-<% else %>
-<p><%= link_to "Toon alle berichten", messages_path(:search => nil) %> of beperk de berichten op:</p>
+<% unless @transaction %>
+  <% content_for :sidebar do -%>
+  <h2>Berichten filteren </h2>
+  <% if params[:search] == nil %>
+  <p>Beperk de lijst met berichten:</p>
+  <% else %>
+  <p><%= link_to "Toon alle berichten", messages_path(:search => nil) %> of beperk de berichten op:</p>
+  <% end %>
+  <ul>
+  	<li><%= link_to "Voor mij bestemd, ongelezen en niet verlopen", messages_path(:search => {:user_id => current_user.id, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
+  	<li><%= link_to "Voor mij bestemd", messages_path(:search => {:user_id => current_user.id}) %></li>
+    <li><%= link_to "Inkomend", messages_path(:search => {:inbox => true}) %></li>
+    <li><%= link_to "Uitgaand", messages_path(:search => {:outbox => true}) %></li>
+  	<li><%= link_to "Niet verlopen", messages_path(:search => {:unexpired => true}) %></li>
+  	<li><%= link_to "Ongelezen", messages_path(:search => {:unread => true}) %></li>
+  	<li><%= link_to "Geannuleerd", messages_path(:search => {:cancelled => true}) %></li>
+  	<li><%= link_to "Inkomend, ongelezen en niet verlopen", messages_path(:search => {:inbox => true, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
+	
+  </ul>
+
+
+  	<%# if current_user.roles.include? :advisor % >
+  		<h3>Filter op Definitie</h3>
+  		<ul>
+  		<% Definition.all.each do |definition| % >
+  			<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) % ></li>
+  		<% end % >
+  		</ul>
+  		<h3>Filter op Transacties</h3>
+  		<ul>
+  			<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path % ></li>
+  			<% Transaction.all.each do |transaction| % >
+  				<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) % ></li>
+  			<% end % >
+  		</ul>
+  	<% end #%>
+	
+  <% end -%>
 <% end %>
-<ul>
-	<li><%= link_to "Voor mij bestemd, ongelezen en niet verlopen", messages_path(:search => {:user_id => current_user.id, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
-	<li><%= link_to "Voor mij bestemd", messages_path(:search => {:user_id => current_user.id}) %></li>
-  <li><%= link_to "Inkomend", messages_path(:search => {:inbox => true}) %></li>
-  <li><%= link_to "Uitgaand", messages_path(:search => {:outbox => true}) %></li>
-	<li><%= link_to "Niet verlopen", messages_path(:search => {:unexpired => true}) %></li>
-	<li><%= link_to "Ongelezen", messages_path(:search => {:unread => true}) %></li>
-	<li><%= link_to "Geannuleerd", messages_path(:search => {:cancelled => true}) %></li>
-	<li><%= link_to "Inkomend, ongelezen en niet verlopen", messages_path(:search => {:inbox => true, :unexpired => true, :unread => true, :notcancelled => true}) %></li>
-	
-</ul>
-
-
-	<%# if current_user.roles.include? :advisor % >
-		<h3>Filter op Definitie</h3>
-		<ul>
-		<% Definition.all.each do |definition| % >
-			<li><%= link_to definition.title, messages_path(:search => {:with_definition => definition}) % ></li>
-		<% end % >
-		</ul>
-		<h3>Filter op Transacties</h3>
-		<ul>
-			<li><%= link_to "Alles <small>(#{Message.count} berichten)</small", messages_path % ></li>
-			<% Transaction.all.each do |transaction| % >
-				<li><%= link_to "#{transaction.title} <small>(#{transaction.messages.count} berichten)</small>", transaction_messages_path(transaction) % ></li>
-			<% end % >
-		</ul>
-	<% end #%>
-	
-<% end -%>
-
 

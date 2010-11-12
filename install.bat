@@ -5,12 +5,12 @@ echo.
 echo.
 echo  Antorcha downloaden
 echo.
-git clone git://github.com/thebeanmachine/antorcha.git antorcha
+call git clone git://github.com/thebeanmachine/antorcha.git antorcha
 cd antorcha
 mkdir db
 mkdir db\shared
-git checkout origin/maint -b maint
-git pull
+call git checkout origin/maint -b maint
+call git pull
 
 echo.
 echo    Gereed!
@@ -22,8 +22,8 @@ echo.
 echo  Initialisatie submodules
 echo.
 
-git submodule init
-git submodule update
+call git submodule init
+call git submodule update
 
 echo.
 echo    Gereed!
@@ -36,9 +36,11 @@ echo.
 echo  Noodzakelijke gems installeren
 echo.
 
-gem install rails -v 2.3.8
-gem install rspec 
-RAILS_ENV=production rake gems:install
+set RAILS_ENV=production
+
+call gem install rails -v 2.3.8
+call gem install rspec 
+call rake gems:install
 
 echo.
 echo    Gereed!
@@ -50,9 +52,11 @@ echo.
 echo  Database configureren en installeren
 echo.
 
-RAILS_ENV=production rake db:create
-RAILS_ENV=production rake db:migrate
-RAILS_ENV=production rake db:seed
+set RAILS_ENV=production
+
+call rake db:create
+call rake db:migrate
+call rake db:seed
 
 echo.
 echo    Gereed!
