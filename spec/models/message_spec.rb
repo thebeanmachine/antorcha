@@ -12,7 +12,7 @@ describe Message do
   end
 
   def example_message
-    Message.create \
+    @example_message ||= Message.create \
       :title => "Dit is de message titel",
       :body => "Dit is de message body",
       :step => mock_step,
@@ -214,42 +214,75 @@ describe Message do
   end
   
   describe "to xml" do
-    subject {
-      mock_transaction.stub :uri => "http://example.com"
-      mock_transaction.stub :initialized_at => DateTime.now
+
+    def stub_to_xml
+      mock_transaction.stub \
+        :uri => "http://example.com",
+        :initialized_at => DateTime.now,
+        :cancelled? => true, :expired? => true
       mock_step.stub :name => "dit is de naam van de stap"
+    end
+
+    before(:each) do
+      stub_to_xml
+    end
+
+    subject {
       example_message
     }
+    
+    describe "for transport" do
+      it "should work" do
+        subject.to_xml
+      end
 
-    it "should work" do
-      subject.to_xml
+      it "should serialize title" do
+        subject.title = 'Aap noot mies'
+        subject.to_xml.should =~ /<title>Aap noot mies<\/title>/
+      end
+
+      it "should serialize step" do
+        subject.step = mock_step
+        subject.to_xml.should =~ %r[<step_id>#{mock_step.to_param}</step_id>]
+      end
+
+      describe "without identity" do
+        # organization dependency is removed from serialization.
+        it "should not raise 'no identity'" do
+          lambda { subject.to_xml }.should_not raise_error('No identity')
+        end
+      end
+
+      describe "with identity" do
+        before(:each) do
+          Identity.stub :first! => mock_identity
+          mock_identity.stub :organization => mock_organization
+        end
+
+        it "should not serialize organization" do
+          subject.to_xml.should_not =~ %r[<organization_id>#{mock_organization.to_param}</organization_id>]
+        end
+      end
     end
-
-    it "should serialize title" do
-      subject.title = 'Aap noot mies'
-      subject.to_xml.should =~ /<title>Aap noot mies<\/title>/
-    end
-
-    it "should serialize step" do
-      subject.step = mock_step
-      subject.to_xml.should =~ %r[<step_id>#{mock_step.to_param}</step_id>]
-    end
-
-    describe "without identity" do
-      # organization dependency is removed from serialization.
-      it "should not raise 'no identity'" do
-        lambda { subject.to_xml }.should_not raise_error('No identity')
+    
+    describe "for local rest interface" do
+      subject {
+        example_message.to_xml :local => true
+      }
+      it "has an id" do
+        should =~ %r[<id>#{example_message.to_param}</id>]
+      end
+      it "has a body element" do
+        should =~ %r[<body>.*</body>]
       end
     end
 
-    describe "with identity" do
-      before(:each) do
-        Identity.stub :first! => mock_identity
-        mock_identity.stub :organization => mock_organization
-      end
-
-      it "should not serialize organization" do
-        subject.to_xml.should_not =~ %r[<organization_id>#{mock_organization.to_param}</organization_id>]
+    describe "scrubbed local rest interface" do
+      subject {
+        example_message.to_xml :local => true, :scrub => true
+      }
+      it "has no body element" do
+        should_not =~ %r[<body>.*</body>]
       end
     end
   end
