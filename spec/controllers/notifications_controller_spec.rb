@@ -25,7 +25,7 @@ describe NotificationsController do
 
     it "should redirect to notifier" do
       post :create, :notifier_id => mock_notifier.to_param
-      response.should redirect_to(notifier_url(mock_notifier))
+      response.should redirect_to(notifiers_url)
     end
 
     it "should call #notify on @notifier" do
