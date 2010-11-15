@@ -5,7 +5,7 @@ module AntorchaHelper
   %w[
     step message definition transaction reaction role
     organization delivery user castable cancellation identity certificate
-    reception
+    reception notifier
   ].each do |model|
     self.class_eval <<-RUBY
       def mock_#{model} name = :default
@@ -20,7 +20,7 @@ module AntorchaHelper
     RUBY
   end
   
-  %w[message_delivery transaction_cancellation].each do |job|
+  %w[message_delivery transaction_cancellation send_notification].each do |job|
     self.class_eval <<-RUBY
       def stub_new_#{job}_job
         Jobs::#{job.classify}Job.stub(:new => mock_#{job}_job)

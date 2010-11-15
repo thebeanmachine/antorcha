@@ -1,5 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :notifiers do |notifier|
+    notifier.resources :notifications, :only => :create
+  end
+
+
   #
   # Organization namespace is for receiving http messages from other organizations.
   # Organization id is used to verify against the registered certificates.

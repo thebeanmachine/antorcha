@@ -133,6 +133,8 @@ class Message < ActiveRecord::Base
     sent!
   end
 
+
+
 private
   def format_title
     update_attributes :title => "#{step.title} \##{id}" if title.blank?

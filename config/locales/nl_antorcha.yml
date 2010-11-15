@@ -1,14 +1,9 @@
 nl:
-
-  
   message:
-    
     status:
       delivered: "Aangekomen"
       sent: "Verstuurd"
       draft: "Concept"
-      
-
   view:
     message:
       show:
@@ -127,6 +122,9 @@ nl:
       session:
         other: Sessie
       identity: Identiteit
+      notifier:
+        one: Kennisgever
+        other: Kennisgevers
     
     attributes:
       transaction:
