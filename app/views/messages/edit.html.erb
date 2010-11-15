@@ -15,11 +15,7 @@
 
   <% f.inputs do %>
     <%= f.input :title %>
-	<% if @message.step.form.empty? %>
-		<%= f.input :body %>
-	<% else %>
-		<%= @message.step.form %>
-	<% end %>
+	<%= @message.step.form.empty? ? f.input(body) : @message.step.form %>
   <% end %>
   <% f.buttons do %>
   	<%= f.commit_button %>  of <%= link_to "sla niets op en ga terug naar het oorspronkelijke bericht", @message %>
