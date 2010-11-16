@@ -53,9 +53,9 @@ nl:
       organization_ids: Filter op betrokken organisaties
     hints:
       step:
-        destination_url: Bijvoorbeeld http://example.com/messages
+        destination_url: Bijvoorbeeld http://example.com/notifications
         causes: 'Stappen die kunnen leiden tot deze stap.'
-      url: "bijvoorbeeld http://example.com/messages"
+      url: "bijvoorbeeld http://example.com/notifications"
       user:
         password: Dient minimaal uit 6 tekens te bestaan.
         password_confirmation: Voor controle van het wachtwoord.
