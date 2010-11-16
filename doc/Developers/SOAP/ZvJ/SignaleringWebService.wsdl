@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="SignaleringWebService" targetNamespace="http://signalering.ws.zvj.nl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:fault="http://model.zvj.nl/fault/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:model="http://model.zvj.nl/signalering/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://signalering.ws.zvj.nl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	 <types>
+
+		  <schema elementFormDefault="qualified" targetNamespace="http://model.zvj.nl/signalering/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://model.zvj.nl/signalering/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+
+			   <xsd:complexType name="SignaleringResponse">
+
+			    <xsd:annotation>
+
+				Signalering Response Structuur
+			    </xsd:annotation>
+
+				    <xsd:sequence>
+
+					     <xsd:element name="statuscode" nillable="true" type="int"/>
+
+					     <xsd:element name="statusomschrijving" nillable="true" type="string"/>
+
+				    </xsd:sequence>
+
+			   </xsd:complexType>
+
+
+			   <xsd:complexType name="SignaleringRequest">
+
+			    <xsd:annotation>
+
+				Signalering Request Structuur
+			    </xsd:annotation>
+
+				    <xsd:sequence>
+
+					     <xsd:element name="Organisatie" type="tns:OrganisatieType"/>
+
+					     <xsd:choice maxOccurs="2" minOccurs="1">
+
+				
+						      <xsd:element name="BurgerServiceNummer" type="tns:BurgerServiceNummerType"/>
+
+						      <xsd:element name="GeboorteDatum" nillable="false" type="xsd:date"/>
+
+						      <xsd:element name="Jongere" type="tns:JongereType"/>
+
+										
+					     </xsd:choice>
+
+					     <xsd:element name="SignaalType" nillable="true" type="tns:SignaalType"/>
+
+					     <xsd:element name="mutatienummer" nillable="true" type="xsd:string"/>
+
+				    </xsd:sequence>
+
+			   </xsd:complexType>
+
+
+
+			   <xsd:complexType name="OrganisatieType">
+
+				    <xsd:sequence>
+
+					     <xsd:element name="Organisatie" nillable="false" type="xsd:string"/>
+
+					     <xsd:element name="OrganisatiePostcode" nillable="false" type="tns:PostcodeType"/>
+
+					     <xsd:element name="Gebruiker" nillable="false" type="xsd:string"/>
+
+				    </xsd:sequence>
+
+			   </xsd:complexType>
+
+
+				
+			   <xsd:complexType name="JongereType">
+
+					    <xsd:sequence>
+
+						     <xsd:element name="Voorletters" nillable="true" type="tns:VoorlettersType"/>
+
+						     <xsd:element name="Geslacht" nillable="false" type="tns:GeslachtType"/>
+
+						     <xsd:element name="Jongereadres" type="tns:JongereAdresType"/>
+
+					    </xsd:sequence>
+
+			   </xsd:complexType>
+
+					
+
+			   <xsd:complexType name="JongereAdresType">
+
+				    <xsd:sequence>
+
+					     <xsd:element name="Postcodecijfers" nillable="false" type="tns:PostcodeCijfersType"/>
+
+   					     <xsd:element name="Postcodeletters" nillable="false" type="tns:PostcodeLettersType"/>
+
+					     <xsd:element name="Huisnummer" nillable="false" type="xsd:int"/>
+
+				    </xsd:sequence>
+
+			   </xsd:complexType>
+
+
+			   <xsd:simpleType name="VoorlettersType">
+
+				    <xsd:restriction base="string">
+
+					     <xsd:length value="25"/>
+
+					     <xsd:pattern value="[A-Z]*"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			
+			   <xsd:simpleType name="GeslachtType">
+
+				    <xsd:restriction base="xsd:string">
+
+					     <xsd:enumeration value="MAN"/>
+
+					     <xsd:enumeration value="VROUW"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			   <xsd:simpleType name="PostcodeType">
+
+				    <xsd:restriction base="xsd:string">
+
+					     <xsd:pattern value="[1-9]{1}[0-9]{3}[A-Z]{2}"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			   <xsd:simpleType name="PostcodeCijfersType">
+
+				    <xsd:restriction base="xsd:string">
+
+					     <xsd:pattern value="[1-9]{1}[0-9]{3}"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			   <xsd:simpleType name="PostcodeLettersType">
+
+				    <xsd:restriction base="xsd:string">
+
+					     <xsd:pattern value="[A-Z]{2}"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+
+			   <xsd:simpleType name="SignaalType">
+
+				    <xsd:restriction base="xsd:int">
+
+					     <xsd:enumeration value="0">
+      <xsd:annotation>
+Ketenregistratie      </xsd:annotation>
+     </xsd:enumeration>
+
+					     <xsd:enumeration value="1">
+      <xsd:annotation>
+Signalering urgentielevel 1      </xsd:annotation>
+     </xsd:enumeration>
+
+					     <xsd:enumeration value="2">
+      <xsd:annotation>
+Signalering urgentielevel 2      </xsd:annotation>
+     </xsd:enumeration>
+
+					     <xsd:enumeration value="3">
+      <xsd:annotation>
+Signalering urgentielevel 3      </xsd:annotation>
+     </xsd:enumeration>
+
+					     <xsd:enumeration value="4">
+      <xsd:annotation>
+Signalering urgentielevel 4      </xsd:annotation>
+     </xsd:enumeration>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			
+			   <xsd:simpleType name="BurgerServiceNummerType">
+
+				    <xsd:restriction base="string">
+
+					     <xsd:length value="9"/>
+
+					     <xsd:pattern value="[0-9]{9}"/>
+
+				    </xsd:restriction>
+
+			   </xsd:simpleType>
+
+			
+			
+		  </schema>
+
+		  <schema elementFormDefault="qualified" targetNamespace="http://model.zvj.nl/fault/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://model.zvj.nl/fault/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+			   <complexType name="webserviceFout">
+
+				    <sequence>
+
+					     <element name="foutcode" nillable="true" type="string"/>
+
+					     <element name="foutmelding" nillable="true" type="string"/>
+
+				    </sequence>
+
+			   </complexType>
+
+		  </schema>
+
+	 </types>
+
+	 <message name="Signalering_request">
+
+		  <part name="signalering" type="model:SignaleringRequest"/>
+
+	 </message>
+
+	 <message name="Signalering_response">
+
+		  <part name="signaleringResponse" type="model:SignaleringResponse"/>
+
+	 </message>
+
+	 <message name="Signalering_fault">
+
+		  <part name="signaleringFault" type="fault:webserviceFout"/>
+
+	 </message>
+
+	 <portType name="SignaleringWebServicePort">
+
+		  <operation name="signalering">
+
+			   <documentation>
+
+				Gets the information for a specific event. Provide
+				filters to specifically retrieve selected information.
+			   </documentation>
+
+			   <input message="tns:Signalering_request"/>
+
+			   <output message="tns:Signalering_response"/>
+
+			   <fault message="tns:Signalering_fault" name="SignaleringFault"/>
+
+		  </operation>
+
+	 </portType>
+
+	 <binding name="SignaleringService" type="tns:SignaleringWebServicePort">
+
+		  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		  <operation name="signalering">
+
+			   <soap:operation/>
+
+			   <input>
+
+				    <soap:body parts="signalering" use="literal"/>
+
+			   </input>
+
+			   <output>
+
+				    <soap:body parts="signaleringResponse" use="literal"/>
+
+			   </output>
+
+			   <fault name="SignaleringFault">
+
+				    <soap:fault name="SignaleringFault" use="literal"/>
+
+			   </fault>
+
+		  </operation>
+
+	 </binding>
+
+	 <service name="SignaleringWebService">
+
+		  <port binding="tns:SignaleringService" name="SignaleringWebService">
+
+			   <soap:address location="http://zvj.interaccess.nl/zvj/services/SignaleringWebService"/>
+
+		  </port>
+
+	 </service>
+
+</definitions>

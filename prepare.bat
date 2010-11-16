@@ -29,7 +29,7 @@ echo.
 echo    Gereed!
 echo.
 echo.
-echo    Herstart de computer en voer het bestand 'install.bat' vervolgens uit.
+echo    Herstart de computer en voer daarna het bestand 'install.bat' uit.
 echo.
 echo.
 pause 
