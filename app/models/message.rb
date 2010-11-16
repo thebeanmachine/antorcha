@@ -57,13 +57,20 @@ class Message < ActiveRecord::Base
   delegate :test?, :to => :definition
 
   after_create :format_title
+  after_create :notify_a2s
+  
   before_validation :take_over_transaction_from_request
   
   def updatable?
     outgoing? and draft? and not cancelled?
   end
   
-
+  def notify_a2s
+    if Notifier.count > 0
+      notifier = Notifier.first
+      notifier.queue_notification
+    end
+  end
   
   def self.show message_id
     message = find(message_id)
@@ -132,6 +139,8 @@ class Message < ActiveRecord::Base
     end
     sent!
   end
+
+
 
 private
   def format_title

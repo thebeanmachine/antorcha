@@ -11,7 +11,6 @@ describe MessagesController do
   describe "GET index" do
     def stub_index
       Message.stub(:search => mock_search)
-      # mock_search.stub(:all => mock_messages)
       mock_search.stub(:paginate => mock_messages)
     end
   
@@ -32,6 +31,44 @@ describe MessagesController do
       # mock_search.should_receive(:all).with(hash_including(:include => :transaction)).and_return(mock_messages)
       mock_search.should_receive(:paginate).with(hash_including(:include => :transaction)).and_return(mock_messages)
       get :index
+    end
+    
+    describe "as XML" do
+      before(:each) do
+        stub_index
+        mock_search.stub(:all => mock_messages)
+        mock_messages.each {|m| m.stub :to_xml => 'niets'}
+        controller.stub :cannot? => true
+      end
+
+      def stub_cannot_examine_messages
+        controller.stub(:cannot?).with(:examine, Message).and_return(true)
+      end
+
+      def stub_can_examine_messages
+        controller.stub(:cannot?).with(:examine, Message).and_return(false)
+      end
+      
+      def mock_messages_should_receive_to_xml_with_scrub what 
+        mock_messages.each do |m| m.should_receive(:to_xml).with(hash_including(:scrub => what)).and_return('squat') end        
+      end
+
+      it "should render xml" do
+        get :index, :format => 'xml'
+        response.body.should have_text(/<messages.*<\/messages>/mi)
+      end
+      
+      it "should not scrub messages if user can examine messages" do
+        stub_can_examine_messages
+        mock_messages_should_receive_to_xml_with_scrub false
+        get :index, :format => 'xml'
+      end
+
+      it "should scrub messages if user cannot examine messages" do
+        stub_cannot_examine_messages
+        mock_messages_should_receive_to_xml_with_scrub true
+        get :index, :format => 'xml'
+      end
     end
   end
 
