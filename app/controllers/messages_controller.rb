@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    raise "DEPRECATED - this functionality has been moved."
+    raise "DEPRECATED - this functionality has been moved." # I'm very moved by it
   end
 
   def update
