@@ -127,9 +127,16 @@ class Message < ActiveRecord::Base
   end
 
   def send_deliveries
-    destination_organizations.each do |org|
-      deliveries << deliveries.build(:organization => org)
+    if self.step.single_response
+      logger.info "*** Sending single response message to an organization***"
+      deliveries << deliveries.build(:organization => Organization.find(self.organization_id)) unless self.organization_id.nil?
+    else
+      logger.info "*** Sending multiple response messages to different organizations ***"
+      destination_organizations.each do |org|
+        deliveries << deliveries.build(:organization => org)
+      end
     end
+    
     sent!
   end
   
