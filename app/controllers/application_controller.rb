@@ -24,9 +24,13 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from "ActiveResource::ResourceNotFound" do |exception|
-    render :status => 503, :file => "public/503.html"
+    render :status => 503, :file => "public/503.html" unless controller_name == 'workers'
+    # Mocht het uitvoeren van een actie valen op deze fout, dan is over het algemeen Olympus niet bereikbaar. 
+    # Voor workers is een uitzondering gemaakt, aangezien er anders een double render fout geeft, en niet een
+    # goede foutmelding
   end
   rescue_from "ActiveResource::ServerError" do |exception|
     render :status => 503, :file => "public/503.html"
+    # Mocht het uitvoeren van een actie valen op deze fout, dan is over het algemeen Tankenberg niet bereikbaar
   end      
 end
