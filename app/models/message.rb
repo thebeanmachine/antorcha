@@ -7,6 +7,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
+  validates_presence_of :username
 
   validates_presence_of :organization, :if => :incoming?
   validates_presence_of :sent_at, :if => :delivered?

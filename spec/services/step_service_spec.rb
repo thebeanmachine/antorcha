@@ -32,7 +32,7 @@ describe StepService, "soap service" do
   end
 
   def example_message
-    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
+    @example_message ||= Message.create!(:username => "henk", :title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
   end
 
   def example_api_message

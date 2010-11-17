@@ -7,6 +7,7 @@ describe Message do
       :body => "value for body",
       :incoming => false,
       :step => mock_step,
+      :username => "henk",
       :transaction => mock_transaction
     }
   end
@@ -15,6 +16,7 @@ describe Message do
     @example_message ||= Message.create \
       :title => "Dit is de message titel",
       :body => "Dit is de message body",
+      :username => "henk",
       :step => mock_step,
       :transaction => mock_transaction
   end

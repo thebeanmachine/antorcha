@@ -121,7 +121,7 @@ describe MessagesController do
   end
 
   describe "PUT update" do
-
+    
     def stub_update_action
       stub_find(mock_message)
     end
@@ -151,19 +151,20 @@ describe MessagesController do
       it "assigns the requested message as @message" do
         mock_message.stub(:update_attributes => true)
         Message.stub(:find).and_return(mock_message())
-        put :update, :id => "1"
+        put :update, :id => "1", :message => {:body => 'sdf'}
         assigns[:message].should equal(mock_message)
       end
 
       it "redirects to the message" do
         mock_message.stub(:update_attributes => true)
         Message.stub(:find).and_return(mock_message)
-        put :update, :id => "1"
+        put :update, :id => "1", :message => {:body => 'sdf'}
         response.should redirect_to(message_url(mock_message))
       end
     end
 
     describe "with invalid params" do
+
       it "updates the requested message" do
         Message.should_receive(:find).with("37").and_return(mock_message)
         mock_message.should_receive(:update_attributes).with({'these' => 'params'})
@@ -173,14 +174,15 @@ describe MessagesController do
       it "assigns the message as @message" do
         mock_message.stub(:update_attributes => false)
         Message.stub(:find).and_return(mock_message)
-        put :update, :id => "1"
+        put :update, :id => "1", :message => {:body => 'sdf'}
         assigns[:message].should equal(mock_message)
+      
       end
 
       it "re-renders the 'edit' template" do
         mock_message.stub(:update_attributes => false)
         Message.stub(:find).and_return(mock_message)
-        put :update, :id => "1"
+        put :update, :id => "1", :message => {:body => 'sdf'}
         response.should render_template('edit')
       end
     end
