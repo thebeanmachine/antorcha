@@ -15,6 +15,7 @@ class Ability
     can :manage, User
     can :manage, Worker
     can :manage, Castable
+    can :manage, Notifier
     can :read, Transaction
     can :manage, Identity
     can :read, Delivery
