@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     self.castables.map(&:role_id).uniq
   end
   
+  def roles
+    role_ids.map{|id| Role.find(id)}
+  end
+  
   def messages
     Message.user_id(id)
   end
