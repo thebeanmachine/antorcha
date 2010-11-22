@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   # Organization namespace is for receiving http messages from other organizations.
   # Organization id is used to verify against the registered certificates.
   #
-  map.resources :organizations, :only => [] do |organization|
+  map.resources :organizations, :only => [:index, :show] do |organization|
     organization.resources :receptions, :only => :create
     organization.resources :deliveries, :only => [] do |message|
       message.resource :confirmation, :only => :create
