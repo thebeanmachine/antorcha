@@ -32,7 +32,6 @@ class MessagesController < ApplicationController
   end
 
   def update
-    require 'string'
     params[:message][:body] = params[:message][:body].to_xml if params[:message][:body].kind_of? HashWithIndifferentAccess
     #render :text => params[:message].inspect
     if @message.update_attributes(params[:message])
