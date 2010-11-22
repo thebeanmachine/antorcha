@@ -18,7 +18,8 @@ class String
     opts = options.merge({ :root => self })
 
     xml = options[:builder]
-    xml.tag!("string", self) unless self.blank?
+    xml.tag!(root, options[:skip_types] ? {} : {:type => "string"}, self) unless self.blank?
+    #xml.tag!("string", self) unless self.blank?
     # if empty?
     #       xml.tag!(root, options[:skip_types] ? {} : {:type => "array"})
     #     else
