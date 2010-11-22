@@ -129,7 +129,7 @@ class Message < ActiveRecord::Base
   def send_deliveries
     if self.step.single_response
       logger.info "*** Sending single response message to an organization***"
-      deliveries << deliveries.build(:organization => Organization.find(self.organization_id)) unless self.organization_id.nil?
+      deliveries << deliveries.build(:organization => Organization.find(self.organization_id)) unless self.organization_id.nil? # organization_id can be nil if something is wrong with the identity??
     else
       logger.info "*** Sending multiple response messages to different organizations ***"
       destination_organizations.each do |org|
