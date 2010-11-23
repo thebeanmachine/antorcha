@@ -2,33 +2,35 @@
 
 <h1>Gebruikers</h1>
 
-<table id="users" class="users" border="1">
+<table id="users" class="crossreference">
   
   <thead>
     <th>Gebruiker</th>
     <% @roles.each do |role| %>
-    <th><%= role.title %></th>
+    <th><span class="rotate"><%= role.title %></span></th>
     <% end %>
   </thead>
   
   <% @users.each do |user| %>
   <tr class="user_<%= user.id %>">
-    <td><strong><%= user.username %></strong> - <%= link_to h(user.email), "mailto:#{user.email}" %></td>
+    <td style="text-align: left"><strong><%= user.username %></strong><br/><small><%= link_to h(user.email), "mailto:#{user.email}" %><br/><%= link_to "verwijder", user_path(user), :method => :delete, :confirm => "Weet u het zeker dat u deze gebruiker wilt verwijderen?", :class=> "destroy" %>
+			<% unless user.activated? %>
+			<br/>
+    <%= link_to "Activeer", user_path(user), :method => :put  %>
+			<% end %>
+    </small>
+	
+		</td>
     
-    <% if user.activated? %>
+    
       <% form_tag user, :method => :put do %> 
         <% @roles.each do |role| %>
           <td><%= check_box_tag "user_#{user.id}_role_#{role.id}", role.id, checked = (user.role_ids.include? role.id), {:name => "roles[]", :class => "user_role"} %></td>
         <% end %>
           <td><%= submit_tag "Wijzig", :class => "submit" %></td>
       <% end %>    
-    <% else %>
-      <td>
-      <%= link_to "Activeer", user_path(user), :method => :put  %>
-      </td>    
-    <% end %>
+
     
-    <td><%= link_to "Verwijder", user_path(user), :method => :delete, :confirm => "Weet u het zeker?" %></td>
   </tr>
   <% end %>
 </table>

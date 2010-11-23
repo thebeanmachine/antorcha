@@ -52,16 +52,16 @@ table {
 	color: #5d5d5d;
 }
 
-tr.shown {
-	background: #f1f1f1;
-	border-bottom: 1px solid #e5e5e5;
+tr {
+	border-bottom: 1px solid #ddd;
 }
-
-
-
 
 td {
 	padding: 4px 2px;
+}
+
+tr.shown {
+	background: #f1f1f1;
 }
 
 
@@ -99,6 +99,10 @@ ul.menu li {
 	
 }
 
+
+a.destroy {
+	color: #f00;
+}
 /* FLASH NOTICES/ERRORS/ETC... */
 
 .flash {
@@ -124,6 +128,8 @@ ul.menu li {
   padding: 1%;
 }
 
+
+
 /* for development */
 
 .devnav {
@@ -132,6 +138,18 @@ ul.menu li {
 	margin-top: 1em;
 }
 
+table.crossreference {
+	width: 100%;
+	display: block;
+	overflow: auto;
+}
+
+table.crossreference th {
+	padding: .5em;
+}
+table.crossreference td {
+	text-align: center;
+}
 /* message display */
 .message_content {
 	width: 100%;
@@ -378,6 +396,13 @@ td.sender, h1.as_in_table .sender { width: 20em;}
 	position: relative;
 }
 
+#messages tr {
+	border-bottom: 0 none;
+}
+
+#messages tr.shown {
+	border-bottom: 1px solid 	#e5e5e5;
+}
 #messages thead {
 	display:none;
 }
@@ -406,8 +431,4 @@ td.sender, h1.as_in_table .sender { width: 20em;}
 pre{
 	margin-left: 0.75em;
 	font-size: 110%;
-}
-
-table#castables td{
-  padding-left: 1em;
 }
