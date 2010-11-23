@@ -138,6 +138,21 @@ describe Message do
       mock_step.stub :effects => mock_steps
       message.effect_steps.should == mock_steps
     end
+    
+    it "should be done using build_reply" do
+      @request_message =  Message.create \
+        :title => 'request message', :incoming => true,
+        :step => mock_step, :transaction => mock_transaction
+        
+      mock_user.stub :username => 'brilsmurf'
+
+      @reply_message = @request_message.build_reply mock_user, 
+        :title => 'reply message', :incoming => false,
+        :step => mock_step
+      
+      @reply_message.username.should == 'brilsmurf'
+    end
+    
   end
   
   describe "empty message" do
