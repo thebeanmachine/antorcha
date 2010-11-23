@@ -19,6 +19,14 @@ class User < ActiveRecord::Base
   
   named_scope :inactivated, :conditions => {:activated => false}
   
+  def cast(role_ids)
+    if self.user_type == "maintainer"
+    role_ids.each do |id|
+      self.castables.build(:role_id => id).save  
+    end
+    end
+  end
+  
   def role_ids
     self.castables.map(&:role_id).uniq
   end
