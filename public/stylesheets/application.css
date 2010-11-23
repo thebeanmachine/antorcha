@@ -26,11 +26,9 @@ table {
   width: 100%;
   color: #5d5d5d;
 }
-tr.shown {
-  background: #f1f1f1;
-  border-bottom: 1px solid #e5e5e5;
-}
+tr { border-bottom: 1px solid #dddddd; }
 td { padding: 4px 2px; }
+tr.shown { background: #f1f1f1; }
 td a {
   text-decoration: none;
   color: #7b7b7b;
@@ -49,6 +47,7 @@ ul.menu li {
   padding: 0;
   margin-right: 2px;
 }
+a.destroy { color: #ff0000; }
 .flash {
   -khtml-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -72,6 +71,13 @@ ul.menu li {
   background: #f6f6f6;
   margin-top: 1em;
 }
+table.crossreference {
+  width: 100%;
+  display: block;
+  overflow: auto;
+}
+table.crossreference th { padding: 0.5em; }
+table.crossreference td { text-align: center; }
 .message_content {
   width: 100%;
   float: left;
@@ -351,6 +357,8 @@ h1.as_in_table .sender { width: 20em; }
   width: 100%;
   position: relative;
 }
+#messages tr { border-bottom: 0 none; }
+#messages tr.shown { border-bottom: 1px solid #e5e5e5; }
 #messages thead { display: none; }
 .messages tr.cancelled td { text-decoration: line-through; }
 .messages .cancelled h1 { text-decoration: line-through; }
@@ -361,4 +369,3 @@ pre {
   margin-left: 0.75em;
   font-size: 110%;
 }
-table#castables td { padding-left: 1em; }
