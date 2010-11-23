@@ -134,8 +134,8 @@ class Message < ActiveRecord::Base
 
   def send_deliveries
     if self.step.single_response
-      logger.info "*** Sending single response message to an organization***"
-      deliveries << deliveries.build(:organization => Organization.find(self.organization_id))
+      logger.info "*** Sending single response message to an organization: #{request.organization_id} ***"
+      deliveries << deliveries.build(:organization => Organization.find(request.organization_id))
     else
       logger.info "*** Sending multiple response messages to different organizations ***"
       destination_organizations.each do |org|
