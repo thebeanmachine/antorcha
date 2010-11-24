@@ -7,6 +7,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
+  validates_presence_of :username
 
   validates_presence_of :organization, :if => :incoming?
   validates_presence_of :sent_at, :if => :delivered?
@@ -117,10 +118,23 @@ class Message < ActiveRecord::Base
     not (deliveries.count == 0 or deliveries.exists? :confirmed_at => nil)
   end
 
+  def build_reply user, params
+    @message = replies.build(params)
+    @message.username = user.username
+    @message
+  end
+
   def send_deliveries
-    destination_organizations.each do |org|
-      deliveries << deliveries.build(:organization => org)
+    if self.step.single_response
+      logger.info "*** Sending single response message to an organization: #{request.organization_id} ***"
+      deliveries << deliveries.build(:organization => Organization.find(request.organization_id))
+    else
+      logger.info "*** Sending multiple response messages to different organizations ***"
+      destination_organizations.each do |org|
+        deliveries << deliveries.build(:organization => org)
+      end
     end
+    
     sent!
   end
   

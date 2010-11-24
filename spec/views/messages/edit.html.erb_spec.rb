@@ -6,7 +6,7 @@ describe "/messages/edit.html.erb" do
   before(:each) do
     assigns[:message] = @message = stub_model(Message,
       :new_record? => false,
-      :step => stub_model(Step, :title=>'title'),
+      :step => stub_model(Step, :title=>'title', :form => "<input />"),
       :title => "value for title",
       :body => "value for body",
       :test? => "false"
@@ -17,8 +17,8 @@ describe "/messages/edit.html.erb" do
     render
 
     response.should have_tag("form[action=#{message_path(@message)}][method=post]") do
-      with_tag('input#message_title[name=?]', "message[title]")
-      with_tag('textarea#message_body[name=?]', "message[body]")
+      with_tag('input#message_title[name=?]', "message[title]") 
+      with_tag('textarea#message_body[name=?]', "message[body]") unless @message.step.form
     end
   end
 end

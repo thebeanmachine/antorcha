@@ -63,8 +63,8 @@ describe MessageRepliesController do
     def stub_create_action
       stub_find_origin_message
 
-      mock_message(:origin).stub :replies => mock_messages
-      stub_build_on mock_messages, mock_message(:reply), 'aap' => :noot
+      mock_message(:origin).stub :build_reply => mock_message(:reply)
+      #stub_build_on mock_messages, mock_message(:reply), 'aap' => :noot
     end
     
     def post_create
@@ -89,7 +89,13 @@ describe MessageRepliesController do
         assigns[:steps].should == mock_steps
       end
 
-      it "should assing @message to the created message" do
+      it "should use build_reply to create the reply message from the origin message" do
+        stub_create_action
+        mock_message(:origin).should_receive(:build_reply).with(controller.current_user, 'aap' => :noot)
+        post_create
+      end
+
+      it "should assign @message to the created message" do
         stub_create_action
         post_create
         assigns[:message].should == mock_message(:reply)

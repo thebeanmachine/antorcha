@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
   config.gem 'formtastic', :lib => 'formtastic', :version => '1.1.0'
   config.gem 'less'
   config.gem 'will_paginate'
+  config.gem 'builder'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

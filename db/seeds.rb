@@ -23,11 +23,15 @@ def new_maintainer
   
   print "Bevestig uw nieuwe wachtwoord : "
   STDOUT.flush
-  @confirmation = STDIN.gets.chomp  
+  @confirmation = STDIN.gets.chomp
+  
+  create_maintainer 
 end
 
 def create_maintainer
-  @maintainer = User.new(:email => @email, :username => @username, :password => @password, :password_confirm => @confirmation)
+  @maintainer = User.new(:email => @email, :username => @username);
+  @maintainer.password = @password
+  @maintainer.password_confirmation = @confirmation
   if @maintainer.save
     @maintainer.update_attribute(:user_type, "maintainer")
     @maintainer.update_attribute(:activated, true)
@@ -43,7 +47,6 @@ end
 
 if User.maintainers.count == 0
   new_maintainer
-  create_maintainer
 else
   puts "Er is reeds een beheeraccount"
 end

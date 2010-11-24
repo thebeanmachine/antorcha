@@ -39,6 +39,6 @@ echo.
 echo    Gereed!
 echo.
 
-echo
+echo.
 echo *** Antorcha is bijgewerkt! ***
-echo
+echo.

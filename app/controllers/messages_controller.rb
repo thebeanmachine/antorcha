@@ -28,10 +28,12 @@ class MessagesController < ApplicationController
   end
 
   def create
-    raise "DEPRECATED - this functionality has been moved."
+    raise "DEPRECATED - this functionality has been moved." # I'm very moved by it
   end
 
   def update
+    params[:message][:body] = params[:message][:body].to_xml if params[:message][:body].kind_of? HashWithIndifferentAccess
+    #render :text => params[:message].inspect
     if @message.update_attributes(params[:message])
       redirect_to(@message, :notice => 'Bericht is bijgewerkt')
     else

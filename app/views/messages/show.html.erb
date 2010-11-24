@@ -10,7 +10,7 @@
   	<small class="date"><%= l(@message.sent_at, :format => :short) if @message.sent? %> <%= l(@message.created_at, :format => :short) if @message.incoming? %></small></h1>
   <div class="message_content">
   <p class="intro">
-   	<%= musketeer 'Bericht maak deel uit van transactie', link_to_transaction(@message.transaction), '.' %>
+   	<%= musketeer 'Bericht maak deel uit van transactie ', link_to_transaction(@message.transaction), '.' %>
 		<%= musketeer 'Bericht volgt definitie ', h(@message.step.definition.title), '.'  %><br />
 		<%= musketeer 'Bericht is gebaseerd op stap ', h(@message.step.title), '.' %>
     <% if @message.request %>
@@ -26,7 +26,6 @@
   </p>
   </div>
   <div class="actions">
-    <%= link_to_edit_message(@message) if @message.outgoing? %>
     <%= link_to_reply_message(@message) unless @message.expired? %>
     <%= link_to_send_message(@message) %>
     <%= button_to_message_transaction_cancellation @message %>

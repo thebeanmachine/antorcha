@@ -1,7 +1,10 @@
 
 require 'daemons'
+require 'rbconfig'
 
 class Worker
+  WINDOZE = Config::CONFIG['host_os'] =~ /mswin|mingw/
+
   def self.all
     group = Daemons::ApplicationGroup.new('delayed_job')
     group.find_applications(File.join(Rails.root,'tmp','pids')).map do |app|
@@ -10,9 +13,14 @@ class Worker
   end
 
   def self.start
-    f = IO.popen "env RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')} start"
-    f.readlines
-    f.close
+    if WINDOZE
+      system "start \"Antorcha Engine\" \"#{File.join(Rails.root,'start_engine.bat')}\""
+	    sleep 30
+    else
+      f = IO.popen "env RAILS_ENV=#{Rails.env} #{File.join(Rails.root,'script','delayed_job')} start"
+	    f.readlines
+      f.close
+    end
   end
 
   def pid
@@ -28,7 +36,12 @@ class Worker
   end
   
   def stop
-    @application.stop
+  	if WINDOZE
+  		system "taskkill /PID #{pid} /F"
+  		sleep 3
+  	else
+  		@application.stop
+  	end
   end
 
   def initialize app

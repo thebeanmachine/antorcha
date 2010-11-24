@@ -32,7 +32,7 @@ describe MessageService, "soap service" do
   end
 
   def example_message
-    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
+    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :username => "henk", :step => mock_step, :transaction => mock_transaction)
   end
 
   def example_api_message
@@ -40,31 +40,31 @@ describe MessageService, "soap service" do
   end
 
   def example_messages
-    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction), Message.new(:title => 'noot', :body => 'bok', :step => mock_step, :transaction => mock_transaction)]
+    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies', :username => "henk", :step => mock_step, :transaction => mock_transaction), Message.new(:title => 'noot', :body => 'bok', :step => mock_step, :transaction => mock_transaction)]
   end
   
   def example_inbox_messages
-    [Message.new(:title => 'aap', :body => 'mies', :incoming => true), Message.new(:title => 'aap', :body => 'mies', :incoming => true)]
+    [Message.new(:title => 'aap', :body => 'mies', :username => "henk", :incoming => true), Message.new(:title => 'aap', :body => 'mies', :username => "henk", :incoming => true)]
   end
   
   def example_outbox_messages
-    [Message.new(:title => 'aap', :body => 'mies', :incoming => false), Message.new(:title => 'aap', :body => 'mies', :incoming => false)]
+    [Message.new(:username => "henk", :title => 'aap', :body => 'mies', :incoming => false), Message.new(:username => "henk", :title => 'aap', :body => 'mies', :incoming => false)]
   end  
   
   def example_unread_messages
-    [Message.new(:title => 'aap', :body => 'mies', :shown_at => nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => nil)]
+    [Message.new(:username => "henk", :title => 'aap', :body => 'mies', :shown_at => nil), Message.new(:username => "henk", :title => 'aap', :body => 'mies', :shown_at => nil)]
   end
   
   def example_expired_messages
-    [Message.new(:title => 'aap', :body => 'mies', :transaction => mock_transaction)]
+    [Message.new(:username => "henk", :title => 'aap', :body => 'mies', :transaction => mock_transaction)]
   end
   
   def example_cancelled_messages
-    [Message.new(:title => 'aap', :body => 'mies', :transaction => mock_transaction)]
+    [Message.new(:username => "henk", :title => 'aap', :body => 'mies', :transaction => mock_transaction)]
   end
   
   def example_read_messages
-    [Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil), Message.new(:title => 'aap', :body => 'mies', :shown_at => !nil)]
+    [Message.new(:username => "henk", :title => 'aap', :body => 'mies', :shown_at => !nil), Message.new(:username => "henk", :title => 'aap', :body => 'mies', :shown_at => !nil)]
   end
   
   def example_api_messages

@@ -68,6 +68,10 @@ describe "/messages/index.html.erb" do
     
   end
   
+  def sidebar
+    response.capture(:sidebar)
+  end
+  
   shared_examples_for "message index" do
     it "renders titles of messages" do
       render
@@ -100,11 +104,27 @@ describe "/messages/index.html.erb" do
     end
 
     it "renders an expired message" do
-       pending
-       render
-       response.should have_tag("tr.message.expired", 1)
-     end
+      pending
+      render
+      response.should have_tag("tr.message.expired", 1)
+    end
+     
+    it "should display the filter" do
+      render
+      sidebar.should have_text(/Berichten filteren/)
+    end
 
+    describe "within a transaction view" do
+      before(:each) do
+        assigns[:transaction] = mock_transaction
+        mock_transaction.stub :title => 'Un transaction'
+      end
+
+      it "should not display the filter" do
+        render
+        sidebar.should_not have_text(/Berichten filteren/)
+      end
+    end
   end
   
 
@@ -132,7 +152,7 @@ describe "/messages/index.html.erb" do
       render
       response.should have_tag("tr.message>td", /value for title/, 3)
     end
-
   end
+  
 
 end

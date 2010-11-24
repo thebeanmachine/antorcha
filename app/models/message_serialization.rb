@@ -15,6 +15,7 @@ module MessageSerialization
         xml.tag!(:uri, transaction.uri)
         xml.tag!(:initialized_at, transaction.initialized_at)
       end
+      xml.tag!(:username, username)
       xml.tag!(:step_id, step_id)
 
       # THESE SEMANTICS ARE NOW SEND IN THE SERIALIZATION OF THE DELIVERY

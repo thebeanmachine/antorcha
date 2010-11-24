@@ -8,7 +8,7 @@ class MessageRepliesController < ApplicationController
   end
 
   def create
-    @message = @origin.replies.build(params[:message])
+    @message = @origin.build_reply current_user, params[:message]
     authorize! :create, @message
 
     if @message.save
