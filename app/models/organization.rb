@@ -31,4 +31,14 @@ class Organization < Resource
   def self.ourself
     Identity.first!.organization
   end
+  
+  def to_xml(options = {})
+    options[:indent] ||= 2
+    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
+    xml.instruct! unless options[:skip_instruct]
+    xml.organization do
+      xml.tag!(:id, id, :type => 'integer')
+      xml.tag!(:title, title)
+    end
+  end
 end
