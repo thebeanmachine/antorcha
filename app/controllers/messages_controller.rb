@@ -27,13 +27,27 @@ class MessagesController < ApplicationController
   def edit
   end
 
+
+  #
+  # Create outgoing messages using the ReST interface
+  #
   def create
-    raise "DEPRECATED - this functionality has been moved." # I'm very moved by it
+    @message = Message.new params[:message].merge(:user => current_user, :incoming => false)
+    @request_message = @message.request
+    
+    authorize! :examine, @request_message if @request_message
+    authorize! :create, @message
+    
+    if @message.save
+      render :xml => @message.to_xml(:local => true, :scrub => false)
+    else
+      render :xml => @message.errors, :status => :unprocessable_entity
+    end
   end
 
   def update
     params[:message][:body] = params[:message][:body].to_xml if params[:message][:body].kind_of? HashWithIndifferentAccess
-    #render :text => params[:message].inspect
+
     if @message.update_attributes(params[:message])
       redirect_to(@message, :notice => 'Bericht is bijgewerkt')
     else

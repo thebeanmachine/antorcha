@@ -8,6 +8,14 @@ describe MessagesController do
   
   specify { should have_devise_before_filter }
 
+  def stub_cannot_examine_messages
+    controller.stub(:cannot?).with(:examine, Message).and_return(true)
+  end
+
+  def stub_can_examine_messages
+    controller.stub(:cannot?).with(:examine, Message).and_return(false)
+  end
+
   describe "GET index" do
     def stub_index
       Message.stub(:search => mock_search)
@@ -41,13 +49,7 @@ describe MessagesController do
         controller.stub :cannot? => true
       end
 
-      def stub_cannot_examine_messages
-        controller.stub(:cannot?).with(:examine, Message).and_return(true)
-      end
 
-      def stub_can_examine_messages
-        controller.stub(:cannot?).with(:examine, Message).and_return(false)
-      end
       
       def mock_messages_should_receive_to_xml_with_scrub what 
         mock_messages.each do |m| m.should_receive(:to_xml).with(hash_including(:scrub => what)).and_return('squat') end        
@@ -188,80 +190,105 @@ describe MessagesController do
     end
   end
 
-  describe "POST create" do
+  describe "POST create - for creating ReST replies" do
 
-    it "should be deprecated" do
+    before(:each) do
+      stub_new mock_message(:reply)
       
-      lambda { post :create }.should raise_error(/^DEPRECATED/)
+      mock_message(:reply).stub :request => mock_message(:request)
+      controller.stub :current_user => mock_user
+      mock_message(:reply).stub :save => true
+      
+      mock_message(:reply).stub :to_xml => "<xml/>"
+      
+      stub_authorize!
     end
     
-    # def stub_create_and_from_hash
-    #   stub_new(mock_message)
-    #   mock_message.stub(:from_hash).and_return(mock_message)
-    #   mock_message.stub(:incoming= => nil)
-    # end
-    # 
-    # def post_create
-    #   post :create, :message => {'these' => 'params'}
-    # end
-    # 
-    # describe "with valid params" do
-    #   def stub_with_valid_params
-    #     stub_create_and_from_hash
-    #     stub_successful_save_for(mock_message)
-    #   end
-    #   
-    #   it "should implement peer-to-peer authentication"
-    #   
-    #   it "should not authorize create on the @message, because it is an api call (will change after implementing peer-to-peer authentication)" do
-    #     stub_with_valid_params
-    #     controller.should_not_receive(:authorize!).with(:create, mock_message)
-    #     post_create
-    #   end
-    #         
-    #   it "uses from_hash to create the message" do
-    #     stub_with_valid_params
-    #     mock_message.should_receive(:from_hash).with({'these' => 'params'})
-    #     post_create
-    #   end
-    #         
-    #   it "assigns a newly created message as @message" do
-    #     stub_with_valid_params
-    #     post_create
-    #     assigns[:message].should equal(mock_message)
-    #   end
-    # 
-    #   it "response status should be http 'Created'" do
-    #     stub_with_valid_params
-    #     post_create
-    #     response.status.should == '201 Created'
-    #   end
-    #   
-    #   it "flags message as incoming" do
-    #     stub_with_valid_params
-    #     mock_message.should_receive(:incoming=).with(true)
-    #     post_create
-    #   end
-    # end
-    # 
-    # describe "with invalid params" do
-    #   def stub_with_invalid_params
-    #     stub_create_and_from_hash
-    #     stub_unsuccessful_save_for(mock_message)
-    #   end
-    #   
-    #   it "assigns a newly created but unsaved message as @message" do
-    #     stub_with_invalid_params
-    #     post_create
-    #     assigns[:message].should equal(mock_message)
-    #   end
-    # 
-    #   it "re-renders the 'new' template" do
-    #     stub_with_invalid_params
-    #     post_create
-    #     response.status.should == '422 Unprocessable Entity'
-    #   end
-    # end
+    def message_params
+      { 'aap' => :noot }
+    end
+    def post_create
+      post :create, :request_message_id => mock_message(:request).to_param, :message => message_params
+    end
+
+    it "should not be deprecated" do
+      lambda { post :create }.should_not raise_error(/^DEPRECATED/)
+    end
+
+    it "should find the request message and use it to create the message" do
+      post_create
+      assigns[:request_message].should == mock_message(:request)
+      
+    end
+
+    it "should build the reply using the request_message" do
+      post_create
+      assigns[:message].request.should == mock_message(:request)
+    end
+
+    it "should assign the reply message to @message" do
+      post_create
+      assigns[:message].should == mock_message(:reply)
+    end
+
+    it "should save the reply message" do
+      mock_message(:reply).should_receive :save
+      post_create
+    end
+
+    it "should create the message using the current user" do
+      Message.should_receive(:new).with(hash_including(:user => mock_user)).and_return(mock_message(:reply))
+      post_create
+    end
+
+    it "should create the message as an outgoing message" do
+      Message.should_receive(:new).with(hash_including(:incoming => false)).and_return(mock_message(:reply))
+      post_create
+    end
+
+    it "should authorize examination of the request message" do
+      expect_authorize :examine, mock_message(:request)
+      post_create
+    end
+
+    it "should authorize creation of the reply message" do
+      expect_authorize :create, mock_message(:reply)
+      post_create
+    end
+
+    describe "on success" do
+      before(:each) do
+        mock_message(:reply).stub :save => true
+      end
+      
+      it "should render the @message as xml" do
+        subject.should_receive(:render).with(hash_including(:xml => "<xml/>"))
+        post_create
+      end
+
+      it "should render the @message unscrubbed because the use has created it anyways" do
+        mock_message(:reply).should_receive(:to_xml).with(hash_including(:scrub => false))
+        post_create
+      end
+
+      it "should render the @message as local xml because it's in the rest interface." do
+        mock_message(:reply).should_receive(:to_xml).with(hash_including(:local => true))
+        post_create
+      end
+
+    end
+
+    describe "on failure" do
+      before(:each) do
+        mock_message(:reply).stub :save => false, :errors => 'whoeps'
+      end
+      
+      it "should render the @message as xml" do
+        subject.should_receive(:render).with(hash_including(:xml => 'whoeps'))
+        post_create
+      end
+    end
+
   end
 
 
