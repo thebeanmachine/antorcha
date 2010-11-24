@@ -21,6 +21,14 @@ describe MessageService, "soap service" do
     
     @service.stub :authorize! => nil
     @service.stub :can? => true
+    
+    mock_user.stub :username => 'piet'
+    
+    stub_out_user_step_selection_validation
+  end
+
+  def stub_out_user_step_selection_validation
+    Step.stub :starting_steps => [mock_step]
   end
 
   def valid_token
@@ -32,7 +40,7 @@ describe MessageService, "soap service" do
   end
 
   def example_message
-    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :username => "henk", :step => mock_step, :transaction => mock_transaction)
+    @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :user => mock_user, :step => mock_step, :transaction => mock_transaction)
   end
 
   def example_api_message
@@ -40,7 +48,7 @@ describe MessageService, "soap service" do
   end
 
   def example_messages
-    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies', :username => "henk", :step => mock_step, :transaction => mock_transaction), Message.new(:title => 'noot', :body => 'bok', :step => mock_step, :transaction => mock_transaction)]
+    @example_messages ||= [Message.new(:title => 'aap', :body => 'mies', :user => mock_user, :step => mock_step, :transaction => mock_transaction), Message.new(:title => 'noot', :body => 'bok', :step => mock_step, :transaction => mock_transaction)]
   end
   
   def example_inbox_messages

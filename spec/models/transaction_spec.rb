@@ -88,7 +88,8 @@ describe Transaction do
     it "should get the transactions communicating with an organization" do
       mock_step.stub :title => 'aap'
       @transaction = Transaction.create!(@valid_attributes)
-      @message = @transaction.messages.create!( :step => mock_step, :username => "henk" )
+      mock_user.stub :username => 'piet'
+      @message = @transaction.messages.create!( :step => mock_step, :user => mock_user, :incoming => true, :organization => mock_organization )
     
       @message.deliveries.create! :organization_id => 2
 
