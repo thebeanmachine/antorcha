@@ -7,18 +7,32 @@ describe Message do
       :body => "value for body",
       :incoming => false,
       :step => mock_step,
-      :username => "henk",
+      :user => mock_user,
       :transaction => mock_transaction
     }
+    
+    stub_out_user_step_selection_validation
+    mock_user.stub :username => 'henk'
   end
 
   def example_message
     @example_message ||= Message.create \
       :title => "Dit is de message titel",
       :body => "Dit is de message body",
-      :username => "henk",
+      :user => mock_user,
       :step => mock_step,
       :transaction => mock_transaction
+  end
+  
+  def example_transaction
+    mock_definition.stub :expiration_days => nil
+    @example_transaction ||= Transaction.create! \
+      :title => 'smurf transaction', :definition => mock_definition
+  end
+  
+  def stub_out_user_step_selection_validation
+    Step.stub :starting_steps => [mock_step]
+    
   end
 
   describe "given valid attributes" do
@@ -119,18 +133,66 @@ describe Message do
     end
   end
 
+  describe "creating a start message" do
+    before(:each) do
+      @start_message = Message.create \
+        :title => 'start message', :incoming => false,
+        :step => mock_step, :user => mock_user, :transaction => example_transaction
+    end
+    
+    it "should be valid" do
+      @start_message.should be_valid
+    end
+
+    it "should have an error if the step makes no sense for the user" do
+      Step.stub :starting_steps => [mock_step(:other)]
+      @start_message.should have(1).error_on(:step)
+    end
+
+    it "should have no errors if the step makes sense for the user" do
+      Step.stub :starting_steps => [mock_step, mock_step(:other)]
+      @start_message.should have(:no).error_on(:step)
+    end
+
+  end
   
   describe "creating a reply message" do
-    it "takes over transaction from the request" do
-      @request_message =  Message.create \
-        :title => 'request message', :incoming => true,
-        :step => mock_step, :transaction => mock_transaction
+    before(:each) do
+      mock_step.stub :effects => [mock_step]
 
-      @reply_message = Message.create \
+      stub_message_belongs_to_step
+
+      @request_message =  Message.create! \
+        :title => 'request message', :incoming => true,
+        :step => mock_step, :transaction => example_transaction,
+        :user => mock_user, :organization => mock_organization
+
+      @reply_message = @request_message.build_reply mock_user, 
         :title => 'reply message', :incoming => false,
-        :step => mock_step, :request => @request_message
-        
-      @reply_message.transaction.should == mock_transaction
+        :step => mock_step
+    end
+    
+    def stub_message_belongs_to_step
+      # in the validation active record tries to find the mocks again.
+      Step.stub(:find).with(mock_step.id).and_return(mock_step)
+    end
+    
+    def stub_message_belongs_to_transaction
+      # in the validation active record tries to find the mocks again.
+      Transaction.stub(:find).with(mock_transaction.id).and_return(mock_transaction)
+    end
+
+    it "request message should be valid" do
+      @request_message.should be_valid
+    end
+    
+    it "reply message should be valid" do
+      @reply_message.should be_valid
+    end
+
+    it "takes over transaction from the request" do
+      @reply_message.save
+      @reply_message.transaction.should == example_transaction
     end
     
     it "should know it's own effect steps" do
@@ -140,17 +202,20 @@ describe Message do
     end
     
     it "should be done using build_reply" do
-      @request_message =  Message.create \
-        :title => 'request message', :incoming => true,
-        :step => mock_step, :transaction => mock_transaction
-        
       mock_user.stub :username => 'brilsmurf'
-
-      @reply_message = @request_message.build_reply mock_user, 
-        :title => 'reply message', :incoming => false,
-        :step => mock_step
-      
+    
+      @reply_message.save
       @reply_message.username.should == 'brilsmurf'
+    end
+    
+    it "should have an error if step is not selectable by the user" do
+      mock_step.stub :effects => [mock_step(:other)]
+      @reply_message.should have(1).error_on(:step)
+    end
+
+    it "should have no errors if step is not selectable by the user" do
+      mock_step.stub :effects => [mock_step, mock_step(:other)]
+      @reply_message.should have(:no).error_on(:step)
     end
     
   end
@@ -161,7 +226,7 @@ describe Message do
     it "should not have a manditory title" do
       should have(:no).error_on(:title)
     end
-    specify { should have(1).error_on(:step) }
+    specify { should have(1).errors_on(:step) }
     specify { should have(1).error_on(:transaction) }
 
     it "status should be :draft" do

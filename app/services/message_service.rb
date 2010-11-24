@@ -49,8 +49,8 @@ class MessageService < AuthenticatedService
   # end
   
   def reply token, api_message, api_step
-    Message.find(api_message.id).replies.create(:step_id => api_step.id)
-  end  
+    Message.find(api_message.id).replies.create(:step_id => api_step.id, :user => current_user)
+  end
   
   
   def deliver_message_after_init_transaction token, api_step, message_title, message_body
