@@ -3,20 +3,30 @@ class UsersController < ApplicationController
   authorize_resource
   
   def index
-    @users = User.inactivated.all
-    flash[:notice] = "Er zijn momenteel geen geregistreerde gebruikers." if @users.empty?
+    @users = User.all
+    @roles = Role.all
+    flash[:notice] = "Er zijn momenteel geen gebruikers." if @users.empty?
   end
   
   def update
+  
     @user = User.find params[:id]
-    if @user.update_attribute(:user_type, "communicator")
-      @user.update_attribute(:activated, true) # Bah.... dit had ik anders kunnen doen :)
-      flash[:notice] = "Gebruiker is geactiveerd"
-      redirect_to root_path
+    
+    if @user.user_type == "registered"      
+      if @user.update_attribute(:user_type, "communicator") &&  @user.update_attribute(:activated, true)
+        flash[:notice] = "Gebruiker is geactiveerd"
+      else
+        flash[:error] = @user.errors.full_messages
+      end
+    elsif @user.user_type == "communicator" || @user.user_type == "maintainer"
+      @user.castables.destroy_all
+      @user.cast(params[:roles]) if params[:roles]
+      flash[:notice] = "Rollen zijn gewijzigd"
     else
-      flash[:error] = "Deze gebruiker is niet geactiveerd"
-      redirect_to users_path
+      flash[:error] = "Gebruiker is onbekend"
     end
+    
+    redirect_to users_path
   end
   
   def destroy

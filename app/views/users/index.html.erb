@@ -1,13 +1,36 @@
 <% breadcrumb User %>
 
-<h1>Gebruikers activeren</h1>
+<h1>Gebruikers</h1>
 
-<ul class="users">
+<table id="users" class="crossreference">
+  
+  <thead>
+    <th>Gebruiker</th>
+    <% @roles.each do |role| %>
+    <th><span class="rotate"><%= role.title %></span></th>
+    <% end %>
+  </thead>
+  
   <% @users.each do |user| %>
-    <li>
-      <span><strong><%= user.username %></strong> - <%= link_to h(user.email), "mailto:#{user.email}" %>
-      (<%= link_to "Activeer", user_path(user), :method => :put %> |
-      <%= link_to "Verwijder", user_path(user), :method => :delete, :confirm => "Weet u het zeker?" %>)</span>
-    </li>
+  <tr class="user_<%= user.id %>">
+    <td style="text-align: left"><strong><%= user.username %></strong><br/><small><%= link_to h(user.email), "mailto:#{user.email}" %><br/><%= link_to "verwijder", user_path(user), :method => :delete, :confirm => "Weet u het zeker dat u deze gebruiker wilt verwijderen?", :class=> "destroy" %>
+			<% unless user.activated? %>
+			<br/>
+    <%= link_to "Activeer", user_path(user), :method => :put  %>
+			<% end %>
+    </small>
+	
+		</td>
+    
+    
+      <% form_tag user, :method => :put do %> 
+        <% @roles.each do |role| %>
+          <td><%= check_box_tag "user_#{user.id}_role_#{role.id}", role.id, checked = (user.role_ids.include? role.id), {:name => "roles[]", :class => "user_role"} %></td>
+        <% end %>
+          <td><%= submit_tag "Wijzig", :class => "submit" %></td>
+      <% end %>    
+
+    
+  </tr>
   <% end %>
-</ul>
+</table>
