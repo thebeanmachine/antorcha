@@ -295,6 +295,22 @@ describe Message do
     end
   end
   
+  describe "body serialization" do
+    it "should serialize hashes" do
+      mock_step.stub :name => 'stap-naam'
+      @message = Message.new :body => { :aap => 'noot' }, :step => mock_step
+      @message.valid?
+      @message.body.should == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<stap-naam>\n  <aap>noot</aap>\n</stap-naam>\n"
+    end
+    
+    it "should not serialize anything else" do
+      mock_step.stub :name => 'stap-naam'
+      @message = Message.new :body => 'hihi', :step => mock_step
+      @message.valid?
+      @message.body.should == "hihi"
+    end
+  end
+  
   describe "to xml" do
 
     def stub_to_xml

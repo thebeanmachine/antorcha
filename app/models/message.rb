@@ -6,6 +6,7 @@ class Message < ActiveRecord::Base
 
   before_validation :take_over_username_from_user
   before_validation :take_over_transaction_from_request
+  before_validation :serialize_body
 
   validates_presence_of :title, :on => :update
   validates_presence_of :step
@@ -169,6 +170,12 @@ private
 
   def take_over_transaction_from_request
     self.transaction = request.transaction if transaction.blank? and request
+  end
+  
+  def serialize_body
+    if body.kind_of?(Hash) and step
+      self.body = body.to_xml :root => step.name
+    end
   end
   
   def step_is_selectable_by_user
