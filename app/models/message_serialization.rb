@@ -17,10 +17,6 @@ module MessageSerialization
       end
       xml.tag!(:username, username)
       xml.tag!(:step_id, step_id)
-
-      # THESE SEMANTICS ARE NOW SEND IN THE SERIALIZATION OF THE DELIVERY
-      # xml.tag!(:organization_id, Identity.first!.organization.id)
-      # xml.tag!(:organization_message_id, id)
     end
   end
   
@@ -32,6 +28,7 @@ module MessageSerialization
     xml.tag! :unread, unread
     xml.tag! :transaction_id, transaction_id
     xml.tag! :shown_at, shown_at
+    xml.tag! :organization_id, organization_id
   end
 
   def from_hash(hash)
