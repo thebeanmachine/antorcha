@@ -32,6 +32,7 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+  
 end
 
 namespace :database do
@@ -39,6 +40,9 @@ namespace :database do
   task :symlink, :roles => [:app] do
     run "mkdir -p #{shared_path}/databases"
     run "ln -nfs #{shared_path}/databases #{release_path}/db/shared"
+  end
+  task :migrate, :roles => [:app] do
+    run "cd #{latest_release} && RAILS_ENV=production rake db:migrate"
   end
 end
 
