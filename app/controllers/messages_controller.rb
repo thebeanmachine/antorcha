@@ -46,8 +46,6 @@ class MessagesController < ApplicationController
   end
 
   def update
-    params[:message][:body] = params[:message][:body].to_xml if params[:message][:body].kind_of? HashWithIndifferentAccess
-
     if @message.update_attributes(params[:message])
       redirect_to(@message, :notice => 'Bericht is bijgewerkt')
     else
