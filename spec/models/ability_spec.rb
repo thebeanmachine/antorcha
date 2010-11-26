@@ -83,6 +83,37 @@ describe Ability do
       listing(Reception).should be_possible
     end
   end
+  
+  describe "managing notifiers" do
+    ability_of :maintainer do
+      it "should be able to list" do
+        listing(Notifier).should be_possible
+      end
+      it "should be able to create" do
+        creating(Notifier).should be_possible
+      end
+      it "should be able to destroy" do
+        destroying(Notifier).should be_possible
+      end
+      it "should be able to update" do
+        updating(Notifier).should be_possible
+      end
+    end
+    everyone_else_but :maintainer do 
+      it "should not be able to list" do
+        listing(Notifier).should_not be_possible
+      end
+      it "should not be able to create" do
+        creating(Notifier).should_not be_possible
+      end
+      it "should not be able to destroy" do
+        destroying(Notifier).should_not be_possible
+      end
+      it "should not be able to update" do
+        updating(Notifier).should_not be_possible
+      end
+    end
+  end
 
   describe "cancellation of transactions" do
     ability_of :communicator do

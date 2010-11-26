@@ -23,7 +23,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :jobs, :only => :index, :member => {:retry => :put}
 
   map.resources :castables
-  map.resources :deliveries
+  map.resources :deliveries, :only => [:index, :show]
+  map.resources :deliveries, :only => [:create], :controller => 'message_deliveries'
   map.resources :processings
 
   map.devise_for :users
@@ -41,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :messages, :except => [:new, :destroy], :requirements => { :id => /[0-9]+/ } do |messages|
     messages.resources :deliveries, :only => [:create, :index], :controller => 'message_deliveries'
     messages.resources :replies, :only => [:new, :create], :controller => 'message_replies'
+    messages.resources :steps, :only => :index
   end
   
   map.root :controller => 'home'

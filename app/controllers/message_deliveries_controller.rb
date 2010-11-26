@@ -8,23 +8,27 @@ class MessageDeliveriesController < ApplicationController
   end
 
   def create
-    @message = Message.find(params[:message_id])
+    @message = Message.find(params[:message_id] || (params[:delivery][:message_id] if params[:delivery]))
     authorize! :send, @message
     
-    if @message.test?      
+    respond_to do |format|
       unless @message.cancelled?
-        @message.send_deliveries_and_ourself
-        redirect_to @message, :notice => 'Testbericht is succesvol bij de uitgaande post terechtgekomen.'
+        if @message.test?
+          @message.send_deliveries_and_ourself
+        else
+          @message.send_deliveries        
+        end
+        format.html { redirect_to @message, :notice => "#{test_or_default('Bericht')} is succesvol bij de uitgaande post terechtgekomen." }
+        format.xml { render :xml => @message, :status => :created }
       else
-        redirect_to @message, :flash => {:error => 'Testtransactie is tussentijds geannuleerd, kan niet worden verzonden.'}
-      end
-    else
-      unless @message.cancelled?       
-        @message.send_deliveries        
-        redirect_to @message, :notice => 'Bericht is succesvol bij de uitgaande post terechtgekomen.'
-      else
-        redirect_to @message, :flash => {:error => 'Transactie is tussentijds geannuleerd, kan niet worden verzonden.'}
+        format.html { redirect_to @message, :flash => {:error => "#{test_or_default('Transactie')} is tussentijds geannuleerd, kan niet worden verzonden."} }
+        format.xml { render :xml => @message, :status => :gone }
       end
     end
+  end
+  
+private
+  def test_or_default word
+    @message.test? ? "Test#{word.downcase}" : word
   end
 end

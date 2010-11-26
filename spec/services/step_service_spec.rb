@@ -12,6 +12,9 @@ describe StepService, "soap service" do
     @service.stub :authorize! => nil
     
     mock_transaction.stub :cancelled? => false, :expired? => false
+    
+    mock_user.stub :username => 'piet'
+    Step.stub :starting_steps => [mock_step]
   end
 
   def valid_token
@@ -32,7 +35,7 @@ describe StepService, "soap service" do
   end
 
   def example_message
-    @example_message ||= Message.create!(:username => "henk", :title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
+    @example_message ||= Message.create!(:user => mock_user, :title => 'aap', :body => 'mies', :step => mock_step, :transaction => mock_transaction)
   end
 
   def example_api_message
