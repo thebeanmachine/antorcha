@@ -4,6 +4,10 @@ class Message < ActiveRecord::Base
   include MessageSerialization
   include CrossAssociatedModel
 
+  before_validation :take_over_username_from_user
+  before_validation :take_over_transaction_from_request
+  before_validation :serialize_body
+
   validates_presence_of :title, :on => :update
   validates_presence_of :step
   validates_presence_of :transaction
@@ -11,10 +15,13 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :organization, :if => :incoming?
   validates_presence_of :sent_at, :if => :delivered?
-  validates_presence_of :organization, :if => :incoming?
+  validates_presence_of :user, :on => :create, :if => :outgoing?
+
+  validate :step_is_selectable_by_user
 
   belongs_to :transaction
   belongs_to_resource :organization
+  belongs_to :user
   cache_and_delegate :title, :to => :organization, :prefix => true, :allow_nil => true
 
   belongs_to_resource :step
@@ -58,19 +65,11 @@ class Message < ActiveRecord::Base
   delegate :test?, :to => :definition
 
   after_create :format_title
-  after_create :notify_a2s
   
-  before_validation :take_over_transaction_from_request
+
   
   def updatable?
     outgoing? and draft? and not cancelled?
-  end
-  
-  def notify_a2s
-    if Notifier.count > 0
-      notifier = Notifier.first
-      notifier.queue_notification
-    end
   end
   
   def self.show message_id
@@ -103,6 +102,10 @@ class Message < ActiveRecord::Base
     step.effects options
   end
   
+  def reply?
+    not request.blank?
+  end
+  
   delegate :destination_organizations, :to => :step
 
   def status
@@ -128,7 +131,7 @@ class Message < ActiveRecord::Base
 
   def build_reply user, params
     @message = replies.build(params)
-    @message.username = user.username
+    @message.user = user
     @message
   end
 
@@ -154,15 +157,34 @@ class Message < ActiveRecord::Base
     sent!
   end
 
-
-
 private
   def format_title
     update_attributes :title => "#{step.title} \##{id}" if title.blank?
   end
 
+  def take_over_username_from_user
+    self.username = user.username if user
+  end
+
   def take_over_transaction_from_request
     self.transaction = request.transaction if transaction.blank? and request
+  end
+  
+  def serialize_body
+    if body.kind_of?(Hash) and step
+      self.body = body.to_xml :root => step.name
+    end
+  end
+  
+  def step_is_selectable_by_user
+    return if incoming?
+    return unless step
+    if reply?
+      present = request.effect_steps(:user => user).include?(step)
+    else
+      present = Step.starting_steps(:user => user).include?(step)
+    end
+    errors.add(:step, "is niet selecteerbaar voor gebruiker.") unless present
   end
 
 end

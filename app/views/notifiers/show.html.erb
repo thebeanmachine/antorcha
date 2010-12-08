@@ -6,5 +6,6 @@
 </p>
 <p>
 <%= link_to 'Bewerk', edit_notifier_path(@notifier) %> |
-<%= link_to 'Terug naar het overzicht', notifiers_path %>
+<%= link_to 'Vernietig', notifier_path(@notifier), :method => :delete, :confirm => 'Weet u het zeker?' %> of
+<%= link_to 'ga terug naar het overzicht', notifiers_path %>
 </p>

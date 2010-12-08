@@ -51,6 +51,7 @@ private
     params = {}
     user = options.delete :user if options[:user]
     params[:permitted_for_roles] = user.castables.collect(&:role_id) if user
+    params[:name] = options.delete(:name) if options[:name]
     params
   end    
 end
