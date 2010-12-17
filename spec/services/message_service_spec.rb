@@ -238,6 +238,37 @@ describe MessageService, "soap service" do
     end
   end
 
+  describe "initiating a transaction and sending (delivering) a message" do
+    before(:each) do
+      example_message.stub :send_deliveries => nil
+      stub_find_step
+      stub_step_definition
+      stub_already_specced_mixin_create_transaction_and_message
+    end
+    
+    def stub_find_step
+      Step.stub(:find).with(mock_step.id).and_return(mock_step)
+    end
+    
+    def stub_step_definition
+      mock_step.stub :definition => mock_definition
+    end
+    
+    def stub_already_specced_mixin_create_transaction_and_message
+      @service.stub :create_transaction_and_message => example_message
+    end
+    
+    it "should not be permitted with an invalid token" do
+      invoke_layered :message, :deliver_message_after_init_transaction, valid_token, Api::Step.new(:id => mock_step.id), nil, nil 
+    end
+
+    it "should send deliveries" do
+      example_message.should_receive(:send_deliveries).and_return(nil)
+      invoke_layered :message, :deliver_message_after_init_transaction, valid_token,  Api::Step.new(:id => mock_step.id), 'title', 'body'
+    end
+
+  end
+
   it "should delete a message" do
     mock_transaction.stub(:expired?).and_return(true)
     
