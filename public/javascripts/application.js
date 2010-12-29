@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
 	$("table#users input[type='submit']").hide();
-	$("input.user_role").click(function(){ $(this).parent().parent().children('form').submit() });
+	$("input.user_role").click(function(){ $(this).parent().parent().children('form').submit() }); // fixed
 	
 	$(".js_blocklink").each(function() {
 			$(this).click(function() {
