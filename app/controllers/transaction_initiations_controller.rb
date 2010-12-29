@@ -8,11 +8,7 @@ class TransactionInitiationsController < ApplicationController
   before_filter :find_starting_steps
   
   def new
-    if @starting_steps.nil?
-      flash[:error] = "Helaas, u kunt nu geen berichten versturen. De transactiedefinities konden niet opgehaald worden." 
-    else
-      flash[:notice] = "Er zijn geen startstappen voor u." if @starting_steps.empty?
-    end
+    flash[:error] = "Helaas, u kunt nu geen berichten versturen. De transactiedefinities konden niet opgehaald worden." 
   end
   
   def create
