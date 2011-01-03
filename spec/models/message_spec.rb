@@ -261,6 +261,7 @@ describe Message do
   
   describe "delivery" do
     subject {
+      mock_organization.stub(:title => 'black water')
       m = example_message
       m.deliveries.build :organization => mock_organization
       m

@@ -10,9 +10,12 @@ class Delivery < ActiveRecord::Base
 
   validate :verified_organization_certificate_on_confirmation
   
+  before_create :set_organization_title
   after_create :deliver
   
   named_scope :queued, :conditions => {:confirmed_at => nil}
+  
+  cache_and_delegate :title, :to => :organization, :prefix => true, :allow_nil => true
   
   def verified_organization_certificate_on_confirmation
     verified_organization_certificate? if confirmed?
@@ -39,6 +42,11 @@ class Delivery < ActiveRecord::Base
       xml.tag! :organization_id, organization_id
       message.to_xml :builder => xml, :skip_instruct => true
     end
+  end
+  
+private
+  def set_organization_title
+    write_attribute :organization_title, organization.title if organization
   end
   
 end
