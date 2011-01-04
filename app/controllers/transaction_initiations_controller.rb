@@ -41,7 +41,6 @@ private
       transaction.update_uri url_for(transaction)
 
       message = transaction.messages.build(:step => starting_step, :user => current_user)      
-      logger.info "*** #{current_user.username} is going to create a message ***"
       message.save
       message
     end
