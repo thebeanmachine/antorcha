@@ -40,7 +40,7 @@ echo
 echo -e "\033[1m Noodzakelijke gems installeren \033[0m"
 echo
 
-gem install rails -v 2.3.8
+gem install rails -v 2.3.8 --no-ri --no-rdoc 
 gem install rspec 
 RAILS_ENV=production rake gems:install
 

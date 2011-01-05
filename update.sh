@@ -7,7 +7,6 @@ echo
 
 echo -e "\033[1m Antorcha bijwerken \033[0m"
 echo
-ssh-add ./install_key
 git pull origin maint
 echo
 echo -e "\033[1m Gereed! \033[0m"
