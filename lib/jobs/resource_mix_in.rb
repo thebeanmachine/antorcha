@@ -9,7 +9,7 @@ module Jobs
       RestClient::Resource.new url,
         :ssl_client_cert  =>  Identity.certificate.certificate,
         :ssl_client_key   =>  Identity.private_key,
-        :ssl_ca_file      =>  File.join( Rails.root, 'certs', "the-bean-machine-ca.crt" ),
+        :ssl_ca_file      =>  File.join( Rails.root, 'certs', "beanca.crt" ),
         :verify_ssl       =>  OpenSSL::SSL::VERIFY_PEER
     end
   
