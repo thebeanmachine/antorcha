@@ -39,7 +39,7 @@ class NotifiersController < ApplicationController
   def create
     respond_to do |format|
       if @notifier.save
-        format.html { redirect_to(@notifier, :notice => 'Notifier was successfully created.') }
+        format.html { redirect_to(@notifier, :notice => 'Kennisnemer is succesvol aangemaakt.') }
         format.xml  { render :xml => @notifier, :status => :created, :location => @notifier }
       else
         format.html { render :action => "new" }
@@ -53,7 +53,7 @@ class NotifiersController < ApplicationController
   def update
     respond_to do |format|
       if @notifier.update_attributes(params[:notifier])
-        format.html { redirect_to(@notifier, :notice => 'Notifier was successfully updated.') }
+        format.html { redirect_to(@notifier, :notice => 'Kennisnemer is succesvol aangepast.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -68,7 +68,7 @@ class NotifiersController < ApplicationController
     @notifier.destroy
 
     respond_to do |format|
-      format.html { redirect_to(notifiers_url) }
+      format.html { redirect_to(notifiers_url, :notice => 'Kennisnemer is succesvol ontkoppeld.') }
       format.xml  { head :ok }
     end
   end
