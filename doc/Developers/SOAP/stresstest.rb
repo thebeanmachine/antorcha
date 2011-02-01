@@ -1,6 +1,6 @@
  require 'soap/wsdlDriver' 
 
- ZORGAANBIEDER = 'http://henk:qwerty@localhost:3000/soap/wsdl'
+ ZORGAANBIEDER = 'http://henk:qwerty@localhost:3000/soap/wsdl' # Pas dit aan voor je test!
 
  def stresstest(number, username, password)     
    @title = "Start 'deliverMessageAfterInitTransaction' SOAP-call stresstest with #{number} calls."
@@ -27,4 +27,4 @@
    steps
 end
  
- stresstest 11, "henk", "qwerty"
+ stresstest 11, "henk", "qwerty" # Pas dit aan voor je test!
