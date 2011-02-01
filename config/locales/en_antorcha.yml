@@ -16,15 +16,15 @@ en:
       index: "All Start Steps"
 
   action:
-    new: "New {{model}}"
-    edit: "Edit {{model}}"
-    destroy: "Destroy {{model}}"
-    cancel: "Cancel {{model}}"
-    send: "Send {{model}}"
+    new: "New %{model}"
+    edit: "Edit %{model}"
+    destroy: "Destroy %{model}"
+    cancel: "Cancel %{model}"
+    send: "Send %{model}"
     
   notice:
-    created: "{{model}} was successfully created"
-    updated: "{{model}} was successfully updated"
+    created: "%{model} was successfully created"
+    updated: "%{model} was successfully updated"
 
   activerecord:
     models:

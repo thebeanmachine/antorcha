@@ -8,9 +8,9 @@ nl:
     message:
       show:
         status:
-          incoming: "Bericht is ontvangen op {{created_at}}."
-          sent: "Bericht is in postvak uit geplaatst om {{sent_at}} en wordt verzonden."
-          delivered: "Bericht is aangekomen om {{delivered_at}}."
+          incoming: "Bericht is ontvangen op %{created_at}."
+          sent: "Bericht is in postvak uit geplaatst om %{sent_at} en wordt verzonden."
+          delivered: "Bericht is aangekomen om %{delivered_at}."
           draft: "Bericht is een conceptbericht en is nog niet verstuurd."
       scope:
         user_id: "voor uw bestemd"
@@ -55,21 +55,21 @@ nl:
         password: Dient minimaal uit 6 tekens te bestaan.
         password_confirmation: Voor controle van het wachtwoord.
     actions:
-      create: "Maak {{model}}"
+      create: "Maak %{model}"
       update: "Bewaar veranderingen"
       dummie: "Start!"
 
   action:
-    new: "Nieuw {{model}}"
-    cancel: "Annuleer {{model}}"
-    edit: "Bewerk {{model}}"
-    destroy: "Vernietig {{model}}"
-    send: "Verstuur {{model}}"
-    reply: "Reageer op {{model}}"
+    new: "Nieuw %{model}"
+    cancel: "Annuleer %{model}"
+    edit: "Bewerk %{model}"
+    destroy: "Vernietig %{model}"
+    send: "Verstuur %{model}"
+    reply: "Reageer op %{model}"
   
   notice:
-    created: "{{model}} was succesvol aangemaakt."
-    updated: "{{model}} was succesvol gewijzigd."
+    created: "%{model} was succesvol aangemaakt."
+    updated: "%{model} was succesvol gewijzigd."
   
       
   activerecord:
