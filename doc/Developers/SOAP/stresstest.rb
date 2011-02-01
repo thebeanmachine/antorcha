@@ -10,20 +10,20 @@
      p "-" * @title.size
      p "Request #{i+1}: "
      deliverMessageAfterInitTransaction("snelverzonden","<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>tadu tadu tadu</melding>",ZORGAANBIEDER, username, password)
-     p @message.body.empty? ? "NOT" : "OK"
+     p @message.body
      p "Finished!"
    end   
  end
  
  def deliverMessageAfterInitTransaction(titel, body, endpoint, username, password)
-   step = startSteps(endpoint).first
+   step = startSteps(endpoint, username, password).first
    driver = SOAP::WSDLDriverFactory.new(endpoint).create_rpc_driver(nil, "MessagePort")
    @message = driver.DeliverMessageAfterInitTransaction({:username=>username,:password=>password},step,titel,body)
  end
  
- def startSteps(endpoint)
+ def startSteps(endpoint, username, password)
    driver = SOAP::WSDLDriverFactory.new(endpoint).create_rpc_driver(nil, "StepPort")
-   steps = driver.StartingStepsIndex({:username=>"henk",:password=>"qwerty"}) #OK
+   steps = driver.StartingStepsIndex({:username=>username,:password=>password}) #OK
    steps
 end
  
