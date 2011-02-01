@@ -23,6 +23,10 @@ private
     @controller.can? *args
   end
 
+  def current_user
+    @controller.current_user
+  end
+  
   def check_token method_name, args
     token = args[0]
     return [false, "No token specified"] unless token

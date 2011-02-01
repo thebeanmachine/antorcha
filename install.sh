@@ -40,7 +40,7 @@ echo
 echo -e "\033[1m Noodzakelijke gems installeren \033[0m"
 echo
 
-gem install rails -v 2.3.8
+gem install rails -v 2.3.8 --no-ri --no-rdoc 
 gem install rspec 
 RAILS_ENV=production rake gems:install
 
@@ -52,6 +52,11 @@ echo
 echo -e "\033[1m Database configureren en installeren \033[0m"
 echo
 
+mkdir log
+chmod 777 log -R
+mkdir tmp
+mkdir tmp/pids
+chmod 777 tmp -R
 RAILS_ENV=production rake db:create
 RAILS_ENV=production rake db:migrate
 RAILS_ENV=production rake db:seed

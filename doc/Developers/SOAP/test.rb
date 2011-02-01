@@ -8,9 +8,12 @@
       puts response.isValidISBN13Result #true
     end
     
-    ZORGAANBIEDER = 'http://localhost:3011/soap/wsdl'
-    BUREAUJEUGDZORG = 'http://localhost:3010/soap/wsdl'
+    ZORGAANBIEDER = 'http://maarten:asdfasdf@localhost:3011/soap/wsdl'
+    BUREAUJEUGDZORG = 'http://maarten:asdfasdf@localhost:3011/soap/wsdl'
+    #ZORGAANBIEDER = 'http://maarten:asdfasdf@zorgaanbieder.thebeanmachine.nl/soap/wsdl'
+    #BUREAUJEUGDZORG = 'http://maarten:asdfasdf@zorgaanbieder.thebeanmachine.nl/soap/wsdl'
 
+    
     def startTransaction(step, endpoint)
       driver = SOAP::WSDLDriverFactory.new(endpoint).create_rpc_driver(nil, "TransactionPort")
       transaction = driver.Initiate({:username=>"maarten",:password=>"asdfasdf"},step) #OK
@@ -81,28 +84,25 @@
     deliverMessageAfterInitTransaction("snelverzonden","<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>tadu tadu tadu</melding>",ZORGAANBIEDER)
     step = startSteps(ZORGAANBIEDER).first
     message = startTransaction(step,ZORGAANBIEDER)
-    
+    # 
     puts showMessage(message.id,ZORGAANBIEDER).title
-    
     message.title = "Ik maak een handmatige melding melding"
     message.body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>updated title</melding>"
-    
     updateMessage(message,ZORGAANBIEDER)
-    
     deliver(message,ZORGAANBIEDER)
-    
-    index(BUREAUJEUGDZORG).each do |m| puts m.title end
-    messageToReplyTo = indexUnexpiredUnread(BUREAUJEUGDZORG).first
-    replysteps = effectStepsIndex(messageToReplyTo, BUREAUJEUGDZORG)
-    replysteps.each do |s|
-      puts s.title
-    end
-    replymessage = reply(messageToReplyTo,replysteps.first,BUREAUJEUGDZORG)
-    replymessage.title = "Bedankt voor uw melding"
-    replymessage.body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>updated title</melding>"
-    replymessage = updateMessage(replymessage, BUREAUJEUGDZORG)
-    deliver(replymessage, BUREAUJEUGDZORG)
-    
+    # 
+    # index(BUREAUJEUGDZORG).each do |m| puts m.title end
+    # messageToReplyTo = indexUnexpiredUnread(BUREAUJEUGDZORG).first
+    # replysteps = effectStepsIndex(messageToReplyTo, BUREAUJEUGDZORG)
+    # replysteps.each do |s|
+    #    puts s.title
+    # end
+    # replymessage = reply(messageToReplyTo,replysteps.first,BUREAUJEUGDZORG)
+    # replymessage.title = "Bedankt voor uw melding"
+    # replymessage.body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>updated title</melding>"
+    # replymessage = updateMessage(replymessage, BUREAUJEUGDZORG)
+    # deliver(replymessage, BUREAUJEUGDZORG)
+    # 
     # deleteMessage(message) #Geen authorisatie
     # puts "Alleen gelezen berichten"
     # indexRead.each do |m| puts m.title end

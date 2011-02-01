@@ -5,7 +5,8 @@ describe Delivery do
     @valid_attributes = {
       :message_id => 1,
       :organization_id => 1,
-      :delivered_at => Time.now
+      :delivered_at => Time.now,
+      :organization_title => 'black water'
     }
 
     stub_new_message_delivery_job
@@ -26,6 +27,11 @@ describe Delivery do
   end
 
   describe "serialization" do
+    
+    before(:each) do
+      mock_organization.stub(:title => 'black water')
+    end
+    
     subject do
       mock_message.stub :to_xml do |options|
         options[:builder].message do end
@@ -33,7 +39,7 @@ describe Delivery do
       Delivery.create :message => mock_message, :organization => mock_organization
     end
     
-    it "serializes to xml" do
+    it "serializes to xml" do      
       subject.to_xml
     end
     

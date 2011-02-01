@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101124094321) do
+ActiveRecord::Schema.define(:version => 20101229095932) do
 
   create_table "cancellations", :force => true do |t|
     t.integer  "transaction_id",  :null => false
@@ -42,13 +42,14 @@ ActiveRecord::Schema.define(:version => 20101124094321) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "deliveries", :force => true do |t|
-    t.integer  "message_id",      :null => false
-    t.integer  "organization_id", :null => false
+    t.integer  "message_id",         :null => false
+    t.integer  "organization_id",    :null => false
     t.datetime "delivered_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
     t.text     "certificate"
+    t.string   "organization_title"
   end
 
   create_table "identities", :force => true do |t|
