@@ -82,8 +82,8 @@
       # puts message.inspect
     end
 
-    def stresstest number     
-      @title = "Start 'deliverMessageAfterInitTransaction' SOAP-call stresstest."
+    def stresstest number = 11     
+      @title = "Start 'deliverMessageAfterInitTransaction' SOAP-call stresstest with #{number} calls."
       p @title
 
       number.times do |i|
@@ -96,7 +96,7 @@
     end
 
     #testSoap 
-    stresstest 100
+    stresstest
     
     
     
