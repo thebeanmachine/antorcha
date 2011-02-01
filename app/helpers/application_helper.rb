@@ -60,4 +60,13 @@ module ApplicationHelper
     end.join(" » ")
   end
   
+  def user_should_be_able_to_access_new_transaction_initiation_path?
+    if can? :create, Transaction
+      steps = Step.starting_steps :user => current_user
+      return !steps.blank?
+    else 
+      return false
+    end
+  end
+  
 end

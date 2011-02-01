@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  
   rescue_from "ActiveResource::ResourceNotFound" do |exception|
     render :status => 503, :file => "public/503.html" unless controller_name == 'workers'
     # Mocht het uitvoeren van een actie valen op deze fout, dan is over het algemeen Olympus niet bereikbaar. 
