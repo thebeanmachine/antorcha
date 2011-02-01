@@ -6,14 +6,11 @@ echo
 echo
 
 echo -e "\033[1m Antorcha bijwerken \033[0m"
-ec=/*=/*,+0g,
-
-*-*-*-*---*+
-
-,0it pull origin maint
-ech
- 
-\]'[po	qw678cv x s
+echo
+git checkout maint
+git pull origin maint
+echo
+echo
 echo -e "\033[1m Gereed! \033[0m"
 
 echo
