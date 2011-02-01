@@ -33,6 +33,18 @@ echo
 echo -e "\033[1m Gereed! \033[0m"
 echo
 
+echo
+echo -e "\033[1m Clean up cache \033[0m"
+echo
+rm public/javascripts/all.js
+rm public/javascripts/jquery.js
+rm public/stylesheets/all.css
+
+echo
+echo -e "\033[1m Gereed! \033[0m"
+echo
+
+
 echo -e '\033[37;44m'"\033[1m *** Antorcha is bijgewerkt! *** \033[0m"
 echo
 
