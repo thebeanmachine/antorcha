@@ -82,24 +82,8 @@
       # puts message.inspect
     end
 
-    def stresstest number = 11     
-      @title = "Start 'deliverMessageAfterInitTransaction' SOAP-call stresstest with #{number} calls."
-      p @title
 
-      number.times do |i|
-        p "-" * @title.size
-        p "soapcall #{i+1}: "
-        deliverMessageAfterInitTransaction("snelverzonden","<?xml version=\"1.0\" encoding=\"UTF-8\"?><melding>tadu tadu tadu</melding>",ZORGAANBIEDER)
-        p @message.body.empty? ? "NOT" : "OK"
-      end
-      
-    end
-
-    #testSoap 
-    stresstest
-    
-    
-    
+    testSoap     
     # step = startSteps(ZORGAANBIEDER).first
     # message = startTransaction(step,ZORGAANBIEDER)
     
