@@ -67,6 +67,7 @@ class MessageService < AuthenticatedService
     @message.title = message_title
     @message.body = message_body
     @message.send_deliveries
+    @message.sent_at = Time.now
     @message
   end
   
