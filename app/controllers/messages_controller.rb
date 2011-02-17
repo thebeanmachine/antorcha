@@ -49,6 +49,7 @@ class MessagesController < ApplicationController
     if @message.update_attributes(params[:message])
       redirect_to(@message, :notice => 'Bericht is bijgewerkt')
     else
+      flash[:error] = @message.errors.full_messages
       render :action => "edit"
     end
   end

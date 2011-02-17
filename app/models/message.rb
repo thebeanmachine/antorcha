@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
 
   validate :step_is_selectable_by_user
   
-  validate :body_validation_through_step_xsd, :unless => :new_record?
+  validate :body_validation_through_step_xsd, :unless => :new_record?, :on => :update
 
   belongs_to :transaction
   belongs_to_resource :organization
