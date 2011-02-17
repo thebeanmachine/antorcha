@@ -18,6 +18,8 @@ class Message < ActiveRecord::Base
   validates_presence_of :user, :on => :create, :if => :outgoing?
 
   validate :step_is_selectable_by_user
+  
+  validate :body_validation_through_step_xsd, :unless => :new_record?
 
   belongs_to :transaction
   belongs_to_resource :organization
@@ -156,6 +158,14 @@ class Message < ActiveRecord::Base
     end
     sent!
   end
+  
+  def step_xsd?
+    unless step.nil?
+      !step.xsd.nil?
+    else
+      false
+    end
+  end
 
 private
   def format_title
@@ -187,5 +197,17 @@ private
     errors.add(:step, "is niet selecteerbaar voor gebruiker.") unless present
   end
 
+  def body_validation_through_step_xsd
+    if self.step_xsd? # Does it have an ste xsd at all?
+      step_xsd = Nokogiri::XML::Schema(self.step.xsd) # xsd
+      body = Nokogiri::XML(self.body) # document
+      validations = step_xsd.validate body
+
+      validations.each do |validation|
+        errors.add(:message, "#{validation.message}") if validation.error?
+      end      
+    end  
+  end
+  
 end
 
