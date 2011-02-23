@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by Marijn Clarijs (THORAX) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="mhg">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="melding">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="p.informatieverzoek" type="xs:boolean"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="zaak">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="p.instelling" type="xs:string"/>
+							<xs:element name="p.code_zaak" type="xs:string"/>
+							<xs:element name="p.persoon_bekend">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.persoon_bekend" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="p.instelling" type="xs:string"/>
+													<xs:element name="p.bekend" type="xs:boolean"/>
+													<xs:element name="p.huiselijk_geweld" type="xs:boolean" default="true"/>
+													<xs:element name="p.code_contactpersoon" type="xs:string"/>
+													<xs:element name="p.code_persoon" type="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.omschrijving" type="xs:string"/>
+							<xs:element name="p.datum_eerste_melding" type="xs:date"/>
+							<xs:element name="p.datum_start_hulp" type="xs:date"/>
+							<xs:element name="p.datum_einde_hulp" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.datum_afsluiting" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.aantekeningen" type="xs:string" minOccurs="0"/>
+							<xs:element name="p.aantal_betrokken_kinderen" type="xs:integer" minOccurs="0"/>
+							<xs:element name="p.wijze_contact" type="xs:string" minOccurs="0"/>
+							<xs:element name="p.lichamelijk_geweld" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.geestelijk_geweld" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.seksueel_geweld" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.wederzijds_geweld" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.geweldsituatie" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.contact_politie" type="xs:boolean" default="true" minOccurs="0"/>
+							<xs:element name="p.eerder_ashg" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="p.relatie_personen" type="xs:integer" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="contactpersoon" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="p.code_contactpersoon" type="xs:string"/>
+							<xs:element name="p.instelling" type="xs:string"/>
+							<xs:element name="p.persoonsnaam">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.voorletters" type="xs:string" minOccurs="0"/>
+										<xs:element name="p.tussenvoegsels" type="xs:string" minOccurs="0"/>
+										<xs:element name="p.achternaam" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.geslacht" type="xs:string"/>
+							<xs:element name="p.telefoonnummers" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.telefoonnummer" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.emailadressen" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.emailadres" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.begindatum" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.einddatum" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.laatste_contactpersoon" type="xs:boolean" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="betrokkenen" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="p.bsn" type="xs:string" minOccurs="0"/>
+							<xs:element name="p.persoonsnaam">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.voorletters" type="xs:string"/>
+										<xs:element name="p.tussenvoegsels" type="xs:string" minOccurs="0"/>
+										<xs:element name="p.achternaam" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.roepnaam" type="xs:string" minOccurs="0"/>
+							<xs:element name="p.voornamen" type="xs:string"/>
+							<xs:element name="p.persoonsnaam_partner" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.voorletters" type="xs:string"/>
+										<xs:element name="p.tussenvoegsels" type="xs:string"/>
+										<xs:element name="p.achternaam" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.geslacht" type="xs:string"/>
+							<xs:element name="p.geboortedatum" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.geboortegemeente" type="xs:string" minOccurs="0"/>
+							<xs:element name="p.geboorteland" type="xs:integer" minOccurs="0"/>
+							<xs:element name="p.nationaliteitslanden" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.land" type="xs:integer"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.overlijdensdatum" type="xs:date" minOccurs="0"/>
+							<xs:element name="p.rol_persoon" type="xs:integer" minOccurs="0"/>
+							<xs:element name="p.rol_geweld" type="xs:integer" minOccurs="0"/>
+							<xs:element name="p.adres">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="p.adres">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="p.straatnaam" type="xs:string"/>
+													<xs:element name="p.huisnummer" type="xs:integer"/>
+													<xs:element name="p.huisnummertoevoeging" type="xs:string" minOccurs="0"/>
+													<xs:element name="p.postcode" type="xs:string"/>
+													<xs:element name="p.plaatsnaam" type="xs:string"/>
+													<xs:element name="p.land" type="xs:integer" minOccurs="0"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="p.telefoonnummers" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="p.telefoonnummer" type="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="p.emailadressen" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="p.emailadres" type="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="p.code_persoon" type="xs:string"/>
+							<xs:element name="p.laatste_persoon" type="xs:boolean"/>
+						</xs:sequence>
+					</xs:complexType>
+					<!-- Deze naam is beloten door Stephan Nagel van THORAX. We hebben namelijk al een aantal 'personen', dus die naam is niet handig -->
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
