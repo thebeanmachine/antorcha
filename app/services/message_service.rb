@@ -66,12 +66,14 @@ class MessageService < AuthenticatedService
     @message = create_transaction_and_message(@transaction, @step)
     @message.title = message_title
     @message.body = message_body
+    verify @message
     @message.send_deliveries
     @message
   end
   
   def deliver token, api_message
     @message = Message.find(api_message.id)
+    verify @message
     @message.send_deliveries
     @message
   end
@@ -92,6 +94,18 @@ class MessageService < AuthenticatedService
   end
   
 private
+  def verify message
+    unless message.valid?
+      @errors_string = []
+      @message.errors.each do |e| 
+        @errors_string.push e.join(" ")
+      end
+      @errors_string.join(", \n")
+      raise TransactionServiceError, "Er zijn fouten opgetreden bij het maken van het bericht:\n #{@errors_string}"
+    end
+  end
+
+
   def load_and_authorize_message method_name, args
     @message = Message.find(args[1].id) if args[1].is_a?(Api::Message)
     authorize! soap_method_to_resource_action(method_name), @message.blank? ? Message : @message

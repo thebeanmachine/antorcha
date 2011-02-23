@@ -205,7 +205,7 @@ private
       validations = step_xsd.validate body
 
       validations.each do |validation|
-        errors.add(:message, "#{validation.message}") if validation.error?
+        errors.add(:body, "bevat fouten ('#{validation.message}')") if validation.error?
       end      
     end  
   end
