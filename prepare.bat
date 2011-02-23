@@ -5,6 +5,9 @@ echo.
 echo  Ruby installeren
 echo   Het ruby installatie programma wordt gestart . . .
 echo.
+echo   Belangrijk: Vergeet niet 'Add executables to path' aan te vinken
+echo.
+echo.
 call bin\rubyinstaller.exe
 echo.
 echo    Gereed!
