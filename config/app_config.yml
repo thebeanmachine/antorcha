@@ -1,6 +1,6 @@
 development:
-  # olympus_resource: 'http://tankenberg.heroku.com'
-  olympus_resource: 'http://localhost:3000'
+  olympus_resource: 'http://tankenberg.heroku.com'
+  #olympus_resource: 'http://localhost:3000'
 
 test:
   olympus_resource: 'http://tankenberg.heroku.com'
