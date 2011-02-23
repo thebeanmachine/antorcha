@@ -28,7 +28,6 @@ table {
 }
 tr { border-bottom: 1px solid #dddddd; }
 td { padding: 4px 2px; }
-tr.shown { background: #f1f1f1; }
 td a {
   text-decoration: none;
   color: #7b7b7b;
@@ -356,8 +355,12 @@ h1.as_in_table .sender { width: 20em; }
   float: left;
   width: 100%;
   position: relative;
+  color: #000000;
 }
-#messages tr { border-bottom: 0 none; }
+#messages .notshown { font-weight: bold; }
+#messages .shown { font-weight: normal; }
+#messages tr { border-bottom: 1px solid #e5e5e5; }
+#messages tr:hover { background: #f1f1f1; }
 #messages tr.shown { border-bottom: 1px solid #e5e5e5; }
 #messages thead { display: none; }
 .messages tr.cancelled td { text-decoration: line-through; }

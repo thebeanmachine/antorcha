@@ -38,8 +38,8 @@ echo.
 
 set RAILS_ENV=production
 
-call gem install rails -v 2.3.8
-call gem install rspec 
+call gem install rails -v 2.3.8 --no-rdoc --no-ri 
+call gem install rspec --no-rdoc --no-ri  
 call rake gems:install
 
 echo.

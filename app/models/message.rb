@@ -147,7 +147,7 @@ class Message < ActiveRecord::Base
         deliveries << deliveries.build(:organization => org)
       end
     end
-    
+    self.shown_at = Time.now
     sent!
   end
   
@@ -156,6 +156,7 @@ class Message < ActiveRecord::Base
     organizations.each do |org|
       deliveries << deliveries.build(:organization => org)
     end
+    self.shown_at = Time.now
     sent!
   end
   
