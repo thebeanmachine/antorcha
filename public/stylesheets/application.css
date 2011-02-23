@@ -355,9 +355,9 @@ h1.as_in_table .sender { width: 20em; }
   float: left;
   width: 100%;
   position: relative;
-  font-weight: bold;
   color: #000000;
 }
+#messages .notshown { font-weight: bold; }
 #messages .shown { font-weight: normal; }
 #messages tr { border-bottom: 1px solid #e5e5e5; }
 #messages tr:hover { background: #f1f1f1; }
