@@ -39,6 +39,17 @@ echo.
 echo    Gereed!
 echo.
 
+echo
+echo -e "\033[1m Cache opschonen \033[0m"
+echo
+call del public\javascripts\all.js
+call del public\javascripts\jquery.js
+call del public\stylesheets\all.css
+
+echo
+echo -e "\033[1m Gereed! \033[0m"
+echo
+
 echo.
 echo *** Antorcha is bijgewerkt! ***
 echo.
