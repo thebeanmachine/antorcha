@@ -33,7 +33,7 @@ class IdentitiesController < ApplicationController
 
     respond_to do |format|
       if @identity.save
-        format.html { redirect_to identity_url, :notice => 'Identity was successfully created.' }
+        format.html { redirect_to identity_url, :notice => 'De identiteit is succesvol geverifieerd en toegevoegd.' }
         format.xml  { render :xml => @identity, :status => :created, :location => @identity }
       else
         format.html { render :action => "new" }

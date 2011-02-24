@@ -121,10 +121,15 @@ nl:
         other: Logboek
       session:
         other: Sessie
-      identity: Identiteit
+      identity: 
+        one: Identiteit
+        other: Identiteiten
       notifier:
         one: Kennisgever
         other: Kennisgevers
+      certificate: 
+        one: Certificaat
+        other: Certificaten
     
     attributes:
       transaction:
@@ -145,6 +150,14 @@ nl:
         start: Start van de definitie
         recipient_roles: Wordt verstuurd naar
         permission_roles: Toegankelijk voor
+      certificate:
+        country: Land
+        state: Provincie (state)
+        locality: Plaats (locality)
+        organization: Organization
+        common_name: Domeinnaam (common name)
+        email: E-mail
+        content: Het certificaat
       message:
         title: Titel
         body: Berichtinhoud
