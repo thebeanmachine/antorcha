@@ -148,6 +148,7 @@ nl:
       message:
         title: Titel
         body: Berichtinhoud
+        step: Stap
       reaction:
         cause: Oorzaak
         effect: Gevolg
