@@ -37,7 +37,7 @@ class ReceptionsController < ApplicationController
     @reception.organization_id = params[:organization_id]
     @reception.delivery_id = params[:delivery][:id]
     @reception.content = params[:delivery][:message]
-    @reception.certificate = Rails.env.production? ? request.headers['SSL_CLIENT_CERT'] : 'NO CERTIFICATE'
+    @reception.certificate = header_client_certificate
 
     respond_to do |format|
       if @reception.save

@@ -11,7 +11,7 @@ class ConfirmationsController < ApplicationController
   def create
     @delivery = Delivery.find(params[:delivery_id], :conditions => { :organization_id => params[:organization_id]})
     @delivery.confirmed = true
-    @delivery.certificate = Rails.env.production? ? request.headers['SSL_CLIENT_CERT'] : 'NO CERTIFICATE'
+    @delivery.certificate = header_client_certificate
 
     respond_to do |format|
       if @delivery.save
@@ -30,5 +30,4 @@ private
       raise "it is prohibited to confirm message deliveries over http in production mode." 
     end
   end
-
 end

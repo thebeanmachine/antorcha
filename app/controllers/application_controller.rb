@@ -34,4 +34,17 @@ class ApplicationController < ActionController::Base
     render :status => 503, :file => "public/503.html"
     # Mocht het uitvoeren van een actie valen op deze fout, dan is over het algemeen Tankenberg niet bereikbaar
   end      
+  
+  def header_client_certificate
+    if Rails.env.production?
+      request_header_ssl_client_cert = request.headers['SSL_CLIENT_CERT']
+
+      # Note, this is ugly as hell, but Windows is !@#!@#& with the SSL_CLIENT_CERT value
+      request_header_ssl_client_cert = request_header_ssl_client_cert.gsub(" ","\n").gsub("\nCERTIFICATE"," CERTIFICATE")
+      
+      return request_header_ssl_client_cert
+    else
+      return 'NO CERTIFICATE'
+    end
+  end
 end
