@@ -162,6 +162,7 @@ nl:
         title: Titel
         body: Berichtinhoud
         step: Stap
+        step_id: Stap
       reaction:
         cause: Oorzaak
         effect: Gevolg
