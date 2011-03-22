@@ -9,12 +9,14 @@
     end
     
     #ZORGAANBIEDER = 'http://maarten:asdfasdf@localhost:3011/soap/wsdl'
-    BUREAUJEUGDZORG = 'http://maarten:asdfasdf@localhost:3011/soap/wsdl'
+    #BUREAUJEUGDZORG = 'http://maarten:asdfasdf@localhost:3011/soap/wsdl'
     #ZORGAANBIEDER = 'http://maarten:asdfasdf@zorgaanbieder.thebeanmachine.nl/soap/wsdl'
     #BUREAUJEUGDZORG = 'http://maarten:asdfasdf@zorgaanbieder.thebeanmachine.nl/soap/wsdl'
-    ZORGAANBIEDER = 'http://vps765.directvps.nl/soap/wsdl'
-    USERNAME = 'willems'
-    PASSWORD = 'thorax01'
+    #ZORGAANBIEDER = 'http://vps765.directvps.nl/soap/wsdl'
+    BUREAUJEUGDZORG = ZORGAANBIEDER = 'http://maarten:asdfasdf@localhost:3010/soap/wsdl'
+    
+    USERNAME = 'maarten'
+    PASSWORD = 'asdfasdf'
 
     
     def startTransaction(step, endpoint)
@@ -88,7 +90,7 @@
       steps = startSteps(endpoint)
       step = nil
       steps.each do |s| 
-        step = s if s.title == 'XSDSend'
+        step = s if s.title == 'Melding aan VIS2'
       end
       step
     end
@@ -107,7 +109,8 @@
       begin
         deliverMessageAfterInitTransaction("snelverzonden",'<?xml version="1.0" encoding="UTF-8"?>    <mhg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="example.xsd">      <melding>        <p.informatieverzoek>true</p.informatieverzoek>      </melding>      <zaak>        <p.instelling>p.instelling</p.instelling>        <p.code_zaak>p.code_zaak</p.code_zaak>        <p.persoon_bekend>          <p.persoon_bekend>            <p.instelling>p.instelling</p.instelling>            <p.bekend>true</p.bekend>            <p.huiselijk_geweld>true</p.huiselijk_geweld>            <p.code_contactpersoon>p.code_contactpersoon</p.code_contactpersoon>            <p.code_persoon>p.code_persoon</p.code_persoon>          </p.persoon_bekend>        </p.persoon_bekend>        <p.omschrijving>p.omschrijving</p.omschrijving>        <p.datum_eerste_melding>2001-01-01</p.datum_eerste_melding>        <p.datum_start_hulp>2001-01-01</p.datum_start_hulp>      </zaak>      <contactpersoon>        <p.code_contactpersoon>p.code_contactpersoon</p.code_contactpersoon>        <p.instelling>p.instelling</p.instelling>        <p.persoonsnaam>          <p.achternaam>p.achternaam</p.achternaam>        </p.persoonsnaam>        <p.geslacht>p.geslacht</p.geslacht>      </contactpersoon>      <betrokkenen>        <p.persoonsnaam>          <p.voorletters>p.voorletters</p.voorletters>          <p.achternaam>p.achternaam</p.achternaam>        </p.persoonsnaam>        <p.voornamen>p.voornamen</p.voornamen>        <p.geslacht>p.geslacht</p.geslacht>        <p.adres>          <p.adres>            <p.straatnaam>p.straatnaam</p.straatnaam>            <p.huisnummer>0</p.huisnummer>            <p.postcode>p.postcode</p.postcode>            <p.plaatsnaam>p.plaatsnaam</p.plaatsnaam>          </p.adres>        </p.adres>        <p.code_persoon>p.code_persoon</p.code_persoon>        <p.laatste_persoon>true</p.laatste_persoon>      </betrokkenen>    </mhg>    ',ZORGAANBIEDER)
         puts "Dit is goed, dit is een goed bericht"
-      rescue
+      rescue Exception => exc
+        y exc
         puts "ERROR: Dit bericht had moeten valideren"
         
       end

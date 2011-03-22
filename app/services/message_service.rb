@@ -66,9 +66,13 @@ class MessageService < AuthenticatedService
     @message = create_transaction_and_message(@transaction, @step)
     @message.title = message_title
     @message.body = message_body
-    verify @message
-    @message.send_deliveries
-    @message
+    if @message.valid?
+      verify @message
+      @message.send_deliveries
+      @message
+    else 
+      @message.destroy
+    end
   end
   
   def deliver token, api_message
