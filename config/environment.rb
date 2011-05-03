@@ -20,7 +20,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
 
   #config.gem 'formtastic', :version => '0.9.10' has a bug, now in vendor/plugins
-  config.gem "sqlite3-ruby", :lib => "sqlite3"
+  # config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'delayed_job', :version => '2.0.3'
   config.gem 'searchlogic', :version => '2.4.27'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
@@ -35,6 +35,7 @@ Rails::Initializer.run do |config|
   config.gem 'builder'
   config.gem 'i18n', "~> 0.4.0"
   config.gem 'nokogiri', :version => '1.4.4'
+  config.gem 'mysql'
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
