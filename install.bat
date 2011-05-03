@@ -64,6 +64,7 @@ echo.
 
 echo.
 echo *** Antorcha is geinstalleerd! ***
+echo Kopier het bestand lib/mysql/libmySQL.dll in de 'bin' map van Ruby!
 echo.
 echo.
 pause

@@ -2,6 +2,8 @@
 cls
 echo *** Antorcha voorbereidingsscript ***
 echo.
+echo 	Wij gaan er vanuit dat MySQL is geinstalleerd op de standaard poort!
+echo.
 echo  Ruby installeren
 echo   Het ruby installatie programma wordt gestart . . .
 echo.
