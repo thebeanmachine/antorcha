@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101229095932) do
+ActiveRecord::Schema.define(:version => 20110503102033) do
 
   create_table "cancellations", :force => true do |t|
     t.integer  "transaction_id",  :null => false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20101229095932) do
   end
 
   create_table "identities", :force => true do |t|
-    t.string   "private_key"
+    t.text     "private_key"
     t.string   "passphrase"
     t.integer  "organization_id"
     t.datetime "created_at"
