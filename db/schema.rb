@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20110503102033) do
   end
 
   create_table "identities", :force => true do |t|
-    t.text     "private_key"
+    t.text     "private_key",     :limit => 255
     t.string   "passphrase"
     t.integer  "organization_id"
     t.datetime "created_at"
