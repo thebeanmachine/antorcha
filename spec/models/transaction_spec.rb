@@ -87,6 +87,8 @@ describe Transaction do
   describe "with organizations scope" do
     it "should get the transactions communicating with an organization" do
       mock_step.stub :title => 'aap'
+      mock_step.stub :xsd => nil
+      
       @transaction = Transaction.create!(@valid_attributes)
       mock_user.stub :username => 'piet'
       @message = @transaction.messages.create!( :step => mock_step, :user => mock_user, :incoming => true, :organization => mock_organization )

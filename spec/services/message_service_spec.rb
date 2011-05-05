@@ -41,6 +41,7 @@ describe MessageService, "soap service" do
 
   def example_message
     @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :user => mock_user, :step => mock_step, :transaction => mock_transaction)
+    mock_step.stub :xsd => nil
   end
 
   def example_api_message

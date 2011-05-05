@@ -182,7 +182,7 @@ describe MessagesController do
       end
 
       it "re-renders the 'edit' template" do
-        mock_message.stub(:update_attributes => false)
+        mock_message.stub(:update_attributes => false)        
         Message.stub(:find).and_return(mock_message)
         put :update, :id => "1", :message => {:body => 'sdf'}
         response.should render_template('edit')

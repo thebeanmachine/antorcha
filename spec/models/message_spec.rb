@@ -13,6 +13,7 @@ describe Message do
     
     stub_out_user_step_selection_validation
     mock_user.stub :username => 'henk'
+    mock_step.stub :xsd => nil
   end
 
   def example_message
