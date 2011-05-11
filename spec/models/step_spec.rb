@@ -12,14 +12,6 @@ describe Step do
       subject.effects
     end
 
-    it "should return destination organization for 'Melding aan VIS2'" do
-      melding = Step.find_by_title! 'Melding aan VIS2'
-      melding.effects.collect(&:title).sort.should == [
-        "Informatieverzoek (gegevens actueel houden)",
-        "Reactie op melding VIS2"
-      ]
-    end
-    
     it "should send query with the user roles as parameter" do
       mock_user.stub :castables => mock_castables
       mock_castable.stub :role_id => 1
@@ -72,10 +64,6 @@ describe Step do
       subject.destination_organizations
     end
     
-    it "should return destination organization for 'Melding aan VIS2'" do
-      melding = Step.find_by_title! 'Melding aan VIS2'
-      melding.destination_organizations.collect(&:title).should == ['Verzamelpunt VIS2']
-    end
   end
 
 end
