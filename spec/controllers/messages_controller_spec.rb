@@ -4,6 +4,8 @@ describe MessagesController do
 
   before(:each) do    
     turn_of_devise_and_cancan_because_this_is_specced_in_the_ability_spec
+    mock_message.errors.stub :full_messages => ['fouten']
+    
   end
   
   specify { should have_devise_before_filter }
