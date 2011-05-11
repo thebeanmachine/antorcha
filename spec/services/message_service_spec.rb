@@ -23,8 +23,11 @@ describe MessageService, "soap service" do
     @service.stub :can? => true
     
     mock_user.stub :username => 'piet'
+    mock_step.stub :xsd => nil
     
     stub_out_user_step_selection_validation
+    mock_transaction.stub(:cancelled? => true, :expired? => true)
+    
   end
 
   def stub_out_user_step_selection_validation
@@ -41,7 +44,6 @@ describe MessageService, "soap service" do
 
   def example_message
     @example_message ||= Message.create!(:title => 'aap', :body => 'mies', :user => mock_user, :step => mock_step, :transaction => mock_transaction)
-    mock_step.stub :xsd => nil
   end
 
   def example_api_message
@@ -102,11 +104,6 @@ describe MessageService, "soap service" do
 
   def deny_access
     raise_dispatch_error(/Access denied/)
-  end
-
-  before(:each) do
-    mock_transaction.stub(:cancelled? => true, :expired? => true)
-    
   end
 
   describe "listing messages with different scopes" do

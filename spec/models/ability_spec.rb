@@ -28,8 +28,6 @@ describe Ability do
     end
   end
 
-  it "should check if one can cancel a message using the cancellable? attribute"
-
   def ability_of role, options = {}
     user = User.new
     user.stub :castables => castables_for(options.delete(:as)) if options[:as]
