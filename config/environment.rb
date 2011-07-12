@@ -30,7 +30,7 @@ Rails::Initializer.run do |config|
   #config.gem 'cancan', :version => '1.1.1' master HEAD is now in vendor/plugins, missing feature in last version
   config.gem 'devise', :version => '1.0.6'
   config.gem 'formtastic', :lib => 'formtastic', :version => '1.1.0'
-  config.gem 'less'
+  config.gem 'less', :version => '1.2.21'
   config.gem 'will_paginate'
   config.gem 'builder'
   config.gem 'i18n', "~> 0.4.0"
