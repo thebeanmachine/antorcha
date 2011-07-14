@@ -38,7 +38,7 @@ echo.
 
 set RAILS_ENV=production
 
-call gem install rails -v 2.3.10 --no-rdoc --no-ri 
+call gem install rails -v 2.3.12 --no-rdoc --no-ri
 call gem install rspec --no-rdoc --no-ri  
 call rake gems:install
 
