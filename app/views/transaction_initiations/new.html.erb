@@ -1,7 +1,7 @@
 <h1>Nieuwe transactie beginnen</h1>
 <p>Een transactie begint u door een startstap te selecteren.</p>
 <% if @starting_steps.blank? %>
-	<p>Er zijn echter geen startstappen beschikbaar.</p>
+	<p>Er zijn voor u, voor uw rol, of voor uw organisatie echter geen startstappen beschikbaar. Wellicht zijn er voor u, uw rol of uw organisatie wel transacties te beantwoorden. Ga hiervoor naar het tabblad berichten.</p>
 <% end %>
 <% if @starting_steps %>
 	<% semantic_form_for @transaction, :url => transaction_initiations_path do |f| %>
