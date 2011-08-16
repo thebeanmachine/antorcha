@@ -1,6 +1,6 @@
 @echo off
 cls
-echo *** Antorcha installatie script ***
+echo *** Antorcha installatiescript ***
 echo.
 echo.
 echo  Antorcha downloaden
@@ -40,6 +40,8 @@ set RAILS_ENV=production
 
 call gem install rails -v 2.3.10 --no-rdoc --no-ri 
 call gem install rspec --no-rdoc --no-ri  
+call gem install rdoc
+call gem install rdoc-data
 call rake gems:install
 
 echo.
