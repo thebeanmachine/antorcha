@@ -1,6 +1,6 @@
 @echo off
 cls
-echo *** Antorcha installatie script ***
+echo *** Antorcha installatiescript ***
 echo.
 echo.
 echo  Antorcha downloaden
@@ -40,6 +40,8 @@ set RAILS_ENV=production
 
 call gem install rails -v 2.3.10 --no-rdoc --no-ri 
 call gem install rspec --no-rdoc --no-ri  
+call gem install rdoc
+gem install rdoc-data
 call rake gems:install
 
 echo.
@@ -64,7 +66,7 @@ echo.
 
 echo.
 echo *** Antorcha is geinstalleerd! ***
-echo Kopier het bestand lib/mysql/libmySQL.dll in de 'bin' map van Ruby!
+echo Kopieer het bestand lib/mysql/libmySQL.dll in de 'bin' map van Ruby!
 echo.
 echo.
 pause
