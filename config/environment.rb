@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.12' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -21,6 +21,7 @@ Rails::Initializer.run do |config|
 
   #config.gem 'formtastic', :version => '0.9.10' has a bug, now in vendor/plugins
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
+  config.gem 'rake', :version => '0.8.7'
   config.gem 'delayed_job', :version => '2.0.3'
   config.gem 'searchlogic', :version => '2.4.27'
   config.gem 'rest-client', :version => '1.5.1', :lib => 'rest_client'
