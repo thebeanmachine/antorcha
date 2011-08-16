@@ -125,8 +125,8 @@ nl:
         one: Identiteit
         other: Identiteiten
       notifier:
-        one: Kennisgever
-        other: Kennisgevers
+        one: Kennisnemer
+        other: Kennisnemers
       certificate: 
         one: Certificaat
         other: Certificaten
