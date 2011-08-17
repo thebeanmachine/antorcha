@@ -18,10 +18,10 @@ class MessageDeliveriesController < ApplicationController
         else
           @message.send_deliveries        
         end
-        format.html { redirect_to @message, :notice => "#{test_or_default('Bericht')} is succesvol bij de uitgaande post terechtgekomen." }
+        format.html { redirect_to @message, :notice => "#{test_or_default('Bericht')} is succesvol in de uitgaande post geplaatst." }
         format.xml { render :xml => @message, :status => :created }
       else
-        format.html { redirect_to @message, :flash => {:error => "#{test_or_default('Transactie')} is tussentijds geannuleerd, kan niet worden verzonden."} }
+        format.html { redirect_to @message, :flash => {:error => "#{test_or_default('Transactie')} is tussentijds geannuleerd en kan niet worden verzonden."} }
         format.xml { render :xml => @message, :status => :gone }
       end
     end

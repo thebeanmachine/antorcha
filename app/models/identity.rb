@@ -27,7 +27,7 @@ private
     return if private_key.blank? or organization.blank?
 
     if organization.certificate.blank?
-      errors.add :organization_id, 'heeft geen bijbehorend certificaat voor de opgegeven privésleutel. Vraag een registratie van uw certificaat aan bij de Uitweg.'
+      errors.add :organization_id, 'heeft geen bijbehorend certificaat voor de opgegeven privésleutel. Vraag een registratie van uw certificaat aan bij de UITWEG Cooperatie.'
     else
       begin
         pkey = OpenSSL::PKey::RSA.new(private_key)
